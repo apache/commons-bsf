@@ -63,12 +63,12 @@ import org.mozilla.javascript.Script;
 import org.mozilla.javascript.ClassDefinitionException;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.EvaluatorException;
+import org.mozilla.javascript.Function;
 import org.mozilla.javascript.JavaScriptException;
 import org.mozilla.javascript.PropertyException;
 import org.mozilla.javascript.NativeJavaObject;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
-import org.mozilla.javascript.ScriptRuntime;
 import org.mozilla.javascript.WrappedException;
 import org.mozilla.javascript.Wrapper;
 import org.mozilla.javascript.ImporterTopLevel;
@@ -126,8 +126,9 @@ public class JavaScriptEngine extends BSFEngineImpl {
             cx.setGeneratingSource(false);
             cx.setOptimizationLevel(0);
             cx.setDebugger(null, null);
-
-            retval = ScriptRuntime.call(cx, fun, global, args, null);
+            
+            Function function = (Function) fun;
+            retval = function.call(cx, null, global, args);
 
             if (retval instanceof Wrapper)
                 retval = ((Wrapper) retval).unwrap();
