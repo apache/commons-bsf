@@ -60,7 +60,6 @@ import java.io.IOException;
 import java.util.Vector;
 
 import org.mozilla.javascript.Script;
-import org.mozilla.javascript.BaseFunction;
 import org.mozilla.javascript.ClassDefinitionException;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.EvaluatorException;
@@ -129,7 +128,7 @@ public class JavaScriptEngine extends BSFEngineImpl {
             cx.setDebugger(null, null);
             
             retval =
-                ScriptRuntime.call(cx, fun, global, args, new BaseFunction());
+                ScriptRuntime.call(cx, fun, global, args, global);
 
             if (retval instanceof Wrapper)
                 retval = ((Wrapper) retval).unwrap();
