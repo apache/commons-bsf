@@ -1,0 +1,300 @@
+<?xml version="1.0"?>
+
+<!-- ===================================================================
+
+   Master Build file for BSF
+
+Notes:
+
+   This is a build file for use with the Jakarta Ant build tool.
+
+Prerequisites:
+
+    None
+
+Optional additions:
+
+    Rhino       -> http://www.mozilla.org/rhino
+    NetRexx     -> http://www2.hursley.ibm.com/netrexx
+    JPython     -> http://www.jpython.org
+    Jython      -> http://www.jython.org
+    Jacl        -> http://www.scriptics.com/java
+    Xalan       -> http://xml.apache.org/xalan
+    ASF (Win32) -> http://msdn.microsoft.com/scripting
+    PerlScript  -> http://www.activestate.com
+
+Build Instructions:
+
+   To build, run
+
+     java org.apache.tools.ant.Main <target>
+
+   on the directory where this file is located with the target you want.
+
+Most useful targets:
+
+ - compile  -> creates the "bsf.jar" package in "./build/lib" (default target)
+ - bsf-compile -> compiles the BSF core code (engines and code)
+ - bsf_debug-compile -> compiles the BSF Javascript debugging code
+ - jsdb-compile -> compiles the BSF command-line debugger
+ - bindist  -> creates the complete binary distribution in "./dist/"
+ - srcdist  -> creates the complete src distribution in "./dist/"
+ - dist     -> creates both the binary and the src distributions in "./dist/"
+ - clean    -> removes all the generated files and directories
+ - bsf-clean -> cleans the BSF core code directory
+ - bsf_debug-clean -> cleans the BSF Javascript debugging code directory
+ - jsdb-clean -> cleans the BSF command-line debugger directory
+
+
+Authors:
+  Sam Ruby <rubys@us.ibm.com>
+  Matthew J. Duftler <duftler@us.ibm.com>
+  Victor J. Orlikowski <vjo@us.ibm.com>
+  Charles Murcko <cmurcko@us.ibm.com>
+  Olivier Gruber <ogruber@us.ibm.com>
+
+Copyright:
+  Copyright (c) Apache Software Foundation 2002. All Rights Reserved
+
+==================================================================== -->
+
+<project name="BSF" default="compile" basedir=".">
+
+  <target name="init">
+    <tstamp/>
+
+    <property name="name" value="bsf"/>
+    <property name="Name" value="Bean Scripting Framework"/>
+    <property name="version" value="2.3.0"/>
+    <property name="debug" value="off"/>
+
+    <property name="packages" value="org.apache.*"/>
+
+    <property name="build.file" value="build.xml"/>
+
+    <property name="build.dir" value="build"/>
+    <property name="build.dest" value="build/classes"/>
+    <property name="build.lib" value="build/lib"/>
+
+    <property name="bsf.classes" value="bsf/build/classes"/>
+    <property name="bsf_debug.classes" value="bsf_debug/build/classes"/>
+    <property name="jsdb.classes" value="jsdb/build/classes"/>
+
+    <property name="src.dir" value="."/>
+    <property name="dist.dir" value="dist"/>
+    <property name="dist.dir.root"
+              value="${dist.dir}/${name}-${version}"/>
+    <property name="dist.bin.file"
+              value="${dist.dir}/${name}-bin-${version}"/>
+    <property name="dist.src.file"
+              value="${dist.dir}/${name}-src-${version}"/>
+
+    <!-- ================================================================= -->
+    <!-- Sets version and time/date specific values                        -->
+    <!-- ================================================================= -->
+    <filter token="RELEASE_DATE_TIME" value="${TODAY} / ${TSTAMP}"/>
+    <filter token="VERSION" value="${version}"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Prepares the build directory                                        -->
+  <!-- =================================================================== -->
+  <target name="prepare" depends="init">
+    <mkdir dir="${build.dir}"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Compiles the bsf_debug source directory                             -->
+  <!-- =================================================================== -->
+  <target name="bsf_debug-compile"
+          description="Compiles the BSF Javascript debugging files.">
+    <echo>Target: bsf_debug - Compile ...</echo>
+    <ant dir="bsf_debug" target="compile" inheritAll="false"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Cleans the bsf_debug source directory                               -->
+  <!-- =================================================================== -->
+  <target name="bsf_debug-clean"
+          description="Cleans up the BSF Javascript debugging files.">
+    <echo>Target: bsf_debug - Clean ...</echo>
+    <ant dir="bsf_debug" target="clean" inheritAll="false"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Compiles the bsf core source directory                              -->
+  <!-- =================================================================== -->
+  <target name="bsf-compile"
+          description="Compiles the core BSF files."
+          depends="bsf_debug-compile">
+    <echo>Target: bsf - Compile ...</echo>
+    <ant dir="bsf" target="compile" inheritAll="false">
+      <property name="bsf.extraclasspath" value="${basedir}/bsf_debug/build/lib/bsf_debug.jar"/>
+    </ant>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Cleans the bsf core source directory                                -->
+  <!-- =================================================================== -->
+  <target name="bsf-clean"
+          description="Cleans up the core BSF files.">
+    <echo>Target: bsf - Clean ...</echo>
+    <ant dir="bsf" target="clean" inheritAll="false"/>
+  </target>
+
+
+  <!-- =================================================================== -->
+  <!-- Compiles the jsdb source directory                                  -->
+  <!-- =================================================================== -->
+  <target name="jsdb-compile"
+          description="Compiles the BSF Javascript line debugger files.">
+    <echo>Target: jsdb - Compile ...</echo>
+    <ant dir="jsdb" target="compile" inheritAll="false"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Cleans the jsdb source directory                                    -->
+  <!-- =================================================================== -->
+  <target name="jsdb-clean"
+          description="Cleans up the BSF Javascript line debugger files.">
+    <echo>Target: jsdb - Clean ...</echo>
+    <ant dir="jsdb" target="clean" inheritAll="false"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Compiles the taglib source directory                                -->
+  <!-- =================================================================== -->
+  <target name="taglib-compile"
+          description="Compiles the BSF taglib files.">
+    <echo>Target: taglib - Compile ...</echo>
+    <ant dir="taglib" target="compile" inheritAll="false">
+      <property name="taglib.extraclasspath" 
+      value="${basedir}/bsf/build/lib\/bsf_core.jar"/>
+    </ant>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Cleans the taglib source directory                                  -->
+  <!-- =================================================================== -->
+  <target name="taglib-clean"
+          description="Cleans up the BSF taglib files.">
+    <echo>Target: taglib - Clean ...</echo>
+    <ant dir="taglib" target="clean" inheritAll="false"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Compiles the source directory                                       -->
+  <!-- =================================================================== -->
+  <target name="compile"
+          description="Compiles the *.java files."
+          depends="prepare, bsf_debug-compile, bsf-compile,
+          jsdb-compile, taglib-compile">
+    <echo>Target: Top-level - Packaging ...</echo>
+    <mkdir dir="${build.dest}"/>
+    <copy todir="${build.dest}">
+      <fileset dir="${bsf.classes}"/>
+    </copy>
+    <copy todir="${build.dest}">
+      <fileset dir="${bsf_debug.classes}"/>
+    </copy>
+    <copy todir="${build.dest}">
+      <fileset dir="${jsdb.classes}"/>
+    </copy>
+
+    <!-- ================================================================= -->
+    <!-- Produces the jar file                                             -->
+    <!-- ================================================================= -->
+    <mkdir dir="${build.lib}"/>
+    <jar jarfile="${build.lib}/${name}.jar" basedir="${build.dest}"/>
+
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Creates the binary distribution                                     -->
+  <!-- =================================================================== -->
+  <target name="bindist"
+          description="Creates the binary distribution(s)."
+          depends="compile">
+    <delete dir="${dist.dir.root}"/>
+    <delete file="${dist.bin.file}.tar"/>
+    <delete file="${dist.bin.file}.tar.gz"/>
+    <delete file="${dist.bin.file}.zip"/>
+
+    <copy todir="${dist.dir.root}/lib">
+      <fileset dir="${build.lib}"/>
+    </copy>
+
+    <!-- ================================================================= -->
+    <!-- Produces the tar/gzip file                                        -->
+    <!-- ================================================================= -->
+    <tar tarfile="${dist.bin.file}.tar" basedir="${dist.dir}"
+         excludes="*.zip,*.tar,*.gz"/>
+    <gzip src="${dist.bin.file}.tar" zipfile="${dist.bin.file}.tar.gz"/>
+    <delete file="${dist.bin.file}.tar"/>
+
+    <!-- ================================================================= -->
+    <!-- Produces the zip file                                             -->
+    <!-- ================================================================= -->
+    <zip zipfile="${dist.bin.file}.zip" basedir="${dist.dir}"
+         excludes="*.zip,*.tar,*.gz"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Creates the source distribution                                     -->
+  <!-- =================================================================== -->
+  <target name="srcdist"
+          description="Creates the source distribution(s)."
+          depends="init">
+    <delete dir="${dist.dir.root}"/>
+    <delete file="${dist.src.file}.tar"/>
+    <delete file="${dist.src.file}.tar.gz"/>
+    <delete file="${dist.src.file}.zip"/>
+
+    <copy todir="${dist.dir.root}/src">
+      <fileset dir="${src.dir}"/>
+    </copy>
+<!--
+    <copy todir="${dist.dir.root}/lib/win32">
+      <fileset dir="${lib.dir}/win32">
+        <patternset includes="*.dll"/>
+      </fileset>
+    </copy>
+-->
+
+    <copy file="license.txt" tofile="${dist.dir.root}/license.txt"/>
+    <copy file="${build.file}" tofile="${dist.dir.root}/${build.file}"/>
+
+    <!-- ================================================================= -->
+    <!-- Produces the tar/gzip file                                        -->
+    <!-- ================================================================= -->
+    <tar tarfile="${dist.src.file}.tar" basedir="${dist.dir}"
+         excludes="*.zip,*.tar,*.gz"/>
+    <gzip src="${dist.src.file}.tar" zipfile="${dist.src.file}.tar.gz"/>
+    <delete file="${dist.src.file}.tar"/>
+
+    <!-- ================================================================= -->
+    <!-- Produces the zip file                                             -->
+    <!-- ================================================================= -->
+    <zip zipfile="${dist.src.file}.zip" basedir="${dist.dir}/"
+         excludes="*.zip,*.tar,*.gz"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Creates both distributions                                          -->
+  <!-- =================================================================== -->
+  <target name="dist"
+          description="Executes both bindist and srcdist."
+          depends="bindist, srcdist"/>
+
+  <!-- =================================================================== -->
+  <!-- Cleans everything                                                   -->
+  <!-- =================================================================== -->
+  <target name="clean"
+          description="Removes build and dist directories."
+          depends="init, bsf_debug-clean, bsf-clean, jsdb-clean, taglib-clean">
+    <echo>Target: Top Level - Cleaning up ...</echo>
+    <delete dir="${build.dir}"/>
+    <delete dir="${dist.dir}"/>
+  </target>
+
+</project>

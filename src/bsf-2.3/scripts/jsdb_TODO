@@ -1,0 +1,141 @@
+ToDo list.
+It is structured as three sections.
+
+	Bugs & Features that need immediate fix.
+	
+  	Functionality to be added rapidly (Short-Term)
+  	
+  	Funcitonality to be added later (Long-Term);
+
+Each issue is prefixed by a minus sign if it needs to be done.
+It is prefixed by a plus sign if it is done.
+Both indicate an unclear situation.
+
+///////////////////////
+Bugs / Features
+///////////////////////
+
++ (0) Make sure that we are "invisible" when not in debug mode...
+    This means changing BSFEngine to make sure we are not 
+    registering the document and we are not expecting to compile
+    the document first and then execute... 
+    Just use the previous code for executing/evaluating...
+
+	+ 0.1  Avoid a bottleneck issue in app servers...
+        	Now, BSFManagers and Engines register to the BSFDebugManager, 
+        	in debug mode or not...
+        	THIS WILL BE A BOTTLENECK !
+        	Remove the registration if not in debug mode.
+
++ (1) Remove breakpoint... in JSDB but also in JSDI
+   and the corresponding implementation
+
++ (2) Accessing JavaScript prototypes
+	NOTE: the JsPrototype is suppressed...
+	            the prototype chain is accessed as normal objects.
+	            this is now a client responsability to manage the prototype chain.
+	            
+- (5) Find a better way to start the debug manager than the first 
+       BSF-aware JSP...
+       
++  (6) Check that termination of BSFEngine/BSFManager is happening properly
+       and that the debugger get disconnected properly from the language-specific
+       debug interface.
+       
+ 	   DONE: this is solved by considering the BSFDebugger::deletedEngine 
+ 	   callback 
+ 	             
++ (7) Loss of connection or loss of debugger... 
+       Better resiliency and handling of a disconnect if there is something
+       wrong going on at socket level...
+      
+	DONE, but need a more thorough testing...
+	
+	+ 7.1 release all breakpoints when a disconnect is ordered from a
+        debugger.
+	
++ (8) Because of RMI not reusing its own stubs... we 
+       have the same object appearing under multiple identifiers...
+       this is very confusing for users.
+       
+       This will go away with our own connection/wire protocol.
+       
+       Until then, a solution would require a cache for objects 
+       and that the debugger checks for doublon... this is becoming
+       really ugly.
+
++/- (9) breakpoint in exception in the debuggee... 
+       I don't know how Rhino supports debugging exceptions in the 
+       JavaScript...       
+
+	The support is added partially but I don't know how to provoke an 
+	exception...
+	          
+- (10) lookup by name in the current scope...
+
+/////////////////////////////////////
+Added Functionalities: SHORT-TERM
+/////////////////////////////////////
+
+- (ST-1) Access of the "out" stream from the debugger
+   when at a breakpoint. 
+   Could over a line-oriented view of the out stream.
+   Could even propose to allow updating it.
+
+
+- (ST-2) Line Debugger is not able to have multiple breakpoints
+   at once while there may be more than one engine running.
+   I don't feel like we have to do that in our simple debugger.
+
+- (ST-3) The debugging framework does not support the call of methods
+
+- (ST-4) The debugging framework does not support the evaluation of 
+   expressions.
+
++/- (ST-5) Watch objects... 
+	see if Rhino can support that, I believe it can through a listener mechanism.
+	
+	Well... not really. 
+	Thinking about it, it seems that this is a client-side respondability.
+	The Rhino engine has no listener I could find to be notified of an object change.
+	So my guess is that the client needs to ask for the new values each time it 
+	is in callback mode.
+
+
++ (ST-6) Ability to modify JavaScript objects.
+	Done & tested.
+
+
+- (ST-7) Upon removing the last breakpoint in a document in the debug manager, 
+      allow for cleaning up the corresponding document cell.
+      However, be carefull there is not BSFEngine currently executing the document.
+
+      
+      There is a more global issue here, there is no notion of when a BSFEngine does 
+      not execute a document anymore... In Tomcat/Jasper, this is only the case
+      when the engine goes away since we have a one-engine for one-JSP approach.
+      Still make sure that there is cleaning of DocumentCell when BSFEngines
+      terminate and there is not breakpoint left.
+
+/////////////////////////////////////
+Added Functionalities: LONG-TERM
+/////////////////////////////////////
+
+- (LT-0) Bridge to Java JDI proxy objects for cross-language.
+
+- (LT-1) Make sure that all engines in BSF compile and run.
+      We will need to get all the Java engines...
+      
+- (LT-3) Do we want to give access to a JSP source through the 
+        debugging framework ?
+        Or should we rely on a special servlet to send back the source?
+        
+- (LT-4) Do we want the debugger to be able to show the 
+         contents of the "out" stream of the JSP...
+
+- (LT-5) Offset versus line... do we want to offer equivalences....
+       We could compute the line of an offset if we are given access to the JSP...
+       Do we want that ?
+       This offset versus line is annoying everywhere...
+       
+ 

@@ -1,0 +1,28 @@
+changes for BSF 2.3
+    *) Fix taglibs, and allow debugging through taglibs
+       [Victor Orlikowski <vjo@us.ibm.com>]
+
+    *) Entry/Exit debugging added
+       [Victor Orlikowski <vjo@us.ibm.com>]
+
+    *) Overall logging solution, involving a loglevel property
+       [Victor Orlikowski <vjo@us.ibm.com>]
+
+    *) BSF taglib added to drop package
+       [Chuck Murcko <cmurcko@us.ibm.com>]
+
+    *) Debug Protocol versioning and handshake
+       [Victor Orlikowski <vjo@us.ibm.com>]
+
+    *) Miscellaneous bugfixes, additions, and cleanups.
+       [Victor Orlikowski <vjo@us.ibm.com>]
+
+    *) added master build.xml
+       [Victor Orlikowski <vjo@us.ibm.com>]
+
+    *) added scripts module to the bsf23 module
+       [Chuck Murcko <cmurcko@us.ibm.com>]
+
+    *) added bsf23 module for rollup of bsf, bsf_debug, and jsdb
+       created bsf-build-23 module for other files (support, build.xml)
+       [Chuck Murcko <cmurcko@us.ibm.com>]

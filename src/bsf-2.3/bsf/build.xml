@@ -1,0 +1,400 @@
+<?xml version="1.0"?>
+
+<!-- ===================================================================
+
+   Build file for BSF
+
+Notes:
+
+   This is a build file for use with the Jakarta Ant build tool.
+
+Prerequisites:
+
+    None
+
+Optional additions:
+
+    Rhino       -> http://www.mozilla.org/rhino
+    NetRexx     -> http://www2.hursley.ibm.com/netrexx
+    JPython     -> http://www.jpython.org
+    Jython      -> http://www.jython.org
+    Jacl        -> http://www.scriptics.com/java
+    Xalan       -> http://xml.apache.org/xalan
+    ASF (Win32) -> http://msdn.microsoft.com/scripting
+    PerlScript  -> http://www.activestate.com
+
+Build Instructions:
+
+   To build, run
+
+     java org.apache.tools.ant.Main <target>
+
+   on the directory where this file is located with the target you want.
+
+Most useful targets:
+
+ - compile  -> creates the "bsf.jar" package in "./build/lib" (default target)
+ - samples  -> creates/compiles the samples into "./build/samples"
+ - javadocs -> creates the javadocs in "./build/javadocs"
+ - bindist  -> creates the complete binary distribution in "./dist/"
+ - srcdist  -> creates the complete src distribution in "./dist/"
+ - dist     -> creates both the binary and the src distributions in "./dist/"
+ - clean    -> removes all the generated files and directories
+
+Authors:
+  Sam Ruby <rubys@us.ibm.com>
+  Matthew J. Duftler <duftler@us.ibm.com>
+
+Copyright:
+  Copyright (c) Apache Software Foundation 2002. All Rights Reserved
+
+==================================================================== -->
+
+<project name="BSF" default="compile" basedir=".">
+
+  <target name="init">
+    <tstamp/>
+
+    <property name="name" value="bsf_core"/>
+    <property name="Name" value="Bean Scripting Framework"/>
+    <property name="version" value="2.3"/>
+    <property name="version.underscore" value="2_3"/>
+    <property name="debug" value="off"/>
+
+    <property name="docs.dir" value="docs"/>
+    <property name="samples.dir" value="samples"/>
+    <property name="src.dir" value="src"/>
+    <property name="lib.dir" value="lib"/>
+
+    <property name="packages" value="org.apache.*"/>
+
+    <property name="build.file" value="build.xml"/>
+
+    <property name="build.dir" value="build"/>
+    <property name="build.dest" value="build/classes"/>
+    <property name="build.lib" value="build/lib"/>
+    <property name="build.lib.win32" value="build/lib/win32"/>
+    <property name="build.samples" value="build/samples"/>
+    <property name="build.samples.calc" value="build/samples/calc"/>
+    <property name="build.samples.jsplike" value="build/samples/jsplike"/>
+    <property name="build.samples.scriptedui"
+              value="build/samples/scriptedui"/>
+    <property name="build.samples.xsl" value="build/samples/xsl"/>
+    <property name="build.javadocs" value="build/javadocs"/>
+
+    <property name="dist.dir" value="dist"/>
+    <property name="dist.dir.root"
+              value="${dist.dir}/${name}-${version.underscore}"/>
+    <property name="dist.bin.file"
+              value="${dist.dir}/${name}-bin-${version}"/>
+    <property name="dist.src.file"
+              value="${dist.dir}/${name}-src-${version}"/>
+
+    <!-- ================================================================= -->
+    <!-- Sets version and time/date specific values                        -->
+    <!-- ================================================================= -->
+    <filter token="RELEASE_DATE_TIME" value="${TODAY} / ${TSTAMP}"/>
+    <filter token="VERSION" value="${version}"/>
+    <filter token="VERSION_UNDERSCORE" value="${version.underscore}"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Prepares the build directory                                        -->
+  <!-- =================================================================== -->
+  <target name="prepare" depends="init">
+    <mkdir dir="${build.dir}"/>
+
+    <!-- ================================================================= -->
+    <!-- Determines what optional components are available                 -->
+    <!-- ================================================================= -->
+    <available property="jacl.present"
+               classname="tcl.lang.JACL"/>
+
+    <condition property="jpython.present">
+      <and>
+        <available classname="org.python.util.PythonInterpreter"/>
+        <not>
+          <available classname="org.python.util.jython"/>
+        </not>
+      </and>
+    </condition>
+
+    <available property="jython.present"
+               classname="org.python.util.jython"/>
+
+    <available property="netrexx.present"
+               classname="netrexx.lang.Rexx"/>
+
+    <available property="rhino.present"
+               classname="org.mozilla.javascript.Scriptable"/>
+
+    <available property="xalan.present"
+               classname="org.apache.xalan.xslt.EnvironmentCheck"/>
+
+    <uptodate property="javac.notRequired"
+              targetfile="${build.lib}/${name}.jar">
+      <srcfiles dir="${src.dir}">
+        <patternset refid="javac.source.files"/>
+      </srcfiles>
+    </uptodate>
+
+    <uptodate property="javadoc.required"
+              targetfile="${build.lib}/${name}.jar">
+      <srcfiles dir="${build.dir}" includes="**/*.html"/>
+    </uptodate>
+
+    <antcall target="checkDependencies"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Warn the user about items not being compiled                        -->
+  <!-- =================================================================== -->
+  <target name="checkJacl" unless="jacl.present">
+    <echo message="Warning: Jacl dependencies were not resolved."/>
+  </target>
+  <target name="checkJPython" unless="jpython.present">
+    <echo message="Warning: JPython dependencies were not resolved."/>
+  </target>
+  <target name="checkJython" unless="jython.present">
+    <echo message="Warning: Jython dependencies were not resolved."/>
+  </target>
+  <target name="checkNetRexx" unless="netrexx.present">
+    <echo message="Warning: NetRexx dependencies were not resolved."/>
+  </target>
+  <target name="checkRhino" unless="rhino.present">
+    <echo message="Warning: Rhino dependencies were not resolved."/>
+  </target>
+  <target name="checkXalan" unless="xalan.present">
+    <echo message="Warning: Xalan dependencies were not resolved."/>
+  </target>
+  <target name="checkDependencies" unless="javac.notRequired">
+    <antcall target="checkJacl"/>
+    <antcall target="checkJPython"/>
+    <antcall target="checkJython"/>
+    <antcall target="checkNetRexx"/>
+    <antcall target="checkRhino"/>
+    <antcall target="checkXalan"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Source files to be compiled                                         -->
+  <!-- =================================================================== -->
+  <patternset id="javac.source.files">
+    <!-- Optionally includes engines based on dependencies being present -->
+    <!-- FIXME: Exclude the following, temporarily -->
+    <exclude name="**/java/**"/>
+    <exclude name="**/javaclass/**"/>
+    <exclude name="**/activescript/**"/>
+    <exclude name="**/jacl/**" unless="jacl.present"/>
+    <exclude name="**/javascript/**" unless="rhino.present"/>
+    <exclude name="**/jpython/**" unless="jpython.present"/>
+    <exclude name="**/jython/**" unless="jython.present"/>
+    <exclude name="**/netrexx/**" unless="netrexx.present"/>
+    <exclude name="**/xslt/**" unless="xalan.present"/>
+  </patternset>
+
+  <!-- =================================================================== -->
+  <!-- Compiles the source directory                                       -->
+  <!-- =================================================================== -->
+  <target name="compile"
+          description="Compiles the *.java files."
+          depends="prepare">
+    <copy todir="${build.dest}">
+      <fileset dir="${src.dir}">
+        <include name="**/*.properties"/>
+      </fileset>
+    </copy>
+
+    <javac srcdir="${src.dir}" destdir="${build.dest}" debug="${debug}">
+      <patternset refid="javac.source.files"/>
+      <classpath location="${bsf.extraclasspath}"/>
+    </javac>
+
+    <!-- ================================================================= -->
+    <!-- Produces the jar file                                             -->
+    <!-- ================================================================= -->
+    <mkdir dir="${build.lib}"/>
+    <jar jarfile="${build.lib}/${name}.jar" basedir="${build.dest}"/>
+
+    <uptodate property="javadoc.required"
+              targetfile="${build.lib}/${name}.jar">
+      <srcfiles dir="${build.dir}" includes="**/*.html"/>
+    </uptodate>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Produce the activescript engine                                     -->
+  <!-- =================================================================== -->
+  <target name="activescript" depends="compile">
+    <copy todir="${build.lib.win32}">
+      <fileset dir="${lib.dir}/win32">
+        <patternset includes="*.dll"/>
+      </fileset>
+    </copy>
+
+    <exec dir="src/org/apache/bsf/engines/activescript" executable="nmake"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Compiles the samples                                                -->
+  <!-- =================================================================== -->
+  <target name="samples"
+          description="Compiles the samples."
+          depends="compile">
+    <copy todir="${build.samples}">
+      <fileset dir="${samples.dir}"/>
+    </copy>
+    <javac srcdir="${build.samples.calc}"
+           destdir="${build.samples.calc}"
+           classpath="${build.lib}/${name}.jar"
+           debug="${debug}"/>
+    <javac srcdir="${build.samples.jsplike}"
+           destdir="${build.samples.jsplike}"
+           classpath="${build.lib}/${name}.jar"
+           debug="${debug}"/>
+    <javac srcdir="${build.samples.scriptedui}"
+           destdir="${build.samples.scriptedui}"
+           classpath="${build.lib}/${name}.jar"
+           debug="${debug}"/>
+    <javac srcdir="${build.samples.xsl}"
+           destdir="${build.samples.xsl}"
+           classpath="${build.lib}/${name}.jar"
+           debug="${debug}"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Creates the API documentation                                       -->
+  <!-- =================================================================== -->
+  <target name="javadocs"
+          description="Generates the API documentation."
+          depends="prepare">
+    <mkdir dir="${build.javadocs}"/>
+    <javadoc packagenames="${packages}"
+             sourcepath="${src.dir}"
+             destdir="${build.javadocs}"
+             author="true"
+             version="false"
+             use="true"
+             windowtitle="${Name} API"
+             doctitle="${Name}"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Creates the API documentation if necessary                          -->
+  <!-- =================================================================== -->
+  <target name="javadocsIfRequired" if="javadoc.required" depends="prepare">
+    <antcall target="javadocs"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Creates the binary distribution                                     -->
+  <!-- =================================================================== -->
+  <target name="bindist"
+          description="Creates the binary distribution(s)."
+          depends="compile, javadocsIfRequired, samples">
+    <delete dir="${dist.dir.root}"/>
+    <delete file="${dist.bin.file}.tar"/>
+    <delete file="${dist.bin.file}.tar.gz"/>
+    <delete file="${dist.bin.file}.zip"/>
+
+    <copy todir="${dist.dir.root}/docs/api">
+      <fileset dir="${build.javadocs}"/>
+    </copy>
+    <copy todir="${dist.dir.root}/lib">
+      <fileset dir="${build.lib}"/>
+    </copy>
+    <copy todir="${dist.dir.root}/samples">
+      <fileset dir="${build.samples}"/>
+    </copy>
+
+    <copy file="docs/guide/guide.pdf"
+          tofile="${dist.dir.root}/docs/guide/guide.pdf"/>
+    <copy file="docs/changes.html"
+          tofile="${dist.dir.root}/changes.html"/>
+    <copy file="docs/ReleaseNotes.html"
+          tofile="${dist.dir.root}/ReleaseNotes.html"
+          filtering="on"/>
+    <copy file="license.html"
+          tofile="${dist.dir.root}/license.html"/>
+
+    <!-- ================================================================= -->
+    <!-- Produces the tar/gzip file                                        -->
+    <!-- ================================================================= -->
+    <tar tarfile="${dist.bin.file}.tar" basedir="${dist.dir}"
+         excludes="*.zip,*.tar,*.gz"/>
+    <gzip src="${dist.bin.file}.tar" zipfile="${dist.bin.file}.tar.gz"/>
+    <delete file="${dist.bin.file}.tar"/>
+
+    <!-- ================================================================= -->
+    <!-- Produces the zip file                                             -->
+    <!-- ================================================================= -->
+    <zip zipfile="${dist.bin.file}.zip" basedir="${dist.dir}"
+         excludes="*.zip,*.tar,*.gz"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Creates the source distribution                                     -->
+  <!-- =================================================================== -->
+  <target name="srcdist"
+          description="Creates the source distribution(s)."
+          depends="init">
+    <delete dir="${dist.dir.root}"/>
+    <delete file="${dist.src.file}.tar"/>
+    <delete file="${dist.src.file}.tar.gz"/>
+    <delete file="${dist.src.file}.zip"/>
+
+    <copy todir="${dist.dir.root}/src">
+      <fileset dir="${src.dir}"/>
+    </copy>
+    <copy todir="${dist.dir.root}/lib/win32">
+      <fileset dir="${lib.dir}/win32">
+        <patternset includes="*.dll"/>
+      </fileset>
+    </copy>
+
+    <copy file="license.html" tofile="${dist.dir.root}/license.html"/>
+    <copy file="${build.file}" tofile="${dist.dir.root}/${build.file}"/>
+
+    <!-- ================================================================= -->
+    <!-- Produces the tar/gzip file                                        -->
+    <!-- ================================================================= -->
+    <tar tarfile="${dist.src.file}.tar" basedir="${dist.dir}"
+         excludes="*.zip,*.tar,*.gz"/>
+    <gzip src="${dist.src.file}.tar" zipfile="${dist.src.file}.tar.gz"/>
+    <delete file="${dist.src.file}.tar"/>
+
+    <!-- ================================================================= -->
+    <!-- Produces the zip file                                             -->
+    <!-- ================================================================= -->
+    <zip zipfile="${dist.src.file}.zip" basedir="${dist.dir}/"
+         excludes="*.zip,*.tar,*.gz"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Creates both distributions                                          -->
+  <!-- =================================================================== -->
+  <target name="dist"
+          description="Executes both bindist and srcdist."
+          depends="bindist, srcdist"/>
+
+  <!-- =================================================================== -->
+  <!-- Cleans everything                                                   -->
+  <!-- =================================================================== -->
+  <target name="clean"
+          description="Removes build and dist directories."
+          depends="init">
+    <delete dir="${build.dir}"/>
+    <delete dir="${dist.dir}"/>
+    <delete>
+      <fileset dir="src/org/apache/bsf/engines/activescript">
+        <include name="*.dll" />
+        <include name="*.idb" />
+        <include name="*.exp" />
+        <include name="*.lib" />
+        <include name="*.obj" />
+        <include name="com_ibm_bsf_engines_activescript_*.h" />
+      </fileset>
+    </delete>
+  </target>
+
+</project>

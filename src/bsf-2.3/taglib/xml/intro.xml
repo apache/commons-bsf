@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<document url="./intro.xml">
+
+  <properties>
+    <author>Justyna Horwat</author>
+    <title>The Jakarta-Taglibs Project: BSF Tag Library</title>
+  </properties>
+
+  <body>
+
+
+  <section name="BSF Tag Library" href="Welcome">
+
+  <p>The Bean Scripting Framework (BSF) is an architecture for incorporating 
+     scripting into Java applications and applets. Scripting languages such 
+     as Netscape Rhino (Javascript), VBScript, Perl, Tcl, Python, NetRexx and 
+     Rexx are commonly used to augment an application's function or to script 
+     together a set of application components to form an application.</p>
+
+  </section>
+
+  <section name="Documentation" href="Documentation">
+
+  <p>For more information about the BSF Tag Library, look at the on-line documentation:</p>
+  <ul>
+  <li>View the <a href="index.html">BSF Taglib Documentation</a></li>
+  </ul>
+
+  <p>For information on how to use the distributions, look at the following documentation:</p>
+
+  <ul>
+  <li>Using the Jakarta-Taglibs <a href="http://jakarta.apache.org/taglibs/binarydist.html">Binary Distribution</a></li>
+  <li>Using the Jakarta-Taglibs <a href="http://jakarta.apache.org/taglibs/sourcedist.html">Source Distribution</a></li>
+  </ul>
+
+  </section>
+
+  <section name="Download" href="Download">
+
+  <p>A binary download of the BSF Tag Library is available</p>
+  <ul>
+  <li>Download <a href="http://jakarta.apache.org/builds/jakarta-taglibs/nightly/projects/bsf/">BSF Tag Library</a></li>
+  </ul>
+
+  <p>The following distributions are also available for download:</p>
+  <ul>
+  <li>Download <a href="http://jakarta.apache.org/builds/jakarta-taglibs/nightly/src/">Jakarta-Taglibs Source</a></li>
+  <li>Download entire <a href="http://jakarta.apache.org/builds/jakarta-taglibs/nightly">Jakarta-Taglibs Distribution</a></li>
+  </ul>
+
+  </section>
+
+  <section name="Contributors" href="Contributors">
+  <p>List of contributors:</p>
+
+  <ul>
+  <li>Doug Davis</li>
+  <li>Sam Ruby</li>
+  <li>Craig R. McClanahan</li>
+  </ul>
+
+  </section>
+
+  </body>
+</document>
