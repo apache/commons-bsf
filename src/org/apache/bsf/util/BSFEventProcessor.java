@@ -69,6 +69,9 @@ public class BSFEventProcessor implements EventProcessor {
   BSFEngine engine;
   BSFManager manager;
   String filter;
+  String source;
+  int lineNo;
+  int columnNo;
   Object script;
 
   /**
@@ -76,11 +79,14 @@ public class BSFEventProcessor implements EventProcessor {
    * public use.
    */
   BSFEventProcessor (BSFEngine engine, BSFManager manager, String filter,
-		     Object script)
+		     String source, int lineNo, int columnNo, Object script)
 	   throws BSFException {
 	this.engine = engine;
 	this.manager = manager;
 	this.filter = filter;
+	this.source = source;
+	this.lineNo = lineNo;
+	this.columnNo = columnNo;
 	this.script = script;
   }
   //////////////////////////////////////////////////////////////////////////
@@ -119,6 +125,6 @@ public class BSFEventProcessor implements EventProcessor {
 	}
 
 	// run the script
-	engine.exec (script);
+	engine.exec (source, lineNo, columnNo, script);
   }
 }

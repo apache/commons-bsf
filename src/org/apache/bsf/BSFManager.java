@@ -129,14 +129,14 @@ public class BSFManager {
             ResourceBundle rb =
                 ResourceBundle.getBundle("org.apache.bsf.Languages");
             Enumeration keys = rb.getKeys();
-
+            
             while (keys.hasMoreElements()) {
                 String key = (String) keys.nextElement();
                 String value = rb.getString(key);
-
+                
                 StringTokenizer tokens = new StringTokenizer(value, ",");
                 String className = (String) tokens.nextToken();
-
+                
                 // get the extensions for this language
                 String exts = (String) tokens.nextToken();
                 StringTokenizer st = new StringTokenizer(exts, "|");
@@ -144,7 +144,7 @@ public class BSFManager {
                 for (int i = 0; st.hasMoreTokens(); i++) {
                     extensions[i] = ((String) st.nextToken()).trim();
                 }
-
+                
                 registerScriptingEngine(key, className, extensions);
             }
         }
@@ -167,16 +167,15 @@ public class BSFManager {
      * parameters and return the resulting value.
      *
      * @param lang language identifier
-     * @param source <b>ignored</b>
-     * @param lineNo <b>ignored</b>
-     * @param columnNo <b>ignored</b>
+     * @param source (context info) the source of this expression
+     (e.g., filename)
+     * @param lineNo (context info) the line number in source for expr
+     * @param columnNo (context info) the column number in source for expr
      * @param funcBody the multi-line, value returning script to evaluate
      * @param paramNames the names of the parameters above assumes
      * @param arguments values of the above parameters
      *
      * @exception BSFException if anything goes wrong while running the script
-     *
-     * @deprecated use the four-arg version instead.
      */
     public Object apply(String lang,
                         String source,
@@ -186,26 +185,9 @@ public class BSFManager {
                         Vector paramNames,
                         Vector arguments)
         throws BSFException {
-
-        return apply(lang, funcBody, paramNames, arguments);
-    }
-
-    /**
-     * Apply the given anonymous function of the given language to the given
-     * parameters and return the resulting value.
-     *
-     * @param lang language identifier
-     * @param funcBody the multi-line, value returning script to evaluate
-     * @param paramNames the names of the parameters above assumes
-     * @param arguments values of the above parameters
-     *
-     * @exception BSFException if anything goes wrong while running the script
-     */
-    public Object apply(String lang, Object funcBody, Vector paramNames,
-                        Vector arguments)
-        throws BSFException {
-
         final BSFEngine e = loadScriptingEngine(lang);
+        final String sourcef = source;
+        final int lineNof = lineNo, columnNof = columnNo;
         final Object funcBodyf = funcBody;
         final Vector paramNamesf = paramNames;
         final Vector argumentsf = arguments;
@@ -214,10 +196,11 @@ public class BSFManager {
         try {
             final Object resultf = 
                 AccessController.doPrivileged(new PrivilegedExceptionAction() {
-                    public Object run() throws Exception {
-                        return e.apply(funcBodyf, paramNamesf, argumentsf);
-                    }
-                });
+                        public Object run() throws Exception {
+                            return e.apply(sourcef, lineNof, columnNof, 
+                                           funcBodyf, paramNamesf, argumentsf);
+                        }
+                    });
             result = resultf;
         }
         catch (PrivilegedActionException prive) {
@@ -232,17 +215,16 @@ public class BSFManager {
      * language to the given parameters into the given <tt>CodeBuffer</tt>.
      *
      * @param lang language identifier
-     * @param source <b>ignored</b>
-     * @param lineNo <b>ignored</b>
-     * @param columnNo <b>ignored</b>
+     * @param source (context info) the source of this expression
+     (e.g., filename)
+     * @param lineNo (context info) the line number in source for expr
+     * @param columnNo (context info) the column number in source for expr
      * @param funcBody the multi-line, value returning script to evaluate
      * @param paramNames the names of the parameters above assumes
      * @param arguments values of the above parameters
      * @param cb       code buffer to compile into
      *
      * @exception BSFException if anything goes wrong while running the script
-     *
-     * @deprecated use the five-arg version instead.
      */
     public void compileApply(String lang,
                              String source,
@@ -253,40 +235,23 @@ public class BSFManager {
                              Vector arguments,
                              CodeBuffer cb)
         throws BSFException {
-
-        compileApply(lang, funcBody, paramNames, arguments, cb);
-    }
-
-    /**
-     * Compile the application of the given anonymous function of the given
-     * language to the given parameters into the given <tt>CodeBuffer</tt>.
-     *
-     * @param lang language identifier
-     * @param funcBody the multi-line, value returning script to evaluate
-     * @param paramNames the names of the parameters above assumes
-     * @param arguments values of the above parameters
-     * @param cb       code buffer to compile into
-     *
-     * @exception BSFException if anything goes wrong while running the script
-     */
-    public void compileApply(String lang, Object funcBody, Vector paramNames,
-                             Vector arguments, CodeBuffer cb)
-        throws BSFException {
-
         final BSFEngine e = loadScriptingEngine(lang);
+        final String sourcef = source;
+        final int lineNof = lineNo, columnNof = columnNo;
         final Object funcBodyf = funcBody;
         final Vector paramNamesf = paramNames;
         final Vector argumentsf = arguments;
         final CodeBuffer cbf = cb;
-
+        
         try {
             AccessController.doPrivileged(new PrivilegedExceptionAction() {
-                public Object run() throws Exception {
-                    e.compileApply(funcBodyf, paramNamesf, 
-                                   argumentsf, cbf);
-                    return null;
-                }
-            });
+                    public Object run() throws Exception {
+                        e.compileApply(sourcef, lineNof, columnNof, 
+                                       funcBodyf, paramNamesf, 
+                                       argumentsf, cbf);
+                        return null;
+                    }
+                });
         }
         catch (PrivilegedActionException prive) {
             throw (BSFException) prive.getException();
@@ -298,15 +263,14 @@ public class BSFManager {
      * <tt>CodeBuffer</tt>.
      *
      * @param lang     language identifier
-     * @param source   <b>ignored</b>
-     * @param lineNo   <b>ignored</b>
-     * @param columnNo <b>ignored</b>
+     * @param source   (context info) the source of this expression
+     (e.g., filename)
+     * @param lineNo   (context info) the line number in source for expr
+     * @param columnNo (context info) the column number in source for expr
      * @param expr     the expression to compile
      * @param cb       code buffer to compile into
      *
      * @exception BSFException if any error while compiling the expression
-     *
-     * @deprecated use the three-arg version instead.
      */
     public void compileExpr(String lang,
                             String source,
@@ -315,34 +279,19 @@ public class BSFManager {
                             Object expr,
                             CodeBuffer cb)
         throws BSFException {
-
-        compileExpr(lang, expr, cb);
-    }
-
-    /**
-     * Compile the given expression of the given language into the given 
-     * <tt>CodeBuffer</tt>.
-     *
-     * @param lang     language identifier
-     * @param expr     the expression to compile
-     * @param cb       code buffer to compile into
-     *
-     * @exception BSFException if any error while compiling the expression
-     */
-    public void compileExpr(String lang, Object expr, CodeBuffer cb)
-        throws BSFException {
-
         final BSFEngine e = loadScriptingEngine(lang);
+        final String sourcef = source;
+        final int lineNof = lineNo, columnNof = columnNo;
         final Object exprf = expr;
         final CodeBuffer cbf = cb;
 
         try {
             AccessController.doPrivileged(new PrivilegedExceptionAction() {
-                public Object run() throws Exception {
-                    e.compileExpr(exprf, cbf);
-                    return null;
-                }
-            });
+                    public Object run() throws Exception {
+                        e.compileExpr(sourcef, lineNof, columnNof, exprf, cbf);
+                        return null;
+                    }
+                });
         }
         catch (PrivilegedActionException prive) {
             throw (BSFException) prive.getException();
@@ -354,15 +303,14 @@ public class BSFManager {
      * <tt>CodeBuffer</tt>.
      *
      * @param lang     language identifier
-     * @param source   <b>ignored</b>
-     * @param lineNo   <b>ignored</b>
-     * @param columnNo <b>ignored</b>
+     * @param source   (context info) the source of this script
+     (e.g., filename)
+     * @param lineNo   (context info) the line number in source for script
+     * @param columnNo (context info) the column number in source for script
      * @param script   the script to compile
      * @param cb       code buffer to compile into
      *
      * @exception BSFException if any error while compiling the script
-     *
-     * @deprecated use the three-arg version instead.
      */
     public void compileScript(String lang,
                               String source,
@@ -371,34 +319,20 @@ public class BSFManager {
                               Object script,
                               CodeBuffer cb)
         throws BSFException {
-
-        compileScript(lang, script, cb);
-    }
-
-    /**
-     * Compile the given script of the given language into the given 
-     * <tt>CodeBuffer</tt>.
-     *
-     * @param lang     language identifier
-     * @param script   the script to compile
-     * @param cb       code buffer to compile into
-     *
-     * @exception BSFException if any error while compiling the script
-     */
-    public void compileScript(String lang, Object script, CodeBuffer cb)
-        throws BSFException {
-
         final BSFEngine e = loadScriptingEngine(lang);
+        final String sourcef = source;
+        final int lineNof = lineNo, columnNof = columnNo;
         final Object scriptf = script;
         final CodeBuffer cbf = cb;
 
         try {
             AccessController.doPrivileged(new PrivilegedExceptionAction() {
-                public Object run() throws Exception {
-                    e.compileScript(scriptf, cbf);
-                    return null;
-                }
-            });
+                    public Object run() throws Exception {
+                        e.compileScript(sourcef, lineNof, columnNof, 
+                                        scriptf, cbf);
+                        return null;
+                    }
+                });
         }
         catch (PrivilegedActionException prive) {
             throw (BSFException) prive.getException();
@@ -406,13 +340,12 @@ public class BSFManager {
     }
 
     /**
-     * Declare a bean. 
-     * The difference between declaring and registering is that engines are
-     * spsed to make declared beans "pre-available" in the scripts as far as
-     * possible. That is, if a script author needs a registered bean, he needs
-     * to look it up in some way. However if he needs a declared bean, the
-     * language has the responsibility to make those beans avaialable
-     * "automatically."
+     * Declare a bean. The difference between declaring and registering 
+     * is that engines are spsed to make declared beans "pre-available"
+     * in the scripts as far as possible. That is, if a script author
+     * needs a registered bean, he needs to look it up in some way. However
+     * if he needs a declared bean, the language has the responsibility to
+     * make those beans avaialable "automatically."
      * <p>
      * When a bean is declared it is automatically registered as well
      * so that any declared bean can be gotton to by looking it up as well.
@@ -438,7 +371,6 @@ public class BSFManager {
      */
     public void declareBean(String beanName, Object bean, Class type)
         throws BSFException {
-
         registerBean(beanName, bean);
 
         BSFDeclaredBean tempBean = new BSFDeclaredBean(beanName, bean, type);
@@ -457,14 +389,13 @@ public class BSFManager {
      * resulting value.
      *
      * @param lang language identifier
-     * @param source <b>ignored</b>
-     * @param lineNo <b>ignored</b>
-     * @param columnNo <b>ignored</b>
+     * @param source (context info) the source of this expression
+     (e.g., filename)
+     * @param lineNo (context info) the line number in source for expr
+     * @param columnNo (context info) the column number in source for expr
      * @param expr the expression to evaluate
      *
      * @exception BSFException if anything goes wrong while running the script
-     *
-     * @deprecated use the two-arg version instead.
      */
     public Object eval(String lang,
                        String source,
@@ -472,33 +403,19 @@ public class BSFManager {
                        int columnNo,
                        Object expr)
         throws BSFException {
-     
-        return eval(lang, expr);
-    }
-
-    /**
-     * Evaluate the given expression of the given language and return the
-     * resulting value.
-     *
-     * @param lang language identifier
-     * @param expr the expression to evaluate
-     *
-     * @exception BSFException if anything goes wrong while running the script
-     */
-    public Object eval(String lang, Object expr)
-        throws BSFException {
-
         final BSFEngine e = loadScriptingEngine(lang);
+        final String sourcef = source;
+        final int lineNof = lineNo, columnNof = columnNo;
         final Object exprf = expr;
         Object result = null;
-
+        
         try {
             final Object resultf =
                 AccessController.doPrivileged(new PrivilegedExceptionAction() {
-                    public Object run() throws Exception {
-                        return e.eval(exprf);
-                    }
-                });
+                        public Object run() throws Exception {
+                            return e.eval(sourcef, lineNof, columnNof, exprf);
+                        }
+                    });
             result = resultf;
         }
         catch (PrivilegedActionException prive) {
@@ -519,14 +436,13 @@ public class BSFManager {
      * Execute the given script of the given language.
      *
      * @param lang     language identifier
-     * @param source   <b>ignored</b>
-     * @param lineNo   <b>ignored</b>
-     * @param columnNo <b>ignored</b>
+     * @param source   (context info) the source of this expression
+     (e.g., filename)
+     * @param lineNo   (context info) the line number in source for expr
+     * @param columnNo (context info) the column number in source for expr
      * @param script   the script to execute
      *
      * @exception BSFException if anything goes wrong while running the script
-     *
-     * @deprecated use the two-arg version instead.
      */
     public void exec(String lang,
                      String source,
@@ -534,31 +450,18 @@ public class BSFManager {
                      int columnNo,
                      Object script)
         throws BSFException {
-
-        exec(lang, script);
-    }
-
-    /**
-     * Execute the given script of the given language.
-     *
-     * @param lang     language identifier
-     * @param script   the script to execute
-     *
-     * @exception BSFException if anything goes wrong while running the script
-     */
-    public void exec(String lang, Object script)
-        throws BSFException {
-
         final BSFEngine e = loadScriptingEngine(lang);
+        final String sourcef = source;
+        final int lineNof = lineNo, columnNof = columnNo;
         final Object scriptf = script;
 
         try {
             AccessController.doPrivileged(new PrivilegedExceptionAction() {
-                public Object run() throws Exception {
-                    e.exec(scriptf);
-                    return null;
-                }
-            });
+                    public Object run() throws Exception {
+                        e.exec(sourcef, lineNof, columnNof, scriptf);
+                        return null;
+                    }
+                });
         }
         catch (PrivilegedActionException prive) {
             throw (BSFException) prive.getException();
@@ -570,47 +473,32 @@ public class BSFManager {
      * emulate an interactive session w/ the language.
      *
      * @param lang     language identifier
-     * @param source   <b>ignored</b>
-     * @param lineNo   <b>ignored</b>
-     * @param columnNo <b>ignored</b>
+     * @param source   (context info) the source of this expression 
+     *                 (e.g., filename)
+     * @param lineNo   (context info) the line number in source for expr
+     * @param columnNo (context info) the column number in source for expr
      * @param script   the script to execute
      *
      * @exception BSFException if anything goes wrong while running the script
-     *
-     * @deprecated use the two-arg version instead.
      */
     public void iexec(String lang,
-                      String source,
-                      int lineNo,
-                      int columnNo,
-                      Object script)
+                     String source,
+                     int lineNo,
+                     int columnNo,
+                     Object script)
         throws BSFException {
-
-        iexec(lang, script);
-    }
-
-    /**
-     * Execute the given script of the given language, attempting to
-     * emulate an interactive session w/ the language.
-     *
-     * @param lang     language identifier
-     * @param script   the script to execute
-     *
-     * @exception BSFException if anything goes wrong while running the script
-     */
-    public void iexec(String lang, Object script)
-        throws BSFException {
-
         final BSFEngine e = loadScriptingEngine(lang);
+        final String sourcef = source;
+        final int lineNof = lineNo, columnNof = columnNo;
         final Object scriptf = script;
 
         try {
             AccessController.doPrivileged(new PrivilegedExceptionAction() {
-                public Object run() throws Exception {
-                    e.iexec(scriptf);
-                    return null;
-                }
-            });
+                    public Object run() throws Exception {
+                        e.iexec(sourcef, lineNof, columnNof, scriptf);
+                        return null;
+                    }
+                });
         }
         catch (PrivilegedActionException prive) {
             throw (BSFException) prive.getException();
@@ -653,7 +541,6 @@ public class BSFManager {
      */
     public static String getLangFromFilename(String fileName) 
         throws BSFException {
-
         int dotIndex = fileName.lastIndexOf(".");
 
         if (dotIndex != -1) {
@@ -687,7 +574,7 @@ public class BSFManager {
                 }
                 if (loops == 0) lang = langval;
             }
-
+            
             if (lang != null && lang != "") {
                 return lang;
             }
@@ -744,21 +631,21 @@ public class BSFManager {
      *            exception is passed on as well.
      */
     public BSFEngine loadScriptingEngine(String lang) throws BSFException {
-        // If already loaded, return it 
+        // if its already loaded return that
         BSFEngine eng = (BSFEngine) loadedEngines.get(lang);
         if (eng != null) {
             return eng;
         }
 
-        // Is it a registered language?
+        // is it a registered language?
         String engineClassName = (String) registeredEngines.get(lang);
         if (engineClassName == null) {
             throw new BSFException(BSFException.REASON_UNKNOWN_LANGUAGE,
                                    "unsupported language: " + lang);
         }
 
-        // Create the engine and initialize it. Throw exception in case
-        // of failure.
+        // create the engine and initialize it. if anything goes wrong
+        // except.
         try {
             Class engineClass =
                 (classLoader == null)
@@ -769,18 +656,18 @@ public class BSFManager {
             final String langf = lang;
             final Vector dbf = declaredBeans;
             AccessController.doPrivileged(new PrivilegedExceptionAction() {
-                public Object run() throws Exception {
-                    engf.initialize(thisf, langf, dbf);
-                    return null;
-                }
-            });
+                    public Object run() throws Exception {
+                        engf.initialize(thisf, langf, dbf);
+                        return null;
+                    }
+                });
             eng = engf;
             loadedEngines.put(lang, eng);
             pcs.addPropertyChangeListener(eng);
             return eng;
         } 
         catch (PrivilegedActionException prive) {
-            throw (BSFException) prive.getException();
+                throw (BSFException) prive.getException();
         }
         catch (Throwable t) {
             throw new BSFException(BSFException.REASON_OTHER_ERROR,

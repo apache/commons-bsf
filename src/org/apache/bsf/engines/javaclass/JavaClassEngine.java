@@ -105,7 +105,8 @@ public class JavaClassEngine extends BSFEngineImpl {
    * This is used by an application to evaluate an object containing
    * some expression - clearly not possible for compiled code ..
    */
-  public Object eval (Object oscript) throws BSFException {
+  public Object eval (String source, int lineNo, int columnNo, 
+		      Object oscript) throws BSFException {
 	throw new BSFException (BSFException.REASON_UNSUPPORTED_FEATURE,
 			    "Java bytecode engine can't evaluate expressions");
   }

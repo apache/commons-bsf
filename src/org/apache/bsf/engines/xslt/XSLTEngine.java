@@ -111,7 +111,8 @@ public class XSLTEngine extends BSFEngineImpl {
      * Evaluate an expression. In this case, an expression is assumed
      * to be a stylesheet of the template style (see the XSLT spec).
      */
-    public Object eval (Object oscript) throws BSFException {
+    public Object eval (String source, int lineNo, int columnNo, 
+                        Object oscript) throws BSFException {
 	// get the style base URI (the place from where Xerces XSLT will
 	// look for imported/included files and referenced docs): if a
 	// bean named "xslt:styleBaseURI" is registered, then cvt it
@@ -207,10 +208,10 @@ public class XSLTEngine extends BSFEngineImpl {
     /**
      * Initialize the engine.
      */
-    public void initialize (BSFManager mgr, String lang, Vector declaredBeans)
-        throws BSFException {
-        
-        super.initialize (mgr, lang, declaredBeans);
+    public void initialize (BSFManager mgr, String lang,
+                            Vector declaredBeans) throws BSFException {
+	super.initialize (mgr, lang, declaredBeans);
+
         tFactory = TransformerFactory.newInstance();
     }
 

@@ -86,16 +86,21 @@ public class EngineUtils {
      * @param filter       filter for events
      * @param engine       BSFEngine which can run this script
      * @param manager      BSFManager of the above engine
+     * @param source       (context info) the source of this expression 
+     *                                    (e.g., filename)
+     * @param lineNo       (context info) the line number in source for expr
+     * @param columnNo     (context info) the column number in source for expr
      * @param script       the script to execute when the event occurs
      *
      * @exception BSFException if anything goes wrong while running the script
      */
     public static void addEventListener (Object bean, String eventSetName,
                                          String filter, BSFEngine engine, 
-                                         BSFManager manager, Object script)
-        throws BSFException {
-
+                                         BSFManager manager, String source,
+                                         int lineNo, int columnNo, 
+                                         Object script) throws BSFException {
         BSFEventProcessor ep = new BSFEventProcessor (engine, manager, filter,
+                                                      source, lineNo, columnNo,
                                                       script);
         
         try {

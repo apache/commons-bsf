@@ -80,30 +80,31 @@ public abstract class BSFEngineImpl implements BSFEngine {
     protected ClassLoader classLoader;
 
     /**
-     * Default impl of apply - calls eval ignoring parameters and returns
+     * Default impl of apply - calls eval ignorning parameters and returns
      * the result.
      */
-    public Object apply(Object funcBody, Vector paramNames, Vector arguments)
+    public Object apply(String source, int lineNo, int columnNo, 
+                        Object funcBody, Vector paramNames, Vector arguments)
         throws BSFException {
-
-        return eval(funcBody);
+        return eval(source, lineNo, columnNo, funcBody);
     }
 
     /**
-     * Default impl of compileApply - calls compileExpr ignoring parameters.
+     * Default impl of compileApply - calls compileExpr ignorning parameters.
      */
-    public void compileApply(Object funcBody, Vector paramNames, 
+    public void compileApply(String source, int lineNo, int columnNo,
+                             Object funcBody, Vector paramNames, 
                              Vector arguments, CodeBuffer cb)
         throws BSFException {
-
-        compileExpr(funcBody, cb);
+        compileExpr(source, lineNo, columnNo, funcBody, cb);
     }
 
     /**
      * Default impl of compileExpr - generates code that'll create a new
      * manager, evaluate the expression, and return the value.
      */
-    public void compileExpr(Object expr, CodeBuffer cb) throws BSFException {
+    public void compileExpr(String source, int lineNo, int columnNo,
+                            Object expr, CodeBuffer cb) throws BSFException {
         ObjInfo bsfInfo = cb.getSymbol("bsf");
         
         if (bsfInfo == null) {
@@ -114,7 +115,8 @@ public abstract class BSFEngineImpl implements BSFEngine {
         }
 
         String evalString = bsfInfo.objName + ".eval(\"" + lang + "\", ";
-        evalString += StringUtils.lineSeparator;
+        evalString += "request.getRequestURI(), " + lineNo + ", " + columnNo;
+        evalString += "," + StringUtils.lineSeparator;
         evalString += StringUtils.getSafeString(expr.toString()) + ")";
 
         ObjInfo oldRet = cb.getFinalServiceMethodStatement();
@@ -133,9 +135,9 @@ public abstract class BSFEngineImpl implements BSFEngine {
      * Default impl of compileScript - generates code that'll create a new
      * manager, and execute the script.
      */
-    public void compileScript(Object script, CodeBuffer cb) 
+    public void compileScript(String source, int lineNo, int columnNo,
+                              Object script, CodeBuffer cb) 
         throws BSFException {
-
         ObjInfo bsfInfo = cb.getSymbol("bsf");
         
         if (bsfInfo == null) {
@@ -146,7 +148,8 @@ public abstract class BSFEngineImpl implements BSFEngine {
         }
 
         String execString = bsfInfo.objName + ".exec(\"" + lang + "\", ";
-        execString += StringUtils.lineSeparator;
+        execString += "request.getRequestURI(), " + lineNo + ", " + columnNo;
+        execString += "," + StringUtils.lineSeparator;
         execString += StringUtils.getSafeString(script.toString()) + ")";
 
         ObjInfo oldRet = cb.getFinalServiceMethodStatement();
@@ -169,26 +172,23 @@ public abstract class BSFEngineImpl implements BSFEngine {
     /**
      * Default impl of execute - calls eval and ignores the result.
      */
-    public void exec(Object script)
+    public void exec(String source, int lineNo, int columnNo, Object script)
         throws BSFException {
-
-        eval(script);
+        eval(source, lineNo, columnNo, script);
     }
 
     /**
      * Default impl of interactive execution - calls eval and ignores the result.
      */
-    public void iexec(Object script)
+    public void iexec(String source, int lineNo, int columnNo, Object script)
         throws BSFException {
-
-        eval(script);
+        eval(source, lineNo, columnNo, script);
     }
 
     /**
-     * Initialize the engine; called right after construction by 
-     * the manager. 
-     * Declared beans are simply kept in a vector and that's it. Subclasses
-     * must do whatever they want with it.
+     * initialize the engine; called right after construction by 
+     * the manager. Declared beans are simply kept in a vector and
+     * that's it. Subclasses must do whatever they want with it.
      */
     public void initialize(BSFManager mgr, String lang, Vector declaredBeans)
         throws BSFException {

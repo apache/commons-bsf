@@ -78,7 +78,7 @@ public class BSFFunctions {
 				String filter, Object script)
 	   throws BSFException {
 	EngineUtils.addEventListener (src, eventSetName, filter, engine, 
-				  mgr, script);
+				  mgr, "<event-binding>", 0, 0, script);
   }
   public  Object lookupBean (String name) {
 	return mgr.lookupBean (name);

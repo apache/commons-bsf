@@ -140,16 +140,19 @@ public class Main {
 				cb.setClassName(outClassName);
 				mgr.compileScript(
 					language,
+					inFileName,
+					0,
+					0,
 					IOUtils.getStringFromReader(in),
 					cb);
 				cb.print(pw, true);
 				out.close();
 			} else
 				if (mode.equals(ARG_VAL_EXEC)) {
-					mgr.exec(language, IOUtils.getStringFromReader(in));
+					mgr.exec(language, inFileName, 0, 0, IOUtils.getStringFromReader(in));
 				} else /* eval */ {
 					Object obj =
-                                            mgr.eval(language, IOUtils.getStringFromReader(in));
+                                            mgr.eval(language, inFileName, 0, 0, IOUtils.getStringFromReader(in));
                                         
 					// Try to display the result.
                                         
