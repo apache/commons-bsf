@@ -116,7 +116,6 @@ public class JPythonEngine extends BSFEngineImpl {
 		result = ((PyJavaInstance)result).__tojava__(Object.class);
 	  return result;
 	} catch (PyException e) {
-	  e.printStackTrace ();
 	  throw new BSFException (BSFException.REASON_EXECUTION_ERROR,
 			      "exception from JPython: " + e, e);
 	}
@@ -129,7 +128,6 @@ public class JPythonEngine extends BSFEngineImpl {
 	try {
 	  interp.exec (script.toString ());
 	} catch (PyException e) {
-	  e.printStackTrace ();
 	  throw new BSFException (BSFException.REASON_EXECUTION_ERROR,
 			      "exception from JPython: " + e, e);
 	}

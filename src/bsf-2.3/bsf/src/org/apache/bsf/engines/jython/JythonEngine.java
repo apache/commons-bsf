@@ -118,7 +118,6 @@ public class JythonEngine extends BSFEngineImpl {
 		result = ((PyJavaInstance)result).__tojava__(Object.class);
 	  return result;
 	} catch (PyException e) {
-	  e.printStackTrace ();
 	  throw new BSFException (BSFException.REASON_EXECUTION_ERROR,
 			      "exception from Jython: " + e, e);
 	}
@@ -131,7 +130,6 @@ public class JythonEngine extends BSFEngineImpl {
 	try {
 	  interp.exec (script.toString ());
 	} catch (PyException e) {
-	  e.printStackTrace ();
 	  throw new BSFException (BSFException.REASON_EXECUTION_ERROR,
 			      "exception from Jython: " + e, e);
 	}
