@@ -140,6 +140,9 @@ Copyright:
     <available property="xalan.present"
                classname="org.apache.xalan.xslt.EnvironmentCheck"/>
 
+    <available property="junit.present"
+               classname="junit.framework.TestCase"/>
+
     <uptodate property="javac.notRequired"
               targetfile="${build.lib}/${project.name}.jar">
       <srcfiles dir="${src.dir}">
@@ -202,6 +205,9 @@ Copyright:
           Documentation will not be generated.
     </echo>
   </target>
+  <target name="checkJUnit" unless="junit.present">
+    <echo message="Warning: JUnit dependencies were not resolved."/>
+  </target>
 
   <target name="checkDependencies" unless="javac.notRequired">
     <antcall target="checkJacl"/>
@@ -210,6 +216,7 @@ Copyright:
     <antcall target="checkNetRexx"/>
     <antcall target="checkRhino"/>
     <antcall target="checkXalan"/>
+    <antcall target="checkJUnit"/>
   </target>
 
 
@@ -228,6 +235,7 @@ Copyright:
     <exclude name="**/jython/**" unless="jython.present"/>
     <exclude name="**/netrexx/**" unless="netrexx.present"/>
     <exclude name="**/xslt/**" unless="xalan.present"/>
+    <exclude name="**/test/**" unless="junit.present"/>
   </patternset>
 
   <!-- =================================================================== -->
@@ -304,6 +312,21 @@ Copyright:
            debug="${project.debug}"
            deprecation="${project.deprecation}"/>
   </target>
+
+   <!-- =================================================================== -->
+   <!-- Performs unit tests                                                 -->
+   <!-- =================================================================== -->
+   <target name="test" if="junit.present"
+           description="Performs unit tests on BSF."
+           depends="compile">
+     <junit>
+        <classpath>
+         <pathelement location="${build.lib}/${name}.jar" />
+        </classpath>
+        <formatter type="brief" usefile="false" />
+        <test name="org.apache.bsf.test.BSFTest" />
+     </junit>
+   </target>
 
   <!-- =================================================================== -->
   <!-- Creates the API documentation                                       -->
