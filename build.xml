@@ -36,7 +36,7 @@
         <anakia basedir="${docs.src}" destdir="${docs.dest}/"
              extension=".html" style="./site.vsl"
              projectFile="${project.file}"
-             excludes="**/stylesheets/** faq.xml"
+             excludes="**/stylesheets/** faq.xml manual.xml"
              includes="**/*.xml"
              lastModifiedCheck="true"
              templatePath="${templ.path}"
@@ -47,6 +47,15 @@
              extension=".html" style="./faq.vsl"
              projectFile="${project.file}"
              includes="faq.xml"
+             lastModifiedCheck="true"
+             templatePath="${templ.path}"
+             velocityPropertiesFile="${velocity.props}">
+        </anakia>
+
+        <anakia basedir="${docs.src}" destdir="${docs.dest}/"
+             extension=".html" style="./man.vsl"
+             projectFile="${project.file}"
+             includes="manual.xml"
              lastModifiedCheck="true"
              templatePath="${templ.path}"
              velocityPropertiesFile="${velocity.props}">

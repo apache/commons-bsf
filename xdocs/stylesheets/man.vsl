@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!-- Content Stylesheet for Site -->
+
+    ## Defined variables
+    #set ($bodybg = "#ffffff")
+    #set ($bodyfg = "#000000")
+    #set ($bodylink = "#525D76")
+    #set ($bannerbg = "#525D76")
+    #set ($bannerfg = "#ffffff")
+    #set ($subbannerbg = "#828DA6")
+    #set ($subbannerfg = "#ffffff")
+    #set ($tablethbg = "#039acc")
+    #set ($tabletdbg = "#a0ddf0")
+    #set ($pound = "#" )
+    
+<!-- start the processing -->
+#mans()
+<!-- end the processing -->
+
+## This is where the FAQ specific macro's live
+
+#macro (toc $section)
+  <table border="0" cellspacing="0" cellpadding="2" width="100%">
+    <tr><td bgcolor="$subbannerbg">
+      <font color="$subbannerfg" face="arial,helvetica,sanserif">
+        <strong>$section.getAttributeValue("title")</strong>
+      </font>
+    </td></tr>
+    <tr><td>
+      <blockquote>
+        <ul>
+        #foreach ($man in $section.getChildren("man") )
+          #subtoc ($man)
+        #end
+        </ul>
+      </blockquote>
+    </td></tr>
+  </table>
+#end
+
+#macro (subtoc $man)
+  #set ($id = $man.getAttributeValue("id"))
+  <li><a href="$pound$id">
+  $xmlout.outputString($man.getChild("question"), true)
+  </a></li>
+#end
+
+#macro (answers $section)
+  #foreach ($man in $section.getChildren("man") )
+    #man ($man)
+  #end
+#end
+
+#macro (man $man)
+  #set ($id = $man.getAttributeValue("id"))
+  <a name="$id">
+  <table border="0" cellspacing="0" cellpadding="2" width="100%">
+    <tr><td bgcolor="$subbannerbg">
+      <font color="$subbannerfg" face="arial,helvetica,sanserif">
+        <strong>
+          $xmlout.outputString($man.getChild("question"), true)
+        </strong>
+      </font>
+    </td></tr>
+    <tr><td>
+      <blockquote>
+        #foreach ($item in $man.getChild("answer").getChildren())
+          #if ($item.getName().equals("img"))
+            #image ($item)
+          #elseif ($item.getName().equals("source"))
+            #source ($item)
+          #elseif ($item.getName().equals("table"))
+            #table ($item)
+          #else
+            $xmlout.outputString($item)
+          #end
+        #end
+      </blockquote>
+    </td></tr>
+  </table>
+  </a>
+#end
+
+#macro (mans)
+  #header()
+  <table border="0" cellspacing="0" cellpadding="2" width="100%">
+    <tr><td bgcolor="$bannerbg">
+      <font color="$bannerfg" face="arial,helvetica,sanserif">
+        <strong>Questions</strong>
+      </font>
+    </td></tr>
+    <tr><td>
+      <blockquote>
+      #set ($allManSections = $root.getChildren("mansection"))
+      #foreach ( $manSection in $allManSections )
+        #toc ($manSection)
+      #end
+      </blockquote>
+    </td></tr>
+  </table>
+
+  <table border="0" cellspacing="0" cellpadding="2" width="100%">
+    <tr><td bgcolor="$bannerbg">
+      <font color="$bannerfg" face="arial,helvetica,sanserif">
+        <strong>Answers</strong>
+      </font>
+    </td></tr>
+    <tr><td>
+      <blockquote>
+      #foreach ( $manSection in $allManSections )
+        #answers ($manSection)
+      #end
+      </blockquote>
+    </td></tr>
+  </table>
+  #footer()
+#end
