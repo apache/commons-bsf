@@ -213,13 +213,9 @@ public class RhinoContextProxy {
                 // step if we are in the same frame (nothing to step in... :-)
                 // if we are in a called frame...
                 // but also if we stepped out of the current frame...
-                if ((frameCount >= m_stepDepth) 
-                    || (frameCount < m_stepDepth)) {
                     updateStack();
                     cancelStepping();
                     return m_frames[0];
-                }
-                break;
             case STEP_OVER :
                 // OG if (frameCount == m_stepDepth) {
                 // step if we are in the same frame or above...
@@ -256,15 +252,11 @@ public class RhinoContextProxy {
     }
 
     public void updateStack() throws RemoteException {
-        JsContextStub frames[];
-        JsContextStub stub;
+        int nf, of, frameCount = m_engine.getFrameCount();
+        JsContextStub frames[] = new JsContextStub[frameCount];
         DebugFrame frame;
-        int nf, of, frameCount;
 
         m_atBreakpoint = true;
-
-        frameCount = m_engine.getFrameCount();
-        frames = new JsContextStub[frameCount];
 
         // scan the stacks from the outer frame down
         // to the inner one of the shortest of the old
@@ -277,9 +269,9 @@ public class RhinoContextProxy {
         // stubs can be dropped and invalidated, new ones
         // must be created.
 
-        for (nf = frameCount - 1, of = m_frameCount - 1;
-             nf >= 0 && of >= 0;
-             nf--, of--) {
+        for (nf = 0, of = 0;
+             nf < frameCount && of < m_frameCount;
+             nf++, of++) {
             frame = m_engine.getFrame(nf);
             if (frame == m_frames[of].m_frame) {
                 frames[nf] = m_frames[of];
@@ -289,11 +281,11 @@ public class RhinoContextProxy {
         // now drop all old frames that diverged.
         // Also invalidate the frame stubs so to
         // tracked that they are no longer valid.
-        for (; of >= 0; of--) {
+        for (; of < m_frameCount; of++) {
             m_reDbg.dropStub(m_frames[of].m_frame);
             m_frames[of].invalidate();
         }
-        for (; nf >= 0; nf--) {
+        for (; nf < frameCount; nf++) {
             frame = m_engine.getFrame(nf);
             frames[nf] = new JsContextStub(this, frame, nf);
         }
