@@ -1,0 +1,228 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <author email="chuck@topsail.org">Chuck Murcko</author>
+    <title>Related Projects</title>
+  </properties>
+
+  <body>
+    
+    <section name="Related Projects">
+
+      <p>Nothing listed here is directly supported by the BSF
+      developers, if you encounter any problems with them, please use
+      the contact information.</p>
+
+      <subsection name="BeanShell">
+
+        <p>
+        "BeanShell is a small, free, embeddable, Java source interpreter
+        with object scripting language features, written in Java. BeanShell
+        executes standard Java statements and expressions, in addition to
+        obvious scripting commands and syntax. BeanShell supports scripted
+        objects as simple method closures like those in Perl and
+        JavaScript(tm)."
+        </p>
+
+        <table>
+          <tr>
+            <th>Compatibility:</th>
+            <td>BSF 2.2 and above</td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://www.beanshell.org/">http://www.beanshell.org/</a></td>
+          </tr>
+          <tr>
+            <th>Contact:</th>
+            <td><a href="http://www.beanshell.org/contact.html">project mailing lists</a></td>
+          </tr>
+          <tr>
+            <th>License:</th>
+            <td>Dual Licensed: Sun Public License / Gnu Lesser Public License</td>
+          </tr>
+        </table>
+      </subsection>
+
+      <subsection name="Rhino">
+
+        <p>
+        "Rhino is an open-source implementation of JavaScript written
+        entirely in Java. It is typically embedded into Java applications
+        to provide scripting to end users."
+        </p>
+
+        <table>
+          <tr>
+            <th>Compatibility:</th>
+            <td>Rhino 1.5.1-1.5.3, with BSF 2.2 and above</td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://www.mozilla.org/rhino/">http://www.mozilla.org/rhino/</a></td>
+          </tr>
+          <tr>
+            <th>Contact:</th>
+            <td><a href="http://www.mozilla.org/rhino/help.html">Rhino Contact Page</a></td>
+          </tr>
+          <tr>
+            <th>License:</th>
+            <td>Mozilla Public License, version 1.1</td>
+          </tr>
+        </table>
+      </subsection>
+
+      <subsection name="Jython">
+
+        <p>
+        "Jython is an implementation of the high-level, dynamic,
+        object-oriented language Python written in 100% Pure Java, and
+        seamlessly integrated with the Java platform. It thus allows you
+        to run Python on any Java platform."
+        </p>
+
+        <table>
+          <tr>
+            <th>Compatibility:</th>
+            <td>Jython 2.1, with BSF 2.2 and above</td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://www.jython.org/">http://www.jython.org/</a></td>
+          </tr>
+          <tr>
+            <th>Contact:</th>
+            <td><a href ="http://sourceforge.net/mail/?group_id=12867">Jython Mailing lists</a></td>
+          </tr>
+          <tr>
+            <th>License:</th>
+            <td>Jython Software License</td>
+          </tr>
+        </table>
+      </subsection>
+
+      <subsection name="JPython">
+
+        <p>
+        "JPython is a new implementation of the Python programming language
+        which is designed to run on SUN's Java(tm) Platform.  It consists of
+        a compiler to compile Python source code down to Java bytecodes which
+        can run directly on a JVM, a set of support libraries which are used
+        by the compiled Java bytecodes, and extra support to make it trivial
+        to use Java packages from within JPython."
+        </p>
+
+        <p>
+        note: new development has shifted to Jython
+        </p>
+
+        <table>
+          <tr>
+            <th>Compatibility:</th>
+            <td>version 1.01, with BSF 2.2 and above (succeeded by Jython)</td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://www.cs.bham.ac.uk/resources/ums/java/packages/JPython1.1/html/">http://www.cs.bham.ac.uk/resources/ums/java/packages/JPython1.1/html/</a></td>
+          </tr>
+          <tr>
+            <th>Contact:</th>
+            <td><a href ="http://mail.python.org/pipermail/jpython-interest/">JPython mailing list archives</a></td>
+          </tr>
+          <tr>
+            <th>License:</th>
+            <td>JPython Software License</td>
+          </tr>
+        </table>
+      </subsection>
+
+      <subsection name="Jacl">
+
+        <p>
+        "Jacl, which stands for Java Command Language, is a Java implementation
+        of TCL 8.x."
+        </p>
+
+        <table>
+          <tr>
+            <th>Compatibility:</th>
+            <td>version 1.2.6, with BSF 2.2 and above</td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://tcl.activestate.com/software/java/">http://tcl.activestate.com/software/java/</a></td>
+          </tr>
+          <tr>
+            <th>Contact:</th>
+            <td><a href ="news://comp.lang.tcl">comp.lang.tcl newsgroup</a></td>
+          </tr>
+          <tr>
+            <th>License:</th>
+            <td>Sun, ORO, and UCB licenses (see source)</td>
+          </tr>
+        </table>
+      </subsection>
+      
+      <subsection name="NetRexx">
+
+        <p>
+        "NetRexx is a <i>human-oriented</i> programming language which makes
+        writing and using Java classes quicker and easier than writing in
+        Java."
+        </p>
+
+        <table>
+          <tr>
+            <th>Compatibility:</th>
+            <td>version 2.0.2, with BSF 2.2 and above</td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://www2.hursley.ibm.com/netrexx/">http://www2.hursley.ibm.com/netrexx/</a></td>
+          </tr>
+          <tr>
+            <th>Contact:</th>
+            <td><a href="http://www2.hursley.ibm.com/netrexx/nrmlist.html">NetRexx 2 mailing list</a></td>
+          </tr>
+          <tr>
+            <th>License:</th>
+            <td>IBM License Agreement for IBM Employee-Written Software</td>
+          </tr>
+        </table>
+      </subsection>
+
+      <subsection name="Xalan">
+
+        <p>
+        "Xalan-Java is an XSLT processor for transforming XML documents into
+        HTML, text, or other XML document types. It implements the W3C
+        Recommendations for XSL Transformations (XSLT) and the XML Path
+        Language (XPath). It can be used from the command line, in an applet
+        or a servlet, or as a module in other program.
+        </p>
+
+        <table>
+          <tr>
+            <th>Compatibility:</th>
+            <td>version 2.2 and above (XSLT), with BSF 2.2 and above</td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://xml.apache.org/xalan-j/index.html">http://xml.apache.org/xalan-j/index.html</a></td>
+          </tr>
+          <tr>
+            <th>Contact:</th>
+            <td><a href="http://xml.apache.org/overview.html">Apache XML Project "Get Involved" page</a></td>
+          </tr>
+          <tr>
+            <th>License:</th>
+            <td>Apache Software License</td>
+          </tr>
+        </table>
+      </subsection>
+
+    </section>
+
+  </body>
+</document>

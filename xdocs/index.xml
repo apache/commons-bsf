@@ -32,7 +32,11 @@ BSF supports several scripting languages currently:
 
 <ul>
    <li>
-   Javascript (using Rhino, from the Mozilla project)
+   Java (using BeanShell, from the BeanShell project)
+   </li>
+
+   <li>
+   Javascript (using Rhino ECMAScript, from the Mozilla project)
    </li>
 
    <li>
@@ -51,6 +55,11 @@ BSF supports several scripting languages currently:
    XSLT Stylesheets (as a component of Apache XML project's Xalan and Xerces)
    </li>
 </ul>
+</p>
+
+<p>
+Information on where to obtain scripting languages for use with BSF is
+available on the <a href="projects.html">Related Projects</a> page.
 </p>
 
   </section>
