@@ -62,38 +62,37 @@ import org.apache.bsf.util.*;
 import org.apache.bsf.debug.jsdi.*;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Script;
-import org.mozilla.javascript.debug.DebuggableEngine;
 
 /**
  * Insert the type's description here.
  * Creation date: (9/6/2001 1:21:46 PM)
  * @author: Administrator
  */
-public class JsEngineStub 
+public class JsEngineStub
     extends org.apache.bsf.debug.util.Skeleton
     implements JsEngine {
 
     RhinoEngineDebugger m_rhinoDbg;
     boolean m_inCallback;
     boolean m_resumeExecution;
-    Object  m_lock;	
-	
+    Object  m_lock;
+
     /**
      * JsEngineStub constructor comment.
      */
-    public JsEngineStub(RhinoEngineDebugger rhinoDbg) 
+    public JsEngineStub(RhinoEngineDebugger rhinoDbg)
         throws RemoteException {
         super(org.apache.bsf.debug.util.DebugConstants.JS_ENGINE_TID);
         m_rhinoDbg = rhinoDbg;
         m_lock = new Object();
     }
-	
+
     public boolean isSuspended() throws RemoteException {
         return m_inCallback;
     }
-	
+
     public boolean poll() { return true; }
-	
+
     public Object eval(String docname, String exp, int lineNo)
         throws RemoteException {
 
@@ -125,7 +124,7 @@ public class JsEngineStub
         try {
             Context.enter();
             count = m_rhinoDbg.getContextCount();
-            DebugLog.stdoutPrintln("	count = "+count, 
+            DebugLog.stdoutPrintln("    count = "+count,
                                    DebugLog.BSF_LOG_L3);
             return count;
         } finally {
@@ -133,7 +132,7 @@ public class JsEngineStub
         }
 
     }
-  
+
     public String getThread() throws RemoteException {
         return m_rhinoDbg.getThread();
     }
@@ -203,7 +202,7 @@ public class JsEngineStub
     public void stepIn() throws RemoteException {
         try {
             Context.enter();
-            DebugLog.stdoutPrintln("Step In command on "+this, 
+            DebugLog.stdoutPrintln("Step In command on "+this,
                                    DebugLog.BSF_LOG_L3);
             m_rhinoDbg.stepIn(this);
         } catch (Exception ex) {
@@ -225,7 +224,6 @@ public class JsEngineStub
     }
 
     public void stepOver() throws RemoteException {
-        RhinoContextProxy rcp;
         try {
             Context.enter();
             m_rhinoDbg.stepOver(this);

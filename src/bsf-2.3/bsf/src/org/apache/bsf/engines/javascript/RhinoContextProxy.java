@@ -70,133 +70,107 @@ import org.mozilla.javascript.debug.*;
 
 import java.rmi.RemoteException;
 
-public class RhinoContextProxy {
+class RhinoContextProxy {
 
     RhinoEngineDebugger m_reDbg;
-    Context m_context;
-    JsContextStub m_contextStub;
 
-    DebuggableEngine m_engine;
-
-    boolean m_atBreakpoint;
-    int m_frameCount;
-    JsContextStub m_frames[];
+    ObjArray m_frameStack = new ObjArray();
 
     private static final int NO_STEP = 0, STEP_IN = 1, STEP_OVER = 2,
         STEP_OUT = 3, STOP_ENGINE = 4, RUNNING = 5;
 
     private int m_stepCmd, m_stepDepth;
 
-    RhinoContextProxy(RhinoEngineDebugger reDbg, Context cx) {
+    RhinoContextProxy(RhinoEngineDebugger reDbg) {
         m_reDbg = reDbg;
-        m_context = cx;
-        m_engine = cx.getDebuggableEngine();
     }
 
-    public void cancelStepping() {
+    static RhinoContextProxy getCurrent() {
+        Context cx = Context.getCurrentContext();
+        if (cx == null) { return null; }
+        return (RhinoContextProxy)cx.getDebuggerContextData();
+    }
+
+    void cancelStepping() {
         m_stepCmd = NO_STEP;
         m_stepDepth = -1;
-        m_engine.setBreakNextLine(false);
     }
 
-    public JsContextStub getContext(int depth) {
-        return m_frames[depth];
+    int getContextCount() {
+        return m_frameStack.size();
     }
 
-    public int getContextCount() {
-        return m_frameCount;
+    JsContextStub getContextStub(int no) {
+        if (!(0 <= no && no < m_frameStack.size())) { return null; }
+        return (JsContextStub)m_frameStack.get(no);
     }
 
-    public JsContextStub getFrame(int no) {
-        if (no < 0 || no > m_frameCount)
-            return null;
-        if (no == m_frameCount)
-            return m_contextStub;
-        else
-            return m_frames[no];
+    JsContextStub getTopContextStub() {
+        return getContextStub(m_frameStack.size() - 1);
     }
 
-    public int getLineNumber() {
-        DebugFrame frame = m_engine.getFrame(0);
-
-        return frame.getLineNumber();
+    int getLineNumber() {
+        JsContextStub stub = getTopContextStub();
+        return stub.m_lineno;
     }
 
-    public RhinoEngineDebugger getRhinoEngineDebugger() {
+    RhinoEngineDebugger getRhinoEngineDebugger() {
         return m_reDbg;
     }
 
     String getSourceName() {
-        DebugFrame frame = m_engine.getFrame(0);
-
-        return frame.getSourceName();
+        JsContextStub stub = getTopContextStub();
+        return stub.m_unit.m_dbgScript.getSourceName();
     }
-
 
     // We hit a known breakpoint.
     // We need to update the stack.
     // Also, cancel any pending stepping operation.
-    public JsContextStub hitBreakpoint() throws RemoteException {
+    JsContextStub hitBreakpoint() throws RemoteException {
         cancelStepping();
-        updateStack();
-        return m_frames[0];
+        return getTopContextStub();
     }
 
-
-    public JsContextStub exceptionThrown() throws RemoteException {
+    JsContextStub exceptionThrown() throws RemoteException {
         cancelStepping();
-        updateStack();
-        return m_frames[0];
+        return getTopContextStub();
     }
 
-    public void resumed() {
-        JsContextStub stub;
-        DebugFrame frame;
-
-        m_atBreakpoint = false;
-
-        for (int f = 0; f < m_frameCount; f++) {
-            stub = m_frames[f];
-            stub.atBreakpoint(false);
+    void resumed() {
+        for (int f = 0, N = getContextCount(); f != N; ++f) {
+            getContextStub(f).atBreakpoint(false);
         }
     }
 
-    public void run() {
-        m_engine.setBreakNextLine(false);
+    void run() {
         m_stepCmd = RUNNING;
         m_stepDepth = -1;
-
     }
 
-    public void stepIn() {
-        m_engine.setBreakNextLine(true);
+    void stepIn() {
         m_stepCmd = STEP_IN;
-        m_stepDepth = m_frameCount;
+        m_stepDepth = getContextCount();
     }
 
-    public void stepOut() {
-        m_engine.setBreakNextLine(true);
+    void stepOut() {
         m_stepCmd = STEP_OUT;
-        m_stepDepth = m_frameCount;
-
+        m_stepDepth = getContextCount();
     }
 
-    public void stepOver() {
-        m_engine.setBreakNextLine(true);
+    void stepOver() {
         m_stepCmd = STEP_OVER;
-        m_stepDepth = m_frameCount;
+        m_stepDepth = getContextCount();
     }
 
-    public JsContextStub entry_exit_mode() throws RemoteException {
+    JsContextStub entry_exit_mode() throws RemoteException {
         cancelStepping();
-        updateStack();
-        return m_frames[0];
+        return getTopContextStub();
     }
 
-    public JsContextStub stepping() {
+    JsContextStub stepping() {
         // Did we hit a known breakpoint?
 
-        int frameCount = m_engine.getFrameCount();
+        int frameCount = getContextCount();
 
         try {
             switch (m_stepCmd) {
@@ -204,35 +178,31 @@ public class RhinoContextProxy {
                 cancelStepping();
                 break;
             case STOP_ENGINE :
-                updateStack();
                 cancelStepping();
-                return m_frames[0];
+                return getTopContextStub();
             case STEP_IN :
-                // OG if ((frameCount == m_stepDepth + 1) || 
+                // OG if ((frameCount == m_stepDepth + 1) ||
                 // (frameCount == m_stepDepth)) {
                 // step if we are in the same frame (nothing to step in... :-)
                 // if we are in a called frame...
                 // but also if we stepped out of the current frame...
-                    updateStack();
                     cancelStepping();
-                    return m_frames[0];
+                    return getTopContextStub();
             case STEP_OVER :
                 // OG if (frameCount == m_stepDepth) {
                 // step if we are in the same frame or above...
-                // this basically avoids any children frame but 
+                // this basically avoids any children frame but
                 // covers the return of the current frame.
                 if (frameCount <= m_stepDepth) {
-                    updateStack();
                     cancelStepping();
-                    return m_frames[0];
+                    return getTopContextStub();
                 }
                 break;
             case STEP_OUT :
                 // OG if (frameCount == m_stepDepth - 1) {
                 if (frameCount < m_stepDepth) {
-                    updateStack();
                     cancelStepping();
-                    return m_frames[0];
+                    return getTopContextStub();
                 }
                 break;
             default :
@@ -245,51 +215,8 @@ public class RhinoContextProxy {
         return null;
     }
 
-    public void stopEngine() {
-        m_engine.setBreakNextLine(true);
+    void stopEngine() {
         m_stepCmd = STOP_ENGINE;
         m_stepDepth = -1;
-    }
-
-    public void updateStack() throws RemoteException {
-        int nf, of, frameCount = m_engine.getFrameCount();
-        JsContextStub frames[] = new JsContextStub[frameCount];
-        DebugFrame frame;
-
-        m_atBreakpoint = true;
-
-        // scan the stacks from the outer frame down
-        // to the inner one of the shortest of the old
-        // and the new known stack.
-        // The goal is to recognize the DebugFrame objects
-        // that are the sames so that we can reuse the 
-        // stubs for those. 
-        // As soon as a DebugFrame object is found different,
-        // the rest of the stack is different, all the old
-        // stubs can be dropped and invalidated, new ones
-        // must be created.
-
-        for (nf = 0, of = 0;
-             nf < frameCount && of < m_frameCount;
-             nf++, of++) {
-            frame = m_engine.getFrame(nf);
-            if (frame == m_frames[of].m_frame) {
-                frames[nf] = m_frames[of];
-            } else
-                break;
-        }
-        // now drop all old frames that diverged.
-        // Also invalidate the frame stubs so to
-        // tracked that they are no longer valid.
-        for (; of < m_frameCount; of++) {
-            m_reDbg.dropStub(m_frames[of].m_frame);
-            m_frames[of].invalidate();
-        }
-        for (; nf < frameCount; nf++) {
-            frame = m_engine.getFrame(nf);
-            frames[nf] = new JsContextStub(this, frame, nf);
-        }
-        m_frames = frames;
-        m_frameCount = frameCount;
     }
 }

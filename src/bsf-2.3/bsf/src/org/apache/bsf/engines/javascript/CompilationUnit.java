@@ -74,7 +74,7 @@ import java.util.*;
  * of script is sliced into compilation units.
  * For instance, the script text may contain a function
  * declaration and an expression to eval. The compilation
- * will result in two compilation units: the function and 
+ * will result in two compilation units: the function and
  * the expression. Each compilation unit will correspond
  * to a range of the lines of the original script compiled.
  * All line numbers are global to the document the compiled
@@ -82,89 +82,95 @@ import java.util.*;
  * It is on compilation units that breakpoints can be set
  * or removed, more exactly on the DebuggableScript attached
  * to them. See Rhino for more details.
- * 
+ *
  * @author: Olivier Gruber.
- */ 
+ */
 public class CompilationUnit {
 
-	FnOrScript m_fnOrScript;
-	int m_firstLine;
-	int m_lineCount;
-	String m_fnName;
-	DebuggableScript m_dbgScript;
-	int m_validBrkptLines[];
+    FnOrScript m_fnOrScript;
+    int m_firstLine;
+    int m_lineCount;
+    String m_fnName;
+    DebuggableScript m_dbgScript;
+    boolean[] m_breakpoints;
 
-	/**
-	 * CompilationUnit constructor comment.
-	 */
-	public CompilationUnit(FnOrScript fnOrScript, DebuggableScript dbgScript) {
+    /**
+     * CompilationUnit constructor comment.
+     */
+    public CompilationUnit(FnOrScript fnOrScript, DebuggableScript dbgScript) {
 
-		int lastLine, lineno;
+        m_fnOrScript = fnOrScript;
+        m_dbgScript = dbgScript;
 
-		m_fnOrScript = fnOrScript;
-		m_dbgScript = dbgScript;
+        int[] lines = dbgScript.getLineNumbers();
+        if (lines.length != 0) {
+            int lastLine;
+            m_firstLine = lines[0];
+            lastLine = m_firstLine;
+            for (int i = 1; i != lines.length; ++i) {
+                int lineno = lines[i];
+                if (m_firstLine > lineno) {
+                    m_firstLine = lineno;
+                } else if (lastLine < lineno) {
+                    lastLine = lineno;
+                }
+            }
+            m_lineCount = lastLine - m_firstLine + 1;
+            m_breakpoints = new boolean[m_lineCount];
+        }
 
-		try {
-			m_validBrkptLines = dbgScript.getLineNumbers();
-			m_firstLine = 99999;
-			lastLine = 0;
-			for (int l = 0; l < m_validBrkptLines.length; l++) {
-				lineno = m_validBrkptLines[l];
-				if (m_firstLine > lineno)
-					m_firstLine = lineno;
-				if (lastLine < lineno)
-					lastLine = lineno;
-			}
-			m_lineCount = lastLine - m_firstLine + 1;
-		} catch (Throwable t) {
-			DebugLog.stderrPrintln("\nWarning: can't get valid line numbers for breakpoints.", DebugLog.BSF_LOG_L2);
-			m_validBrkptLines = null;
-		}
+        String name = dbgScript.getFunctionName();
+        if (name != null && name.length() != 0 && !name.equals("anonymous")) {
+            m_fnName = name;
+        }
+    }
+    //----------------------------------------------------------
+    boolean contains(int lineno) {
+        return (m_firstLine <= lineno && lineno < m_firstLine + m_lineCount);
+    }
+    /**
+     * Returns true if the compilation unit contains
+     * the breakpoint.
+     * Notice only breakpoint defined at a line number
+     * are supported here.
+     */
+    boolean contains(BreakPoint bp) {
+        try {
+            return contains(bp.getLineNo());
+        } catch (BSFException ex) {
+            return false;
+        }
+    }
+    /**
+     * Set a breakpoint at the given line if Rhino has provided us with the
+     * valid lines information.
+     */
+    void propagate(int lineno) {
+        if (m_breakpoints != null) {
+            int i = lineno - m_firstLine;
+            if (0 <= i && i < m_lineCount) {
+                m_breakpoints[i] = true;
+            }
+        }
+    }
+    /**
+     * Clear a breakpoint at the given line if Rhino has provided us with the
+     * valid lines information.
+     */
+    void unpropagate(int lineno) {
+        if (m_breakpoints != null) {
+            int i = lineno - m_firstLine;
+            if (0 <= i && i < m_lineCount) {
+                m_breakpoints[i] = false;
+            }
+        }
+    }
 
-		Scriptable scriptable = dbgScript.getScriptable();
-		if (scriptable instanceof NativeFunction) {
-			NativeFunction f = (NativeFunction) scriptable;
-			String name = f.getFunctionName();
-			if (name.length() > 0 && !name.equals("anonymous")) {
-				m_fnName = name;
-			}
-		}
-	}
-	//----------------------------------------------------------
-	boolean contains(int lineno) {
-		return (m_firstLine <= lineno && lineno < m_firstLine + m_lineCount);
-	}
-	/**
-	 * Returns true if the compilation unit contains
-	 * the breakpoint. 
-	 * Notice only breakpoint defined at a line number
-	 * are supported here.
-	 */
-	boolean contains(BreakPoint bp) {
-		try {
-			return contains(bp.getLineNo());
-		} catch (BSFException ex) {
-			return false;
-		}
-	}
-	/**
-	 * Propagates (i.e. set) this breakpoint to the underlying Rhino
-	 * engine if Rhino has provided us with the valid lines
-	 * information. Otherwise, Rhino crashes with a NullPointerException.
-	 */
-	void propagate(int lineno) {
-		if (m_validBrkptLines != null) {
-			m_dbgScript.placeBreakpoint(lineno);
-		}
-	}
-	/**
-	 * Unpropagates (i.e. unset) this breakpoint to the underlying Rhino
-	 * engine if Rhino has provided us with the valid lines
-	 * information. Otherwise, Rhino crashes with a NullPointerException.
-	 */
-	void unpropagate(int lineno) {
-		if (m_validBrkptLines != null) {
-			m_dbgScript.removeBreakpoint(lineno);
-		}
-	}
+    boolean hasBreakpoint(int lineno) {
+        if (m_breakpoints != null) {
+            int i = lineno - m_firstLine;
+            return 0 <= i && i < m_lineCount && m_breakpoints[i];
+        }
+        return false;
+    }
 }

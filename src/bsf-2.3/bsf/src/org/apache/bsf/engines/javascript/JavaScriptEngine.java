@@ -104,7 +104,7 @@ public class JavaScriptEngine extends BSFEngineImpl {
     public void disconnectedDebuggerNotify() {
         m_rhinoDbg.disconnectedDebuggerNotify();
     }
-	
+
     BSFDebugManagerImpl getDebugManager() {
         return dbgmgr;
     }
@@ -114,7 +114,7 @@ public class JavaScriptEngine extends BSFEngineImpl {
         m_rhinoDbg.placeBreakpointAtLine(brkptid, docname, lineno);
     }
 
-    public void placeBreakpointAtOffset(int brkptid, String docname, 
+    public void placeBreakpointAtOffset(int brkptid, String docname,
                                         int offset) throws BSFException {
         m_rhinoDbg.placeBreakpointAtOffset(brkptid, docname, offset);
     }
@@ -140,7 +140,6 @@ public class JavaScriptEngine extends BSFEngineImpl {
     public Object call(Object object, String method, Object[] args)
         throws BSFException {
         Object theReturnValue = null;
-        DebuggableEngine engine;
         Context cx;
         try {
 
@@ -160,13 +159,12 @@ public class JavaScriptEngine extends BSFEngineImpl {
 
                 cx.setOptimizationLevel(-1);
 
-                engine = cx.getDebuggableEngine();
-                engine.setDebugger(m_rhinoDbg);
+                cx.setDebugger(m_rhinoDbg, new RhinoContextProxy(m_rhinoDbg));
 
-                theReturnValue = ScriptRuntime.call(cx, fun, global, args, 
+                theReturnValue = ScriptRuntime.call(cx, fun, global, args,
                                                     null);
 
-            } 
+            }
             else {
                 cx.setOptimizationLevel(-1);
 
@@ -175,10 +173,9 @@ public class JavaScriptEngine extends BSFEngineImpl {
 
                 cx.setOptimizationLevel(0);
 
-                engine = cx.getDebuggableEngine();
-                engine.setDebugger(null);
+                cx.setDebugger(null, null);
 
-                theReturnValue = ScriptRuntime.call(cx, fun, global, args, 
+                theReturnValue = ScriptRuntime.call(cx, fun, global, args,
                                                     null);
             }
             if (theReturnValue instanceof Wrapper) {
@@ -203,7 +200,7 @@ public class JavaScriptEngine extends BSFEngineImpl {
             global.put(bean.name, global, wrapped);
         }
     }
-    
+
     /**
      * This is used by an application to evaluate a string containing
      * some expression.
@@ -216,7 +213,6 @@ public class JavaScriptEngine extends BSFEngineImpl {
         DocumentCell cell;
         FnOrScript fnOrScript;
         Script script;
-        DebuggableEngine engine;
         Context cx;
 
         try {
@@ -237,13 +233,7 @@ public class JavaScriptEngine extends BSFEngineImpl {
 
                 cx.setOptimizationLevel(-1);
 
-                engine = cx.getDebuggableEngine();
-                engine.setDebugger(m_rhinoDbg);
-
-                // Muck w/ this iff someone else hasn't already got it true
-                if (!engine.getBreakNextLine()) {
-                    engine.setBreakNextLine(cell.getEntryExit());
-                }
+                cx.setDebugger(m_rhinoDbg, new RhinoContextProxy(m_rhinoDbg));
 
                 fnOrScript.compile(cx, global);
                 m_rhinoDbg.setCompilingFnOrScript(null);
@@ -251,7 +241,7 @@ public class JavaScriptEngine extends BSFEngineImpl {
 
                 if (script != null) retval = script.exec(cx, global);
                 else retval = null;
-            } 
+            }
             else {
                 cx.setOptimizationLevel(-1);
 
@@ -260,11 +250,10 @@ public class JavaScriptEngine extends BSFEngineImpl {
 
                 cx.setOptimizationLevel(0);
 
-                engine = cx.getDebuggableEngine();
-                engine.setDebugger(null);
+                cx.setDebugger(null, null);
 
                 retval = cx.evaluateString(global, scriptText,
-                                           source, lineNo, 
+                                           source, lineNo,
                                            null);
             }
 
@@ -302,14 +291,14 @@ public class JavaScriptEngine extends BSFEngineImpl {
                 // Display its stack trace as a diagnostic
                 target = (Throwable) value;
             }
-        } 
-        else if (t instanceof EvaluatorException || 
+        }
+        else if (t instanceof EvaluatorException ||
                  t instanceof SecurityException) {
             message = t.getLocalizedMessage();
-        } 
+        }
         else if (t instanceof RuntimeException) {
             message = "Internal Error: " + t.toString();
-        } 
+        }
         else if (t instanceof StackOverflowError) {
             message = "Stack Overflow";
         }
@@ -319,7 +308,7 @@ public class JavaScriptEngine extends BSFEngineImpl {
         }
 
         //REMIND: can we recover the line number here?  I think
-        // Rhino does this by looking up the stack for bytecode 
+        // Rhino does this by looking up the stack for bytecode
         // see Context.getSourcePositionFromStack()
         // but I don't think this would work in interpreted mode
 
@@ -329,7 +318,7 @@ public class JavaScriptEngine extends BSFEngineImpl {
             // corrected the situation by aborting the loop and
             // a long stacktrace would end up on the user's console
             throw (Error) t;
-        } 
+        }
         else {
             throw new BSFException(BSFException.REASON_OTHER_ERROR,
                                    "JavaScript Error: " + message,
@@ -339,7 +328,7 @@ public class JavaScriptEngine extends BSFEngineImpl {
 
     /**
      * initialize the engine. put the manager into the context -> manager
-     * map hashtable too. 
+     * map hashtable too.
      */
     public void initialize(BSFManager mgr, String lang, Vector declaredBeans)
         throws BSFException {

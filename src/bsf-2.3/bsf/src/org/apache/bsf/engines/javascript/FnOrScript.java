@@ -71,25 +71,25 @@ import org.mozilla.javascript.*;
  * This class represents a function or script, that is,
  * a piece of a document that is provided to the JavaScript
  * engine for evaluation, execution, or simply compilation.
- * 
+ *
  * A FnOrScript represents a range of lines or characters
- * in its document. For now, Rhino only supports ranges 
+ * in its document. For now, Rhino only supports ranges
  * of lines, really, but the code for offsets is there anyway.
  *
  * Warning: Offsets have never been quite tested yet...
- * 
+ *
  * A FnOrScript has compilation units. When Rhino compiles
  * a function or a script, even in interpreted mode where the
  * compilation is done to JavaScript bytecode, it calls back
- * its debugger with different compilation units; see 
+ * its debugger with different compilation units; see
  * Debugger::handleCompilationDone method on the RhinoEngineDebugger
  * class.
  *
  * A FnOrScript also keeps track of the known breakpoints
  * in its range of lines or characters. It makes sure
- * that they are propagated to the underlying Rhino 
+ * that they are propagated to the underlying Rhino
  * engine (i.e. set) as well as unpropagated (i.e. unset).
- *  
+ *
  * @author: Olivier Gruber
  */
 public class FnOrScript {
@@ -103,8 +103,10 @@ public class FnOrScript {
 
     protected StringBuffer m_text;
 
-    protected Vector m_units; // of CompilationUnit.
     protected Script m_script;
+
+    private Vector m_units; // of CompilationUnit.
+    private Hashtable m_functionToUnit;
 
     protected Hashtable m_functionMap;
 
@@ -116,8 +118,9 @@ public class FnOrScript {
         m_lineCount = 0;
         m_breakpoints = new Vector();
         m_text = new StringBuffer();
-	
+
         m_units = new Vector();
+        m_functionToUnit = new Hashtable();
         m_functionMap = new Hashtable();
     }
 
@@ -131,7 +134,7 @@ public class FnOrScript {
 
         m_breakpoints.addElement(bp);
 
-        // now, look for a unit containing it and 
+        // now, look for a unit containing it and
         // if one is found, set the breakpoint unit
         // and propagate...
         Enumeration e;
@@ -147,7 +150,7 @@ public class FnOrScript {
         }
         return bp;
     }
-	
+
     private BreakPoint _removeBreakpoint(int brkptId) {
         Enumeration e;
         BreakPoint bp;
@@ -173,13 +176,13 @@ public class FnOrScript {
             bp = (BreakPoint) e.nextElement();
             if (bpid == bp.getId()) {
                 m_breakpoints.removeElement(bp);
-                bp.unpropagate();	
+                bp.unpropagate();
                 return bp;
             }
         }
         return null;
     }
-	
+
     boolean contains(BreakPoint bp) throws BSFException {
         if (m_lineDefined) {
             int line = bp.getLineNo();
@@ -194,7 +197,7 @@ public class FnOrScript {
     // This protected method works as a factory
     // for language-specific breakpoints.
     // The default behavior is to use the provided
-    // generic breakpoint. 
+    // generic breakpoint.
     // See javascript for an example of language-specific
     // breakpoints.
 
@@ -360,17 +363,18 @@ public class FnOrScript {
 
     public void addCompilationUnit(Context cx,
                                    DebuggableScript dbgScript,
-                                   StringBuffer source) {
+                                   String source) {
 
         CompilationUnit unit;
 
         unit = new CompilationUnit(this, dbgScript);
         m_units.addElement(unit);
+        m_functionToUnit.put(dbgScript, unit);
         if (unit.m_fnName != null) {
             m_functionMap.put(unit.m_fnName, unit);
         }
 
-        // Associate breakpoints to this unit if 
+        // Associate breakpoints to this unit if
         // the unit contains them...
         Enumeration e;
         BreakPoint bp;
@@ -383,13 +387,17 @@ public class FnOrScript {
         propagateAll();
     }
 
+    CompilationUnit getCompilationUnit(DebuggableScript dbgScript) {
+        return (CompilationUnit)m_functionToUnit.get(dbgScript);
+    }
+
     public void compile(Context cx, Scriptable global)
         throws BSFException, IOException {
 
         Enumeration e;
         Reader reader = new StringReader(m_text.toString());
         m_script =
-            cx.compileReader(global, reader, m_cell.getName(), 
+            cx.compileReader(global, reader, m_cell.getName(),
                              m_startLine, null);
         if (m_script == null)
             throw new BSFException("Compilation of the script "

@@ -74,24 +74,23 @@ import org.apache.bsf.util.*;
 import org.apache.bsf.debug.*;
 import org.apache.bsf.debug.jsdi.*;
 
-public class RhinoEngineDebugger implements Debugger {
+class RhinoEngineDebugger implements Debugger {
 
     /** The global script object, where all embedded functions are defined,
      * as well as the standard ECMA "core" objects.
-     */	
+     */
     private Scriptable global;
     private JsObject globalstub;
 
-    private RhinoContextProxy m_rcp;
     private Scriptable undefined;
     private JsObject undefinedStub;
 
-    /** 
+    /**
      *  Hashtable allowing to find the stub for an object in the JavaScript
      *  environment if one exists.
      *  Typically: Scriptable, Function, Script, etc.
      *  This is not used for Context and DebugFrame.
-     *  They typically contains JsObject associated to 
+     *  They typically contains JsObject associated to
      *  org.mozilla.javascript.ScriptableObject
      */
     private Hashtable stubs;
@@ -102,16 +101,13 @@ public class RhinoEngineDebugger implements Debugger {
     private FnOrScript m_compilingFnOrScript;
     private JavaScriptEngine m_eng;
 
-    private Thread m_thread;
-
     private Hashtable m_documents;
 
     BSFDebugManagerImpl dbgmgr;
 
-    public RhinoEngineDebugger(JavaScriptEngine eng) 
+    RhinoEngineDebugger(JavaScriptEngine eng)
         throws RemoteException {
         super();
-        m_thread = Thread.currentThread();
         m_eng = eng;
         dbgmgr = eng.getDebugManager();
 
@@ -127,45 +123,37 @@ public class RhinoEngineDebugger implements Debugger {
     /**
      * Called when our debugger has been disconnected.
      */
-    public void disconnectedDebuggerNotify() {
+    void disconnectedDebuggerNotify() {
         m_callbacks = null;
-    }
-
-    void addStub(Context cx, RhinoContextProxy jscx) {
-        stubs.put(cx, jscx);
-    }
-
-    void addStub(DebugFrame frame, JsContextStub stub) {
-        stubs.put(frame, stub);
     }
 
     void addStub(Scriptable sobj, JsObject jsobj) {
         stubs.put(sobj, jsobj);
     }
 
-    void dropStub(Object key) {
+    void dropStub(Scriptable key) {
         stubs.remove(key);
     }
 
-    public synchronized DocumentCell getDocumentCell(String name) {
+    synchronized DocumentCell getDocumentCell(String name) {
         return (DocumentCell) m_documents.get(name);
     }
 
     // Called upon creation of a BSFManager.
-    public synchronized DocumentCell loadDocumentNotify(String name) {
+    synchronized DocumentCell loadDocumentNotify(String name) {
         DocumentCell cell;
 
         cell = (DocumentCell) m_documents.get(name);
         if (cell == null) {
             cell = new DocumentCell(this, name);
             m_documents.put(name, cell);
-            if (dbgmgr!=null) 
+            if (dbgmgr!=null)
                 dbgmgr.loadDocumentNotify(m_eng, name);
         }
         return cell;
     }
 
-    public synchronized void placeBreakpointAtLine(int brkptid,
+    synchronized void placeBreakpointAtLine(int brkptid,
                                                    String docname,
                                                    int lineno) {
 
@@ -174,7 +162,7 @@ public class RhinoEngineDebugger implements Debugger {
         cell.addBreakpointAtLine(brkptid, lineno);
     }
 
-    public synchronized void placeBreakpointAtOffset(int brkptid,
+    synchronized void placeBreakpointAtOffset(int brkptid,
                                                      String docname,
                                                      int offset) {
 
@@ -183,7 +171,7 @@ public class RhinoEngineDebugger implements Debugger {
         cell.addBreakpointAtOffset(brkptid, offset);
     }
 
-    public void removeBreakpoint(String docname, int brkptid)
+    void removeBreakpoint(String docname, int brkptid)
         throws BSFException {
 
         DocumentCell cell;
@@ -191,7 +179,7 @@ public class RhinoEngineDebugger implements Debugger {
         cell.removeBreakpoint(brkptid);
     }
 
-    public void setEntryExit(String docname, boolean on)
+    void setEntryExit(String docname, boolean on)
         throws BSFException {
 
         DocumentCell cell;
@@ -199,7 +187,7 @@ public class RhinoEngineDebugger implements Debugger {
         cell.setEntryExit(on);
     }
 
-    public Object eval(String docname, String fnOrScript, int lineno)
+    Object eval(String docname, String fnOrScript, int lineno)
         throws RemoteException {
         Object retval;
         try {
@@ -210,13 +198,15 @@ public class RhinoEngineDebugger implements Debugger {
         }
     }
 
-    public JsContext getContext(int depth) {
-        if (m_rcp != null) return m_rcp.getContext(depth);
+    JsContext getContext(int depth) {
+        RhinoContextProxy rcp = RhinoContextProxy.getCurrent();
+        if (rcp != null) return rcp.getContextStub(depth);
         return null;
     }
 
-    public int getContextCount() {
-        if (m_rcp != null) return m_rcp.getContextCount();
+    int getContextCount() {
+        RhinoContextProxy rcp = RhinoContextProxy.getCurrent();
+        if (rcp != null) return rcp.getContextCount();
         return -1;
     }
 
@@ -224,24 +214,20 @@ public class RhinoEngineDebugger implements Debugger {
      * Return the current debugger.
      * @return the debugger, or null if none is attached.
      */
-    public JsCallbacks getDebugger() {
+    JsCallbacks getDebugger() {
         return m_callbacks;
     }
 
-    public Object getDebugInterface() {
+    Object getDebugInterface() {
         return engineStub;
     }
 
-    public JsObject getGlobalObject() {
+    JsObject getGlobalObject() {
         return globalstub;
     }
 
-    public RhinoContextProxy getRhinoContextProxy() {
-        return m_rcp;
-    }
-
     RhinoContextProxy getStub(Context cx) {
-        return (RhinoContextProxy) stubs.get(cx);
+        return (RhinoContextProxy)cx.getDebuggerContextData();
     }
 
     JsContextStub getStub(DebugFrame frame) {
@@ -252,19 +238,20 @@ public class RhinoEngineDebugger implements Debugger {
         return (JsObject) stubs.get(sobj);
     }
 
-    public JsObject getUndefinedValue() {
+    JsObject getUndefinedValue() {
         return undefinedStub;
     }
 
-    public String getThread() {
+    String getThread() {
+        Context cx = Context.getCurrentContext();
         String resultstr = "";
 
-        if (m_thread != null) {
+        if (cx != null) {
             try {
                 final String resultstrf = (String)
                 AccessController.doPrivileged(new PrivilegedExceptionAction() {
                         public Object run() throws Exception {
-                            return m_thread.getName();
+                            return Thread.currentThread().getName();
                         }
                     });
             resultstr = resultstrf;
@@ -277,15 +264,17 @@ public class RhinoEngineDebugger implements Debugger {
         return resultstr;
     }
 
-    public String getThreadGroup() {
+    String getThreadGroup() {
+        Context cx = Context.getCurrentContext();
         String resultstr = "";
 
-        if (m_thread != null) {
+        if (cx != null) {
             try {
                 final String resultstrf = (String)
                 AccessController.doPrivileged(new PrivilegedExceptionAction() {
                         public Object run() throws Exception {
-                            return m_thread.getThreadGroup().getName();
+                            return Thread.currentThread().getThreadGroup().
+                                        getName();
                         }
                     });
             resultstr = resultstrf;
@@ -305,7 +294,7 @@ public class RhinoEngineDebugger implements Debugger {
     // to implement STEP_IN, STEP_OUT, and STEP_OVER.
     //---------------------------------------------------------
 
-    public void handleBreakpointHit(Context cx) {
+    void handleBreakpointHit(Context cx, RhinoContextProxy rcp) {
         JsCallbacks debugger;
         BreakPoint bp;
         Enumeration e;
@@ -313,48 +302,41 @@ public class RhinoEngineDebugger implements Debugger {
         boolean breakpointFound=false;
         String name;
         int lineno;
-        boolean suspend=false;
-		
-        m_thread = Thread.currentThread();
-        DebugLog.stdoutPrintln("**** Handling a breakpoint hit...", 
+
+        DebugLog.stdoutPrintln("**** Handling a breakpoint hit...",
                                DebugLog.BSF_LOG_L3);
-        m_rcp = getStub(cx);
-        if (m_rcp == null) {
-            m_rcp = new RhinoContextProxy(this, cx);
-            addStub(cx, m_rcp);
-        }
-        // if we have no callbacks... then just 
+        // if we have no callbacks... then just
         // ignore the breakpoint hit, do a run
         // so that execution resumes...
         if (m_callbacks==null) {
-            DebugLog.stdoutPrintln("	No callbacks, resuming...", DebugLog.BSF_LOG_L3);
-            m_rcp.run();
+            DebugLog.stdoutPrintln("    No callbacks, resuming...", DebugLog.BSF_LOG_L3);
+            rcp.run();
 
         } else {
             // First, check that we didn't hit a known breakpoint.
             // First, search if we have breakpoints for the current documents
 
-            name = m_rcp.getSourceName();
-            lineno = m_rcp.getLineNumber();
+            name = rcp.getSourceName();
+            lineno = rcp.getLineNumber();
 
-            DebugLog.stdoutPrintln("	in "+name+" at "+lineno, DebugLog.BSF_LOG_L3);
+            DebugLog.stdoutPrintln("    in "+name+" at "+lineno, DebugLog.BSF_LOG_L3);
 
             cell = getDocumentCell(name);
-            if (cell != null) 
-                _handleBreakpointHit(cell,lineno);
-        } 
-        m_rcp = null;
+            if (cell != null)
+                _handleBreakpointHit(rcp,cell,lineno);
+        }
     }
 
-    public void _handleBreakpointHit(DocumentCell cell, int lineno) {
-
+    void _handleBreakpointHit(RhinoContextProxy rcp,
+                              DocumentCell cell, int lineno)
+    {
         JsCallbacks debugger;
         BreakPoint bp;
         Enumeration e;
         JsContext stub=null;
         boolean breakpointFound=false;
         boolean suspend=false;
-		
+
         try {
             bp = cell.findBreakpointAtLine(lineno);
         } catch (BSFException bsfex) {
@@ -363,19 +345,19 @@ public class RhinoEngineDebugger implements Debugger {
         if (bp != null) {
             breakpointFound = true;
             try {
-                stub = m_rcp.hitBreakpoint();
-                DebugLog.stdoutPrintln("	breakpoint callback...", DebugLog.BSF_LOG_L3);
-             	m_callbacks.createFuture(m_rcp);
+                stub = rcp.hitBreakpoint();
+                DebugLog.stdoutPrintln("    breakpoint callback...", DebugLog.BSF_LOG_L3);
+                 m_callbacks.createFuture(rcp);
                 m_callbacks.handleBreakpointHit(stub);
                 suspend = true;
             } catch (RemoteException rex) {
-                DebugLog.stderrPrintln("	EXCEPTION OCCURED DURING BREAKPOINT CALLBACK", DebugLog.BSF_LOG_L0);				
+                DebugLog.stderrPrintln("    EXCEPTION OCCURED DURING BREAKPOINT CALLBACK", DebugLog.BSF_LOG_L0);
                 DebugLog.stderrPrintln(rex.getMessage(), DebugLog.BSF_LOG_L0);
                 rex.printStackTrace();
                 suspend = false;
             }
         } else {
-            DebugLog.stdoutPrintln("	didn't find a breakpoint...", DebugLog.BSF_LOG_L3);
+            DebugLog.stdoutPrintln("    didn't find a breakpoint...", DebugLog.BSF_LOG_L3);
             breakpointFound = false;
         }
 
@@ -384,87 +366,107 @@ public class RhinoEngineDebugger implements Debugger {
             // line in the current document, we must be stepping
             // or in entry/exit mode
             try {
-                stub = m_rcp.stepping();
+                stub = rcp.stepping();
                 FnOrScript current = cell.findFnOrScriptContaining(lineno);
                 if (stub != null) {
                     cell.setLastFnOrScript(current);
-                    DebugLog.stdoutPrintln("	stepping-done callback...", 
+                    DebugLog.stdoutPrintln("    stepping-done callback...",
                                            DebugLog.BSF_LOG_L3);
-                	m_callbacks.createFuture(m_rcp);
+                    m_callbacks.createFuture(rcp);
                     m_callbacks.handleSteppingDone(stub);
                     suspend = true;
-                } 
+                }
                 else if (cell.getEntryExit() &&
                          (current != cell.getLastFnOrScript()) &&
-                         (m_rcp.getContextCount() == 0)) {
+                         (rcp.getContextCount() == 0)) {
                     cell.setLastFnOrScript(current);
-                    stub = m_rcp.entry_exit_mode();
-                    DebugLog.stdoutPrintln("    entry/exit mode...", 
+                    stub = rcp.entry_exit_mode();
+                    DebugLog.stdoutPrintln("    entry/exit mode...",
                                            DebugLog.BSF_LOG_L3);
-                	m_callbacks.createFuture(m_rcp);
+                    m_callbacks.createFuture(rcp);
                     m_callbacks.handleSteppingDone(stub);
                     suspend = true;
                 }
                 else {
-                    DebugLog.stdoutPrintln("	No reason to suspend execution.", DebugLog.BSF_LOG_L3);				
+                    DebugLog.stdoutPrintln("    No reason to suspend execution.", DebugLog.BSF_LOG_L3);
                     suspend = false;
                 }
             } catch (RemoteException rex) {
-                DebugLog.stderrPrintln("	EXCEPTION OCCURED DURING STEPPING-DONE CALLBACK", DebugLog.BSF_LOG_L0);				
+                DebugLog.stderrPrintln("    EXCEPTION OCCURED DURING STEPPING-DONE CALLBACK", DebugLog.BSF_LOG_L0);
                 DebugLog.stderrPrintln(rex.getMessage(), DebugLog.BSF_LOG_L0);
                 rex.printStackTrace();
                 suspend = false;
             }
         }
         if (suspend) {
-            // now, suspend this thread... until 
+            // now, suspend this thread... until
             // we restart.
             try {
-                m_callbacks.suspendFuture(m_rcp);
+                m_callbacks.suspendFuture(rcp);
             } catch (Exception ex) {
                 DebugLog.stdoutPrintln("Future creation failed... releasing the engine", DebugLog.BSF_LOG_L3);
-                m_rcp.run();
+                rcp.run();
             }
-        }			
+        }
     }
 
-    public void run(JsEngineStub eng) throws Exception {
+    void run(JsEngineStub eng) throws Exception {
         DebugLog.stdoutPrintln("RhinoEngineDebugger::run()...",
                                DebugLog.BSF_LOG_L3);
-        m_rcp.run(); 
-        m_callbacks.completeFuture(m_rcp);
+        RhinoContextProxy rcp = RhinoContextProxy.getCurrent();
+        rcp.run();
+        m_callbacks.completeFuture(rcp);
     }
 
-    public void stepIn(JsEngineStub eng) throws Exception {
+    void stepIn(JsEngineStub eng) throws Exception {
         DebugLog.stdoutPrintln("RhinoEngineDebugger::stepIn()...",
                                DebugLog.BSF_LOG_L3);
-        m_rcp.stepIn();
-        m_callbacks.completeFuture(m_rcp);
+        RhinoContextProxy rcp = RhinoContextProxy.getCurrent();
+        rcp.stepIn();
+        m_callbacks.completeFuture(rcp);
     }
 
-    public void stepOut(JsEngineStub eng) throws Exception {
+    void stepOut(JsEngineStub eng) throws Exception {
         DebugLog.stdoutPrintln("RhinoEngineDebugger::stepOut()...",
                                DebugLog.BSF_LOG_L3);
-        m_rcp.stepOut();
-        m_callbacks.completeFuture(m_rcp);
+        RhinoContextProxy rcp = RhinoContextProxy.getCurrent();
+        rcp.stepOut();
+        m_callbacks.completeFuture(rcp);
     }
-    public void stepOver(JsEngineStub eng) throws Exception {
+    void stepOver(JsEngineStub eng) throws Exception {
 
         DebugLog.stdoutPrintln("RhinoEngineDebugger::stepOver()...",
                                DebugLog.BSF_LOG_L3);
-        m_rcp.stepOver();
-        m_callbacks.completeFuture(m_rcp);
+        RhinoContextProxy rcp = RhinoContextProxy.getCurrent();
+        rcp.stepOver();
+        m_callbacks.completeFuture(rcp);
     }
-	
+
     public void handleCompilationDone(Context cx,
                                       DebuggableScript fnOrScript,
-                                      StringBuffer source) {
+                                      String source) {
 
-        m_thread = Thread.currentThread();
         m_compilingFnOrScript.addCompilationUnit(cx, fnOrScript, source);
     }
 
-    public void handleExceptionThrown(Context cx, Object exceptionThrown) {
+    public DebugFrame getFrame(Context cx, DebuggableScript fnOrScript) {
+        CompilationUnit unit;
+        unit = m_compilingFnOrScript.getCompilationUnit(fnOrScript);
+        RhinoContextProxy rcp = getStub(cx);
+        try {
+            JsContextStub stub = new JsContextStub(rcp, unit);
+            return stub.getRhinoDebugFrame();
+        } catch (RemoteException rex) {
+            DebugLog.stderrPrintln("    EXCEPTION OCCURED DURING FRAME INITIALIZATION", DebugLog.BSF_LOG_L0);
+            DebugLog.stderrPrintln(rex.getMessage(), DebugLog.BSF_LOG_L0);
+            rex.printStackTrace();
+            return null;
+        }
+    }
+
+    void handleExceptionThrown(Context cx, RhinoContextProxy rcp,
+                               Throwable exceptionThrown)
+    {
         JsContext stub;
         JsCallbacks debugger;
         BreakPoint bp;
@@ -473,53 +475,40 @@ public class RhinoEngineDebugger implements Debugger {
         String name,msg;
         Exception ex;
         int lineno;
-        NativeError error;
-		
-        m_thread = Thread.currentThread();
-        m_rcp = getStub(cx);
-        if (m_rcp == null) {
-            m_rcp = new RhinoContextProxy(this, cx);
-            addStub(cx, m_rcp);
+
+        // if we have no callbacks... then just
+        // ignore the breakpoint hit, do a run
+        // so that execution resumes...
+        if (m_callbacks==null) {
+            rcp.run();
+            return;
         }
+
+        // First, check that we didn't hit a known breakpoint.
+        // First, search if we have breakpoints for the current documents
+        name = rcp.getSourceName();
+        lineno = rcp.getLineNumber();
+        if (exceptionThrown instanceof EcmaError) {
+            msg = ((EcmaError)exceptionThrown).getErrorObject().toString();
+        } else {
+            msg = exceptionThrown.toString();
+        }
+        ex = new Exception(msg);
+
+        cell = getDocumentCell(name);
+        if (cell == null) return;
+
         try {
-            // if we have no callbacks... then just 
-            // ignore the breakpoint hit, do a run
-            // so that execution resumes...
-            if (m_callbacks==null) {
-                m_rcp.run();
-                return;
-            }
+            stub = rcp.exceptionThrown();
+            m_callbacks.createFuture(rcp);
+            m_callbacks.handleExceptionThrown(stub,ex);
 
-            // First, check that we didn't hit a known breakpoint.
-            // First, search if we have breakpoints for the current documents
-            name = m_rcp.getSourceName();
-            lineno = m_rcp.getLineNumber();
-            try {
-                error = (NativeError)exceptionThrown;
-                msg = error.getName() + ": " + error.getMessage();
-            } catch (ClassCastException ccex) {
-                msg = "Unknown JavaScript Exception";
-            }
-            ex = new Exception(msg);
+            // now, suspend this thread... until
+            // we restart.
+            m_callbacks.suspendFuture(rcp);
 
-            cell = getDocumentCell(name);
-            if (cell == null) return;
-
-            try {
-                stub = m_rcp.exceptionThrown();	
-                m_callbacks.createFuture(m_rcp);
-                m_callbacks.handleExceptionThrown(stub,ex);
-				
-                // now, suspend this thread... until 
-                // we restart.
-                m_callbacks.suspendFuture(m_rcp);
-				
-            } catch (Exception ex2) {
-                m_rcp.run();
-				
-            }
-        } finally {
-            m_rcp = null;
+        } catch (Exception ex2) {
+            rcp.run();
         }
     }
 
@@ -568,10 +557,10 @@ public class RhinoEngineDebugger implements Debugger {
      * The engine will call the attached debugger's handleBreakpointHit
      * method on the next line it executes if isLineStep is true.
      * May be used from another thread to interrupt execution.
-     * 
+     *
      * @param isLineStep if true, break next line
      */
-    public void setBreakNextLine(JsContext context, boolean isLineStep) {
+    void setBreakNextLine(JsContext context, boolean isLineStep) {
     }
 
     void setCompilingFnOrScript(FnOrScript fnOrScript) {
@@ -583,7 +572,7 @@ public class RhinoEngineDebugger implements Debugger {
      * @param debugger the debugger to be used on callbacks from
      * the engine.
      */
-    public void setDebugger(JsCallbacks debugger) {
+    void setDebugger(JsCallbacks debugger) {
         m_callbacks = debugger;
     }
 }
