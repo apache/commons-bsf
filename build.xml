@@ -8,10 +8,6 @@ Notes:
 
    This is the build file for use with the Jakarta Ant build tool.
 
-Prerequisites:
-
-    servlet/JSP API -> http
-
 Optional additions:
 
     Rhino       -> http://www.mozilla.org/rhino/
@@ -118,15 +114,6 @@ Copyright:
     <available property="jacl.present"
                classname="tcl.lang.JACL"/>
 
-    <condition property="jpython.present">
-      <and>
-        <available classname="org.python.util.PythonInterpreter"/>
-        <not>
-          <available classname="org.python.util.jython"/>
-        </not>
-      </and>
-    </condition>
-
     <available property="jython.present"
                classname="org.python.util.jython"/>
 
@@ -226,7 +213,6 @@ Copyright:
     <exclude name="**/activescript/**"/>
     <exclude name="**/jacl/**" unless="jacl.present"/>
     <exclude name="**/javascript/**" unless="rhino.present"/>
-    <exclude name="**/jpython/**" unless="jpython.present"/>
     <exclude name="**/jython/**" unless="jython.present"/>
     <exclude name="**/netrexx/**" unless="netrexx.present"/>
     <exclude name="**/xslt/**" unless="xalan.present"/>
@@ -328,9 +314,11 @@ Copyright:
   <!-- =================================================================== -->
   <target name="javadocs" if="javadoc.required"
           description="Generates the API documentation."
-          depends="prepare" >
+          depends="compile" >
     <mkdir dir="${build.javadocs}"/>
+             <!-- FIXME: Excluding some packages temporarily -->
     <javadoc packagenames="${packages}"
+             excludepackagenames="org.apache.bsf.engines.java, org.apache.bsf.engines.javaclass, org.apache.bsf.engines.activescript"
              sourcepath="${src.dir}"
              destdir="${build.javadocs}"
              author="true"

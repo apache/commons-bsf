@@ -531,7 +531,7 @@ public class BSFManager {
      * Determine the language of a script file by looking at the file
      * extension. 
      *
-     * @param filename the name of the file
+     * @param fileName the name of the file
      *
      * @return the scripting language the file is in if the file extension
      *         is known to me (must have been registered via 

@@ -149,7 +149,7 @@ public class ReflectionUtils {
    * Create a bean using given class loader and using the appropriate
    * constructor for the given args of the given arg types.
 
-   * @param cl        the class loader to use. If null, Class.forName is used.
+   * @param cld       the class loader to use. If null, Class.forName is used.
    * @param className name of class to instantiate
    * @param argTypes  array of argument types
    * @param args      array of arguments
@@ -189,7 +189,7 @@ public class ReflectionUtils {
    * constructor for the given args. Figures out the arg types and
    * calls above.
 
-   * @param cl        the class loader to use. If null, Class.forName is used.
+   * @param cld       the class loader to use. If null, Class.forName is used.
    * @param className name of class to instantiate
    * @param args      array of arguments
    *

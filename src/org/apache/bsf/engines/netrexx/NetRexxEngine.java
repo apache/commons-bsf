@@ -166,13 +166,13 @@ public class NetRexxEngine extends BSFEngineImpl
 	}
 	/**
 	 * Return an object from an extension.
-	 * @param Object object from which to call our static method
+	 * @param object object from which to call our static method
 	 * @param method The name of the method to call.
 	 * @param args an array of arguments to be
 	 * passed to the extension, which may be either
 	 * Vectors of Nodes, or Strings.
 	 */
-	public Object call (Object object,String method, Object[] args) 
+	public Object call (Object object, String method, Object[] args) 
 	throws BSFException
 	{
 		throw new BSFException(BSFException.REASON_UNSUPPORTED_FEATURE,
