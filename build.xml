@@ -93,7 +93,7 @@ Copyright:
     <property name="site.dest" location="docs"/>
     <property name="site.projectFile" value="stylesheets/project.xml"/>
     <property name="templ.path" location="xdocs/stylesheets"/>
-    <property name="velocity.props" location="${docs.src}/velocity.properties"/>
+    <property name="velocity.props" location="${site.src}/velocity.properties"/>
 
     <!-- ================================================================= -->
     <!-- Sets version and time/date specific values                        -->
