@@ -55,6 +55,7 @@
 
 package org.apache.bsf.engines.jython;
 
+import java.io.ByteArrayInputStream;
 import java.util.Vector;
 
 import org.python.util.*;
@@ -121,7 +122,7 @@ public class JythonEngine extends BSFEngineImpl {
            * evaluate the function. A hack, no question, but it allows
            * apply() to pretend to work on Jython.
            */
-          StringBuffer script = new StringBuffer(funcBody.toString());
+          StringBuffer script = new StringBuffer(byteify(funcBody.toString()));
           int index = 0;
           script.insert(0, "def bsf_temp_fn():\n");
          
@@ -151,7 +152,7 @@ public class JythonEngine extends BSFEngineImpl {
   public Object eval (String source, int lineNo, int columnNo, 
 		      Object script) throws BSFException {
 	try {
-	  Object result = interp.eval (script.toString ());
+	  Object result = interp.eval (byteify(script.toString ()));
 	  if (result != null && result instanceof PyJavaInstance)
 		result = ((PyJavaInstance)result).__tojava__(Object.class);
 	  return result;
@@ -167,7 +168,7 @@ public class JythonEngine extends BSFEngineImpl {
   public void exec (String source, int lineNo, int columnNo,
 		    Object script) throws BSFException {
 	try {
-	  interp.exec (script.toString ());
+	  interp.exec (byteify(script.toString ()));
 	} catch (PyException e) {
 	  throw new BSFException (BSFException.REASON_EXECUTION_ERROR,
 			      "exception from Jython: " + e, e);
@@ -179,10 +180,16 @@ public class JythonEngine extends BSFEngineImpl {
    */
   public void iexec (String source, int lineNo, int columnNo,
                      Object script) throws BSFException {
+      String scriptStr = byteify(script.toString());
+      int newline = scriptStr.indexOf("\n");
+
+      if (newline > -1)
+          scriptStr = scriptStr.substring(0, newline);
+
       try {
           if (interp.buffer.length() > 0)
               interp.buffer.append("\n");
-          interp.buffer.append(script);
+          interp.buffer.append(scriptStr);
           if (!(interp.runsource(interp.buffer.toString())))
               interp.resetbuffer();
       } catch (PyException e) {
@@ -226,6 +233,20 @@ public class JythonEngine extends BSFEngineImpl {
 		  return ret;
 	}
 	return result;
+  }
+  
+  private String byteify (String orig) {
+      // Ugh. Jython likes to be fed bytes, rather than the input string.
+      ByteArrayInputStream bais = 
+          new ByteArrayInputStream(orig.getBytes());
+      StringBuffer s = new StringBuffer();
+      int c;
+      
+      while ((c = bais.read()) >= 0) {
+          s.append((char)c);
+      }
+
+      return s.toString();
   }
   
   private class BSFPythonInterpreter extends InteractiveInterpreter {
