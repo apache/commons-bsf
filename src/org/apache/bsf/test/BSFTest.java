@@ -96,7 +96,7 @@ public class BSFTest extends BSFEngineTestTmpl {
          * Please add testcases here as needed.
          */
         TestSuite suite = new TestSuite(); 
-        testNames = new String [4];
+        testNames = new String [5];
 
         suite.addTestSuite(BSFTest.class);
         testNames[0] = "BSFManager Base Tests";
@@ -106,6 +106,8 @@ public class BSFTest extends BSFEngineTestTmpl {
         testNames[2] = "Rhino Engine Tests";
         suite.addTestSuite(jythonTest.class);
         testNames[3] = "Jython Engine Tests";
+        suite.addTestSuite(netrexxTest.class);
+        testNames[4] = "NetRexx Engine Tests";
         
         return suite;
     }
