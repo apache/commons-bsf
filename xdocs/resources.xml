@@ -1,0 +1,220 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <author email="chuck@topsail.org">Chuck Murcko</author>
+    <title>Resources</title>
+  </properties>
+
+  <body>
+    <section name="FAQs">
+      <subsection name="At BSF's website">
+
+        <p>Starting with the release of BSF 2.3 the BSF's FAQ is
+        bundled with the distribution, the most recent version can
+        always be found at the website.</p>
+
+        <table>
+          <tr>
+            <th>FAQ:</th>
+            <td><a href="faq.html">http://jakarta.apache.org/bsf/faq.html</a></td>
+          </tr>
+        </table>
+      </subsection>
+
+<!--
+      <subsection name="jGuru">
+        <p>jGuru hosts an interactive BSF discussion forum and FAQ system</p>
+
+        <table>
+          <tr>
+            <th>Forum:</th>
+            <td><a href="http://www.jguru.com/forums/home.jsp?topic=BSF">http://www.jguru.com/forums/home.jsp?topic=BSF</a></td>
+          </tr>
+          <tr>
+            <th>FAQ:</th>
+            <td><a href="http://www.jguru.com/faq/home.jsp?topic=BSF">http://www.jguru.com/faq/home.jsp?topic=BSF</a></td>
+          </tr>
+        </table>
+      </subsection>
+-->
+    </section>
+    
+    <section name="Articles and Presentations">
+
+      <p>The following sections list articles and presentations written about BSF.  If
+      you've written something that should be included, please post it to one
+      of the mailing lists.</p>
+
+    </section>
+
+    <section name="Articles">
+
+      <subsection name="Using JavaScript with Ant">
+        <p>A tutorial about using BSF, JavaScript, and XSLT with Ant.</p>
+
+        <table>
+          <tr>
+            <th>Author:</th>
+            <td>Dylan Schiemann</td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://www.sitepen.com/ant/javascript.html">http://www.sitepen.com/ant/javascript.html</a></td>
+          </tr>
+        </table>
+      </subsection>
+
+      <subsection name="Script JavaBeans with the Bean Scripting Framework">
+        <p>
+         Add scripts to your JavaBeans or JavaBeans to your scripts
+        </p>
+
+        <table>
+          <tr>
+            <th>Author:</th>
+            <td><a href="http://www.javaworld.com/feedback">Mark Johnson</a></td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://www.javaworld.com/javaworld/jw-03-2000/jw-03-beans.html">http://www.javaworld.com/javaworld/jw-03-2000/jw-03-beans.html</a></td>
+          </tr>
+        </table>
+      </subsection>
+
+      <subsection name="Xalan-Java Extensions">
+        <p>
+        For extensions written in languages other than Java, Xalan-Java uses
+        the Bean Scripting Framework (BSF), an architecture for incorporating
+        scripting into Java applications and applets. 
+        </p>
+
+        <table>
+          <tr>
+            <th>Author:</th>
+            <td><a href="http://xml.apache.org/xalan-j/index.html">Apache XML Xalan developers</a></td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://xml.apache.org/xalan-j/extensions.html">http://xml.apache.org/xalan-j/extensions.html</a></td>
+          </tr>
+        </table>
+      </subsection>
+
+      <subsection name="Using Rhino with BSF and Apache">
+        <p>
+        The Bean Scripting Framework (or BSF) was originally developed by
+        IBM and now published as open source. It provides a framework for
+        using a number of scripting languages with Java. Rhino is one of the
+        supported languages.
+        </p>
+
+        <table>
+          <tr>
+            <th>Author:</th>
+            <td><a href="mailto:nboyd@atg.com">Norris Boyd</a></td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://www.mozilla.org/rhino/bsf.html">http://www.mozilla.org/rhino/bsf.html</a></td>
+          </tr>
+        </table>
+      </subsection>
+
+      <subsection name="Extending Your Applications with Bean Scripting Framework">
+        <p>
+        BSF brings standard support for many programming languages to the
+        Java platform.
+        </p>
+
+        <table>
+          <tr>
+            <th>Author:</th>
+            <td><a href="mailto:rick_m_hightower@hotmail.com">Rick Hightower</a></td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://www.biztool.com/magazines/java/archives/0506/hightower/">http://www.biztool.com/magazines/java/archives/0506/hightower/</a></td>
+          </tr>
+        </table>
+      </subsection>
+
+      <subsection name="Judoscript White Paper">
+
+        <p>
+        JudoScript provides two interfaces for embedding it in other Java
+        software, one is its own API, the other is the support for BSF.
+        BSF (Bean-Script-Framework) is a common API (developed by IBM) for
+        Java software (e.g. Apache Ant) to interact with various scripting
+        languages.
+        </p>
+
+        <table>
+          <tr>
+            <th>Author:</th>
+            <td><a href="">James Huang</a></td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://www.judoscript.com/articles/whitepaper.html">http://www.judoscript.com/articles/whitepaper.html</a></td>
+          </tr>
+        </table>
+      </subsection>
+
+      <subsection name="JRuby Documentation">
+        <p>
+        Using JRuby with BSF
+        </p>
+
+        <table>
+          <tr>
+            <th>Author:</th>
+            <td><a href="mailto:jpeterson@uni-bonn.de">Jan Arne Petersen</a></td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://jruby.sourceforge.net/documentation.html">http://jruby.sourceforge.net/documentation.html</a></td>
+          </tr>
+        </table>
+      </subsection>
+
+    </section>
+
+    <section name="Presentations">
+
+      <subsection name="An Introduction to BSF">
+        <p>This article is a short introduction into the basic
+        concepts of BSF. To be presented at ApacheCon 2002.</p>
+
+        <table>
+          <tr>
+            <th>Author:</th>
+            <td><a href="mailto:vjo@dulug.duke.edu">Victor Orlikowski</a></td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="">TBA</a></td>
+          </tr>
+        </table>
+      </subsection>
+
+      <subsection name="Java Bean Scripting with Rexx (PDF)">
+        <p>
+        Using Rexx with BSF
+        </p>
+
+        <table>
+          <tr>
+            <th>Author:</th>
+            <td><a href="mailto:Rony.Flatscher@wu-wien.ac.at">Rony G. Flatscher</a></td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="wi.wu-wien.ac.at/Studium/LVA-Unterlagen/ poolv/folien/2001_orx12.pdf">wi.wu-wien.ac.at/Studium/LVA-Unterlagen/ poolv/folien/2001_orx12.pdf</a></td>
+          </tr>
+        </table>
+      </subsection>
+
+    </section>
+  </body>
+</document>
