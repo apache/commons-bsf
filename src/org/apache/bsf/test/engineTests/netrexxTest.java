@@ -67,10 +67,8 @@ import org.apache.bsf.test.BSFEngineTestTmpl;
  */
 
 public class netrexxTest extends BSFEngineTestTmpl {
-
     private BSFEngine netrexxEngine;
     private String lineSeparatorStr = System.getProperty("line.separator");
-
 
     public netrexxTest(String name) {
         super(name);
@@ -79,10 +77,10 @@ public class netrexxTest extends BSFEngineTestTmpl {
     public void setUp() {
         super.setUp();
 
-        try{
+        try {
             netrexxEngine = bsfManager.loadScriptingEngine("netrexx");
         }
-        catch(BSFException bsfe){
+        catch (BSFException bsfe) {
             fail(failMessage("fail while attempting to load netrexx", bsfe));
         }
     }
@@ -95,28 +93,28 @@ public class netrexxTest extends BSFEngineTestTmpl {
         Integer foo = new Integer(0);
         Integer bar = null;
 
-        try{
+        try {
             bsfManager.declareBean("foo", foo, Integer.class);
             bar = new Integer((netrexxEngine.eval("Test.nrx", 0, 0,
                                                   "foo.intValue() + 1")).toString());
         }
-        catch(Exception ex){
+        catch (Exception ex) {
             fail(failMessage("declaredBean() test failed", ex));
         }
 
         assertEquals(bar , new Integer(1));
     }
 
-    public void testRegisterBean(){
+    public void testRegisterBean() {
         Integer foo = new Integer(0);
         Integer bar = null;
 
-        try{
+        try {
             bsfManager.registerBean("foo", foo);
             bar = new Integer((netrexxEngine.eval("Test.nrx", 0, 0,
                                                   "bsf.lookupBean(\"foo\")").toString()));
         }
-        catch(Exception ex){
+        catch (Exception ex) {
             fail(failMessage("registerBean() test fail", ex));
         }
 
@@ -124,11 +122,11 @@ public class netrexxTest extends BSFEngineTestTmpl {
     }
 
     public void testExec() {
-        try{
+        try {
             netrexxEngine.exec("Test.nrx", 0, 0,
                                "say \"PASSED\"");
         }
-        catch(BSFException bsfe){
+        catch (BSFException bsfe) {
             fail(failMessage("exec() test fail", bsfe));
         }
 
@@ -140,16 +138,16 @@ public class netrexxTest extends BSFEngineTestTmpl {
         Integer foo = new Integer(0);
         Object  bar = null;
         
-        try{
+        try {
             bsfManager.declareBean("foo", foo, Integer.class);
             bsfManager.undeclareBean("foo");
             bar = netrexxEngine.eval("Test.nrx", 0, 0,
                                      "foo + 1");
         }
-        catch(BSFException bsfe){
+        catch (BSFException bsfe) {
             // don't do anything .. this is the expected case
         }
-        catch(Exception ex){
+        catch (Exception ex) {
             fail(failMessage("undeclareBean() test failed", ex));
         }
 
@@ -160,13 +158,13 @@ public class netrexxTest extends BSFEngineTestTmpl {
         Integer foo = new Integer(0);
         Object retValue  = null;
 
-        try{
+        try {
             bsfManager.registerBean("foo", foo);
             bsfManager.unregisterBean("foo");
             retValue = netrexxEngine.eval("Test.nrx", 0, 0,
                                           "bsf.lookupBean(\"foo\")");
         }
-        catch(Exception ex){
+        catch (Exception ex) {
             fail(failMessage("unregisterBean() test fail", ex));
         }
 
@@ -176,11 +174,11 @@ public class netrexxTest extends BSFEngineTestTmpl {
     public void testBSFManagerAvailability(){
         Object retValue = null;
 
-        try{
+        try {
             retValue = bsfManager.eval("netrexx", "Test.nrx", 0, 0,
                                        "bsf.lookupBean(\"foo\")");
         }
-        catch(Exception ex){
+        catch (Exception ex) {
             fail(failMessage("BSFManagerAvailability() test failed", ex));
         }
 
@@ -190,11 +188,11 @@ public class netrexxTest extends BSFEngineTestTmpl {
     public void testBSFManagerEval(){
         Object retValue = null;
 
-        try{
+        try {
             retValue = new Integer((bsfManager.eval("netrexx", "Test.nrx", 0, 0,
                                                     "1 + (-1)")).toString());
         }
-        catch(Exception ex){
+        catch (Exception ex) {
             fail(failMessage("BSFManagerEval() test failed", ex));
         }
 
