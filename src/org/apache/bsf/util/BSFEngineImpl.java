@@ -80,7 +80,7 @@ public abstract class BSFEngineImpl implements BSFEngine {
     protected ClassLoader classLoader;
 
     /**
-     * Default impl of apply - calls eval ignorning parameters and returns
+     * Default impl of apply - calls eval ignoring parameters and returns
      * the result.
      */
     public Object apply(String source, int lineNo, int columnNo, 
@@ -90,7 +90,7 @@ public abstract class BSFEngineImpl implements BSFEngine {
     }
 
     /**
-     * Default impl of compileApply - calls compileExpr ignorning parameters.
+     * Default impl of compileApply - calls compileExpr ignoring parameters.
      */
     public void compileApply(String source, int lineNo, int columnNo,
                              Object funcBody, Vector paramNames, 
