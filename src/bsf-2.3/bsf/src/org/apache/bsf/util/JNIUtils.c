@@ -70,7 +70,7 @@
 /* throw a BSFException with the given code and message. */
 void bsf_exception (JNIEnv *jenv, int code, char *msg) {
   jclass bsfexceptclass = 
-    (*jenv)->FindClass (jenv, "com/ibm/bsf/BSFException");
+    (*jenv)->FindClass (jenv, "org/apache/bsf/BSFException");
   (*jenv)->ThrowNew (jenv, bsfexceptclass, msg);
 }
 
@@ -110,7 +110,7 @@ jobject bsf_createbean (JNIEnv *jenv, char *classname, jobjectArray args) {
   jobject result;
 
   /* find the BSFUtils.createBean method ID if needed */
-  cl = (*jenv)->FindClass (jenv, "com/ibm/bsf/util/EngineUtils");
+  cl = (*jenv)->FindClass (jenv, "org/apache/bsf/util/EngineUtils");
   mid = (*jenv)->GetStaticMethodID (jenv, cl, "createBean",
       			      "(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;");
   if ((*jenv)->ExceptionOccurred (jenv)) {
@@ -143,7 +143,7 @@ jobject bsf_callmethod (JNIEnv *jenv, jobject target,
   jobject result;
 
   /* find the BSFUtils.callBeanMethod method ID if needed */
-  cl = (*jenv)->FindClass (jenv, "com/ibm/bsf/util/EngineUtils");
+  cl = (*jenv)->FindClass (jenv, "org/apache/bsf/util/EngineUtils");
   mid = (*jenv)->GetStaticMethodID (jenv, cl, "callBeanMethod",
 				      "(Ljava/lang/Object;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;");
   if ((*jenv)->ExceptionOccurred (jenv)) {
@@ -203,7 +203,7 @@ char *bsf_getTypeSignatureString (JNIEnv *jenv, jclass objclass) {
   jmethodID mid = 0;
   jstring str;
 
-  cl = (*jenv)->FindClass (jenv, "com/ibm/bsf/util/EngineUtils");
+  cl = (*jenv)->FindClass (jenv, "org/apache/bsf/util/EngineUtils");
   mid = (*jenv)->GetStaticMethodID (jenv, cl, "getTypeSignatureString",
       			      "(Ljava/lang/Class;)Ljava/lang/String;");
   if ((*jenv)->ExceptionOccurred (jenv)) {

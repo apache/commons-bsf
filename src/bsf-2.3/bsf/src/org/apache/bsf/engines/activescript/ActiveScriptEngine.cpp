@@ -76,7 +76,7 @@
 #include "BSFCOM.hpp"
 #include "CreateBeanCOM.hpp"
 #include "CASHostSite.hpp"
-#include "com_ibm_bsf_engines_activescript_ActiveScriptEngine.h"
+#include "org_apache_bsf_engines_activescript_ActiveScriptEngine.h"
 
 using namespace std;
 
@@ -514,11 +514,11 @@ jobject  variant2object (JNIEnv *jenv, VARIANT &var, bool *localRefCreated)
      if(iscopy == JNI_TRUE) jenv->ReleaseByteArrayElements(jByteArray,jr,0);
  
  
-     jclass objectClass = jenv->FindClass ("com/ibm/bsf/engines/activescript/COMIDispatchBean");
+     jclass objectClass = jenv->FindClass ("org/apache/bsf/engines/activescript/COMIDispatchBean");
      assert(objectClass);
      if(objectClass)
      {
-      jmethodID mid=jenv->GetStaticMethodID(objectClass,"COMIDispatchBeanFactory","([B)Lcom/ibm/bsf/engines/activescript/COMIDispatchBean;");
+      jmethodID mid=jenv->GetStaticMethodID(objectClass,"COMIDispatchBeanFactory","([B)Lorg/apache/bsf/engines/activescript/COMIDispatchBean;");
       assert(NULL != mid);
       if(mid)
       {
@@ -957,7 +957,7 @@ jobject ActiveScriptEngine::ThreadRequest::Wait()
   {
    if(resobj)
    {
-    jclass jcASE= jenv->FindClass("com/ibm/bsf/engines/activescript/ActiveScriptEngine");
+    jclass jcASE= jenv->FindClass("org/apache/bsf/engines/activescript/ActiveScriptEngine");
     jmethodID jcMidobjectToVariant= jenv->GetMethodID( jcASE,
 							     "objectToVariant","(Ljava/lang/Object;)[B");
      
@@ -1103,7 +1103,7 @@ static void __cdecl engineThreadRtn( void *p)
 
 
 extern "C" JNIEXPORT void JNICALL 
-Java_com_ibm_bsf_engines_activescript_ActiveScriptEngine_nativeInit
+Java_org_apache_bsf_engines_activescript_ActiveScriptEngine_nativeInit
   (JNIEnv *jenv, jobject thisobj, jstring lang, jstring jdeclaredBeanNames,
   jobjectArray jdeclaredBeans)
 {
@@ -1153,7 +1153,7 @@ Java_com_ibm_bsf_engines_activescript_ActiveScriptEngine_nativeInit
  return;
 }
 
-extern "C" JNIEXPORT jbyteArray JNICALL Java_com_ibm_bsf_engines_activescript_ActiveScriptEngine_nativeObjectToVariant
+extern "C" JNIEXPORT jbyteArray JNICALL Java_org_apache_bsf_engines_activescript_ActiveScriptEngine_nativeObjectToVariant
   (JNIEnv *jenv, jobject thisobj, jbyteArray cssobj, jobject o)
 {
   jbyteArray ret= NULL;
@@ -1176,14 +1176,14 @@ extern "C" JNIEXPORT jbyteArray JNICALL Java_com_ibm_bsf_engines_activescript_Ac
   }
  return ret;
 }
-extern "C" JNIEXPORT void JNICALL Java_com_ibm_bsf_engines_activescript_ActiveScriptEngine_nativeIdispatchAddRef
+extern "C" JNIEXPORT void JNICALL Java_org_apache_bsf_engines_activescript_ActiveScriptEngine_nativeIdispatchAddRef
 (JNIEnv *jenv, jclass, jbyteArray byteArrayIDispatch)
 {
   IDispatch *pIDispatchInterface= NULL;
   getCPtr(jenv, byteArrayIDispatch, pIDispatchInterface);
   pIDispatchInterface->AddRef();
 }
-extern "C" JNIEXPORT void JNICALL Java_com_ibm_bsf_engines_activescript_ActiveScriptEngine_nativeIdispatchDeleteRef
+extern "C" JNIEXPORT void JNICALL Java_org_apache_bsf_engines_activescript_ActiveScriptEngine_nativeIdispatchDeleteRef
 (JNIEnv *jenv, jclass, jbyteArray byteArrayIDispatch)
 {
   IDispatch *pIDispatchInterface= NULL;
@@ -1191,7 +1191,7 @@ extern "C" JNIEXPORT void JNICALL Java_com_ibm_bsf_engines_activescript_ActiveSc
   pIDispatchInterface->Release();
   
 }
-extern "C" JNIEXPORT jbyteArray JNICALL Java_com_ibm_bsf_engines_activescript_ActiveScriptEngine_nativeStingToBString
+extern "C" JNIEXPORT jbyteArray JNICALL Java_org_apache_bsf_engines_activescript_ActiveScriptEngine_nativeStingToBString
   (JNIEnv *jenv, jobject thisObj, jstring s)
 {
   jbyteArray ret= NULL;
@@ -1211,12 +1211,12 @@ extern "C" JNIEXPORT jbyteArray JNICALL Java_com_ibm_bsf_engines_activescript_Ac
   return ret;
 }
 /*
- * Class:     com_ibm_bsf_engines_activescript_ActiveScriptEngine
+ * Class:     org_apache_bsf_engines_activescript_ActiveScriptEngine
  * Method:    nativeEval
- * Signature: (Ljava/lang/Object;Lcom/ibm/bsf/BSFManager;Ljava/lang/String;)Ljava/lang/String;
+ * Signature: (Ljava/lang/Object;Lorg/apache/bsf/BSFManager;Ljava/lang/String;)Ljava/lang/String;
  */
 jobject JNIEXPORT JNICALL
-Java_com_ibm_bsf_engines_activescript_ActiveScriptEngine_nativeEval
+Java_org_apache_bsf_engines_activescript_ActiveScriptEngine_nativeEval
  (JNIEnv *jenv, jobject thisobj, jbyteArray cssobj, jstring scriptsName, jint lineNo, jint columnNo,
  jstring script, jboolean evaluate)
 {
@@ -1291,7 +1291,7 @@ void ActiveScriptEngine::terminate()
   MsgWaitForSingleObject(waitEngineTerminate, INFINITE);
  }
 }
-JNIEXPORT void JNICALL Java_com_ibm_bsf_engines_activescript_ActiveScriptEngine_nativeTerminate
+JNIEXPORT void JNICALL Java_org_apache_bsf_engines_activescript_ActiveScriptEngine_nativeTerminate
   (JNIEnv *jenv, jobject, jbyteArray cssobj)
 { //Note that java side  should make sure this only gets called once.
  ActiveScriptEngine *pASE;

@@ -85,7 +85,7 @@ public:
    const char *msgChar= msg.c_str();
    if(NULL== msgChar) msgChar= "";
    jstring jmsgChar= jenv->NewStringUTF(msgChar); 
-   jclass jcASE= jenv->FindClass("com/ibm/bsf/engines/activescript/ActiveScriptEngine");
+   jclass jcASE= jenv->FindClass("org/apache/bsf/engines/activescript/ActiveScriptEngine");
    jmethodID mid=jenv->GetStaticMethodID(jcASE,"createBSFException","(ILjava/lang/String;Ljava/lang/Throwable;)Ljava/lang/Throwable;");
    //public static final Throwable  createBSFException( int reason, String msg, Throwable t)
    jthrowable jt= (jthrowable) jenv->CallStaticObjectMethod(jcASE,mid, 500, jmsgChar, jthrown);
