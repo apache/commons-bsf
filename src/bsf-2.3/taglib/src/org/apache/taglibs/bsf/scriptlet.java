@@ -47,10 +47,8 @@
  * ====================================================================
  *
  * This software consists of voluntary contributions made by many individuals
- * on behalf of the Apache Software Foundation and was originally created by
- * Sanjiva Weerawarana and others at International Business Machines
- * Corporation. For more information on the Apache Software Foundation,
- * please see <http://www.apache.org/>.
+ * on behalf of the Apache Software Foundation. For more information on the
+ * Apache Software Foundation, please see <http://www.apache.org/>.
  */
 
 package org.apache.taglibs.bsf;
