@@ -59,17 +59,17 @@
     <p>
     BSF can be used standalone, as a class library, or as part of an
     application server. In order to be used as a class library or as
-    a standalone system, one simply downloads a copy of the bsf.jar
+    a standalone system, you simply download a copy of the bsf.jar
     file from the
     <a href="http://jakarta.apache.org/bsf/index.html">BSF web site</a>
-    and includes it in their classpath, along with any required classes
-    or jar files for the desired languages.
+    and include it in your classpath, along with any required classes
+    or jar files for desired languages.
     </p>
 
     <p>
     In order to use BSF as part of the
     <a href="http://jakarta.apache.org/tomcat/">Tomcat</a>
-    servlet engine, one must currently download patches from the BSF
+    servlet engine, you must currently download patches from the BSF
     web site that permit Jasper to call BSF. Instructions for this will be
     posted on the website, and will soon be accompanied by prebuilt binaries.
     We hope that these changes will be merged into Tomcat in the near
@@ -83,13 +83,13 @@
     <subsection name="BSF and JSPs">
 
     <p>
-    Having set up an application server that is BSF enabled, one can write
+    After you set up an application server that is BSF enabled, you can write
     JSPs using any of the supported scripting languages. JSPs using scripting
     languages differ only slightly from those using Java.
     </p>
 
     <p>
-    First, one must set the language attribute of the page directive
+    First, you must set the language attribute of the page directive
     in the JSP to the desired language. For example,
 
     <p>
@@ -129,17 +129,17 @@
        
     <p>
     Using BSF in servlets or applications is also quite simple. In order
-    to provide an application with scripting support, one simply needs to
+    to provide an application with scripting support, you need to
     import the BSF class hierarchy and instantiate a <code>BSFManager</code>
-    object. After instantiating the <code>BSFManager</code>, a programmer
-    registers or declares any Java objects to be made available within the
-    scripting engine. They then call either one of the <code>eval()</code>
-    or <code>exec() BSFManager</code> methods (depending on whether they want to
+    object. After instantiating the <code>BSFManager</code>, you
+    register or declare any Java objects to be made available within the
+    scripting engine. Then call either one of the <code>eval()</code>
+    or <code>exec() BSFManager</code> methods (depending on whether you want to
     evaluate a script and have the value of the evaluation returned, or
-    simply execute a script). Alternatively, programmers can call the
+    simply execute a script). Alternatively, you can call the
     <code>loadScriptingEngine()</code> method in order to get an object
     implementing the <code>BSFEngine</code> interface for the desired
-    scripting language. One can then call the <code>exec()</code> or
+    scripting language. You can then call the <code>exec()</code> or
     <code>eval()</code> methods of <code>BSFEngine</code> to run the script.
     </p>
 
