@@ -280,6 +280,62 @@
         </table>
       </subsection>
 
+      <subsection name="Groovy">
+        <p>
+        "Groovy is a powerful scripting language for the JVM which compiles down to Java bytecode and implements
+        various high level features for Java developers such as dynamic typing, powerful closures for neat object navigation,
+        native syntax for Maps and Lists, operator overloading, new extended JDK methods, AOP hooks and auto-boxing.
+        Groovy also features a markup language for working with structured data (XML, DOM, SAX, Ant tasks, Swing etc).
+        "
+        </p>
+        <table>
+          <tr>
+            <th>Compatibility:</th>
+            <td>BSF 2.3 and above</td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://groovy.codehaus.org/">http://groovy.codehaus.org/</a></td>
+          </tr>
+          <tr>
+            <th>Contact:</th>
+            <td><a href="http://groovy.codehaus.org/mail-lists.html">Mailing lists</a></td>
+          </tr>
+          <tr>
+            <th>License:</th>
+            <td>BSD (Apache-like) License</td>
+          </tr>
+        </table>
+      </subsection>
+
+      <subsection name="ObjectScript">
+        <p>
+          "ObjectScript is a general purpose object-oriented programming language. It is designed to 
+          be simple to learn, easy to use, yet still powerful, combining the convenience of an 
+          interactive interpreter with many of the features of Java, plus operator overloading,
+          regular expressions, closures, XML-RPC support, etc.  And a behind the scenes compiler 
+          compiles script code to JVM bytecode for faster execution."
+        </p>
+        <table>
+          <tr>
+            <th>Compatibility:</th>
+            <td>BSF 2.3 and above</td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://objectscript.sourceforge.net/">http://objectscript.sourceforge.net/</a></td>
+          </tr>
+          <tr>
+            <th>Contact:</th>
+            <td><a href="mailto:rob@ti.com">Rob Clark</a></td>
+          </tr>
+          <tr>
+            <th>License:</th>
+            <td>LGPL</td>
+          </tr>
+        </table>
+      </subsection>
+
     </section>
 
   </body>

@@ -68,6 +68,14 @@ BSF supports several scripting languages currently:
    <li>
    JudoScript
    </li>
+
+   <li>
+   <a href="http://groovy.codehaus.org/">Groovy</a>
+   </li>
+
+   <li>
+   <a href="http://objectscript.sourceforge.net/">ObjectScript</a>
+   </li>
 </ul>
 </p>
 

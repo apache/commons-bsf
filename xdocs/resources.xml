@@ -176,6 +176,24 @@
         </table>
       </subsection>
 
+      <subsection name="Embed ObjectScript in Java">
+        <p>
+          ObjectScript can be embedded either through it's own native interface, or through BSF.
+        </p>
+
+        <table>
+          <tr>
+            <th>Author:</th>
+            <td><a href="mailto:rob@ti.com">Rob Clark</a></td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://objectscript.sourceforge.net/?docs/embedding.html">http://objectscript.sourceforge.net/?docs/embedding.html</a></td>
+          </tr>
+        </table>
+      </subsection>
+
+
     </section>
 
     <section name="Presentations">
