@@ -139,24 +139,21 @@
         </table>
       </subsection>
 
-      <subsection name="Judoscript White Paper">
+      <subsection name="Embed JudoScript in Java">
 
         <p>
-        JudoScript provides two interfaces for embedding it in other Java
-        software, one is its own API, the other is the support for BSF.
-        BSF (Bean-Script-Framework) is a common API (developed by IBM) for
-        Java software (e.g. Apache Ant) to interact with various scripting
-        languages.
+        Two ways to embed JudoScript in Java: through its support of Bean
+        Scripting Framework and its own, simpler engine interface.
         </p>
 
         <table>
           <tr>
             <th>Author:</th>
-            <td><a href="">James Huang</a></td>
+            <td><a href="mailto:judoscript@hotmail.com">James Huang</a></td>
           </tr>
           <tr>
             <th>URL:</th>
-            <td><a href="http://www.judoscript.com/articles/whitepaper.html">http://www.judoscript.com/articles/whitepaper.html</a></td>
+            <td><a href="www.judoscript.com/articles/embed.html">www.judoscript.com/articles/embed.html</a></td>
           </tr>
         </table>
       </subsection>

@@ -193,6 +193,62 @@
         </table>
       </subsection>
 
+      <subsection name="JRuby">
+
+        <p>
+        "JRuby is a pure Java implementation of the Ruby interpreter,
+        being developed by Jan Arne Petersen and others."
+        </p>
+
+        <table>
+          <tr>
+            <th>Compatibility:</th>
+            <td>BSF 2.2 and above</td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://jruby.sourceforge.net/">http://jruby.sourceforge.net/</a></td>
+          </tr>
+          <tr>
+            <th>Contact:</th>
+            <td><a href="mailto:jpeterson@uni-bonn.de">Jan Arne Petersen</a></td>
+          </tr>
+          <tr>
+            <th>License:</th>
+            <td>dual GPL/LGPL</td>
+          </tr>
+        </table>
+      </subsection>
+
+      <subsection name="JudoScript">
+
+        <p>
+        "Judoscript is a 3GL-and-4GL; it retains 3GL's powerful
+        programmability, and extends its reach into many of today's popular
+        applications areas with 4GL approach (figuratively, "WYSIWYG
+        programming"), making their uses easy, effective and elegant."
+        </p>
+
+        <table>
+          <tr>
+            <th>Compatibility:</th>
+            <td>BSF 2.2 and above</td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://www.judoscript.com/">http://www.judoscript.com/</a></td>
+          </tr>
+          <tr>
+            <th>Contact:</th>
+            <td><a href="mailto:judoscript@hotmail.com">James Huang</a></td>
+          </tr>
+          <tr>
+            <th>License:</th>
+            <td>LGPL</td>
+          </tr>
+        </table>
+      </subsection>
+
       <subsection name="Xalan">
 
         <p>
