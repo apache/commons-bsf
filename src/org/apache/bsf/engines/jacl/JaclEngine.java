@@ -105,8 +105,7 @@ public class JaclEngine extends BSFEngineImpl {
    * This is used by an application to evaluate a string containing
    * some expression.
    */
-  public Object eval (String source, int lineNo, int columnNo, 
-		      Object oscript) throws BSFException {
+  public Object eval (Object oscript) throws BSFException {
 	String script = oscript.toString ();
 	try {
 	  interp.eval (script);

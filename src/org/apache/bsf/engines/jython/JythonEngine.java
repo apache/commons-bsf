@@ -113,8 +113,7 @@ public class JythonEngine extends BSFEngineImpl {
    * Evaluate an anonymous function (differs from eval() in that apply() 
    * handles multiple lines).
    */
-  public Object apply (String source, int lineNo, int columnNo, 
-                       Object funcBody, Vector paramNames,
+  public Object apply (Object funcBody, Vector paramNames,
                        Vector arguments) throws BSFException {
       try {
           /* We wrapper the original script in a function definition, and
@@ -148,8 +147,7 @@ public class JythonEngine extends BSFEngineImpl {
   /**
    * Evaluate an expression.
    */
-  public Object eval (String source, int lineNo, int columnNo, 
-		      Object script) throws BSFException {
+  public Object eval (Object script) throws BSFException {
 	try {
 	  Object result = interp.eval (script.toString ());
 	  if (result != null && result instanceof PyJavaInstance)
@@ -164,8 +162,7 @@ public class JythonEngine extends BSFEngineImpl {
   /**
    * Execute a script. 
    */
-  public void exec (String source, int lineNo, int columnNo,
-		    Object script) throws BSFException {
+  public void exec (Object script) throws BSFException {
 	try {
 	  interp.exec (script.toString ());
 	} catch (PyException e) {
@@ -177,8 +174,7 @@ public class JythonEngine extends BSFEngineImpl {
   /**
    * Execute script code, emulating console interaction.
    */
-  public void iexec (String source, int lineNo, int columnNo,
-                     Object script) throws BSFException {
+  public void iexec (Object script) throws BSFException {
       try {
           if (interp.buffer.length() > 0)
               interp.buffer.append("\n");

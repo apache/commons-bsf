@@ -155,8 +155,7 @@ public class JavaEngine extends BSFEngineImpl
 	throw new BSFException (BSFException.REASON_UNSUPPORTED_FEATURE,
 			    "call() is not currently supported by JavaEngine");
   }
-  public void compileScript (String source, int lineNo, int columnNo,
-		  Object script, CodeBuffer cb) throws BSFException {
+  public void compileScript (Object script, CodeBuffer cb) throws BSFException {
 	ObjInfo oldRet = cb.getFinalServiceMethodStatement ();
 
 	if (oldRet != null && oldRet.isExecutable ()) {
@@ -183,8 +182,7 @@ public class JavaEngine extends BSFEngineImpl
    * We will attempt to use it, then if necessary fall back on invoking
    * javac via the command line.
    */
-  public Object eval (String source, int lineNo, int columnNo, 
-		      Object oscript) throws BSFException
+  public Object eval (Object oscript) throws BSFException
   {
 	if (debug)
 	{

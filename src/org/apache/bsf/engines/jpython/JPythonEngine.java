@@ -108,8 +108,7 @@ public class JPythonEngine extends BSFEngineImpl {
   /**
    * Evaluate an expression.
    */
-  public Object eval (String source, int lineNo, int columnNo, 
-		      Object script) throws BSFException {
+  public Object eval (Object script) throws BSFException {
 	try {
 	  Object result = interp.eval (script.toString ());
 	  if (result != null && result instanceof PyJavaInstance)
@@ -123,8 +122,7 @@ public class JPythonEngine extends BSFEngineImpl {
   /**
    * Execute a script. 
    */
-  public void exec (String source, int lineNo, int columnNo,
-		    Object script) throws BSFException {
+  public void exec (Object script) throws BSFException {
 	try {
 	  interp.exec (script.toString ());
 	} catch (PyException e) {

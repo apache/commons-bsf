@@ -155,12 +155,11 @@ public class JavaScriptEngine extends BSFEngineImpl {
      * This is used by an application to evaluate a string containing
      * some expression.
      */
-    public Object eval(String source, int lineNo, int columnNo, Object oscript)
+    public Object eval(Object oscript)
         throws BSFException {
 
         String scriptText = oscript.toString();
         Object retval = null;
-        Script script;
         Context cx;
 
         try {
@@ -173,8 +172,7 @@ public class JavaScriptEngine extends BSFEngineImpl {
             cx.setDebugger(null, null);
 
             retval = cx.evaluateString(global, scriptText,
-                                       source, lineNo,
-                                       null);
+                                       null, -1, null);
 
             if (retval instanceof NativeJavaObject)
                 retval = ((NativeJavaObject) retval).unwrap();
