@@ -249,7 +249,7 @@
     scripting engine. Then call either one of the <code>eval()</code>
     or <code>exec() BSFManager</code> methods (depending on whether you want to
     evaluate a script and have the value of the evaluation returned, or
-    simply execute a script). Alternatively, you can call the
+    execute a script). Alternatively, you can call the
     <code>loadScriptingEngine()</code> method in order to get an object
     implementing the <code>BSFEngine</code> interface for the desired
     scripting language. You can then call the <code>exec()</code> or
@@ -275,7 +275,7 @@
       <li><code>eval()</code> - used to evaluate a script and return
       its value</li>
 
-      <li><code>exec()</code> - used to simply execute a script </li>
+      <li><code>exec()</code> - used to execute a script </li>
 
       <li><code>loadScriptingEngine()</code> - used to return a
       <code>BSFEngine</code> for the desired scripting language</li>
@@ -314,7 +314,7 @@
                                 <p>
     The <code>BSFManager</code> <code>exec()</code>, <code>eval()</code>, 
     and <code>apply()</code> methods (as well as their compile counterparts)
-    are simply wrappers over the equivalent methods presented by the
+    are wrappers over the equivalent methods presented by the
     <code>BSFEngine</code> interface. If the programmer explicitly
     loads a scripting engine via <code>loadScriptingEngine()</code>, they
     can use the <code>exec()</code> or <code>eval()</code> methods of the
@@ -340,8 +340,8 @@
     language; examples are available in the BSF source distribution.
     </p>
                                 <p>
-    Usually, a scripting language author simply extends the
-    <code>BSFEngine</code>Impl class, which implements <code>BSFEngine</code>,
+    Usually, a scripting language author extends the
+    <code>BSFEngineImpl</code> class, which implements <code>BSFEngine</code>,
     and only requires the scripting language author to implement the
     <code>eval()</code> method. However, the following methods specified by
     the <code>BSFEngine</code> interface are the most commonly implemented:
@@ -365,7 +365,7 @@
     </ul>
     </p>
                                 <p>
-    Once you have implemented the wrapper for your language engine, you simply
+    Once you have implemented the wrapper for your language engine, you 
     instantiate a <code>BSFManager</code> in your application, and register your
     engine with it via the <code>registerScriptingEngine()</code> method.
     Afterward, you may use your language within the application through the
