@@ -11,7 +11,7 @@ if [ "$OSTYPE" = "cygwin32" ] || [ "$OSTYPE" = "cygwin" ] ; then
 fi
 
 # Add in your .jar files first
-for i in ./lib/*.jar
+for i in ../../lib/*.jar
 do
     CLASSPATH=$CLASSPATH:"$i"
 done
