@@ -81,26 +81,35 @@ public class JythonEngine extends BSFEngineImpl {
    * call the named method of the given object.
    */
   public Object call (Object object, String method, Object[] args) 
-														throws BSFException {
-	
-	PyObject[] pyargs = Py.EmptyObjects;
-	if (args != null) {
-	  pyargs = new PyObject[args.length];
-	  for (int i = 0; i < pyargs.length; i++)
-		pyargs[i] = Py.java2py(args[i]);
-	}
+      throws BSFException {
 
-	if (object != null) {
-	  PyObject o = Py.java2py(object);
-	  return unwrap(o.invoke(method, pyargs));
-	}
-	PyObject m = interp.get(method);
-	if (m == null)
-		m = interp.eval(method);
-	if (m != null) {
-	return unwrap(m.__call__(pyargs));
-	}
-	return null;
+      try {
+          PyObject[] pyargs = Py.EmptyObjects;
+
+          if (args != null) {
+              pyargs = new PyObject[args.length];
+              for (int i = 0; i < pyargs.length; i++)
+                  pyargs[i] = Py.java2py(args[i]);
+          }
+
+          if (object != null) {
+              PyObject o = Py.java2py(object);
+              return unwrap(o.invoke(method, pyargs));
+          }
+
+          PyObject m = interp.get(method);
+
+          if (m == null)
+              m = interp.eval(method);
+          if (m != null) {
+              return unwrap(m.__call__(pyargs));
+          }
+
+          return null;
+      } catch (PyException e) {
+          throw new BSFException (BSFException.REASON_EXECUTION_ERROR,
+                                  "exception from Jython:\n" + e, e);
+      }
   }
 
   /**
