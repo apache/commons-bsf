@@ -63,6 +63,7 @@ import junit.textui.TestRunner;
 import org.apache.bsf.BSFManager;
 
 import org.apache.bsf.test.engineTests.*;
+import org.apache.bsf.test.utilTests.*;
 
 /**
  * Primary test class and testing front end for BSF.
@@ -96,7 +97,7 @@ public class BSFTest extends BSFEngineTestTmpl {
          * Please add testcases here as needed.
          */
         TestSuite suite = new TestSuite(); 
-        testNames = new String [5];
+        testNames = new String [8];
 
         suite.addTestSuite(BSFTest.class);
         testNames[0] = "BSFManager Base Tests";
@@ -108,6 +109,12 @@ public class BSFTest extends BSFEngineTestTmpl {
         testNames[3] = "Jython Engine Tests";
         suite.addTestSuite(netrexxTest.class);
         testNames[4] = "NetRexx Engine Tests";
+        suite.addTestSuite(StringUtilsTest.class);
+        testNames[5] = "StringUtils Test";
+        suite.addTestSuite(IOUtilsTest.class);
+        testNames[6] = "IOUtils Test";
+        suite.addTestSuite(EngineUtilsTest.class);
+        testNames[7] = "EngineUtils Test";
         
         return suite;
     }
