@@ -82,7 +82,6 @@ public class JythonEngine extends BSFEngineImpl {
    */
   public Object call (Object object, String method, Object[] args) 
       throws BSFException {
-
       try {
           PyObject[] pyargs = Py.EmptyObjects;
 
