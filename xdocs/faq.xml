@@ -1,0 +1,219 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <author email="chuck@topsail.org">Chuck Murcko</author>
+    <author email="vjo@dulug.duke.edu">Victor Orlikowski</author>
+    <title>Frequently Asked Questions</title>
+  </properties>
+
+  <faqsection title="About this FAQ">
+    <faq id="latest-version">
+      <question>Where do I find the latest version of this
+        document?</question>
+      <answer>
+        <p>The latest version can always be found at BSF&apos;s homepage 
+          <a href="http://jakarta.apache.org/bsf/faq.html">http://jakarta.apache.org/bsf/faq.html</a>.</p>
+      </answer>
+    </faq>
+
+    <faq id="adding-faqs">
+      <question>How can I contribute to this FAQ?</question>
+      <answer>
+        <p>The page you are looking it is generated from 
+          <a href="http://cvs.apache.org/viewcvs.cgi/~checkout~/jakarta-bsf/xdocs/faq.xml">this</a>
+          document.  If you want to add a new question, please submit
+          a patch against this document to one of BSF&apos;s mailing lists;
+          hopefully, the structure is self-explanatory.</p>
+        
+        <p>If you don&apos;t know how to create a patch, see the patches
+          section of <a href="http://jakarta.apache.org/site/source.html">this
+          page</a>.</p>
+      </answer>
+    </faq>
+
+    <faq id="creating-faq">
+      <question>How do you create the HTML version of this
+        FAQ?</question>
+
+      <answer>
+        <p>We use 
+        <a href="http://jakarta.apache.org/velocity/anakia.html">Anakia</a>
+        to render the HTML version from the original XML file.</p>
+
+        <p>The Velocity stylesheets used to process the XML files can
+        be found in the <code>xdocs/stylesheets</code> subdirectory of
+        BSF&apos;s CVS repository - the build file <code>docs.xml</code> is
+        used to drive Anakia.  This file assumes that you have the
+        <code>jakarta-site2</code> module checked out from CVS as
+        well, but if you follow the instruction from Anakia&apos;s
+        homepage, you should get it to work without that.  Just make
+        sure all required jars are in the task&apos;s classpath.</p>
+      </answer>
+    </faq>
+
+  </faqsection>
+
+  <faqsection title="General">
+    <faq id="what-is-bsf">
+      <question>What is Bean Scripting Framework?</question>
+      <answer>
+        <p>
+        Bean Scripting Framework (BSF) is a set of Java classes which provides
+        scripting language support within Java applications. It also provides
+        access to Java objects and methods from supported scripting languages.
+        BSF allows one to write JSPs in languages other than Java while
+        providing access to the Java class library. In addition, BSF permits
+        any Java application to be implemented in part (or dynamically
+        extended) by a language that is embedded within it. This is achieved
+        by providing an API that permits calling scripting language engines
+        from within Java, as well as an object registry that exposes Java
+        objects to these scripting language engines.
+        </p>
+      </answer>
+    </faq>
+
+    <faq id="bsf-name">
+      <question>Why do you call it BSF?</question>
+      <answer>
+
+        <p>
+        It's the beanage. Beans were the cool thing when BSF was first being
+        designed, and BSF contains several flavors.
+        </p>
+        
+      </answer>
+    </faq>
+
+    <faq id="history">
+      <question>Tell us a little bit about BSF&apos;s history.</question>
+      <answer>
+
+        <p>
+        BSF began life in 1999 as a research project of Sanjiva Weerawarana
+        at IBM's T.J. Watson Research Center. The initial intent had been 
+        to provide access to JavaBeans from scripting language environments
+        (though there is nothing limiting access only to Java Beans). It was
+        soon moved to IBM's AlphaWorks developer site, where significant
+        interest (both internal and external to IBM) led to its being
+        moved to IBM's developerWorks site, where BSF could operate as an
+        open source project. During this time, significant development was
+        done by Matt Duftler and Sam Ruby, and BSF was incorporated into
+        both IBM products (Websphere) and Apache projects (Xalan). It was
+        this interest on the part of the Apache Software Foundation that
+        ultimately led to BSF's acceptance as a subproject of Jakarta in
+        2002.
+        </p>
+
+        <p>
+        During the process of moving BSF to Jakarta, development continued
+        within IBM, with further improvements to BSF's integration with
+        Jasper being made by John Shin and the addition of debugging support
+        for the Javascript language (a team effort, resulting from the work
+        of IBM researchers Olivier Gruber, Jason Crawford, and John Ponzo,
+        and IBM software developers Chuck Murcko and Victor Orlikowski).
+        </p>
+
+        <p>
+        It is the current version, 2.3, that has been donated to Apache
+        Software Foundation from IBM.
+        </p>
+
+      </answer>
+    </faq>
+
+  </faqsection>
+
+  <faqsection title="Installation">
+    <faq id="no-gnu-tar">
+      <question>I get checksum errors when I try to extract the
+      <code>tar.gz</code> distribution file. Why?</question>
+      <answer>
+        <p>BSF&apos;s distribution contains file names that are longer
+        than 100 characters, which is not supported by the standard
+        tar file format. Several different implementations of tar use
+        different and incompatible ways to work around this
+        restriction.</p>
+
+        <p>BSF&apos;s &lt;tar&gt; task can create tar archives that use
+        the GNU tar extension, and this has been used when putting
+        together the distribution. If you are using a different
+        version of tar (for example, the one shipping with Solaris),
+        you cannot use it to extract the archive.</p>
+
+        <p>The solution is to either install GNU tar, which can be
+        found <a href="http://www.gnu.org/software/tar/tar.html">here</a>,
+        or use the zip archive instead (you can extract it using
+        <code>jar xf</code>).</p>
+      </answer>
+    </faq>
+  </faqsection>
+
+  <faqsection title="How do I ...">
+    <faq id="TBD1">
+      <question>
+      To be added
+      </question>
+
+      <answer>
+
+        <p>
+        To be added
+        </p>
+
+      </answer>
+    </faq>
+
+  </faqsection>
+
+  <faqsection title="It doesn&apos;t work (as expected)">
+
+    <faq id="winzip-lies">
+      <question>BSF creates JAR files with a lower-case
+        <code>meta-inf</code> directory.</question>
+        
+      <answer>
+        <p>No it doesn't.</p>
+
+        <p>You may have seen these lower-case directory names in  
+        WinZIP, but WinZIP is trying to be helpful (and fails).  If
+        WinZIP encounters a filename that is all upper-case, it 
+        assumes it has come from an old DOS box andchanges the case to
+        all lower-case for you.</p>
+
+        <p>If you extract (or just check) the archive with jar, you
+        will see that the names have the correct case.</p>
+      </answer>
+    </faq>
+  </faqsection>
+
+  <faqsection title="Advanced Issues">
+    <faq id="TBD2">
+      <question>
+      To be added
+      </question>
+
+      <answer>
+
+        <p>
+        To be added
+        </p>
+
+      </answer>
+    </faq>
+  </faqsection>
+
+  <faqsection title="Known Problems">
+    <faq id="javadoc-cannot-execute">
+      <question>JavaDoc failed: java.io.IOException: javadoc: cannot execute</question>
+      <answer>
+        <p>There is a bug in the Solaris reference implementation of
+        the JDK (see <a href="http://developer.java.sun.com/developer/bugParade/bugs/4230399.html">http://developer.java.sun.com/developer/bugParade/bugs/4230399.html</a>).
+        This also appears to be true under Linux. Moving the JDK to
+        the front of the PATH fixes the problem.</p>
+      </answer>
+    </faq>
+
+  </faqsection>
+
+</document>
