@@ -11,8 +11,9 @@
     <section name="Related Projects">
 
       <p>Nothing listed here is directly supported by the BSF
-      developers; if you encounter any problems, please use
-      the contact information for the relevant project.</p>
+      developers. If you encounter any problems with them, please use
+      the contact information. Failing that, a query to the bsf-users
+      mailing list may help.</p>
 
       <subsection name="BeanShell">
 
@@ -56,7 +57,7 @@
         <table>
           <tr>
             <th>Compatibility:</th>
-            <td>Rhino 1.5.1-1.5.3, with BSF 2.2 and above</td>
+            <td>Rhino 1.5.1-1.5.3, with BSF 2.3 and above</td>
           </tr>
           <tr>
             <th>URL:</th>
@@ -114,13 +115,13 @@
         </p>
 
         <p>
-        note: new development has shifted to Jython
+        NOTE: new development has shifted to Jython
         </p>
 
         <table>
           <tr>
             <th>Compatibility:</th>
-            <td>version 1.01, with BSF 2.2 and above (succeeded by Jython)</td>
+            <td>JPython 1.03, with BSF 2.2 and above (succeeded by Jython)</td>
           </tr>
           <tr>
             <th>URL:</th>
@@ -147,7 +148,7 @@
         <table>
           <tr>
             <th>Compatibility:</th>
-            <td>version 1.2.6, with BSF 2.2 and above</td>
+            <td>Jacl 1.2.6, with BSF 2.2 and above</td>
           </tr>
           <tr>
             <th>URL:</th>
@@ -175,7 +176,7 @@
         <table>
           <tr>
             <th>Compatibility:</th>
-            <td>version 2.0.2, with BSF 2.2 and above</td>
+            <td>NetRexx 2.0.2, with BSF 2.2 and above</td>
           </tr>
           <tr>
             <th>URL:</th>
@@ -199,13 +200,13 @@
         HTML, text, or other XML document types. It implements the W3C
         Recommendations for XSL Transformations (XSLT) and the XML Path
         Language (XPath). It can be used from the command line, in an applet
-        or a servlet, or as a module in other program.
+        or a servlet, or as a module in other program."
         </p>
 
         <table>
           <tr>
             <th>Compatibility:</th>
-            <td>version 2.2 and above (XSLT), with BSF 2.2 and above</td>
+            <td>Xalan 2.2 and above (XSLT), with BSF 2.3 and above</td>
           </tr>
           <tr>
             <th>URL:</th>
