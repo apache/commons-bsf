@@ -113,12 +113,6 @@ Copyright:
   <target name="prepare" depends="init">
     <mkdir dir="${build.dir}"/>
 
-    <path id="anakia.classpath">
-      <fileset dir="${basedir}/lib">
-        <include name="*.jar"/>
-      </fileset>
-    </path>
-
     <!-- ================================================================= -->
     <!-- Determines what optional components are available                 -->
     <!-- ================================================================= -->
@@ -146,11 +140,6 @@ Copyright:
     <available property="xalan.present"
                classname="org.apache.xalan.xslt.EnvironmentCheck"/>
 
-    <available property="AnakiaTask.present"
-               classname="org.apache.velocity.anakia.AnakiaTask">
-      <classpath refid="anakia.classpath"/>
-    </available>
-
     <uptodate property="javac.notRequired"
               targetfile="${build.lib}/${project.name}.jar">
       <srcfiles dir="${src.dir}">
@@ -164,6 +153,24 @@ Copyright:
     </uptodate>
 
     <antcall target="checkDependencies"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Prepares the site build process                                     -->
+  <!-- =================================================================== -->
+  <target name="prepare-site" depends="init">
+    <path id="anakia.classpath">
+      <fileset dir="${basedir}/lib">
+        <include name="*.jar"/>
+      </fileset>
+    </path>
+
+    <available property="AnakiaTask.present"
+               classname="org.apache.velocity.anakia.AnakiaTask">
+      <classpath refid="anakia.classpath"/>
+    </available>
+
+    <antcall target="checkAnakiaTask"/>
   </target>
 
   <!-- =================================================================== -->
@@ -320,7 +327,7 @@ Copyright:
   <!-- =================================================================== -->
   <target name="build-site" if="AnakiaTask.present"
           description="Generates the website."
-          depends="prepare, checkAnakiaTask">
+          depends="prepare-site">
     <taskdef name="anakia" classname="org.apache.velocity.anakia.AnakiaTask">
        <classpath refid="anakia.classpath"/>
     </taskdef>
