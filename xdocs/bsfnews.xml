@@ -8,21 +8,21 @@
 
 <body>
   <section name="BSF 2.3">
-    <h3>November 1, 2002 - BSF 2.3 Available</h3>
+    <h3>November 10, 2002 - BSF 2.3.0 Available</h3>
     <p>
      The first version of BSF 2.3 from Apache Jakarta is now available for 
      <a href="http://jakarta.apache.org/builds/jakarta-bsf/release/v2.3.0/">
      download</a>. If you have any feedback on this release, feel free to
      join the discussion on the bsf-dev and bsf-user mailing lists.
-     </p>
+    </p>
   </section>
 
   <section name="Interested?">
-      <p>
-        If you want to participate in developing BSF, join the 
-        <a href="http://jakarta.apache.org/site/mail.html">bsf-dev mailing list</a> and contribute
-        your ideas.
-      </p>
+    <p>
+     If you want to participate in developing BSF, join the 
+     <a href="http://jakarta.apache.org/site/mail.html">
+     bsf-dev mailing list</a> and contribute your ideas.
+    </p>
   </section>
 
 </body>
