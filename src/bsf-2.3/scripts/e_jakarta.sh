@@ -18,4 +18,4 @@ if [ "$1" = "debug" ]; then
     export DBG="-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,address=$VAME_PORT"
 fi
 
-java -Dcom.ibm.bsf.debug.logLevel=1 -Dcom.ibm.bsf.serverLaunch=true -Dbsf.home=$BSF_HOME -Dcatalina.home=$CATALINA_HOME -cp $CATALINA_PATH:$BSF_PATH $DBG org.apache.catalina.startup.Bootstrap start
+java -Dorg.apache.bsf.debug.logLevel=1 -Dorg.apache.bsf.serverLaunch=true -Dbsf.home=$BSF_HOME -Dcatalina.home=$CATALINA_HOME -cp $CATALINA_PATH:$BSF_PATH $DBG org.apache.catalina.startup.Bootstrap start

@@ -52,7 +52,7 @@ $(INTDIR)JNIUtils.obj : ..\..\util\JNIUtils.c
 	$(CPP) $(CPP_PROJ) $(JNI_INCLUDE) ..\..\util\JNIUtils.c
 
 $(INTDIR)ActiveScriptEngine.obj : ActiveScriptEngine.cpp \
-		com_ibm_bsf_engines_activescript_ActiveScriptEngine.h \
+		org_apache_bsf_engines_activescript_ActiveScriptEngine.h \
 		JavaCOM.hpp bsfcom.hpp cashostsite.hpp BSFException.hpp
 	$(CPP) $(CPP_PROJ) $(JNI_INCLUDE) $*.cpp
 
@@ -63,8 +63,8 @@ $(INTDIR)JavaOLEENUMVAR.obj : JavaOLEENUMVAR.cpp JavaOLEENUMVAR.hpp \
 		JavaCOM.hpp BSFException.hpp
 	$(CPP) $(CPP_PROJ) $(JNI_INCLUDE) $*.cpp
 
-com_ibm_bsf_engines_activescript_ActiveScriptEngine.h :
+org_apache_bsf_engines_activescript_ActiveScriptEngine.h :
 	javah -classpath $(CLASSPATH);..\..\..\..\..\..\build\lib\bsf.jar \
-		-jni com.ibm.bsf.engines.activescript.ActiveScriptEngine
+		-jni org.apache.bsf.engines.activescript.ActiveScriptEngine
 
 #ENDOF MAKEFILE

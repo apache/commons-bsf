@@ -15,7 +15,7 @@ if [ "$1" = "debug" ]; then
     export DBG="-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,address=$VAME_PORT"
 fi
 
-java -Dcom.ibm.bsf.debug.logLevel=$LOG_LEVEL -cp $JSDB_PATH $DBG com.ibm.bsf.dbline.JsDb
+java -Dorg.apache.bsf.debug.logLevel=$LOG_LEVEL -cp $JSDB_PATH $DBG org.apache.bsf.dbline.JsDb
 
 
 
