@@ -1,4 +1,10 @@
-changes for BSF 2.3.0
+changes for Apache BSF 2.3.0
+
+    *) add javadocs and realclean targets to build.xml
+       scrub remaining email addresses from source for spam prevention
+       add AUTHORS, BUILDING, INSTALL, README, and TODO files
+       [Chuck Murcko <chuck@topsail.org>]
+
     *) Cleaned out META* junk [Chuck Murcko <chuck@topsail.org>]
 
     *) Removed bsf/src/org/apache/bsf/engines/activescript/samples/*

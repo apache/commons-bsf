@@ -1,0 +1,44 @@
+To build BSF, one needs the following:
+
+    Servlet API .jar via Tomcat or other source
+    Supported language .jar files:
+
+    BeanShell   -> http://www.beanshell.org/ (3rd party BSF engine)
+    Jacl        -> http://www.scriptics.com/java/
+    JPython     -> http://www.jpython.org/
+    JRuby       -> http://www.jruby.org/ (3rd party BSF engine)
+    JudoScript  -> http://www.judoscript.com/ (3rd party BSF engine)
+    Jython      -> http://www.jython.org/
+    NetRexx     -> http://www2.hursley.ibm.com/netrexx/
+    Rhino       -> http://www.mozilla.org/rhino/
+    Xalan       -> http://xml.apache.org/xalan/
+
+As a convenience, these language .jars are currently collected at:
+
+    http://www.topsail.org/goodies/BSFlang/
+
+Make sure the .jars (and Ant) are in your CLASSPATH, and then use the command
+
+    ant [target]
+
+where [target] is one of the following:
+
+   compile            creates the "bsf.jar" package in "./build/lib"
+                      (default target)
+   bsf-compile        compiles the BSF core code (engines and code)
+   bsf_debug-compile  compiles the BSF Javascript debugging code
+   jsdb-compile       compiles the BSF command-line debugger
+   bindist            creates the complete binary distribution in "./dist/"
+   srcdist            creates the complete src distribution in "./dist/"
+   dist               creates both the binary and the src distributions
+                      in "./dist/"
+   realclean          removes all the generated files, directories, logs, etc.
+                      typically this gets run before cutting a distribution
+   clean              removes all the generated files and directories
+   bsf-clean          cleans the BSF core code directory
+   bsf_debug-clean    cleans the BSF Javascript debugging code directory
+   jsdb-clean         cleans the BSF command-line debugger directory
+   javadocs           generates docs for the whole package in dist/javadoc
+
+There are also convenience scripts provided for using the collections
+distributed with jakarta-bsf (Ant, for instance) for the build.

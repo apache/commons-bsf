@@ -6,22 +6,25 @@
 
 Notes:
 
-   This is a build file for use with the Jakarta Ant build tool.
+   This is the build file for use with the Jakarta Ant build tool.
 
 Prerequisites:
 
-    None
+    servlet/JSP API -> http
 
 Optional additions:
 
-    Rhino       -> http://www.mozilla.org/rhino
-    NetRexx     -> http://www2.hursley.ibm.com/netrexx
-    JPython     -> http://www.jpython.org
-    Jython      -> http://www.jython.org
-    Jacl        -> http://www.scriptics.com/java
-    Xalan       -> http://xml.apache.org/xalan
-    ASF (Win32) -> http://msdn.microsoft.com/scripting
-    PerlScript  -> http://www.activestate.com
+    Rhino       -> http://www.mozilla.org/rhino/
+    NetRexx     -> http://www2.hursley.ibm.com/netrexx/
+    JPython     -> http://www.jpython.org/
+    Jython      -> http://www.jython.org/
+    Jacl        -> http://www.scriptics.com/java/
+    Xalan       -> http://xml.apache.org/xalan/
+    ASF (Win32) -> http://msdn.microsoft.com/scripting/ (currently unsupported)
+    PerlScript  -> http://www.activestate.com/ (currently unsupported)
+    BeanShell   -> http://www.beanshell.org/ (3rd party BSF engine)
+    JRuby       -> http://www.jruby.org/ (3rd party BSF engine)
+    JudoScript  -> http://www.judoscript.com/ (3rd party BSF engine)
 
 Build Instructions:
 
@@ -40,10 +43,13 @@ Most useful targets:
  - bindist  -> creates the complete binary distribution in "./dist/"
  - srcdist  -> creates the complete src distribution in "./dist/"
  - dist     -> creates both the binary and the src distributions in "./dist/"
+ - realclean -> removes all the generated files, directories, logs, etc.
+                typically this only gets run before cutting a distribution
  - clean    -> removes all the generated files and directories
  - bsf-clean -> cleans the BSF core code directory
  - bsf_debug-clean -> cleans the BSF Javascript debugging code directory
  - jsdb-clean -> cleans the BSF command-line debugger directory
+ - javadocs -> generates docs for the whole package in dist/javadocs
 
 
 Authors:
@@ -69,12 +75,18 @@ Copyright:
     <property name="debug" value="off"/>
 
     <property name="packages" value="org.apache.*"/>
+    <property name="packages.src"
+             value="bsf/src:bsf_debug/src:jsdb/src:taglib/src"/>
 
     <property name="build.file" value="build.xml"/>
+    <property name="log.file" value="*.log"/>
+    <property name="out.file" value="*.out"/>
+    <property name="list.file" value="*.file*"/>
 
     <property name="build.dir" value="build"/>
     <property name="build.dest" value="build/classes"/>
     <property name="build.lib" value="build/lib"/>
+    <property name="build.javadocs" value="build/javadocs"/>
 
     <property name="bsf.classes" value="bsf/build/classes"/>
     <property name="bsf_debug.classes" value="bsf_debug/build/classes"/>
@@ -295,6 +307,36 @@ Copyright:
     <echo>Target: Top Level - Cleaning up ...</echo>
     <delete dir="${build.dir}"/>
     <delete dir="${dist.dir}"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- REALLY cleans everything                                            -->
+  <!-- =================================================================== -->
+  <target name="realclean"
+          description="Removes build dirs, dist dirs, build logs, and support files."
+          depends="clean">
+    <echo>Target: Top Level - *Really* cleaning up ...</echo>
+    <delete>
+          <fileset dir = "." includes = "${log.file}, ${out.file}, ${list.file}"/>
+    </delete>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- builds javadocs for the BSF core source directories                 -->
+  <!-- =================================================================== -->
+  <target name="javadocs"
+          description="Builds the javadocs."
+          depends="prepare">
+    <echo>Target: Top-level - Javadocs ...</echo>
+    <mkdir dir="${build.javadocs}"/>
+    <javadoc packagenames="${packages}"
+             sourcepath="${packages.src}"
+             destdir="${build.javadocs}"
+             author="true"
+             version="false"
+             use="true"
+             windowtitle="${Name} API"
+             doctitle="${Name}"/>
   </target>
 
 </project>

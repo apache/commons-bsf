@@ -186,8 +186,8 @@ public class MethodUtils {
 	if (argTypes != null && argTypes.length>0) {
 	  if(false)
 		{
-		  // ????? Sanjiva has an ArrayToString method. Using it would save
-		  // a few bytes, at cost of giving up some reusability.
+		  // ????? Sanjiva has an ArrayToString method. Using it would
+		  // save a few bytes, at cost of giving up some reusability.
 		}
 	  else
 		{

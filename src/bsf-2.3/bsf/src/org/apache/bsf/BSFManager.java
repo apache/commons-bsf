@@ -89,7 +89,7 @@ import javax.naming.*;
  * debugging interface. Usually, this interface allows the debugger
  * to register its language-specific callbacks for debugging events.
  * 
- * @see the org.apache.bsf.debug packages for more details.
+ * @see org.apache.bsf.debug packages for more details.
  * 
  * @author   Sanjiva Weerawarana
  * @author   Matthew J. Duftler

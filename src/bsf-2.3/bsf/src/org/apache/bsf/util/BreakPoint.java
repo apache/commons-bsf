@@ -74,14 +74,14 @@ import org.apache.bsf.*;
  * A document is for instance a JSP in Tomcat/Jasper
  * framework. Its name is given when evaluating/executing
  * a function or a script through the BSFEngine.eval or 
- * BSFEnging.exec interface.
+ * BSFEngine.exec interface.
  *
  * Breakpoints are identified through breakpoint identifier
  * which are provided by the client debugger. This allows an
  * easy communication between the server and the client.
  * Breakpoint identifiers shall be unique across documents.
  * 
- * @see BSFEngine, eval and exec methods.
+ * @see BSFEngine java.lang.eval java.lang.exec
  * @author Olivier Gruber
  */
 public class BreakPoint {

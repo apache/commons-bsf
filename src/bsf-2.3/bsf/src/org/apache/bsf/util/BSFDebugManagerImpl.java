@@ -150,7 +150,7 @@ public class BSFDebugManagerImpl
      *         is known to me (must have been registered via 
      *         registerScriptingEngine).
      *
-     * @exception BSFException if file's extension is unknown.
+     * @exception RemoteException if file's extension is unknown.
      */
     public String getLangFromFilename(String fileName) throws RemoteException {
         try {
@@ -245,7 +245,7 @@ public class BSFDebugManagerImpl
      * Register a debugger for a scripting engine.
      *
      * @param lang string identifying language
-     * @exception BSFException if the language is unknown (i.e., if it
+     * @exception RemoteException if the language is unknown (i.e., if it
      *            has not been registered) with a reason of 
      *            REASON_UNKNOWN_LANGUAGE. If the language is known but
      *            if the interface can't be created for some reason, then

@@ -1,4 +1,4 @@
-changes for BSF 2.3
+changes to BSF 2.2
     *) Fix taglibs, and allow debugging through taglibs
        [Victor Orlikowski <vjo@us.ibm.com>]
 
@@ -16,6 +16,18 @@ changes for BSF 2.3
 
     *) Miscellaneous bugfixes, additions, and cleanups.
        [Victor Orlikowski <vjo@us.ibm.com>]
+       [Olivier Gruber <ogruber@us.ibm.com>]
+
+    *) updated XSLT support for Xalan 2
+       [Victor Orlikowski <vjo@us.ibm.com>]
+
+    *) added Jython engine
+       [Chuck Murcko <cmurcko@us.ibm.com>]
+
+    *) JSDI and debug engine for ECMAScript
+       [Olivier Gruber <ogruber@us.ibm.com>]
+       [Jason Crawford <ccjason@us.ibm.com>]
+       [John Ponzo <jponzo@us.ibm.com>]
 
     *) added master build.xml
        [Victor Orlikowski <vjo@us.ibm.com>]

@@ -181,7 +181,7 @@ public interface BSFDebugManager extends Remote {
 	 * Register a debugger for a scripting engine.
 	 *
 	 * @param lang string identifying language
-	 * @exception BSFException if the language is unknown (i.e., if it
+	 * @exception RemoteException if the language is unknown (i.e., if it
 	 *            has not been registered) with a reason of 
 	 *            REASON_UNKNOWN_LANGUAGE. If the language is known but
 	 *            if the interface can't be created for some reason, then

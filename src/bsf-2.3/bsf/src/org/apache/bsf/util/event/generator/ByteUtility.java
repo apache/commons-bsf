@@ -61,7 +61,7 @@ package org.apache.bsf.util.event.generator;
  * 5 April 1999 - functions to append standard types to byte arrays
  *                functions to produce standard types from byte arrays
  *
- * @author Richard F. Boehme (<tt>rfboehme@us.ibm.com</tt>)
+ * @author Richard F. Boehme
  *
  */
 public class ByteUtility

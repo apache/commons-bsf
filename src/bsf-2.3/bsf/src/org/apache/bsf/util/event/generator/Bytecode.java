@@ -63,7 +63,7 @@ package org.apache.bsf.util.event.generator;
  * 5 April 1999 - functions to append Class File byte subarrays
  *                into a Class File byte array
  *
- * @author Richard F. Boehme (<tt>rfboehme@us.ibm.com</tt>)
+ * @author Richard F. Boehme
  *
  */
 public class Bytecode

@@ -20,8 +20,11 @@ Optional additions:
     Jython      -> http://www.jython.org
     Jacl        -> http://www.scriptics.com/java
     Xalan       -> http://xml.apache.org/xalan
-    ASF (Win32) -> http://msdn.microsoft.com/scripting
-    PerlScript  -> http://www.activestate.com
+    ASF (Win32) -> http://msdn.microsoft.com/scripting (currently unsupported)
+    PerlScript  -> http://www.activestate.com (currently unsupported)
+    BeanShell   -> http://www.beanshell.org/ (3rd party BSF engine)
+    JRuby       -> http://www.jruby.org/ (3rd party BSF engine)
+    JudoScript  -> http://www.judoscript.com/ (3rd party BSF engine)
 
 Build Instructions:
 
