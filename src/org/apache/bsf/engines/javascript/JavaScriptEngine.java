@@ -172,7 +172,7 @@ public class JavaScriptEngine extends BSFEngineImpl {
             cx.setDebugger(null, null);
 
             retval = cx.evaluateString(global, scriptText,
-                                       null, -1, null);
+                                       null, 1, null);
 
             if (retval instanceof NativeJavaObject)
                 retval = ((NativeJavaObject) retval).unwrap();
