@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <author email="chuck@topsail.org">Chuck Murcko</author>
+    <author email="vjo@dulug.duke.edu">Victor Orlikowski</author>
+    <title>Bean Scripting Framework</title>
+  </properties>
+
+<body>
+
+  <section name="Bean Scripting Framework">
+
+<p>
+Bean Scripting Framework (BSF) is a set of Java classes which provides scripting
+language support within Java applications. It also provides access to Java
+objects and methods from supported scripting languages. BSF allows one to
+write JSPs in languages other than Java while providing access to the Java
+class library. in addition, BSF permits any Java application to be implemented
+in part (or dynamically extended) by a language that is embedded within it.
+This is achieved through providing an API that permits calling scripting
+language engines from within Java, as well as an object registry that exposes
+Java objects to these scripting language engines.
+</p>
+
+  </section>
+
+  <section name="Supported Languages">
+
+<p>
+BSF supports several scripting languages currently:
+
+<ul>
+   <li>
+   Javascript (using Rhino, from the Mozilla project)
+   </li>
+
+   <li>
+   Python (using either Jython or JPython)
+   </li>
+
+   <li>
+   Tcl (using Jacl)
+   </li>
+
+   <li>
+   NetRexx (an extension of the IBM REXX scripting language in Java)
+   </li>
+
+   <li>
+   XSLT Stylesheets (as a component of Apache XML project's Xalan and Xerces)
+   </li>
+</ul>
+</p>
+
+  </section>
+  
+  <section name="Documentation">
+  
+<p>
+You can view the documentation for the current release (Jakarta BSF 2.3)
+<a href="manual/index.html">online</a>
+</p>
+
+<p>
+Documentation and examples are included in the source and binary distributions. 
+</p>
+
+  </section>
+
+  <section name="Latest Release">
+    <p>
+    You can download the latest release:
+    </p>
+    <ul>
+        <li><a href="http://www.apache.org/dist/jakarta/jakarta-bsf/release/v2.3/bin/">
+                Download the binary release</a></li>
+        <li><a href="http://www.apache.org/dist/jakarta/jakarta-bsf/release/v2.3/src/">
+                Download the source release</a></li>
+        <li><a href="http://www.apache.org/dist/jakarta/jakarta-bsf/release/v2.3/rpms/">
+                Download source or binary RPMs</a></li>
+    </ul>  
+  </section>
+  
+  <section name="Nightly Builds">
+    <p>
+    If you wish to use the latest BSF features, you can try downloading a nightly 
+    build from <a href="http://jakarta.apache.org/builds/jakarta-bsf/nightly/">here</a>
+    </p>
+    
+  </section>
+  
+  <section name="Towards BSF 3.0">
+    <p>
+    We are beginning to discuss design details for BSF 3.0. Please
+    read the latest <a href="bsfnews.html">BSF news</a> for more details.
+    </p>
+  </section>
+  
+  <section name="Get Involved">
+<ul>
+<li><a href="http://jakarta.apache.org/getinvolved/getinvolvedindex.html">Get Involved</a></li>
+<li><a href="http://jakarta.apache.org/getinvolved/mail.html">Join Mailing Lists</a></li>
+<li><a href="http://marc.theaimsgroup.com/?l=bsf-dev&amp;r=1&amp;w=2">Search the Dev Mailing List</a>
+</li>
+<li><a href="http://marc.theaimsgroup.com/?l=bsf-user&amp;r=1&amp;w=2">Search the User Mailing List</a>
+</li>
+</ul>
+
+
+
+  </section>
+
+</body>
+</document>
+

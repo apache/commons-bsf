@@ -6,7 +6,7 @@
     <logo href="images/bsf_logo.jpg">Jakarta BSF</logo>
     
     <body>
-    <menu name="Jakarta BSF">
+    <menu name="BSF Essentials">
         <item name="Front Page"            
               href="/index.html"/>
         <item name="News"                 
