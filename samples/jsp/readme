@@ -1,0 +1,2 @@
+NOTE: In JSP environments that do not support the XML versions of the
+JSP tags, multitest.jsp will not work.

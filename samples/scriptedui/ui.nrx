@@ -1,0 +1,20 @@
+
+/* pick up the center panel bean */
+p = java.awt.Panel bsf.lookupBean("centerPanel");
+
+/* set the layout manager to border */
+p.setLayout(java.awt.BorderLayout());
+
+/* add a few things */
+p.add("Center", java.awt.Label("Middle from NetRexx"));
+p.add("North", java.awt.TextField("north text from NetRexx"));
+p.add("South", java.awt.TextField("south text from NetRexx"));
+p.add("East", java.awt.Button("inner east from NetRexx"));
+p.add("West", java.awt.Button("inner west from NetRexx"));
+
+/* configure p a bit */
+p.setBackground(java.awt.Color(255, 0, 0));
+
+/* configure the frame that p is in */
+f = java.awt.Frame p.getParent();
+f.setTitle("Hello from NetRexx (title reset from NetRexx)");

@@ -1,0 +1,13 @@
+
+In this demo we create some components in Java, register them into BSF,
+then run a script using BSF to affect those components, and finally
+come back into Java and continue on.
+
+To run, type:
+
+	java ScriptedUI scriptfilename
+
+where filename is any of the script files here. 
+
+You need to have the BSF jar file and any language-specific
+jars/zips on your classpath.

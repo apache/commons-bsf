@@ -1,0 +1,12 @@
+
+This demo shows how one can use LotusXSL as a scripting language to
+fill in a Java data structure using some XML data and a stylesheet.
+
+To run it, type:
+
+	java TableFiller style1.xsl table-data.xml
+or
+	java TableFiller style2.xsl table-data.xml
+
+You need to have LotusXSL v0.18.* on your classpath in addition to 
+bsf.jar and bsfengines.jar.

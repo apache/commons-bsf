@@ -1,0 +1,6 @@
+
+To run this demo type:
+	java TestCalc filename
+where filename is one of TestCalc.vbs or TestCalc.jss or TestCalc.pls.
+
+You need to have bsf.jar on your classpath and ../../lib/win32 on your path.

@@ -1,0 +1,61 @@
+# A silly little calculator implemented in Jacl using
+# Java components for the UI.
+
+package require java
+
+set f [java::new java.awt.Frame "BSH Calculator"]
+bsf addEventListener $f "window" "windowClosing" "exit"
+set p [java::new java.awt.Panel]
+
+set f1 [java::new java.awt.TextField]
+$f1 setColumns 20
+bsf addEventListener $f1 "action" "" "doMath"
+set f2 [java::new java.awt.TextField]
+bsf addEventListener $f2 "text" "" "doMath"
+
+set p [java::new java.awt.Panel]
+$p setLayout [java::new java.awt.GridLayout 2 2]
+$p add [java::new java.awt.Label "Enter Operand"]
+$p add $f1
+$p add [java::new java.awt.Label "Enter Operand"]
+$p add $f2
+
+$f add "North" $p
+
+$f add "Center" [java::new java.awt.Label "Results:"]
+
+set p [java::new java.awt.Panel]
+$p setLayout [java::new java.awt.GridLayout 4 2]
+$p add [java::new java.awt.Label "Sum"]
+$p add [set sum [java::new java.awt.TextField]]
+$sum setColumns 20
+$p add [java::new java.awt.Label "Difference"]
+$p add [set diff [java::new java.awt.TextField]]
+$p add [java::new java.awt.Label "Product"]
+$p add [set prod [java::new java.awt.TextField]]
+$p add [java::new java.awt.Label "Quotient"]
+$p add [set quo [java::new java.awt.TextField]]
+$f add "South" $p
+
+$f pack
+$f show
+$f toFront
+
+proc getField {f} {
+  set t [$f getText]
+  if {$t == ""} { 
+    return 0
+  } else { 
+    return [java::call java.lang.Integer parseInt $t]
+  }
+}
+
+proc doMath {} {
+  global f1 f2 sum diff prod quo
+  set n1 [getField $f1]
+  set n2 [getField $f2]
+  $sum setText [expr $n1 + $n2]
+  $diff setText [expr $n1 - $n2]
+  $prod setText [expr $n1 * $n2]
+  $quo setText [expr $n1 / $n2]
+}
