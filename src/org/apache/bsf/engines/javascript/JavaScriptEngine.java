@@ -116,7 +116,7 @@ public class JavaScriptEngine extends BSFEngineImpl {
 
             Object fun = global.get(method, global);
             if (fun == Scriptable.NOT_FOUND)
-                throw new JavaScriptException("function " + method + " not found.");
+                throw new EvaluatorException("function " + method + " not found.");
 
             cx.setOptimizationLevel(-1);
             cx.setGeneratingDebug(false);
