@@ -686,7 +686,7 @@ public class BSFManager {
      */
     public Object lookupBean(String beanName) {
         try {
-            return objectRegistry.lookup(beanName);
+            return ((BSFDeclaredBean)objectRegistry.lookup(beanName)).bean;
         } 
         catch (IllegalArgumentException e) {
             return null;
@@ -701,6 +701,14 @@ public class BSFManager {
      * @param bean     the bean to register
      */
     public void registerBean(String beanName, Object bean) {
+        BSFDeclaredBean tempBean;
+
+        if(bean == null) {
+            tempBean = new BSFDeclaredBean(beanName, null, null);
+        }
+        else {
+            tempBean = new BSFDeclaredBean(beanName, bean, bean.getClass());
+        }
         objectRegistry.register(beanName, bean);
     }
 
