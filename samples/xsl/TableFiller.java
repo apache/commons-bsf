@@ -45,7 +45,7 @@ public class TableFiller {
     // load and run the xsl file to fill in the table. Note that we're
     // running the xsl script for its side effect of filling in the table
     // and so we don't care what the resulting document is.
-    mgr.exec ("xslt", xslfilename, 0, 0, 
+    mgr.exec ("xslt", 
 	      IOUtils.getStringFromReader (new FileReader (xslfilename)));
 
     // display the frame

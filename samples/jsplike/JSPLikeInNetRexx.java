@@ -40,7 +40,7 @@ public class JSPLikeInNetRexx {
   public JSPLikeInNetRexx () throws BSFException {
     rexx = mgr.loadScriptingEngine ("netrexx");
 
-    System.out.println("<!- Using "+rexx.eval ("", 0, 0,"Version")+" ->");
+    System.out.println("<!- Using "+rexx.eval ("Version")+" ->");
     
     // first register the response bean into the runtime 
     mgr.registerBean ("response", new String ("howdy-doody"));
@@ -52,18 +52,18 @@ public class JSPLikeInNetRexx {
     System.out.println ("<body>");
     
     System.out.print ("<h1>Welcome at ");
-    result = rexx.eval ("", 0, 0,"java.util.Date().toString()");
+    result = rexx.eval ("java.util.Date().toString()");
     System.out.println (result + "</h1>");
     System.out.println ("stuff");
     System.out.print ("Response bean's length is: ");
-    result = rexx.eval ("", 0, 0,"java.lang.Integer((java.lang.String " +
+    result = rexx.eval ("java.lang.Integer((java.lang.String " +
                                  "bsf.lookupBean('response')).length)");
     System.out.println (result);
     System.out.print ("Response bean's uppercase value is: ");
-    result = rexx.eval ("", 0, 0,"(java.lang.String bsf.lookupBean('response')).toUpperCase()");
+    result = rexx.eval ("(java.lang.String bsf.lookupBean('response')).toUpperCase()");
     System.out.println (result);
     System.out.print ("<h5>Page generation done at ");
-    result = rexx.eval ("", 0, 0,"java.util.Date().toString()");
+    result = rexx.eval ("java.util.Date().toString()");
     System.out.println (result + "</h5>");
     System.out.println ("</body>");
     System.out.println ("</html>");

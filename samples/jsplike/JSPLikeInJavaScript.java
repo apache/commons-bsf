@@ -43,24 +43,23 @@ public class JSPLikeInJavaScript {
     System.out.println ("<head><title>JSPLike</title></head>");
     System.out.println ("<body>");
     
-    result = js.eval ("", 0, 0,
-		      "var response = bsf.lookupBean (\"response\");" +
+    result = js.eval ("var response = bsf.lookupBean (\"response\");" +
 		      "var startDate = new java.util.Date ();" +
 		      "var startDateStr = startDate + \"\";");
     System.out.print ("<h1>Welcome at ");
-    result = js.eval ("", 0, 0,"startDateStr");
+    result = js.eval ("startDateStr");
     System.out.println (result + "</h1>");
     System.out.println ("stuff");
     System.out.print ("Response bean's length is: ");
-    result = js.eval ("", 0, 0,"response.length() + \"\"");
+    result = js.eval ("response.length() + \"\"");
     System.out.println (result);
     System.out.print ("Response bean's uppercase value is: ");
-    result = js.eval ("", 0, 0,"response.toUpperCase() + \"\"");
+    result = js.eval ("response.toUpperCase() + \"\"");
     System.out.println (result);
-    result = js.eval ("", 0, 0,"var endDate = new java.util.Date ();" +
+    result = js.eval ("var endDate = new java.util.Date ();" +
 		      "var endDateStr = endDate + \"\";");
     System.out.print ("<h5>Page generation done at ");
-    result = js.eval ("", 0, 0,"endDateStr");
+    result = js.eval ("endDateStr");
     System.out.println (result + "</h5>");
     System.out.println ("</body>");
     System.out.println ("</html>");

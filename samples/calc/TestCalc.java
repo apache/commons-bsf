@@ -31,7 +31,7 @@ public class TestCalc extends Frame {
     manager.declareBean("frame", this, this.getClass());
     try
     {
-     manager.exec(manager.getLangFromFilename(fileName), fileName, 0, 0, 
+     manager.exec(manager.getLangFromFilename(fileName), 
                  IOUtils.getStringFromReader(new FileReader(fileName)));
     }catch(BSFException e )
     {

@@ -32,7 +32,7 @@ public class ScriptedUI {
       FileReader in = new FileReader (fileName);
       String script = IOUtils.getStringFromReader (in);
 
-      mgr.exec (language, fileName, -1, -1, script);
+      mgr.exec (language, script);
     } catch (BSFException e) {
       System.err.println ("Ouch: " + e.getMessage ());
       e.printStackTrace ();
