@@ -82,6 +82,7 @@ import javax.naming.*;
  * @author   Matthew J. Duftler
  * @author   Sam Ruby
  * @author   Olivier Gruber (added original debugging support)
+ * @author   Dan Schwarz (added support for registering languages dynamically)
  */
 public class BSFManager {
     // table of registered scripting engines
