@@ -14,7 +14,7 @@
 <p>
 Bean Scripting Framework (BSF) is a set of Java classes which provides scripting
 language support within Java applications. It also provides access to Java
-objects and methods from supported scripting languages. BSF allows one to
+objects and methods from scripting languages. BSF allows one to
 write JSPs in languages other than Java while providing access to the Java
 class library. In addition, BSF permits any Java application to be implemented
 in part (or dynamically extended) by a language that is embedded within it.
@@ -82,7 +82,7 @@ available on the <a href="projects.html">Related Projects</a> page.
   
 <p>
 You can view the documentation for the current release (Jakarta BSF 2.3)
-<a href="manual/index.html">online</a>
+<a href="manual.html">online</a>
 </p>
 
 <p>
