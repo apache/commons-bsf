@@ -236,7 +236,8 @@ public class JavaScriptEngine extends BSFEngineImpl {
     }
 
     /**
-     * initialize the engine. put the manager into the context -> manager
+     * Initialize the engine. 
+     * Put the manager into the context-manager
      * map hashtable too.
      */
     public void initialize(BSFManager mgr, String lang, Vector declaredBeans)
