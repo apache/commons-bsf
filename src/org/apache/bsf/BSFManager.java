@@ -709,7 +709,7 @@ public class BSFManager {
         else {
             tempBean = new BSFDeclaredBean(beanName, bean, bean.getClass());
         }
-        objectRegistry.register(beanName, bean);
+        objectRegistry.register(beanName, tempBean);
     }
 
     /**
