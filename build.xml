@@ -16,7 +16,6 @@ Optional additions:
 
     Rhino       -> http://www.mozilla.org/rhino/
     NetRexx     -> http://www2.hursley.ibm.com/netrexx/
-    JPython     -> http://www.jpython.org/
     Jython      -> http://www.jython.org/
     Jacl        -> http://www.scriptics.com/java/
     Xalan       -> http://xml.apache.org/xalan/
@@ -182,9 +181,6 @@ Copyright:
   <target name="checkJacl" unless="jacl.present">
     <echo message="Warning: Jacl dependencies were not resolved."/>
   </target>
-  <target name="checkJPython" unless="jpython.present">
-    <echo message="Warning: JPython dependencies were not resolved."/>
-  </target>
   <target name="checkJython" unless="jython.present">
     <echo message="Warning: Jython dependencies were not resolved."/>
   </target>
@@ -211,7 +207,6 @@ Copyright:
 
   <target name="checkDependencies" unless="javac.notRequired">
     <antcall target="checkJacl"/>
-    <antcall target="checkJPython"/>
     <antcall target="checkJython"/>
     <antcall target="checkNetRexx"/>
     <antcall target="checkRhino"/>
