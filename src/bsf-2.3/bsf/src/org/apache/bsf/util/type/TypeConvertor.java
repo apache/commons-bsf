@@ -23,7 +23,7 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "BSF", "Apache", and "Apache Software Foundation"
+ * 4. The names "Apache BSF", "Apache", and "Apache Software Foundation"
  *    must not be used to endorse or promote products derived from
  *    this software without prior written permission. For written
  *    permission, please contact apache@apache.org.
