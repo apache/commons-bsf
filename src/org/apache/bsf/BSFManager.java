@@ -59,6 +59,7 @@ import java.util.*;
 import java.io.*;
 import java.beans.*;
 import java.security.*;
+import java.net.URL;
 
 import org.apache.bsf.util.*;
 import org.apache.bsf.util.DebugLog;
@@ -126,28 +127,38 @@ public class BSFManager {
 
     static {
         try {
-            ResourceBundle rb =
-                ResourceBundle.getBundle("org.apache.bsf.Languages");
-            Enumeration keys = rb.getKeys();
-            
-            while (keys.hasMoreElements()) {
-                String key = (String) keys.nextElement();
-                String value = rb.getString(key);
+            Enumeration e = BSFManager.class.getClassLoader().getResources("org/apache/bsf/Languages.properties");
+            while (e.hasMoreElements()) {
+                URL url = (URL)e.nextElement();
+                InputStream is = url.openStream();
+
+                Properties p = new Properties();
+                p.load(is);
+
+                Enumeration keys = p.propertyNames();
+                while (keys.hasMoreElements()) {
+                    String key = (String) keys.nextElement();
+                    String value = p.getProperty(key);
                 
-                StringTokenizer tokens = new StringTokenizer(value, ",");
-                String className = (String) tokens.nextToken();
+                    StringTokenizer tokens = new StringTokenizer(value, ",");
+                    String className = (String) tokens.nextToken();
                 
-                // get the extensions for this language
-                String exts = (String) tokens.nextToken();
-                StringTokenizer st = new StringTokenizer(exts, "|");
-                String[] extensions = new String[st.countTokens()];
-                for (int i = 0; st.hasMoreTokens(); i++) {
-                    extensions[i] = ((String) st.nextToken()).trim();
+                    // get the extensions for this language
+                    String exts = (String) tokens.nextToken();
+                    StringTokenizer st = new StringTokenizer(exts, "|");
+                    String[] extensions = new String[st.countTokens()];
+                    for (int i = 0; st.hasMoreTokens(); i++) {
+                        extensions[i] = ((String) st.nextToken()).trim();
+                    }
+
+                    registerScriptingEngine(key, className, extensions);
                 }
-                
-                registerScriptingEngine(key, className, extensions);
             }
         }
+        catch (IOException ex) {
+            ex.printStackTrace();
+            System.err.println("Error reading Languages file " + ex);
+        } 
         catch (NoSuchElementException nsee) {
             nsee.printStackTrace();
             System.err.println("Syntax error in Languages resource bundle");
