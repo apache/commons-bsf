@@ -225,6 +225,14 @@ public abstract class BSFEngineImpl implements BSFEngine {
     }
 
     /**
+     * Default impl of interactive execution - calls eval and ignores the result.
+     */
+    public void iexec(String source, int lineNo, int columnNo, Object script)
+        throws BSFException {
+        eval(source, lineNo, columnNo, script);
+    }
+
+    /**
      * Get the debug manager in the constructor, not in initialize.
      * First, this is ok since the debug manager is not BSFManager
      * dependent. Second, the debug manager needs to be known

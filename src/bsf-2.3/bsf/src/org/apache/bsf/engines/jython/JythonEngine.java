@@ -74,8 +74,8 @@ import org.apache.bsf.util.BSFFunctions;
  */
 
 public class JythonEngine extends BSFEngineImpl {
-  PythonInterpreter interp;
-
+  BSFPythonInterpreter interp;
+  
   /**
    * call the named method of the given object.
    */
@@ -101,12 +101,50 @@ public class JythonEngine extends BSFEngineImpl {
 	}
 	return null;
   }
+
   /**
    * Declare a bean
    */
   public void declareBean (BSFDeclaredBean bean) throws BSFException {
 	interp.set (bean.name, bean.bean);
   }
+
+  /**
+   * Evaluate an anonymous function (differs from eval() in that apply() 
+   * handles multiple lines).
+   */
+  public Object apply (String source, int lineNo, int columnNo, 
+                       Object funcBody, Vector paramNames,
+                       Vector arguments) throws BSFException {
+      try {
+          /* We wrapper the original script in a function definition, and
+           * evaluate the function. A hack, no question, but it allows
+           * apply() to pretend to work on Jython.
+           */
+          StringBuffer script = new StringBuffer(funcBody.toString());
+          int index = 0;
+          script.insert(0, "def bsf_temp_fn():\n");
+         
+          while (index < script.length()) {
+              if (script.charAt(index) == '\n') {
+                  script.insert(index+1, '\t');
+              }
+              index++;
+          }
+          
+          interp.exec (script.toString ());
+          
+          Object result = interp.eval ("bsf_temp_fn()");
+          
+          if (result != null && result instanceof PyJavaInstance)
+              result = ((PyJavaInstance)result).__tojava__(Object.class);
+          return result;
+      } catch (PyException e) {
+          throw new BSFException (BSFException.REASON_EXECUTION_ERROR,
+                                  "exception from Jython: " + e, e);
+      }
+  }
+
   /**
    * Evaluate an expression.
    */
@@ -122,6 +160,7 @@ public class JythonEngine extends BSFEngineImpl {
 			      "exception from Jython: " + e, e);
 	}
   }
+
   /**
    * Execute a script. 
    */
@@ -134,6 +173,25 @@ public class JythonEngine extends BSFEngineImpl {
 			      "exception from Jython: " + e, e);
 	}
   }
+
+  /**
+   * Execute script code, emulating console interaction.
+   */
+  public void iexec (String source, int lineNo, int columnNo,
+                     Object script) throws BSFException {
+      try {
+          if (interp.buffer.length() > 0)
+              interp.buffer.append("\n");
+          interp.buffer.append(script);
+          if (!(interp.runsource(interp.buffer.toString())))
+              interp.resetbuffer();
+      } catch (PyException e) {
+          interp.resetbuffer();
+          throw new BSFException(BSFException.REASON_EXECUTION_ERROR, 
+                                 "exception from Jython: " + e, e);
+      }
+  }
+
   /**
    * Initialize the engine.
    */
@@ -142,11 +200,12 @@ public class JythonEngine extends BSFEngineImpl {
 	super.initialize (mgr, lang, declaredBeans);
 
 	// create an interpreter
-	interp = new PythonInterpreter ();
+	interp = new BSFPythonInterpreter ();
 
 	// register the mgr with object name "bsf"
 	interp.set ("bsf", new BSFFunctions (mgr, this));
 
+    // Declare all declared beans to the interpreter
 	int size = declaredBeans.size ();
 	for (int i = 0; i < size; i++) {
 	  declareBean ((BSFDeclaredBean) declaredBeans.elementAt (i));
@@ -159,6 +218,7 @@ public class JythonEngine extends BSFEngineImpl {
   public void undeclareBean (BSFDeclaredBean bean) throws BSFException {
 	interp.set (bean.name, null);
   }
+
   public Object unwrap(PyObject result) {
 	if (result != null) {
 	   Object ret = result.__tojava__(Object.class);
@@ -166,5 +226,21 @@ public class JythonEngine extends BSFEngineImpl {
 		  return ret;
 	}
 	return result;
+  }
+  
+  private class BSFPythonInterpreter extends InteractiveInterpreter {
+
+      public BSFPythonInterpreter() {
+          super();
+      }
+
+      // Override runcode so as not to print the stack dump
+      public void runcode(PyObject code) {
+          try {
+              this.exec(code);
+          } catch (PyException exc) {
+              throw exc;
+          }
+      }
   }
 }

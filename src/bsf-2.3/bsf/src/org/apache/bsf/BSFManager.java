@@ -490,6 +490,43 @@ public class BSFManager {
     }
 
     /**
+     * Execute the given script of the given language, attempting to
+     * emulate an interactive session w/ the language.
+     *
+     * @param lang     language identifier
+     * @param source   (context info) the source of this expression 
+     *                 (e.g., filename)
+     * @param lineNo   (context info) the line number in source for expr
+     * @param columnNo (context info) the column number in source for expr
+     * @param script   the script to execute
+     *
+     * @exception BSFException if anything goes wrong while running the script
+     */
+    public void iexec(String lang,
+                     String source,
+                     int lineNo,
+                     int columnNo,
+                     Object script)
+        throws BSFException {
+        final BSFEngine e = loadScriptingEngine(lang);
+        final String sourcef = source;
+        final int lineNof = lineNo, columnNof = columnNo;
+        final Object scriptf = script;
+
+        try {
+            AccessController.doPrivileged(new PrivilegedExceptionAction() {
+                    public Object run() throws Exception {
+                        e.iexec(sourcef, lineNof, columnNof, scriptf);
+                        return null;
+                    }
+                });
+        }
+        catch (PrivilegedActionException prive) {
+            throw (BSFException) prive.getException();
+        }
+    }
+
+    /**
      * Get classLoader
      */
     public ClassLoader getClassLoader() {

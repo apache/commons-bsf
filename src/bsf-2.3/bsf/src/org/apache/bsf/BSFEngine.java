@@ -264,7 +264,25 @@ public interface BSFEngine extends PropertyChangeListener {
 	 */
 	public void exec(String source, int lineNo, int columnNo, Object script)
 		throws BSFException;
-		
+    /**
+     * This is used by an application to execute some script, as though
+     * one were interacting with the language in an interactive session. 
+     * The expression may be string or some other type, depending on the
+     * language. Returns nothing but if something goes wrong it excepts (of
+     * course).
+     *
+     * @param source   (context info) the source of this expression
+     *                 (e.g., filename)
+     * @param lineNo   (context info) the line number in source for expr
+     * @param columnNo (context info) the column number in source for expr
+     * @param script   the script to execute
+     *
+     * @exception BSFException if anything goes wrong while exec'ing a
+     *            BSFException is thrown. The reason indicates the problem.
+     */
+    public void iexec(String source, int lineNo, int columnNo, Object script)
+        throws BSFException;
+
 	/**
 	 * This method is used to initialize the engine right after construction.
 	 * This method will be called before any calls to eval or call. At this
