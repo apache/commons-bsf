@@ -11,69 +11,70 @@
 
   <section name="Bean Scripting Framework">
 
-<p>
-Bean Scripting Framework (BSF) is a set of Java classes which provides
-scripting language support within Java applications. It also provides
-access to Java objects and methods from scripting languages.
-</p>
+    <p>
+    Bean Scripting Framework (BSF) is a set of Java classes which provides
+    scripting language support within Java applications. It also provides
+    access to Java objects and methods from scripting languages.
+    </p>
 
   </section>
 
   <section name="BSF Architectural Overview">
 
-<p>
-The two primary components of BSF are the <code>BSFManager</code>
-and the <code>BSFEngine</code>.
-</p>
+    <p>
+    The two primary components of BSF are the <code>BSFManager</code>
+    and the <code>BSFEngine</code>.
+    </p>
 
-<p>
-   The <code>BSFManager</code> handles all scripting execution engines
-running under its control, and maintains the object registry that permits
-scripts access to Java objects. By creating an instance of the
-<code>BSFManager</code> class, a Java application can gain access to
-scripting services.
-</p>
+    <p>
+    The <code>BSFManager</code> handles all scripting execution engines
+    running under its control, and maintains the object registry that permits
+    scripts access to Java objects. By creating an instance of the
+    <code>BSFManager</code> class, a Java application can gain access to
+    scripting services.
+    </p>
 
-<p>
-   The <code>BSFEngine</code> provides an interface that must be
-implemented for a language to be used by BSF. This interface provides
-an abstraction of the scripting language's capabilities that permits
-generic handling of script execution and object registration within
-the execution context of the scripting language engine.
-</p>
+    <p>
+    The <code>BSFEngine</code> provides an interface that must be
+    implemented for a language to be used by BSF. This interface provides
+    an abstraction of the scripting language's capabilities that permits
+    generic handling of script execution and object registration within
+    the execution context of the scripting language engine.
+    </p>
 
-<p>
-   An application can instantiate a single <code>BSFManager</code>,
-and execute several different scripting languages identically via the
-<code>BSFEngine</code> interface. Furthermore, all of the scripting
-languages handled by the <code>BSFManager</code> are aware of the
-objects registered with that <code>BSFManager</code>, and the execution
-state of those scripting languages is maintained for the lifetime of
-the <code>BSFManager</code>.
-</p>
+    <p>
+    An application can instantiate a single <code>BSFManager</code>,
+    and execute several different scripting languages identically via the
+    <code>BSFEngine</code> interface. Furthermore, all of the scripting
+    languages handled by the <code>BSFManager</code> are aware of the
+    objects registered with that <code>BSFManager</code>, and the execution
+    state of those scripting languages is maintained for the lifetime of
+    the <code>BSFManager</code>.
+    </p>
 
   </section>
   
   <section name="Installation">
   
-<p>
-BSF can be used standalone, as a class library, or as part of an
-application server. In order to be used as a class library or as
-a standalone system, one simply downloads a copy of the bsf.jar
-file from the
-<a href="http://jakarta.apache.org/bsf/index.html">BSF web site</a>
-and includes it in their classpath, along with any required classes
-or jar files for the desired languages.</p>
+    <p>
+    BSF can be used standalone, as a class library, or as part of an
+    application server. In order to be used as a class library or as
+    a standalone system, one simply downloads a copy of the bsf.jar
+    file from the
+    <a href="http://jakarta.apache.org/bsf/index.html">BSF web site</a>
+    and includes it in their classpath, along with any required classes
+    or jar files for the desired languages.
+    </p>
 
-<p>
-   In order to use BSF as part of the
-<a href="http://jakarta.apache.org/tomcat/">Tomcat</a>
-servlet engine, one must currently download patches from the BSF
-web site that permit Jasper to call BSF. Instructions for this will be
-posted on the website, and will soon be accompanied by prebuilt binaries.
-We hope that these changes will be merged into Tomcat in the near
-future.
-</p>
+    <p>
+    In order to use BSF as part of the
+    <a href="http://jakarta.apache.org/tomcat/">Tomcat</a>
+    servlet engine, one must currently download patches from the BSF
+    web site that permit Jasper to call BSF. Instructions for this will be
+    posted on the website, and will soon be accompanied by prebuilt binaries.
+    We hope that these changes will be merged into Tomcat in the near
+    future.
+    </p>
 
   </section>
 
@@ -82,44 +83,44 @@ future.
     <subsection name="BSF and JSPs">
 
     <p>
-Having set up an application server that is BSF enabled, one can write
-JSPs using any of the supported scripting languages. JSPs using scripting
-languages differ only slightly from those using Java.
+    Having set up an application server that is BSF enabled, one can write
+    JSPs using any of the supported scripting languages. JSPs using scripting
+    languages differ only slightly from those using Java.
     </p>
 
     <p>
-   First, one must set the language attribute of the page directive
-in the JSP to the desired language. For example,
+    First, one must set the language attribute of the page directive
+    in the JSP to the desired language. For example,
 
-<p>
-<code>
-&lt;%@ page language="javascript" %&gt;
-</code>
-</p>
+    <p>
+      <code>
+      &lt;%@ page language="javascript" %&gt;
+      </code>
+    </p>
 
-sets the language used for the JSP to Javascript; any
-<code>scriptlet</code>s or <code>expressions</code> within the JSP
-will be handed off to BSF, which will in turn hand the code over to
-Rhino for execution.
+    sets the language used for the JSP to Javascript; any
+    <code>scriptlet</code>s or <code>expressions</code> within the JSP
+    will be handed off to BSF, which will in turn hand the code over to
+    Rhino for execution.
     </p>
 
     <p>
-   The standard set of JSP implicit objects is available within BSF.
-These implicit objects must be used for input and output with respect
-to the generated page, since the scripting languages do not have any
-awareness of having been called within a JSP. For example, in order to
-print a line of text into the page generated by the JSP, one must use the
-<code>println()</code> method of the <code>out</code> implicit object.
+    The standard set of JSP implicit objects is available within BSF.
+    These implicit objects must be used for input and output with respect
+    to the generated page, since the scripting languages do not have any
+    awareness of having been called within a JSP. For example, in order to
+    print a line of text into the page generated by the JSP, one must use the
+    <code>println()</code> method of the <code>out</code> implicit object.
     </p>
 
     <p>
-   Multiple languages can be supported within a given JSP; this is
-accomplished by using the BSF taglibs, which are available from the
-<a href="http://jakarta.apache.org/taglibs/index.html">Jakarta Taglibs</a>
-project. BSF taglib provides two tags: <code>scriptlet</code> and
-<code>expression</code>. Both of these have a required language attribute,
-which is used to specify the language used on a per <code>scriptlet</code>
-or <code>expression</code> basis.
+    Multiple languages can be supported within a given JSP; this is
+    accomplished by using the BSF taglibs, which are available from the
+    <a href="http://jakarta.apache.org/taglibs/index.html">Jakarta Taglibs</a>
+    project. BSF taglib provides two tags: <code>scriptlet</code> and
+    <code>expression</code>. Both of these have a required language attribute,
+    which is used to specify the language used on a per <code>scriptlet</code>
+    or <code>expression</code> basis.
     </p>
 
     </subsection>
@@ -127,89 +128,89 @@ or <code>expression</code> basis.
     <subsection name="Servlets and Other Applications">
        
     <p>
-Using BSF in servlets or applications is also quite simple. In order
-to provide an application with scripting support, one simply needs to
-import the BSF class hierarchy and instantiate a <code>BSFManager</code>
-object. After instantiating the <code>BSFManager</code>, a programmer
-registers or declares any Java objects to be made available within the
-scripting engine. They then call either one of the <code>eval()</code>
-or <code>exec() BSFManager</code> methods (depending on whether they want to
-evaluate a script and have the value of the evaluation returned, or
-simply execute a script). Alternatively, programmers can call the
-<code>loadScriptingEngine()</code> method in order to get an object
-implementing the <code>BSFEngine</code> interface for the desired
-scripting language. One can then call the <code>exec()</code> or
-<code>eval()</code> methods of <code>BSFEngine</code> to run the script.
+    Using BSF in servlets or applications is also quite simple. In order
+    to provide an application with scripting support, one simply needs to
+    import the BSF class hierarchy and instantiate a <code>BSFManager</code>
+    object. After instantiating the <code>BSFManager</code>, a programmer
+    registers or declares any Java objects to be made available within the
+    scripting engine. They then call either one of the <code>eval()</code>
+    or <code>exec() BSFManager</code> methods (depending on whether they want to
+    evaluate a script and have the value of the evaluation returned, or
+    simply execute a script). Alternatively, programmers can call the
+    <code>loadScriptingEngine()</code> method in order to get an object
+    implementing the <code>BSFEngine</code> interface for the desired
+    scripting language. One can then call the <code>exec()</code> or
+    <code>eval()</code> methods of <code>BSFEngine</code> to run the script.
     </p>
 
     <p>
-   Additionally, BSF declares an object named <code>bsf</code> within a
-scripting engine's execution context, which represents the
-<code>BSFManager</code> that is associated with the scripting engine.
-This object provides all of the methods and properties
-associated with the <code>BSFManager</code> to the script.
-However, the most used method within scripts is usually
-<code>lookupBean()</code>, which is used to access objects 
-in BSF's object registry.
+    Additionally, BSF declares an object named <code>bsf</code> within a
+    scripting engine's execution context, which represents the
+    <code>BSFManager</code> that is associated with the scripting engine.
+    This object provides all of the methods and properties
+    associated with the <code>BSFManager</code> to the script.
+    However, the most used method within scripts is usually
+    <code>lookupBean()</code>, which is used to access objects 
+    in BSF's object registry.
     </p>
 
     <p>
-   The most important methods within the <code>BSFManager</code> are:
+    The most important methods within the <code>BSFManager</code> are:
 
-<ul>
-<li><code>BSFManager</code>() - the <code>BSFManager</code> constructor </li>
+    <ul>
+      <li><code>BSFManager</code>() - the <code>BSFManager</code>
+      constructor</li>
 
-<li><code>eval()</code> - used to evaluate a script and return its value </li>
+      <li><code>eval()</code> - used to evaluate a script and return
+      its value</li>
 
-<li><code>exec()</code> - used to simply execute a script </li>
+      <li><code>exec()</code> - used to simply execute a script </li>
 
-<li><code>loadScriptingEngine()</code> - used to return a
-<code>BSFEngine</code> for the desired scripting language
-</li>
+      <li><code>loadScriptingEngine()</code> - used to return a
+      <code>BSFEngine</code> for the desired scripting language</li>
 
-<li><code>registerBean()</code> - adds an object to BSF's object registry </li>
+      <li><code>registerBean()</code> - adds an object to BSF's object
+      registry</li>
 
-<li><code>lookupBean()</code> - retrieves an object from BSF's object registry
-</li>
+      <li><code>lookupBean()</code> - retrieves an object from BSF's
+      object registry</li>
 
-<li><code>declareBean()</code> - creates an implicit object in the context
-of any loaded scripting language, which does not have to be accessed via
-<code>lookupBean()</code>
-</li>
-</ul>
+      <li><code>declareBean()</code> - creates an implicit object in
+      the context of any loaded scripting language, which does not have
+      to be accessed via <code>lookupBean()</code></li>
+    </ul>
     </p>
 
     <p>
-   Other, less often used methods within the <code>BSFManager</code> are:
+    Other, less often used methods within the <code>BSFManager</code> are:
 
-<ul>
-<li><code>apply()</code> - used to call anonymous functions </li>
+    <ul>
+      <li><code>apply()</code> - used to call anonymous functions</li>
 
-<li><code>compileExpr()</code> - used to compile an expression into a
-<code>CodeBuffer</code> object </li>
+      <li><code>compileExpr()</code> - used to compile an expression into a
+      <code>CodeBuffer</code> object</li>
 
-<li><code>compileScript()</code> - similar to compile expression, used to
-compile scripts into <code>CodeBuffer</code> objects </li>
+      <li><code>compileScript()</code> - similar to compile expression, used to
+      compile scripts into <code>CodeBuffer</code> objects</li>
 
-<li><code>compileApply()</code> - similar to both of the above - used to
-compile anonymous functions into <code>CodeBuffer</code> objects
-</li>
-</ul>
+      <li><code>compileApply()</code> - similar to both of the above - used to
+      compile anonymous functions into <code>CodeBuffer</code> objects</li>
+    </ul>
     </p>
 
     <p>
-For the curious, the <code>CodeBuffer</code> is a class provided by BSF for
-storing generated Java code.
+    For the curious, the <code>CodeBuffer</code> is a class provided by BSF for
+    storing generated Java code.
     </p>
 
     <p>
-   The <code>BSFManager</code> <code>exec()</code>, <code>eval()</code>, 
-and <code>apply()</code> methods (as well as their compile counterparts)
-are simply wrappers over the equivalent methods presented by the
-<code>BSFEngine</code> interface. If the programmer explicitly
-loads a scripting engine via <code>loadScriptingEngine()</code>, they
-can use the <code>exec()</code> or <code>eval()</code> methods of the
-resulting <code>BSFEngine</code> as appropriate.
+    The <code>BSFManager</code> <code>exec()</code>, <code>eval()</code>, 
+    and <code>apply()</code> methods (as well as their compile counterparts)
+    are simply wrappers over the equivalent methods presented by the
+    <code>BSFEngine</code> interface. If the programmer explicitly
+    loads a scripting engine via <code>loadScriptingEngine()</code>, they
+    can use the <code>exec()</code> or <code>eval()</code> methods of the
+    resulting <code>BSFEngine</code> as appropriate.
     </p>
 
     </subsection>
@@ -219,44 +220,43 @@ resulting <code>BSFEngine</code> as appropriate.
   <section name="Adding BSF Support for a Scripting Language">
 
     <p>
-In order to incorporate your own scripting language into BSF, you must first
-write a class implementing the <code>BSFEngine</code> interface for the
-language; examples are available in the BSF source distribution.
+    In order to incorporate your own scripting language into BSF, you must first
+    write a class implementing the <code>BSFEngine</code> interface for the
+    language; examples are available in the BSF source distribution.
     </p>
     
     <p>
-   Usually, a scripting language author simply extends the
-<code>BSFEngine</code>Impl class, which implements <code>BSFEngine</code>,
-and only requires the scripting language author to implement the
-<code>eval()</code> method. However, the following methods specified by
-the <code>BSFEngine</code> interface are the most commonly implemented:
+    Usually, a scripting language author simply extends the
+    <code>BSFEngine</code>Impl class, which implements <code>BSFEngine</code>,
+    and only requires the scripting language author to implement the
+    <code>eval()</code> method. However, the following methods specified by
+    the <code>BSFEngine</code> interface are the most commonly implemented:
 
-<ul>
-<li><code>initialize()</code> - used to set up the underlying scripting
-language engine </li>
+    <ul>
+      <li><code>initialize()</code> - used to set up the underlying scripting
+      language engine</li>
 
-<li><code>call()</code> - used to call functions or methods within the
-scripting engine </li>
+      <li><code>call()</code> - used to call functions or methods within the
+      scripting engine</li>
 
-<li><code>eval()</code> - used to evaluate a script </li>
+      <li><code>eval()</code> - used to evaluate a script</li>
 
-<li><code>exec()</code> - used to execute a script </li>
+      <li><code>exec()</code> - used to execute a script</li>
 
-<li><code>declareBean()</code> - used to create an implicit object within
-the scripting language
-</li>
+      <li><code>declareBean()</code> - used to create an implicit object within
+      the scripting language</li>
 
-<li><code>undeclareBean()</code> - used to remove an implicit object
-from the scripting language </li>
-</ul>
+      <li><code>undeclareBean()</code> - used to remove an implicit object
+      from the scripting language</li>
+    </ul>
     </p>
     
     <p>
-   Once you have implemented the wrapper for your language engine, you simply
-instantiate a <code>BSFManager</code> in your application, and register your
-engine with it via the <code>registerScriptingEngine()</code> method.
-Afterward, you may use your language within the application through the
-usual BSF semantics.
+    Once you have implemented the wrapper for your language engine, you simply
+    instantiate a <code>BSFManager</code> in your application, and register your
+    engine with it via the <code>registerScriptingEngine()</code> method.
+    Afterward, you may use your language within the application through the
+    usual BSF semantics.
     </p>
     
   </section>
@@ -264,29 +264,29 @@ usual BSF semantics.
   <section name="Standalone Scripts">
 
     <p>
-BSF provides a facility for running scripting languages itself. Simply running
-<code>java com.ibm.bsf.Main</code> will produce a help message, with
-instructions on how to run these scripts.
+    BSF provides a facility for running scripting languages itself. Simply running
+    <code>java com.ibm.bsf.Main</code> will produce a help message, with
+    instructions on how to run these scripts.
     </p>
 
   </section>
   
   <section name="Debugging">
 
-  <p>
-Debugging support has been added to BSF over the last year. In its
-current form, only debugging of Javascript in JSPs is supported. The
-focus has been to design an API that would permit a generic debugging
-framework for multiple scripting engines; however, this has remained
-an goal for BSF 3.0. Included in the debugging support for BSF 2.3 is a
-rudimentary command-line debugger named jsdb, which acts as a client
-to a debugging server that is managed by the <code>BSFManager</code>.
-  </p>
+    <p>
+    Debugging support has been added to BSF over the last year. In its
+    current form, only debugging of Javascript in JSPs is supported. The
+    focus has been to design an API that would permit a generic debugging
+    framework for multiple scripting engines; however, this has remained
+    an goal for BSF 3.0. Included in the debugging support for BSF 2.3 is a
+    rudimentary command-line debugger named jsdb, which acts as a client
+    to a debugging server that is managed by the <code>BSFManager</code>.
+    </p>
 
-  <p>
-An example of a production debugger using the BSF debugging engine is at
-<a href="http://www.eclipse.org/">http://www.eclipse.org/</a>.
-  </p>
+    <p>
+    An example of a production debugger using the BSF debugging engine is at
+    <a href="http://www.eclipse.org/">http://www.eclipse.org/</a>.
+    </p>
 
   </section>
 

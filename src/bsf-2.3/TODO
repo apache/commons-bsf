@@ -11,6 +11,8 @@ TODO list for BSF 2.3.0-1:
 
     improve doc generation and distribution
 
+    provide/incorporate patches for Jasper 4.0.x, 4.1.x, and 5.x.
+
 TODO list for BSF 2.4.0:
 
     work on improving BSF global scope, e.g.:

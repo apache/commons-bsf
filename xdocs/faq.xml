@@ -151,15 +151,28 @@
   </faqsection>
 
   <faqsection title="How do I ...">
-    <faq id="TBD1">
-      <question>
-      To be added
-      </question>
-
+    <faq id="doh">
+      <question>How do I install BSF?</question>
       <answer>
 
         <p>
-        To be added
+        BSF can be used standalone, as a class library, or as part of an
+        application server. In order to be used as a class library or as
+        a standalone system, one simply downloads a copy of the bsf.jar
+        file from the
+        <a href="http://jakarta.apache.org/bsf/index.html">BSF web site</a>
+        and includes it in their classpath, along with any required classes
+        or jar files for the desired languages.    
+        </p>
+        
+        <p>
+        In order to use BSF as part of the
+        <a href="http://jakarta.apache.org/tomcat/">Tomcat</a>
+        servlet engine, one must currently download patches from the BSF
+        web site that permit Jasper to call BSF. Instructions for this will be
+        posted on the website, and will be accompanied by prebuilt binaries.
+        We hope that these changes will be merged into Tomcat in the near
+        future.
         </p>
 
       </answer>
