@@ -142,7 +142,7 @@ public class JythonEngine extends BSFEngineImpl {
           return result;
       } catch (PyException e) {
           throw new BSFException (BSFException.REASON_EXECUTION_ERROR,
-                                  "exception from Jython: " + e, e);
+                                  "exception from Jython:\n" + e, e);
       }
   }
 
@@ -158,7 +158,7 @@ public class JythonEngine extends BSFEngineImpl {
 	  return result;
 	} catch (PyException e) {
 	  throw new BSFException (BSFException.REASON_EXECUTION_ERROR,
-			      "exception from Jython: " + e, e);
+			      "exception from Jython:\n" + e, e);
 	}
   }
 
@@ -171,7 +171,7 @@ public class JythonEngine extends BSFEngineImpl {
 	  interp.exec (byteify(script.toString ()));
 	} catch (PyException e) {
 	  throw new BSFException (BSFException.REASON_EXECUTION_ERROR,
-			      "exception from Jython: " + e, e);
+			      "exception from Jython:\n" + e, e);
 	}
   }
 
@@ -195,7 +195,7 @@ public class JythonEngine extends BSFEngineImpl {
       } catch (PyException e) {
           interp.resetbuffer();
           throw new BSFException(BSFException.REASON_EXECUTION_ERROR, 
-                                 "exception from Jython: " + e, e);
+                                 "exception from Jython:\n" + e, e);
       }
   }
 
@@ -209,6 +209,10 @@ public class JythonEngine extends BSFEngineImpl {
 	// create an interpreter
 	interp = new BSFPythonInterpreter ();
 
+    // ensure that output and error streams are re-directed correctly
+    interp.setOut(System.out);
+    interp.setErr(System.err);
+    
 	// register the mgr with object name "bsf"
 	interp.set ("bsf", new BSFFunctions (mgr, this));
 
