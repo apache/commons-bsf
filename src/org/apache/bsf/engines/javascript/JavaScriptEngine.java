@@ -115,8 +115,11 @@ public class JavaScriptEngine extends BSFEngineImpl {
             // REMIND: convert arg list Vectors here?
 
             Object fun = global.get(method, global);
+            // NOTE: Source and line arguments are nonsense in a call().
+            //       Any way to make these arguments *sensible?
             if (fun == Scriptable.NOT_FOUND)
-                throw new EvaluatorException("function " + method + " not found.");
+                throw new EvaluatorException("function " + method +
+                                             " not found.", "none", 0);
 
             cx.setOptimizationLevel(-1);
             cx.setGeneratingDebug(false);
