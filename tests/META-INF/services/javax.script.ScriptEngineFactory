@@ -1,0 +1,3 @@
+#list of ScriptEngineFactory's in this package
+org.apache.bsf.engines.testscript.TestScriptEngineFactory  #TestScript
+
