@@ -37,7 +37,7 @@
 
     <menu name="Get Involved">
         <item name="Overview"              href="/site/getinvolved.html"/>
-        <item name="CVS Repositories"      href="/site/cvsindex.html"/>
+        <item name="Source Repositories"   href="/site/cvsindex.html"/>
         <item name="Netiquette"            href="http://www.faqs.org/rfcs/rfc1855.html"/>
         <item name="Mailing Lists"         href="/site/mail.html"/>
         <item name="Reference Library"     href="/site/library.html"/>
