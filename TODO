@@ -1,0 +1,14 @@
+
+TODO list for BSF3.0rc
+	
+	adding backward compatibility for earlier versions of BSF
+	
+	add support for other scripting languages (e.g. Jython, NetRexx 
+	.. etc)
+	
+	provide a testing framework 
+	
+	improve document generation and distribution
+	
+	
+

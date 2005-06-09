@@ -1,0 +1,22 @@
+
+	To build BSF3.0rc , one needs the followings:
+	
+		- Servlet API.jar via Tomcat or other source 
+		
+		- Supporting language .jar files:
+			Rhino -> http://www.mozilla.org/rhino
+		
+	Make sure the .jars (and Ant) are in your CLASSPATH, and then 
+	use	the	command
+
+    	ant [target]
+
+	where [target] is one of the following:
+
+		- compile 	-> creates the "bsf.jar" package in "./build/lib"
+		               (default target)
+	 	- bindist	-> creates the complete binary distribution
+	 	- srcdist	-> creates the complete source distribution
+	 	- dist		-> creates both binary and source distributions
+	 	- javadocs	-> generates the docs for the whole package in 
+	 	               "./dist/javadocs"
