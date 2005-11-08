@@ -828,14 +828,16 @@ public class BSFManager {
         unregisterBean(beanName);
 
         BSFDeclaredBean tempBean = null;
+        boolean found = false;
         for (int i = 0; i < declaredBeans.size(); i++) {
             tempBean = (BSFDeclaredBean) declaredBeans.elementAt(i);
             if (tempBean.name.equals(beanName)) {
+            	found = true;
                 break;
             }
         }
 
-        if (tempBean != null) {
+        if (found) {
             declaredBeans.removeElement(tempBean);
 
             Enumeration enginesEnum = loadedEngines.elements();
