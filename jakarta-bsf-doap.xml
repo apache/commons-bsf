@@ -17,16 +17,16 @@
     <download-page rdf:resource="http://jakarta.apache.org/site/downloads/downloads_bsf.html" />
     <programming-language>Java</programming-language>
     <release>
-      <Version>
+      <revision>
         <name>bsf</name>
         <created>2002-11-12</created>
         <version>2.3.0-rc1</version>
-      </Version>
+      </revision>
     </release>
     <repository>
       <SVNRepository>
-        <location>http://svn.apache.org/repos/asf/jakarta/bsf/trunk/</location>
-        <browse>http://http://svn.apache.org/viewcvs.cgi/jakarta/bsf/</browse>
+        <location rdf:resource="http://svn.apache.org/repos/asf/jakarta/bsf/trunk/"/>
+        <browse rdf:resource="http://http://svn.apache.org/viewcvs.cgi/jakarta/bsf/"/>
       </SVNRepository>
     </repository>
   </Project>
