@@ -15,6 +15,7 @@
     <bug-database rdf:resource="http://issues.apache.org/bugzilla/enter_bug.cgi?product=BSF" />
     <mailing-list rdf:resource="http://http://jakarta.apache.org/site/mail2.html#BSF" />
     <download-page rdf:resource="http://jakarta.apache.org/site/downloads/downloads_bsf.html" />
+    <category rdf:resource="http://projects.apache.org/category/library"/>
     <programming-language>Java</programming-language>
     <release>
       <revision>
