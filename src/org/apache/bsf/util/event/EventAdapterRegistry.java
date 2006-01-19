@@ -68,13 +68,13 @@ import org.apache.bsf.util.event.generator.EventAdapterGenerator;
  * and if it doesn't find one looks for a standard implementation of
  * that adapter in the org.apache.bsf.util.event.adapters package with a
  * standard naming convention. The naming convention it assumes is the
- * following: for event listener type <tt>a.b.c.FooListener</tt>, 
- * it loads an adapter of type 
+ * following: for event listener type <tt>a.b.c.FooListener</tt>,
+ * it loads an adapter of type
  * <tt>org.apache.bsf.util.event.adapters.a_b_c_FooAdapter</tt>.
  * If both the loading and the dynamic generation fail, then a
  * <code>null</code> is returned.
  * <p>
- * 
+ *
  * @author   Sanjiva Weerawarana
  * @author   Matthew J. Duftler
  * @see      EventAdapter
@@ -89,14 +89,17 @@ public class EventAdapterRegistry {
   public static Class lookup (Class listenerType) {
 	String key = listenerType.getName().replace ('.', '_');
 	Class adapterClass = (Class) reg.get (key);
-	
+
 	if (adapterClass == null) {
 	  String en = key.substring (0, key.lastIndexOf ("Listener"));
 	  String cn = adapterPackage + "." + en + adapterSuffix;
 
 	  try {
 		// Try to resolve one.
-		adapterClass = (cl != null) ? cl.loadClass (cn) : Class.forName (cn);
+		// adapterClass = (cl != null) ? cl.loadClass (cn) : Class.forName (cn);
+		adapterClass = (cl != null) ? cl.loadClass (cn)
+                                            : Thread.currentThread().getContextClassLoader().loadClass (cn); // rgf, 2006-01-05
+
 	  } catch (ClassNotFoundException e) {
 		if (dynamic) {
 		  // Unable to resolve one, try to generate one.
@@ -129,7 +132,7 @@ public class EventAdapterRegistry {
    * If the <code>dynamic</code> property is set to true, and the
    * <code>ClassLoader</code> is unable to resolve an adapter, one will be
    * dynamically generated.
-   * 
+   *
    * @param dynamic whether or not to dynamically generate adapters.
    */
   public static void setDynamic (boolean dynamic) {

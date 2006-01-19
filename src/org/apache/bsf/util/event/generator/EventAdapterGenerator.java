@@ -105,11 +105,12 @@ public class EventAdapterGenerator
 	  { WRITEDIRECTORY = WRITEDIRECTORY+"/"; }
 	}
 	try
-	{ EVENTLISTENER = Class.forName("java.util.EventListener"); }
+	// { EVENTLISTENER = Class.forName("java.util.EventListener"); }
+	{ EVENTLISTENER = Thread.currentThread().getContextClassLoader().loadClass ("java.util.EventListener"); } // rgf, 2006-01-05
 	catch(ClassNotFoundException ex)
-	{ 
+	{
             System.err.println(ex.getMessage());
-            ex.printStackTrace(); 
+            ex.printStackTrace();
         }
 
 	// start of the Java Class File
@@ -243,7 +244,7 @@ public class EventAdapterGenerator
 			  return cached;
 		  }
 		  catch(VerifyError ex)
-		  { 
+		  {
                       System.err.println(ex.getMessage());
                       ex.printStackTrace();
                       return cached;
@@ -559,9 +560,9 @@ public class EventAdapterGenerator
 		  fos.close();
 		}
 		catch(IOException ex)
-		{ 
+		{
                     System.err.println(ex.getMessage());
-                    ex.printStackTrace(); 
+                    ex.printStackTrace();
                 }
 
 		try
@@ -573,9 +574,9 @@ public class EventAdapterGenerator
 		  return ret;
 		}
 		catch (ClassNotFoundException ex)
-		{ 
-                    System.err.println(ex.getMessage()); 
-                    ex.printStackTrace(); 
+		{
+                    System.err.println(ex.getMessage());
+                    ex.printStackTrace();
                 }
 	  }
 
@@ -589,9 +590,9 @@ public class EventAdapterGenerator
 		return ret;
 	  }
 	  catch(Exception ex)
-	  { 
-              System.err.println(ex.getMessage()); 
-              ex.printStackTrace(); 
+	  {
+              System.err.println(ex.getMessage());
+              ex.printStackTrace();
           }
 	}
 	else

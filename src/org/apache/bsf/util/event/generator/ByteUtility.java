@@ -190,7 +190,7 @@ public class ByteUtility
 	temp += (((long)low[3]) & 0xFF);
 	return temp;
   }
-  public static double byteArrayToDounle(byte value[])
+  public static double byteArrayToDouble(byte value[])
   {
 	byte high[] = new byte[4];
 	byte low[] = new byte[4];

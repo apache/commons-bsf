@@ -68,16 +68,16 @@ import javax.naming.*;
 
 /**
  * This class is the entry point to the bean scripting framework. An
- * application wishing to integrate scripting to a Java app would 
+ * application wishing to integrate scripting to a Java app would
  * place an instance of a BSFManager in their code and use its services
  * to register the beans they want to make available for scripting,
- * load scripting engines, and run scripts. 
+ * load scripting engines, and run scripts.
  * <p>
  * BSFManager serves as the registry of available scripting engines
  * as well. Loading and unloading of scripting engines is
  * supported as well. Each BSFManager loads one engine per language.
  * Several BSFManagers can be created per JVM.
- * 
+ *
  * @author   Sanjiva Weerawarana
  * @author   Matthew J. Duftler
  * @author   Sam Ruby
@@ -85,13 +85,18 @@ import javax.naming.*;
  * @author   Don Schwarz (added support for registering languages dynamically)
  */
 public class BSFManager {
+    // version string in the form of: "abb.yyyymmdd",
+    // where "a" is the major version number, "bb" the minor version number,
+    // and "yyyymmdd" represents the date in sorted order (four digit year, two digit month, two digit day)
+    protected static String version="204.20060117";
+
     // table of registered scripting engines
     protected static Hashtable registeredEngines = new Hashtable();
 
     // mapping of file extensions to languages
     protected static Hashtable extn2Lang = new Hashtable();
 
-    // table of scripting engine instances created by this manager. 
+    // table of scripting engine instances created by this manager.
     // only one instance of a given language engine is created by a single
     // manager instance.
     protected Hashtable loadedEngines = new Hashtable();
@@ -105,10 +110,11 @@ public class BSFManager {
 
     // the class loader to use if a class loader is needed. Default is
     // he who loaded me (which may be null in which case its Class.forName).
-    protected ClassLoader classLoader = getClass().getClassLoader();
+    // protected ClassLoader classLoader = getClass().getClassLoader();
+    protected ClassLoader classLoader = Thread.currentThread().getContextClassLoader(); // rgf, 2006-01-05
 
     // temporary directory to use to dump temporary files into. Note that
-    // if class files are dropped here then unless this dir is in the 
+    // if class files are dropped here then unless this dir is in the
     // classpath or unless the classloader knows to look here, the classes
     // will not be found.
     protected String tempDir = ".";
@@ -116,7 +122,7 @@ public class BSFManager {
     // classpath used by those that need a classpath
     protected String classPath;
 
-    // stores BSFDeclaredBeans representing objects 
+    // stores BSFDeclaredBeans representing objects
     // introduced by a client of BSFManager
     protected Vector declaredBeans = new Vector();
 
@@ -140,10 +146,10 @@ public class BSFManager {
                 while (keys.hasMoreElements()) {
                     String key = (String) keys.nextElement();
                     String value = p.getProperty(key);
-                
+
                     StringTokenizer tokens = new StringTokenizer(value, ",");
                     String className = (String) tokens.nextToken();
-                
+
                     // get the extensions for this language
                     String exts = (String) tokens.nextToken();
                     StringTokenizer st = new StringTokenizer(exts, "|");
@@ -159,11 +165,11 @@ public class BSFManager {
         catch (IOException ex) {
             ex.printStackTrace();
             System.err.println("Error reading Languages file " + ex);
-        } 
+        }
         catch (NoSuchElementException nsee) {
             nsee.printStackTrace();
             System.err.println("Syntax error in Languages resource bundle");
-        } 
+        }
         catch (MissingResourceException mre) {
             mre.printStackTrace();
             System.err.println("Initialization error: " + mre.toString());
@@ -172,6 +178,22 @@ public class BSFManager {
 
     public BSFManager() {
         pcs = new PropertyChangeSupport(this);
+    }
+
+
+   /** Returns the version string of BSF.
+     *
+     * @return version string in the form &quot;"abb.yyyymmdd"&quot; where
+         *      &quot;a&quot; represents the major version number,
+         *      &quot;bb&quot; the minor version number,
+         *      &quot;yyyy&quot; four digit year,
+         *      &quot;mm&quot; two digit month, and
+         *      &quot;dd&quot; two digit day.
+     * @since 2006-01-17
+     */
+    public static String getVersion()
+    {
+        return version;
     }
 
     /**
@@ -206,10 +228,10 @@ public class BSFManager {
         Object result = null;
 
         try {
-            final Object resultf = 
+            final Object resultf =
                 AccessController.doPrivileged(new PrivilegedExceptionAction() {
                         public Object run() throws Exception {
-                            return e.apply(sourcef, lineNof, columnNof, 
+                            return e.apply(sourcef, lineNof, columnNof,
                                            funcBodyf, paramNamesf, argumentsf);
                         }
                     });
@@ -254,12 +276,12 @@ public class BSFManager {
         final Vector paramNamesf = paramNames;
         final Vector argumentsf = arguments;
         final CodeBuffer cbf = cb;
-        
+
         try {
             AccessController.doPrivileged(new PrivilegedExceptionAction() {
                     public Object run() throws Exception {
-                        e.compileApply(sourcef, lineNof, columnNof, 
-                                       funcBodyf, paramNamesf, 
+                        e.compileApply(sourcef, lineNof, columnNof,
+                                       funcBodyf, paramNamesf,
                                        argumentsf, cbf);
                         return null;
                     }
@@ -271,7 +293,7 @@ public class BSFManager {
     }
 
     /**
-     * Compile the given expression of the given language into the given 
+     * Compile the given expression of the given language into the given
      * <tt>CodeBuffer</tt>.
      *
      * @param lang     language identifier
@@ -311,7 +333,7 @@ public class BSFManager {
     }
 
     /**
-     * Compile the given script of the given language into the given 
+     * Compile the given script of the given language into the given
      * <tt>CodeBuffer</tt>.
      *
      * @param lang     language identifier
@@ -340,7 +362,7 @@ public class BSFManager {
         try {
             AccessController.doPrivileged(new PrivilegedExceptionAction() {
                     public Object run() throws Exception {
-                        e.compileScript(sourcef, lineNof, columnNof, 
+                        e.compileScript(sourcef, lineNof, columnNof,
                                         scriptf, cbf);
                         return null;
                     }
@@ -352,7 +374,7 @@ public class BSFManager {
     }
 
     /**
-     * Declare a bean. The difference between declaring and registering 
+     * Declare a bean. The difference between declaring and registering
      * is that engines are spsed to make declared beans "pre-available"
      * in the scripts as far as possible. That is, if a script author
      * needs a registered bean, he needs to look it up in some way. However
@@ -366,7 +388,7 @@ public class BSFManager {
      * says they don't like this (by throwing an exception) then this
      * method will simply quit with that exception. That is, any engines
      * that come after than in the engine enumeration will not even be
-     * told about this new bean. 
+     * told about this new bean.
      * <p>
      * So, in general its best to declare beans before the manager has
      * been asked to load any engines because then the user can be informed
@@ -420,7 +442,7 @@ public class BSFManager {
         final int lineNof = lineNo, columnNof = columnNo;
         final Object exprf = expr;
         Object result = null;
-        
+
         try {
             final Object resultf =
                 AccessController.doPrivileged(new PrivilegedExceptionAction() {
@@ -485,7 +507,7 @@ public class BSFManager {
      * emulate an interactive session w/ the language.
      *
      * @param lang     language identifier
-     * @param source   (context info) the source of this expression 
+     * @param source   (context info) the source of this expression
      *                 (e.g., filename)
      * @param lineNo   (context info) the line number in source for expr
      * @param columnNo (context info) the column number in source for expr
@@ -531,7 +553,7 @@ public class BSFManager {
         if (classPath == null) {
             try {
                 classPath = System.getProperty("java.class.path");
-            } 
+            }
             catch (Throwable t) {
                 // prolly a security exception .. so no can do
             }
@@ -541,17 +563,17 @@ public class BSFManager {
 
     /**
      * Determine the language of a script file by looking at the file
-     * extension. 
+     * extension.
      *
      * @param fileName the name of the file
      *
      * @return the scripting language the file is in if the file extension
-     *         is known to me (must have been registered via 
+     *         is known to me (must have been registered via
      *         registerScriptingEngine).
      *
      * @exception BSFException if file's extension is unknown.
      */
-    public static String getLangFromFilename(String fileName) 
+    public static String getLangFromFilename(String fileName)
         throws BSFException {
         int dotIndex = fileName.lastIndexOf(".");
 
@@ -571,7 +593,7 @@ public class BSFManager {
 
                     // Test to see if in classpath
                     try {
-                        String engineName = 
+                        String engineName =
                             (String) registeredEngines.get(lang);
                         Class.forName(engineName);
                     }
@@ -586,7 +608,7 @@ public class BSFManager {
                 }
                 if (loops == 0) lang = langval;
             }
-            
+
             if (lang != null && lang != "") {
                 return lang;
             }
@@ -636,7 +658,7 @@ public class BSFManager {
      *
      * @param lang string identifying language
      * @exception BSFException if the language is unknown (i.e., if it
-     *            has not been registered) with a reason of 
+     *            has not been registered) with a reason of
      *            REASON_UNKNOWN_LANGUAGE. If the language is known but
      *            if the interface can't be created for some reason, then
      *            the reason is set to REASON_OTHER_ERROR and the actual
@@ -677,7 +699,7 @@ public class BSFManager {
             loadedEngines.put(lang, eng);
             pcs.addPropertyChangeListener(eng);
             return eng;
-        } 
+        }
         catch (PrivilegedActionException prive) {
                 throw (BSFException) prive.getException();
         }
@@ -690,7 +712,7 @@ public class BSFManager {
 
     /**
      * return a handle to a bean registered in the bean registry by the
-     * application or a scripting engine. Returns null if bean is not found. 
+     * application or a scripting engine. Returns null if bean is not found.
      *
      * @param beanName name of bean to look up
      *
@@ -699,14 +721,14 @@ public class BSFManager {
     public Object lookupBean(String beanName) {
         try {
             return ((BSFDeclaredBean)objectRegistry.lookup(beanName)).bean;
-        } 
+        }
         catch (IllegalArgumentException e) {
             return null;
         }
     }
 
-    /** 
-     * Registering a bean allows a scripting engine or the application to 
+    /**
+     * Registering a bean allows a scripting engine or the application to
      * access that bean by name and to manipulate it.
      *
      * @param beanName name to register under
@@ -725,7 +747,7 @@ public class BSFManager {
     }
 
     /**
-     * Register a scripting engine in the static registry of the 
+     * Register a scripting engine in the static registry of the
      * BSFManager.
      *
      * @param lang string identifying language
@@ -771,7 +793,7 @@ public class BSFManager {
 
     /**
      * Set the object registry used by this manager. By default a new
-     * one is created when the manager is new'ed and this overwrites 
+     * one is created when the manager is new'ed and this overwrites
      * that one.
      *
      * @param objectRegistry the registry to use
@@ -782,13 +804,13 @@ public class BSFManager {
 
     /**
      * Temporary directory to put stuff into (for those who need to). Note
-     * that unless this directory is in the classpath or unless the 
-     * classloader knows to look in here, any classes here will not 
-     * be found! BSFManager provides a service method to load a class 
-     * which uses either the classLoader provided by the class loader 
-     * property or, if that fails, a class loader which knows to load from 
-     * the tempdir to try to load the class. Default value of tempDir 
-     * is "." (current working dir). 
+     * that unless this directory is in the classpath or unless the
+     * classloader knows to look in here, any classes here will not
+     * be found! BSFManager provides a service method to load a class
+     * which uses either the classLoader provided by the class loader
+     * property or, if that fails, a class loader which knows to load from
+     * the tempdir to try to load the class. Default value of tempDir
+     * is "." (current working dir).
      *
      * @param tempDir the temporary directory
      */
@@ -848,7 +870,7 @@ public class BSFManager {
         }
     }
 
-    /** 
+    /**
      * Unregister a previously registered bean. Silent if name is not found.
      *
      * @param beanName name of bean to unregister

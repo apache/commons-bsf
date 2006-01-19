@@ -339,7 +339,9 @@ public class EngineUtils {
         ClassLoader classLoader = mgr.getClassLoader ();
 
         try {
-            return (classLoader == null) ? Class.forName (name)
+            return (classLoader == null) ?
+                       // Class.forName (name)
+                       Thread.currentThread().getContextClassLoader().loadClass (name)
                 : classLoader.loadClass (name);
         } catch (ClassNotFoundException e) {
             // try to load it from the temp dir using my own class loader

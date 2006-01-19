@@ -67,7 +67,7 @@ import org.apache.bsf.util.type.*;
  * This file is a collection of reflection utilities. There are utilities
  * for creating beans, getting bean infos, setting/getting properties,
  * and binding events.
- * 
+ *
  * @author   Sanjiva Weerawarana
  * @author   Joseph Kesselman
  */
@@ -76,19 +76,19 @@ public class ReflectionUtils {
   //////////////////////////////////////////////////////////////////////////
 
   /**
-   * Add an event processor as a listener to some event coming out of an 
+   * Add an event processor as a listener to some event coming out of an
    * object.
-   * 
+   *
    * @param source       event source
    * @param eventSetName name of event set from event src to bind to
    * @param processor    event processor the event should be delegated to
    *                     when it occurs; either via processEvent or
-   *                     processExceptionableEvent. 
+   *                     processExceptionableEvent.
    *
    * @exception IntrospectionException if unable to introspect
    * @exception IllegalArgumentException if event set is unknown
-   * @exception IllegalAccessException if the event adapter class or 
-   *            initializer is not accessible. 
+   * @exception IllegalAccessException if the event adapter class or
+   *            initializer is not accessible.
    * @exception InstantiationException if event adapter instantiation fails
    * @exception InvocationTargetException if something goes wrong while
    *            running add event listener method
@@ -103,7 +103,7 @@ public class ReflectionUtils {
 	EventSetDescriptor esd = (EventSetDescriptor)
 	  findFeatureByName ("event", eventSetName, bi.getEventSetDescriptors ());
 	if (esd == null) {
-	  throw new IllegalArgumentException ("event set '" + eventSetName + 
+	  throw new IllegalArgumentException ("event set '" + eventSetName +
 										  "' unknown for source type '" +
 										  source.getClass () + "'");
 	}
@@ -128,10 +128,10 @@ public class ReflectionUtils {
 	Object[] args;
 	if (eventSetName.equals ("propertyChange") ||
 		eventSetName.equals ("vetoableChange")) {
-	  // In Java 1.2, beans may have direct listener adding methods 
+	  // In Java 1.2, beans may have direct listener adding methods
 	  // for property and vetoable change events which take the
 	  // property name as a filter to be applied at the event source.
-	  // The filter property of the event processor should be used 
+	  // The filter property of the event processor should be used
 	  // in this case to support the source-side filtering.
 	  //
 	  // ** TBD **: the following two lines need to change appropriately
@@ -164,16 +164,18 @@ public class ReflectionUtils {
    * @exception InvocationTargetException if constructor excepted
    * @exception IOException               if I/O error in beans.instantiate
    */
-  public static Bean createBean (ClassLoader cld, String className, 
-								 Class[] argTypes, Object[] args) 
+  public static Bean createBean (ClassLoader cld, String className,
+								 Class[] argTypes, Object[] args)
 	   throws ClassNotFoundException, NoSuchMethodException,
-			  InstantiationException, IllegalAccessException, 
+			  InstantiationException, IllegalAccessException,
 			  IllegalArgumentException, InvocationTargetException,
 			  IOException {
 	if (argTypes != null) {
 	  // find the right constructor and use that to create bean
 	  Class cl = (cld != null) ? cld.loadClass (className)
-							   : Class.forName (className);
+				   : Thread.currentThread().getContextClassLoader().loadClass (className); // rgf, 2006-01-05
+                                   // : Class.forName (className);
+
 	  Constructor c = MethodUtils.getConstructor (cl, argTypes);
 	  return new Bean (cl, c.newInstance (args));
 	} else {
@@ -203,10 +205,10 @@ public class ReflectionUtils {
    * @exception InvocationTargetException if constructor excepted
    * @exception IOException               if I/O error in beans.instantiate
    */
-  public static Bean createBean (ClassLoader cld, String className, 
-								 Object[] args) 
+  public static Bean createBean (ClassLoader cld, String className,
+								 Object[] args)
 	   throws ClassNotFoundException, NoSuchMethodException,
-			  InstantiationException, IllegalAccessException, 
+			  InstantiationException, IllegalAccessException,
 			  IllegalArgumentException, InvocationTargetException,
 			  IOException {
 	Class[] argTypes = null;
@@ -221,10 +223,10 @@ public class ReflectionUtils {
   //////////////////////////////////////////////////////////////////////////
 
   /**
-   * locate the item in the fds array whose name is as given. returns 
+   * locate the item in the fds array whose name is as given. returns
    * null if not found.
    */
-  private static 
+  private static
   FeatureDescriptor findFeatureByName (String featureType, String name,
 									   FeatureDescriptor[] fds) {
 	for (int i = 0; i < fds.length; i++) {
@@ -244,7 +246,7 @@ public class ReflectionUtils {
 	try {
 	  Field f = targetClass.getField (fieldName);
 	  Class fieldType = f.getType ();
-  
+
 	  // Get the value and return it.
 	  Object value = f.get (target);
 	  return new Bean (fieldType, value);
@@ -276,7 +278,7 @@ public class ReflectionUtils {
 			  IllegalAccessException, InvocationTargetException {
 	// find the property descriptor
 	BeanInfo bi = Introspector.getBeanInfo (target.getClass ());
-	PropertyDescriptor pd = (PropertyDescriptor) 
+	PropertyDescriptor pd = (PropertyDescriptor)
 	  findFeatureByName ("property", propName, bi.getPropertyDescriptors ());
 	if (pd == null) {
 	  throw new IllegalArgumentException ("property '" + propName + "' is " +
@@ -290,7 +292,7 @@ public class ReflectionUtils {
 	  // if index != null, then property is indexed - pd better be so too
 	  if (!(pd instanceof IndexedPropertyDescriptor)) {
 		throw new IllegalArgumentException ("attempt to get non-indexed " +
-											"property '" + propName + 
+											"property '" + propName +
 											"' as being indexed");
 	  }
 	  IndexedPropertyDescriptor ipd = (IndexedPropertyDescriptor) pd;
@@ -302,7 +304,7 @@ public class ReflectionUtils {
 	}
 
 	if (rm == null) {
-	  throw new IllegalArgumentException ("property '" + propName + 
+	  throw new IllegalArgumentException ("property '" + propName +
 										  "' is not readable");
 	}
 
@@ -377,12 +379,12 @@ public class ReflectionUtils {
    */
   public static void setProperty (Object target, String propName,
 								  Integer index, Object value,
-								  Class valueType, TypeConvertorRegistry tcr) 
+								  Class valueType, TypeConvertorRegistry tcr)
 	   throws IntrospectionException, IllegalArgumentException,
 			  IllegalAccessException, InvocationTargetException {
 	// find the property descriptor
 	BeanInfo bi = Introspector.getBeanInfo (target.getClass ());
-	PropertyDescriptor pd = (PropertyDescriptor) 
+	PropertyDescriptor pd = (PropertyDescriptor)
 	  findFeatureByName ("property", propName, bi.getPropertyDescriptors ());
 	if (pd == null) {
 	  throw new IllegalArgumentException ("property '" + propName + "' is " +
@@ -397,7 +399,7 @@ public class ReflectionUtils {
 	  // if index != null, then property is indexed - pd better be so too
 	  if (!(pd instanceof IndexedPropertyDescriptor)) {
 		throw new IllegalArgumentException ("attempt to set non-indexed " +
-											"property '" + propName + 
+											"property '" + propName +
 											"' as being indexed");
 	  }
 	  IndexedPropertyDescriptor ipd = (IndexedPropertyDescriptor) pd;
@@ -409,7 +411,7 @@ public class ReflectionUtils {
 	}
 
 	if (wm == null) {
-	  throw new IllegalArgumentException ("property '" + propName + 
+	  throw new IllegalArgumentException ("property '" + propName +
 										  "' is not writeable");
 	}
 
