@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="../xsl/p2.xsl"?>
+<rdf:RDF xml:lang="en"
+         xmlns="http://usefulinc.com/ns/doap#" 
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+         xmlns:asfext="http://projects.apache.org/ns/asfext#">
+  <Project rdf:about="http://httpd.apache.org/">
+    <created>2006-01-19</created>
+    <license rdf:resource="http://usefulinc.com/doap/licenses/asl20" />
+    <name>Apache Jakarta BSF</name>
+    <homepage rdf:resource="http://jakarta.apache.org/bsf/" />
+    <asfext:pmc rdf:resource="http://Jakarta.apache.org" />
+    <shortdesc>Framework that provides scripting language support within Java applications</shortdesc>
+    <description>Bean Scripting Framework (BSF) is a set of Java classes which provides scripting language support within Java applications, and access to Java objects and methods from scripting languages. BSF allows one to write JSPs in languages other than Java while providing access to the Java class library. In addition, BSF permits any Java application to be implemented in part (or dynamically extended) by a language that is embedded within it. This is achieved by providing an API that permits calling scripting language engines from within Java, as well as an object registry that exposes Java objects to these scripting language engines.</description>
+    <bug-database rdf:resource="http://issues.apache.org/bugzilla/enter_bug.cgi?product=BSF" />
+    <mailing-list rdf:resource="http://http://jakarta.apache.org/site/mail2.html#BSF" />
+    <download-page rdf:resource="http://jakarta.apache.org/site/downloads/downloads_bsf.html" />
+    <programming-language>Java</programming-language>
+    <release>
+      <Version>
+        <name>bsf</name>
+        <created>2002-11-12</created>
+        <version>2.3.0-rc1</version>
+      </Version>
+    </release>
+    <repository>
+      <SVNRepository>
+        <location>http://svn.apache.org/repos/asf/jakarta/bsf/trunk/</location>
+        <browse>http://http://svn.apache.org/viewcvs.cgi/jakarta/bsf/</browse>
+      </SVNRepository>
+    </repository>
+  </Project>
+</rdf:RDF>
