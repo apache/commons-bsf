@@ -372,8 +372,8 @@ Copyright:
           tofile="${dist.dir.root}/CHANGES"/>
     <copy file="TODO"
           tofile="${dist.dir.root}/TODO"/>
-    <copy file="license.txt"
-          tofile="${dist.dir.root}/license.txt"/>
+    <copy file="LICENSE"
+          tofile="${dist.dir.root}/LICENSE"/>
 
     <!-- ================================================================= -->
     <!-- Produces the tar/gzip file                                        -->
@@ -411,7 +411,7 @@ Copyright:
     <copy file="CHANGES" tofile="${dist.dir.root}/CHANGES"/>
     <copy file="TODO" tofile="${dist.dir.root}/TODO"/>
     <copy file="AUTHORS" tofile="${dist.dir.root}/AUTHORS"/>
-    <copy file="license.txt" tofile="${dist.dir.root}/license.txt"/>
+    <copy file="LICENSE" tofile="${dist.dir.root}/LICENSE"/>
     <copy file="${build.file}" tofile="${dist.dir.root}/${build.file}"/>
 
     <!-- ================================================================= -->
