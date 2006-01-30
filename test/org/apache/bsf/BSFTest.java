@@ -60,14 +60,10 @@ import junit.framework.TestResult;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
-import org.apache.bsf.BSFManager;
-
 import org.apache.bsf.engines.JaclTest;
 import org.apache.bsf.engines.JavascriptTest;
 import org.apache.bsf.engines.JythonTest;
 import org.apache.bsf.engines.NetrexxTest;
-import org.apache.bsf.test.engineTests.*;
-import org.apache.bsf.test.utilTests.*;
 import org.apache.bsf.util.EngineUtilsTest;
 import org.apache.bsf.util.IOUtilsTest;
 import org.apache.bsf.util.StringUtilsTest;

@@ -80,6 +80,7 @@ Copyright:
               value="build/samples/scriptedui"/>
     <property name="build.samples.xsl" value="build/samples/xsl"/>
     <property name="build.javadocs" value="build/javadocs"/>
+  	<property name="build.tests" value="build/testcases" />
 
     <property name="dist.dir" value="dist"/>
     <property name="dist.dir.root"
@@ -94,6 +95,8 @@ Copyright:
     <property name="site.projectFile" value="stylesheets/project.xml"/>
     <property name="templ.path" location="xdocs/stylesheets"/>
     <property name="velocity.props" location="${site.src}/velocity.properties"/>
+  	
+  	<property name="tests.dir" value="test"/>
 
     <!-- ================================================================= -->
     <!-- Sets version and time/date specific values                        -->
@@ -249,20 +252,7 @@ Copyright:
       <srcfiles dir="${build.dir}" includes="**/*.html"/>
     </uptodate>
   </target>
-
-  <!-- =================================================================== -->
-  <!-- Produce the activescript engine                                     -->
-  <!-- =================================================================== -->
-  <target name="activescript" depends="compile">
-    <copy todir="${build.lib.win32}">
-      <fileset dir="${lib.dir}/win32">
-        <patternset includes="*.dll"/>
-      </fileset>
-    </copy>
-
-    <exec dir="src/org/apache/bsf/engines/activescript" executable="nmake"/>
-  </target>
-
+	
   <!-- =================================================================== -->
   <!-- Compiles the samples                                                -->
   <!-- =================================================================== -->
@@ -293,21 +283,6 @@ Copyright:
            debug="${project.debug}"
            deprecation="${project.deprecation}"/>
   </target>
-
-   <!-- =================================================================== -->
-   <!-- Performs unit tests                                                 -->
-   <!-- =================================================================== -->
-   <target name="test" if="junit.present"
-           description="Performs unit tests on BSF."
-           depends="compile">
-     <junit>
-        <classpath>
-         <pathelement location="${build.lib}/${name}.jar" />
-        </classpath>
-        <formatter type="brief" usefile="false" />
-        <test name="org.apache.bsf.test.BSFTest" />
-     </junit>
-   </target>
 
   <!-- =================================================================== -->
   <!-- Creates the API documentation                                       -->
@@ -453,6 +428,32 @@ Copyright:
     <zip zipfile="${dist.src.file}.zip" basedir="${dist.dir}/"
          excludes="*.zip,*.tar,*.gz"/>
   </target>
+  
+
+  <!-- =================================================================== -->
+  <!-- Compile unit tests                                                  -->
+  <!-- =================================================================== -->
+  <target name="compile-test" if="junit.present" depends="compile">
+  	<mkdir dir="${build.tests}" />
+  	<javac srcdir="${tests.dir}" destdir="${build.tests}" 
+  		   classpath="${build.lib}/${project.name}.jar" />
+  </target>
+	
+  <!-- =================================================================== -->
+  <!-- Performs unit tests                                                 -->
+  <!-- =================================================================== -->
+  <target name="test" if="junit.present" 
+          description="Performs unit tests on BSF."
+  	      depends="compile-test">
+  	<junit>
+	  <classpath>
+	    <pathelement location="${build.lib}/${project.name}.jar" />
+	    <pathelement location="${build.tests}" />
+	  </classpath>
+  	  <formatter type="brief" usefile="false" />
+	  <test name="org.apache.bsf.BSFTest" />
+	</junit>
+  </target>
 
   <!-- =================================================================== -->
   <!-- Creates both distributions                                          -->
@@ -469,17 +470,7 @@ Copyright:
           depends="init">
     <delete dir="${build.dir}"/>
     <delete dir="${dist.dir}"/>
-    <delete>
-      <fileset dir="src/org/apache/bsf/engines/activescript">
-        <include name="*.dll" />
-        <include name="*.idb" />
-        <include name="*.exp" />
-        <include name="*.lib" />
-        <include name="*.obj" />
-        <include name="org_apache_bsf_engines_activescript_*.h" />
-      </fileset>
-    </delete>
   </target>
-
+	
   <target name="all" depends="build-site, dist"/>
 </project>
