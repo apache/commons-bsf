@@ -56,43 +56,39 @@
 package org.apache.bsf.util;
 
 import java.io.IOException;
-import org.apache.bsf.util.DebugLog;
 
-public class JavaUtils
-{
-    // Temporarily copied from JavaEngine...
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-    public static boolean JDKcompile(String fileName, String classPath)
-    {
-        String option = (DebugLog.getLogLevel() > 0) ? "-g" : "-O";
-        String args[] = {
-            "javac",
-            option,
-            "-classpath",
-            classPath,
-            fileName
-        };
+public class JavaUtils {
+	// Temporarily copied from JavaEngine...
 
-        DebugLog.stderrPrintln("JavaEngine: Compiling " + fileName, 
-                               DebugLog.BSF_LOG_L1);
-        DebugLog.stderrPrintln("JavaEngine: Classpath is " + classPath, 
-                               DebugLog.BSF_LOG_L1);
+	private static Log logger;
 
-        try
-        {
-            Process p=java.lang.Runtime.getRuntime().exec(args);
-            p.waitFor();
-            return(p.exitValue()!=0);
-        } catch(IOException e) {
-            DebugLog.stderrPrintln("ERROR: IO exception during exec(javac).", 
-                                   DebugLog.BSF_LOG_L1);
-        } catch(SecurityException e) {
-            DebugLog.stderrPrintln("ERROR: Unable to create subprocess " +
-                                   "to exec(javac).", DebugLog.BSF_LOG_L1);
-        } catch(InterruptedException e) {
-            DebugLog.stderrPrintln("ERROR: Wait for exec(javac) was " +
-                                   "interrupted.", DebugLog.BSF_LOG_L1);
-        }
-        return false;
-    }
+	static {
+		logger = LogFactory.getLog((org.apache.bsf.util.JavaUtils.class)
+				.getName());
+	}
+
+	public static boolean JDKcompile(String fileName, String classPath) {
+		String option = (logger.isDebugEnabled()) ? "-g" : "-O";
+		String args[] = { "javac", option, "-classpath", classPath, fileName };
+
+		logger.debug("JavaEngine: Compiling " + fileName);
+		logger.debug("JavaEngine: Classpath is " + classPath);
+
+		try {
+			Process p = java.lang.Runtime.getRuntime().exec(args);
+			p.waitFor();
+			return (p.exitValue() != 0);
+		} catch (IOException e) {
+			logger.error("ERROR: IO exception during exec(javac).", e);
+		} catch (SecurityException e) {
+			logger.error("ERROR: Unable to create subprocess to exec(javac).",
+					e);
+		} catch (InterruptedException e) {
+			logger.error("ERROR: Wait for exec(javac) was interrupted.", e);
+		}
+		return false;
+	}
 }

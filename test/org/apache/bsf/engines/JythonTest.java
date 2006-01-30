@@ -53,39 +53,38 @@
  * please see <http://www.apache.org/>.
  */
 
-package org.apache.bsf.test.engineTests;
+package org.apache.bsf.engines;
 
 import org.apache.bsf.BSFEngine;
+import org.apache.bsf.BSFEngineTestTmpl;
 import org.apache.bsf.BSFException;
-import org.apache.bsf.test.BSFEngineTestTmpl;
 
 /**
- * Test class for the Rhino language engine.
+ * Test class for the jython language engine.
  * @author   Victor J. Orlikowski <vjo@us.ibm.com>
  */
-public class javascriptTest extends BSFEngineTestTmpl {
-    private BSFEngine javascriptEngine;
+public class JythonTest extends BSFEngineTestTmpl {
+    private BSFEngine jythonEngine;
 
-    public javascriptTest(String name) {
+    public JythonTest(String name) {
         super(name);
     }
 
     public void setUp() {
         super.setUp();
-
+        
         try {
-            javascriptEngine = bsfManager.loadScriptingEngine("javascript");
+            jythonEngine = bsfManager.loadScriptingEngine("jython");
         }
         catch (Exception e) {
-            fail(failMessage("Failure attempting to load Rhino", e));
+            fail(failMessage("Failure attempting to load jython", e));
         }
     }
 
     public void testExec() {
         try {
-            javascriptEngine.exec("Test.js", 0, 0,
-                                  "java.lang.System.out.print " + 
-                                  "(\"PASSED\");");
+            jythonEngine.exec("Test.py", 0, 0,
+                              "print \"PASSED\",");
         }
         catch (Exception e) {
             fail(failMessage("exec() test failed", e));
@@ -93,89 +92,90 @@ public class javascriptTest extends BSFEngineTestTmpl {
 
         assertEquals("PASSED", getTmpOutStr());
     }
-    
+
     public void testEval() {
-        Double retval = null;
+        Integer retval = null;
 
         try {
-            retval = new Double((javascriptEngine.eval("Test.js", 0, 0,
-                                                       "1 + 1;").toString()));
+            retval = new Integer((jythonEngine.eval("Test.py", 0, 0,
+                                                    "1 + 1")).toString());
         }
         catch (Exception e) {
             fail(failMessage("eval() test failed", e));
         }
 
-        assertEquals(new Double(2), retval);
+        assertEquals(new Integer(2), retval);
     }
 
     public void testCall() {
-        Object[] args = { new Double(1) };
-        Double retval = null;
+        Object[] args = { new Integer(1) };
+        Integer retval = null;
 
         try {
-            javascriptEngine.exec("Test.js", 0, 0,
-                                  "function addOne (f) {\n return f + 1;\n}");
+            jythonEngine.exec("Test.py", 0, 0,
+                              "def addOne(f):\n\t return f + 1\n");
             retval = 
-                new Double((javascriptEngine.call(null, "addOne",
-                                                  args).toString()));
+                new Integer((jythonEngine.call(null, "addOne",
+                                               args).toString()));
         }
         catch (Exception e) {
             fail(failMessage("call() test failed", e));
         }
 
-        assertEquals(new Double(2), retval);
+        assertEquals(new Integer(2), retval);
     }
 
     public void testIexec() {
+        // iexec() differs from exec() in this engine, primarily
+        // in that it only executes up to the first newline.
         try {
-            javascriptEngine.iexec("Test.js", 0, 0,
-                                   "java.lang.System.out.print " + 
-                                   "(\"PASSED\");");
+            jythonEngine.iexec("Test.py", 0, 0,
+                               "print \"PASSED\"," + "\n" + "print \"FAILED\",");
         }
         catch (Exception e) {
             fail(failMessage("iexec() test failed", e));
         }
-
+        
         assertEquals("PASSED", getTmpOutStr());
-    }
+    } 
 
     public void testBSFManagerEval() {
-        Double retval = null;
+        Integer retval = null;
 
         try {
-            retval = new Double((bsfManager.eval("javascript", "Test.js", 0,
-                                                 0, "1 + 1;")).toString());
+            retval = new Integer((bsfManager.eval("jython", "Test.py", 0, 0,
+                                                  "1 + 1")).toString());
         }
         catch (Exception e) {
             fail(failMessage("BSFManager eval() test failed", e));
         }
 
-        assertEquals(new Double(2), retval);
+        assertEquals(new Integer(2), retval);
     }
-    
+
     public void testBSFManagerAvailability() {
         Object retval = null;
 
         try {
-            retval = javascriptEngine.eval("Test.js", 0, 0,
-                                           "bsf.lookupBean(\"foo\");");
+            retval = jythonEngine.eval("Test.py", 0, 0,
+                                       "bsf.lookupBean(\"foo\")");
         }
         catch (Exception e) {
             fail(failMessage("Test of BSFManager availability failed", e));
         }
 
-        assertNull(retval);
+        assertEquals("None", retval.toString());
     }
 
     public void testRegisterBean() {
-        Double foo = new Double(1);
-        Double bar = null;
+        Integer foo = new Integer(1);
+        Integer bar = null;
 
         try {
             bsfManager.registerBean("foo", foo);
-            bar = (Double)
-                javascriptEngine.eval("Test.js", 0, 0,
-                                      "bsf.lookupBean(\"foo\");");
+            bar = new Integer((jythonEngine.eval("Test.py", 0, 0,
+                                                 "bsf.lookupBean(\"foo\")"))
+                              .toString());
         }
         catch (Exception e) {
             fail(failMessage("registerBean() test failed", e));
@@ -185,47 +185,47 @@ public class javascriptTest extends BSFEngineTestTmpl {
     }
 
     public void testUnregisterBean() {
-        Double foo = new Double(1);
-        Double bar = null;
+        Integer foo = new Integer(1);
+        Object bar = null;
 
         try {
             bsfManager.registerBean("foo", foo);
             bsfManager.unregisterBean("foo");
-            bar = (Double) 
-                javascriptEngine.eval("Test.js", 0, 0,
-                                      "bsf.lookupBean(\"foo\");");
+            bar = jythonEngine.eval("Test.py", 0, 0,
+                                    "bsf.lookupBean(\"foo\")");
         }
         catch (Exception e) {
             fail(failMessage("unregisterBean() test failed", e));
         }
 
-        assertNull(bar);
+        assertEquals("None", bar.toString());
     }
-    
+
     public void testDeclareBean() {
-        Double foo = new Double(1);
-        Double bar = null;
+        Integer foo = new Integer(1);
+        Integer bar = null;
 
         try {
-            bsfManager.declareBean("foo", foo, Double.class);
-            bar = (Double) javascriptEngine.eval("Test.js", 0, 0, "foo + 1;");
+            bsfManager.declareBean("foo", foo, Integer.class);
+            bar = new Integer((jythonEngine.eval("Test.py", 0, 0,
+                                                 "foo + 1")).toString());
         }
         catch (Exception e) {
             fail(failMessage("declareBean() test failed", e));
         }
 
-        assertEquals(new Double(2), bar);
+        assertEquals(new Integer(2), bar);
     }
 
     public void testUndeclareBean() {
-        Double foo = new Double(1);
-        Double bar = null;
+        Integer foo = new Integer(1);
+        Integer bar = null;
 
         try {
-            bsfManager.declareBean("foo", foo, Double.class);
+            bsfManager.declareBean("foo", foo, Integer.class);
             bsfManager.undeclareBean("foo");
-            bar = (Double) javascriptEngine.eval("Test.js", 0, 0,
-                                                 "foo + 1");
+            bar = new Integer((jythonEngine.eval("Test.py", 0, 0,
+                                                 "foo + 1")).toString());
         }
         catch (BSFException bsfE) {
             // Do nothing. This is the expected case.

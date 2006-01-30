@@ -56,7 +56,9 @@
 package org.apache.bsf.util.event.generator;
 
 import java.io.*;
-import org.apache.bsf.util.DebugLog;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /** EventAdapterGenerator
   *
@@ -80,9 +82,14 @@ public class EventAdapterGenerator
   // the initialization method, noargs constructor
   static byte   INITMETHOD[];
 
+  private static Log logger;
+  
   /* The static initializer */
   static
   {
+	logger = LogFactory.getLog(
+				(org.apache.bsf.util.event.generator.EventAdapterGenerator.class).getName());
+	
 	String USERCLASSPACKAGE = System.getProperty("DynamicEventClassPackage",
 												 "");
 
@@ -204,7 +211,7 @@ public class EventAdapterGenerator
   /* methods that take an EventListener Class Type to create an EventAdapterClass */
   public static Class makeEventAdapterClass(Class listenerType,boolean writeClassFile)
   {
-      DebugLog.stdoutPrintln("EventAdapterGenerator", DebugLog.BSF_LOG_L3);
+      logger.info("EventAdapterGenerator");
 
 	if( EVENTLISTENER.isAssignableFrom(listenerType) )
 	{
@@ -219,8 +226,7 @@ public class EventAdapterGenerator
 
 	  /* Derive Names */
 	  String listenerTypeName      = listenerType.getName();
-          DebugLog.stdoutPrintln("  ListenerTypeName: "+listenerTypeName,
-                                 DebugLog.BSF_LOG_L3);
+          logger.info("ListenerTypeName: "+listenerTypeName);
 	  String adapterClassName      =
 		CLASSPACKAGE+
 		(listenerTypeName.endsWith("Listener")
@@ -235,7 +241,7 @@ public class EventAdapterGenerator
 	  {
 		if (null != (cached = ldr.getLoadedClass(finalAdapterClassName)))
 		{
-                    DebugLog.stdoutPrintln("cached:  "+cached, DebugLog.BSF_LOG_L3);
+                    logger.info("cached:  "+cached);
 		  try
 		  {
 			if (!listenerType.isAssignableFrom(cached))
@@ -337,7 +343,7 @@ public class EventAdapterGenerator
 
 	  // base index for method cp references
 	  cpBaseIndex = (short)(BASECPCOUNT + cpCount);
-          DebugLog.stderrPrintln("cpBaseIndex: " + cpBaseIndex, DebugLog.BSF_LOG_L3);
+          logger.debug("cpBaseIndex: " + cpBaseIndex);
 
 	  for (int i = 0 ; i < lms.length ; ++i)
 	  {
@@ -381,7 +387,7 @@ public class EventAdapterGenerator
 	  }/* End for*/
 
 	  cpExceptionBaseIndex = (short)(BASECPCOUNT + cpCount);
-          DebugLog.stderrPrintln("cpExceptionBaseIndex: " + cpExceptionBaseIndex, DebugLog.BSF_LOG_L3);
+          logger.debug("cpExceptionBaseIndex: " + cpExceptionBaseIndex);
 
 	  int excpIndex[][] = new int[lms.length][];
 	  for (int i = 0 ; i < lms.length ; ++i)
@@ -541,10 +547,9 @@ public class EventAdapterGenerator
 	  newClass = ByteUtility.addBytes(newClass,(short)0);                     // attribute_count          (fixed)
 	  /* done */
 
-          DebugLog.stdoutPrintln("adapterName: " + finalAdapterClassName,
-                                 DebugLog.BSF_LOG_L3);
-          DebugLog.stdoutPrintln("cpCount: " + count + " = " + BASECPCOUNT + " + " +  cpCount, DebugLog.BSF_LOG_L3);
-          DebugLog.stdoutPrintln("methodCount: " + (lms.length+1), DebugLog.BSF_LOG_L3);
+          logger.debug("adapterName: " + finalAdapterClassName);
+          logger.debug("cpCount: " + count + " = " + BASECPCOUNT + " + " +  cpCount);
+          logger.debug("methodCount: " + (lms.length+1));
 	  // output to disk class file
 	  /* ****************************************************************************************** */
 
@@ -568,9 +573,9 @@ public class EventAdapterGenerator
 		try
 		{
 		  Class ret = ldr.loadClass(finalAdapterClassName);
-		  DebugLog.stdoutPrintln("EventAdapterGenerator: " +
+		  logger.debug("EventAdapterGenerator: " +
 							 ret.getName() +
-							 " dynamically generated", DebugLog.BSF_LOG_L3);
+							 " dynamically generated");
 		  return ret;
 		}
 		catch (ClassNotFoundException ex)
@@ -583,10 +588,9 @@ public class EventAdapterGenerator
 	  try
 	  {
 		Class ret = ldr.defineClass(finalAdapterClassName,newClass);
-		DebugLog.stdoutPrintln("EventAdapterGenerator: " +
+		logger.debug("EventAdapterGenerator: " +
                                        ret.getName() +
-                                       " dynamically generated",
-                                       DebugLog.BSF_LOG_L3);
+                                       " dynamically generated");
 		return ret;
 	  }
 	  catch(Exception ex)

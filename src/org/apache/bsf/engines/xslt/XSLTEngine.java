@@ -72,7 +72,8 @@ import org.apache.xpath.objects.XObject;
 import org.apache.bsf.*;
 import org.apache.bsf.util.BSFEngineImpl;
 import org.apache.bsf.util.BSFFunctions;
-import org.apache.bsf.util.DebugLog;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Xerces XSLT interface to BSF. Requires Xalan and Xerces from Apache.
@@ -90,6 +91,8 @@ import org.apache.bsf.util.DebugLog;
 public class XSLTEngine extends BSFEngineImpl {
     TransformerFactory tFactory;
     Transformer transformer;
+    
+    Log logger = LogFactory.getLog(this.getClass().getName());
 
     /**
      * call the named method of the given object.
@@ -131,7 +134,7 @@ public class XSLTEngine extends BSFEngineImpl {
         try {
             transformer = tFactory.newTransformer(styleSource);
         } catch (Exception e) {
-            e.printStackTrace (DebugLog.getDebugStream());
+        	logger.error("Exception from Xerces XSLT:", e);
             throw new BSFException (BSFException.REASON_EXECUTION_ERROR,
                                     "Exception from Xerces XSLT: " + e, e);
         }

@@ -53,7 +53,7 @@
  * please see <http://www.apache.org/>.
  */
 
-package org.apache.bsf.test.utilTests;
+package org.apache.bsf.util;
 
 import java.io.BufferedReader;
 import java.io.File;

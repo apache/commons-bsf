@@ -53,11 +53,11 @@
  * please see <http://www.apache.org/>.
  */
 
-package org.apache.bsf.test.engineTests;
+package org.apache.bsf.engines;
 
 import org.apache.bsf.BSFEngine;
+import org.apache.bsf.BSFEngineTestTmpl;
 import org.apache.bsf.BSFException;
-import org.apache.bsf.test.BSFEngineTestTmpl;
 
 /**
  * This is a testcase for NetRexx Script Engine
@@ -66,11 +66,11 @@ import org.apache.bsf.test.BSFEngineTestTmpl;
  * @author Nilupa Bandara     <nilupa@opensoruce.lk>
  */
 
-public class netrexxTest extends BSFEngineTestTmpl {
+public class NetrexxTest extends BSFEngineTestTmpl {
     private BSFEngine netrexxEngine;
     private String lineSeparatorStr = System.getProperty("line.separator");
 
-    public netrexxTest(String name) {
+    public NetrexxTest(String name) {
         super(name);
     }
 

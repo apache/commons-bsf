@@ -53,61 +53,42 @@
  * please see <http://www.apache.org/>.
  */
 
-package org.apache.bsf.test.utilTests;
+package org.apache.bsf.util;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringReader;
-import java.io.StringWriter;
-
-import org.apache.bsf.util.IOUtils;
-
-import junit.framework.TestCase;
+import java.io.Serializable;
 
 /**
+ * This is the org.apache.bsf.test.utilTests.TestBean.java used in
+ * EngineUtils.java
  *
- * This is testcase for the org.apache.bsf.util.IOUtils
- *
- * @author Thusitha Perera <pererawt@yahoo.com>
- *
+ * @author Nandika Jayawardana <jayawark@yahoo.com>
  */
 
-public class IOUtilsTest extends TestCase {
+public class TestBean implements Serializable{
+    private String strValue = null;
+    private Number numValue;
 
-    static private final String lineSeparator =
-        System.getProperty("line.separator","/n");
-
-    public IOUtilsTest(String name) {
-        super(name);
+    public TestBean(){
     }
 
-    public void testGetStringFromReader() throws IOException {
-        String result;
-        StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw);
+    public TestBean(String value){
+        this.strValue = value;
+    }
 
-        pw.println("IOUtilsTest");
-        pw.flush();
+    public void setValue(String value){
+        this.strValue = value;
+    }
 
-        StringReader sr = new StringReader(sw.toString());
-        result = IOUtils.getStringFromReader(sr);
+    public void setValue(String sValue, Number nValue){
+        this.strValue = sValue;
+        this.numValue = nValue;
+    }
 
-        assertTrue(result.equals(new String("IOUtilsTest" + lineSeparator)));
+    public String getStringValue(){
+        return strValue;
+    }
 
-        File myFile = File.createTempFile("Test", "txt");
-
-        FileWriter fw = new FileWriter(myFile);
-        PrintWriter npw = new PrintWriter(fw);
-        npw.println("file name : Test.txt");
-        npw.flush();
-
-        FileReader fr = new FileReader(myFile);
-        result = IOUtils.getStringFromReader(fr);
-
-        assertTrue(result.equals(new String("file name : Test.txt" +
-                                            lineSeparator)));
+    public Number getNumericValue(){
+        return numValue;
     }
 }

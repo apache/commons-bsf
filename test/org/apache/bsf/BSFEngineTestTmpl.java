@@ -53,64 +53,57 @@
  * please see <http://www.apache.org/>.
  */
 
-package org.apache.bsf.engines.activescript;
+package org.apache.bsf;
 
-import java.util.Vector;
-import org.apache.bsf.*;
-import org.apache.bsf.util.DebugLog;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
-public final class COMIDispatchBean implements Cloneable
-{
+import junit.framework.TestCase;
 
-   
- private byte[] IDispatchInterface; //Byte array containing point to a COM IDispatch Interface.
+import org.apache.bsf.BSFManager;
 
- private COMIDispatchBean(){return;} //Should not be called.
- public  COMIDispatchBean( byte[] pInterface)
- {
-   IDispatchInterface= new byte[pInterface.length]; 
-   System.arraycopy(pInterface,0,IDispatchInterface,0, pInterface.length);
- }
- public Object clone() throws CloneNotSupportedException
- {
-   COMIDispatchBean d = null;
-   DebugLog.stdoutPrintln("cloning: "  + this, DebugLog.BSF_LOG_L3);
-   try
-   {
+/**
+ * Superclass for language engine tests.
+ * @author   Victor J. Orlikowski <vjo@us.ibm.com>
+ */
+public abstract class BSFEngineTestTmpl extends TestCase {
+    protected BSFManager bsfManager;
+    protected PrintStream sysOut;
 
-	 d= (COMIDispatchBean) this.getClass().newInstance();
-	 d.IDispatchInterface= new byte[this.IDispatchInterface.length];
-	 System.arraycopy(this.IDispatchInterface,0,d.IDispatchInterface,0, this.IDispatchInterface.length);
-	 ActiveScriptEngine.nativeIdispatchAddRef(d.IDispatchInterface); 
-   } catch( Exception e)
-   {
-	 throw new CloneNotSupportedException();
-   }
-   DebugLog.stdoutPrintln("cloning: returned : " + d, DebugLog.BSF_LOG_L3);
-   return d;
- }
- public static COMIDispatchBean COMIDispatchBeanFactory( byte[] s) //Convient for c side to construct.
- {
-   return new COMIDispatchBean(s);
+    private PrintStream tmpOut;
+    private ByteArrayOutputStream tmpBaos;
 
- }
- protected void finalize() throws Throwable
- {
-   
-  if(null != IDispatchInterface)
-  {
-	byte[]  x= IDispatchInterface ;
-	IDispatchInterface = null;
-	ActiveScriptEngine.nativeIdispatchDeleteRef(x); 
-  }  
- }
- public byte[] getIDispatchInterface() throws BSFException
- {
-  ActiveScriptEngine.nativeIdispatchAddRef(IDispatchInterface); 
-  return IDispatchInterface;
- }
- public String toString()
- {
-   return this.getClass().toString() + ":" + this.hashCode() + IDispatchInterface[3] + IDispatchInterface[2] + IDispatchInterface[1] + IDispatchInterface[0];
- }
+    public BSFEngineTestTmpl(String name) {
+        super(name);
+
+        sysOut = System.out;
+        tmpBaos = new ByteArrayOutputStream();
+        tmpOut = new PrintStream(tmpBaos);
+    }
+
+    public void setUp() {
+        bsfManager = new BSFManager();
+        System.setOut(tmpOut);
+    }
+
+    public void tearDown() {
+        System.setOut(sysOut);
+        resetTmpOut();
+    }
+    
+    protected String getTmpOutStr() {
+        return tmpBaos.toString();
+    }
+
+    protected void resetTmpOut() {
+        tmpBaos.reset();
+    }
+    
+    protected String failMessage(String failure, Exception e) {
+        String message = failure;
+        message += "\nReason:\n";
+        message += e.getMessage();
+        message += "\n";
+        return message;
+    }
 }

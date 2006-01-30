@@ -53,7 +53,7 @@
  * please see <http://www.apache.org/>.
  */
 
-package org.apache.bsf.test;
+package org.apache.bsf;
 
 import junit.framework.Test;
 import junit.framework.TestResult;
@@ -62,8 +62,15 @@ import junit.textui.TestRunner;
 
 import org.apache.bsf.BSFManager;
 
+import org.apache.bsf.engines.JaclTest;
+import org.apache.bsf.engines.JavascriptTest;
+import org.apache.bsf.engines.JythonTest;
+import org.apache.bsf.engines.NetrexxTest;
 import org.apache.bsf.test.engineTests.*;
 import org.apache.bsf.test.utilTests.*;
+import org.apache.bsf.util.EngineUtilsTest;
+import org.apache.bsf.util.IOUtilsTest;
+import org.apache.bsf.util.StringUtilsTest;
 
 /**
  * Primary test class and testing front end for BSF.
@@ -101,13 +108,13 @@ public class BSFTest extends BSFEngineTestTmpl {
 
         suite.addTestSuite(BSFTest.class);
         testNames[0] = "BSFManager Base Tests";
-        suite.addTestSuite(jaclTest.class);
+        suite.addTestSuite(JaclTest.class);
         testNames[1] = "Jacl Engine Tests";
-        suite.addTestSuite(javascriptTest.class);
+        suite.addTestSuite(JavascriptTest.class);
         testNames[2] = "Rhino Engine Tests";
-        suite.addTestSuite(jythonTest.class);
+        suite.addTestSuite(JythonTest.class);
         testNames[3] = "Jython Engine Tests";
-        suite.addTestSuite(netrexxTest.class);
+        suite.addTestSuite(NetrexxTest.class);
         testNames[4] = "NetRexx Engine Tests";
         suite.addTestSuite(StringUtilsTest.class);
         testNames[5] = "StringUtils Test";
@@ -122,7 +129,7 @@ public class BSFTest extends BSFEngineTestTmpl {
     public void setUp() {
         super.setUp();
         BSFManager.registerScriptingEngine("fakeEngine", 
-                                           fakeEngine.class.getName(), 
+                                           FakeEngine.class.getName(), 
                                            new String[] { "fakeEng", "fE" });
     }
 

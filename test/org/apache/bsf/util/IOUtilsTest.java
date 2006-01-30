@@ -53,39 +53,61 @@
  * please see <http://www.apache.org/>.
  */
 
-package org.apache.bsf.test;
+package org.apache.bsf.util;
 
-import org.apache.bsf.BSFException;
-import org.apache.bsf.util.BSFEngineImpl;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringReader;
+import java.io.StringWriter;
 
-public class fakeEngine extends BSFEngineImpl {
+import org.apache.bsf.util.IOUtils;
 
-    public Object call(Object object, String method, Object[] args)
-        throws BSFException
-    {
-        return Boolean.TRUE;
+import junit.framework.TestCase;
+
+/**
+ *
+ * This is testcase for the org.apache.bsf.util.IOUtils
+ *
+ * @author Thusitha Perera <pererawt@yahoo.com>
+ *
+ */
+
+public class IOUtilsTest extends TestCase {
+
+    static private final String lineSeparator =
+        System.getProperty("line.separator","/n");
+
+    public IOUtilsTest(String name) {
+        super(name);
     }
 
-    public Object eval(String source, int lineNo, int columnNo, Object expr)
-        throws BSFException
-    {
-        return Boolean.TRUE;
-    }
+    public void testGetStringFromReader() throws IOException {
+        String result;
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
 
-    public void iexec(String source, int lineNo, int columnNo, Object script)
-        throws BSFException
-    {
-        System.out.print("PASSED");
-    }
+        pw.println("IOUtilsTest");
+        pw.flush();
 
-    public void exec(String source, int lineNo, int columnNo, Object script)
-        throws BSFException
-    {
-        System.out.print("PASSED");
-    }
+        StringReader sr = new StringReader(sw.toString());
+        result = IOUtils.getStringFromReader(sr);
 
-    public void terminate() {
-        super.terminate();
-        System.out.print("PASSED");
+        assertTrue(result.equals(new String("IOUtilsTest" + lineSeparator)));
+
+        File myFile = File.createTempFile("Test", "txt");
+
+        FileWriter fw = new FileWriter(myFile);
+        PrintWriter npw = new PrintWriter(fw);
+        npw.println("file name : Test.txt");
+        npw.flush();
+
+        FileReader fr = new FileReader(myFile);
+        result = IOUtils.getStringFromReader(fr);
+
+        assertTrue(result.equals(new String("file name : Test.txt" +
+                                            lineSeparator)));
     }
 }

@@ -56,12 +56,15 @@
 package org.apache.bsf.util.event.generator;
 
 import java.util.*;
-import org.apache.bsf.util.DebugLog;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class AdapterClassLoader extends ClassLoader
 {
   private static Hashtable classCache = new Hashtable();
   private Class c;
+  
+  private Log logger = LogFactory.getLog(this.getClass().getName()); 
 
   public AdapterClassLoader()
   {
@@ -76,9 +79,8 @@ public class AdapterClassLoader extends ClassLoader
 	}
 	else
 	{
-	  DebugLog.stderrPrintln("AdapterClassLoader: " + c +
-                                 " previously loaded. Can not redefine class.",
-                                 DebugLog.BSF_LOG_L2);
+	  logger.error("AdapterClassLoader: " + c +
+                                 " previously loaded. Can not redefine class.");
 	}
 
 	return c;

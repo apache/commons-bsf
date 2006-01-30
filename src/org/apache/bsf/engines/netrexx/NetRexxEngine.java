@@ -62,7 +62,8 @@ import java.lang.reflect.*;
 
 import org.apache.bsf.*;
 import org.apache.bsf.util.*;
-import org.apache.bsf.util.DebugLog;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This is the interface to NetRexx from the
@@ -115,7 +116,9 @@ public class NetRexxEngine extends BSFEngineImpl
 	static String serializeCompilation="";
 	static String placeholder="$$CLASSNAME$$";
 	String minorPrefix;
-  
+	
+	private Log logger = LogFactory.getLog(this.getClass().getName());
+	  
 	/**
 	 * Create a scratchfile, open it for writing, return its name.
 	 * Relies on the filesystem to provide us with uniqueness testing.
@@ -206,7 +209,7 @@ public class NetRexxEngine extends BSFEngineImpl
 			}
 			else
 			{
-				DebugLog.stderrPrintln ("NetRexxEngine: ERROR: rexxclass==null!", DebugLog.BSF_LOG_L3);
+				logger.error("NetRexxEngine: ERROR: rexxclass==null!");
 			}
 		}
 		catch(Exception e)
@@ -289,9 +292,10 @@ public class NetRexxEngine extends BSFEngineImpl
                     rexxclass=(Class)codeToClass.get(basescript);
                     
                     if(rexxclass!=null)
+                    	
 			{
-                            DebugLog.debugPrintln ("NetRexxEngine: Found pre-compiled class" +
-                                                   " for script '" + basescript + "'", DebugLog.BSF_LOG_L3);
+                            logger.debug("NetRexxEngine: Found pre-compiled class" +
+                                                   " for script '" + basescript + "'");
                             classname=rexxclass.getName();
 			}
                     else
@@ -360,13 +364,13 @@ public class NetRexxEngine extends BSFEngineImpl
                             gf.fos.write(script.getBytes());
                             gf.fos.close();
                             
-                            DebugLog.debugPrintln ("NetRexxEngine: wrote temp file " + 
-                                                   gf.file.getPath () + ", now compiling", DebugLog.BSF_LOG_L3);
+                            logger.debug("NetRexxEngine: wrote temp file " + 
+                                                   gf.file.getPath () + ", now compiling");
                             
                             // Compile through Java to .class file
                     String command=gf.file.getPath(); //classname;
-                    if (DebugLog.getLogLevel() >= 3) {
-                        command += " -verbose4";
+                    if (logger.isDebugEnabled()) {  
+                    	command += " -verbose4";
                     } else {
                         command += " -noverbose";
                         command += " -noconsole";
@@ -381,7 +385,7 @@ public class NetRexxEngine extends BSFEngineImpl
                             // compile to a .java file
                             retValue =
                                 COM.ibm.netrexx.process.NetRexxC.main(cmdline,
-                                                                      new PrintWriter(DebugLog.getDebugStream()));
+                                                                      new PrintWriter(System.err)); 
                         }
 
 				// Check if there were errors while compiling the Rexx code.
@@ -392,7 +396,7 @@ public class NetRexxEngine extends BSFEngineImpl
 				}
 
 				// Load class.
-                                DebugLog.debugPrintln ("NetRexxEngine: loading class "+classname, DebugLog.BSF_LOG_L3);
+                logger.debug("NetRexxEngine: loading class "+classname);
 				rexxclass=EngineUtils.loadClass (mgr, classname);
 
 				// Stash class for reuse
@@ -508,12 +512,12 @@ private GeneratedFile openUniqueFile(String directory,String prefix,String suffi
 					// bother reporting it.
 					if(!file.exists())
 					{
-						DebugLog.stderrPrintln("openUniqueFile: unexpected "+e, DebugLog.BSF_LOG_L0);
+						logger.error("openUniqueFile: unexpected "+e);
 					}
 				}
 		}
 		if(fos==null)
-			DebugLog.stderrPrintln("openUniqueFile: Failed "+max+"attempts.", DebugLog.BSF_LOG_L0);
+			logger.error("openUniqueFile: Failed "+max+"attempts.");
 		else
 			gf=new GeneratedFile(file,fos,className);
 		return gf;

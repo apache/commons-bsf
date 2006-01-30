@@ -1,9 +1,0 @@
-; BSFAST.def : Declares the module parameters for the DLL.
-
-LIBRARY      "BSFACTIVESCRIPTENGINE"
-DESCRIPTION  'BSFACTIVESCRIPTENGINE Windows Dynamic Link Library'
-
-EXPORTS
-    ; Explicit exports can go here
-  createJavaOLEENUMVAR
-    

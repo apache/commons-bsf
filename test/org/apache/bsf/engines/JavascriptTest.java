@@ -53,20 +53,20 @@
  * please see <http://www.apache.org/>.
  */
 
-package org.apache.bsf.test.engineTests;
+package org.apache.bsf.engines;
 
 import org.apache.bsf.BSFEngine;
+import org.apache.bsf.BSFEngineTestTmpl;
 import org.apache.bsf.BSFException;
-import org.apache.bsf.test.BSFEngineTestTmpl;
 
 /**
- * Test class for the jacl language engine.
+ * Test class for the Rhino language engine.
  * @author   Victor J. Orlikowski <vjo@us.ibm.com>
  */
-public class jaclTest extends BSFEngineTestTmpl {
-    private BSFEngine jaclEngine;
+public class JavascriptTest extends BSFEngineTestTmpl {
+    private BSFEngine javascriptEngine;
 
-    public jaclTest(String name) {
+    public JavascriptTest(String name) {
         super(name);
     }
 
@@ -74,17 +74,18 @@ public class jaclTest extends BSFEngineTestTmpl {
         super.setUp();
 
         try {
-            jaclEngine = bsfManager.loadScriptingEngine("jacl");
+            javascriptEngine = bsfManager.loadScriptingEngine("javascript");
         }
         catch (Exception e) {
-            fail(failMessage("Failure attempting to load jacl", e));
+            fail(failMessage("Failure attempting to load Rhino", e));
         }
     }
 
     public void testExec() {
         try {
-            jaclEngine.exec("Test.jacl", 0, 0,
-                            "puts -nonewline \"PASSED\"");
+            javascriptEngine.exec("Test.js", 0, 0,
+                                  "java.lang.System.out.print " + 
+                                  "(\"PASSED\");");
         }
         catch (Exception e) {
             fail(failMessage("exec() test failed", e));
@@ -94,39 +95,42 @@ public class jaclTest extends BSFEngineTestTmpl {
     }
     
     public void testEval() {
-        Integer retval = null;
+        Double retval = null;
 
         try {
-            retval =  (Integer) jaclEngine.eval("Test.jacl", 0, 0,
-                                                "expr 1 + 1");
+            retval = new Double((javascriptEngine.eval("Test.js", 0, 0,
+                                                       "1 + 1;").toString()));
         }
         catch (Exception e) {
             fail(failMessage("eval() test failed", e));
         }
 
-        assertEquals(new Integer(2), retval);
+        assertEquals(new Double(2), retval);
     }
 
     public void testCall() {
-        Object[] args = { new Integer(1) };
-        Integer retval = null;
+        Object[] args = { new Double(1) };
+        Double retval = null;
 
         try {
-            jaclEngine.exec("Test.jacl", 0, 0,
-                            "proc addOne {f} {\n return [expr $f + 1]\n}");
-            retval = (Integer) jaclEngine.call(null, "addOne", args);
+            javascriptEngine.exec("Test.js", 0, 0,
+                                  "function addOne (f) {\n return f + 1;\n}");
+            retval = 
+                new Double((javascriptEngine.call(null, "addOne",
+                                                  args).toString()));
         }
         catch (Exception e) {
             fail(failMessage("call() test failed", e));
         }
 
-        assertEquals(new Integer(2), retval);
+        assertEquals(new Double(2), retval);
     }
 
     public void testIexec() {
         try {
-            jaclEngine.iexec("Test.jacl", 0, 0,
-                             "puts -nonewline \"PASSED\"");
+            javascriptEngine.iexec("Test.js", 0, 0,
+                                   "java.lang.System.out.print " + 
+                                   "(\"PASSED\");");
         }
         catch (Exception e) {
             fail(failMessage("iexec() test failed", e));
@@ -136,27 +140,42 @@ public class jaclTest extends BSFEngineTestTmpl {
     }
 
     public void testBSFManagerEval() {
-        Integer retval = null;
+        Double retval = null;
 
         try {
-            retval = (Integer) bsfManager.eval("jacl", "Test.jacl", 0, 0,
-                                               "expr 1 + 1");
+            retval = new Double((bsfManager.eval("javascript", "Test.js", 0,
+                                                 0, "1 + 1;")).toString());
         }
         catch (Exception e) {
             fail(failMessage("BSFManager eval() test failed", e));
         }
 
-        assertEquals(new Integer(2), retval);
+        assertEquals(new Double(2), retval);
+    }
+    
+    public void testBSFManagerAvailability() {
+        Object retval = null;
+
+        try {
+            retval = javascriptEngine.eval("Test.js", 0, 0,
+                                           "bsf.lookupBean(\"foo\");");
+        }
+        catch (Exception e) {
+            fail(failMessage("Test of BSFManager availability failed", e));
+        }
+
+        assertNull(retval);
     }
 
     public void testRegisterBean() {
-        Integer foo = new Integer(1);
-        Integer bar = null;
+        Double foo = new Double(1);
+        Double bar = null;
 
         try {
             bsfManager.registerBean("foo", foo);
-            bar = (Integer) jaclEngine.eval("Test.jacl", 0, 0,
-                                            "bsf lookupBean \"foo\"");
+            bar = (Double)
+                javascriptEngine.eval("Test.js", 0, 0,
+                                      "bsf.lookupBean(\"foo\");");
         }
         catch (Exception e) {
             fail(failMessage("registerBean() test failed", e));
@@ -166,17 +185,15 @@ public class jaclTest extends BSFEngineTestTmpl {
     }
 
     public void testUnregisterBean() {
-        Integer foo = new Integer(1);
-        Integer bar = null;
+        Double foo = new Double(1);
+        Double bar = null;
 
         try {
             bsfManager.registerBean("foo", foo);
             bsfManager.unregisterBean("foo");
-            bar = (Integer) jaclEngine.eval("Test.jacl", 0, 0,
-                                            "bsf lookupBean \"foo\"");
-        }
-        catch (BSFException bsfE) {
-            // Do nothing. This is the expected case.
+            bar = (Double) 
+                javascriptEngine.eval("Test.js", 0, 0,
+                                      "bsf.lookupBean(\"foo\");");
         }
         catch (Exception e) {
             fail(failMessage("unregisterBean() test failed", e));
@@ -186,38 +203,37 @@ public class jaclTest extends BSFEngineTestTmpl {
     }
     
     public void testDeclareBean() {
-        Integer foo = new Integer(1);
-        Integer bar = null;
+        Double foo = new Double(1);
+        Double bar = null;
 
         try {
-            bsfManager.declareBean("foo", foo, Integer.class);
-            bar = (Integer)
-                jaclEngine.eval("Test.jacl", 0, 0,
-                                "proc ret {} {\n upvar 1 foo lfoo\n " +
-                                "return $lfoo\n }\n ret");
+            bsfManager.declareBean("foo", foo, Double.class);
+            bar = (Double) javascriptEngine.eval("Test.js", 0, 0, "foo + 1;");
         }
         catch (Exception e) {
             fail(failMessage("declareBean() test failed", e));
         }
 
-        assertEquals(foo, bar);
+        assertEquals(new Double(2), bar);
     }
 
     public void testUndeclareBean() {
-        Integer foo = new Integer(1);
-        Integer bar = null;
+        Double foo = new Double(1);
+        Double bar = null;
 
         try {
-            bsfManager.declareBean("foo", foo, Integer.class);
+            bsfManager.declareBean("foo", foo, Double.class);
             bsfManager.undeclareBean("foo");
-            bar = (Integer)
-                jaclEngine.eval("Test.jacl", 0, 0,
-                                "expr $foo + 1");
+            bar = (Double) javascriptEngine.eval("Test.js", 0, 0,
+                                                 "foo + 1");
+        }
+        catch (BSFException bsfE) {
+            // Do nothing. This is the expected case.
         }
         catch (Exception e) {
             fail(failMessage("undeclareBean() test failed", e));
         }
 
-        assertEquals(foo, bar);
+        assertNull(bar);
     }
 }

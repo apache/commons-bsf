@@ -56,15 +56,15 @@
 package org.apache.bsf.engines.java;
 
 import java.util.*;
+import java.util.logging.Logger;
 import java.io.*;
 import java.lang.*;
 import java.lang.reflect.Method;
 
 import org.apache.bsf.*;
-import org.apache.bsf.util.BSFEngineImpl;
-import org.apache.bsf.util.EngineUtils;
 import org.apache.bsf.util.*;
-import org.apache.bsf.util.DebugLog;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This is the interface to Java from the
@@ -121,6 +121,8 @@ public class JavaEngine extends BSFEngineImpl
   static String serializeCompilation="";
   static String placeholder="$$CLASSNAME$$";
   String minorPrefix;
+  
+  private Log logger = LogFactory.getLog(this.getClass().getName());
 
   /**
    * Create a scratchfile, open it for writing, return its name.
@@ -186,11 +188,6 @@ public class JavaEngine extends BSFEngineImpl
   public Object eval (String source, int lineNo, int columnNo, 
 		      Object oscript) throws BSFException
   {
-	if (debug)
-	{
-	  debugStream.println("JavaEngine: tempDir=" + tempDir);
-	}
-
 	Object retval=null;
 	String classname=null;
 	GeneratedFile gf=null;
@@ -394,13 +391,12 @@ public class JavaEngine extends BSFEngineImpl
 	    // bother reporting it.
 	    if(!file.exists())
 	      {
-		DebugLog.stderrPrintln("openUniqueFile: unexpected "+e, DebugLog.BSF_LOG_L0);
-		e.printStackTrace();
+	    	logger.error("openUniqueFile: unexpected ", e);
 	      }
 	  }
 	  }
 	if(fos==null)
-	  DebugLog.stderrPrintln("openUniqueFile: Failed "+max+"attempts.", DebugLog.BSF_LOG_L0);
+		logger.error("openUniqueFile: Failed "+max+"attempts.");
 	else
 	  gf=new GeneratedFile(file,fos,className);
 	return gf;

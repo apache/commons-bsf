@@ -53,7 +53,7 @@
  * please see <http://www.apache.org/>.
  */
 
-package org.apache.bsf.test.utilTests;
+package org.apache.bsf.util;
 
 import org.apache.bsf.BSFException;
 import org.apache.bsf.util.EngineUtils;
@@ -131,7 +131,7 @@ public class EngineUtilsTest extends TestCase {
         Object args[] = new Object[]{ new String("test") };
 
         try {
-            result = EngineUtils.createBean("org.apache.bsf.test.utilTests.TestBean", args);
+            result = EngineUtils.createBean("org.apache.bsf.util.TestBean", args);
         }
         catch (BSFException bsfe) {
             fail("createBean method failed"+bsfe);

@@ -56,7 +56,6 @@
 package org.apache.bsf.util.cf;
 
 import java.io.*;
-import org.apache.bsf.util.DebugLog;
 
 /**
  * This is an example of how a <code>CodeFormatter</code> bean can be used.
@@ -205,7 +204,7 @@ public class CFDriver
   }
 	private static void printError(String errMsg)
   {
-  	DebugLog.stderrPrintln("ERROR: " + errMsg, DebugLog.BSF_LOG_L2);
+  	System.err.println("ERROR: " + errMsg);
   }
 	private static void printHelp()
   {

@@ -1,7 +1,7 @@
 /*
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -53,22 +53,39 @@
  * please see <http://www.apache.org/>.
  */
 
-#ifndef __DBGUTLSH_INCLUDED__
-#define __DBGUTLSH_INCLUDED__ 
-#if !defined(NDEBUG)
-#include <CRTDBG.H>
-#define CRTDBGBRK {if(getenv("JNIDBGOK")){   _CrtDbgBreak();}}
-#else
-#define CRTDBGBRK    
-#endif
+package org.apache.bsf;
 
-#if defined(FAILED)
-#include <cassert>
-#if defined(NDEBUG)
-#define ASSERT_FAILED FAILED
-#else
-#define ASSERT_FAILED(S) ( (true == FAILED((S))) ?((bool) (assert(0),true)) : false) 
-#endif
-#endif
+import org.apache.bsf.BSFException;
+import org.apache.bsf.util.BSFEngineImpl;
 
-#endif  //__DBGUTLSH_INCLUDED__ 
+public class FakeEngine extends BSFEngineImpl {
+
+    public Object call(Object object, String method, Object[] args)
+        throws BSFException
+    {
+        return Boolean.TRUE;
+    }
+
+    public Object eval(String source, int lineNo, int columnNo, Object expr)
+        throws BSFException
+    {
+        return Boolean.TRUE;
+    }
+
+    public void iexec(String source, int lineNo, int columnNo, Object script)
+        throws BSFException
+    {
+        System.out.print("PASSED");
+    }
+
+    public void exec(String source, int lineNo, int columnNo, Object script)
+        throws BSFException
+    {
+        System.out.print("PASSED");
+    }
+
+    public void terminate() {
+        super.terminate();
+        System.out.print("PASSED");
+    }
+}
