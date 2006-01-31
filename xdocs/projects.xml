@@ -336,7 +336,37 @@
         </table>
       </subsection>
 
+      <subsection name="Prolog">
+        <p>
+          "Prolog is a logic-oriented language based on predicate calculus. While it is not
+		  really a scripting language, there is a range of problems that are much easier to
+		  express in it than in Java, and for these cases a Prolog BSF engine comes in handy.
+		  It is also useful for adding a GUI to Prolog programs.
+		  The underlying Prolog interpreter is JLog, which can be run as an applet, an application
+		  or embedded through an API, and can be found at http://sf.net/projects/jlogic/.
+        </p>
+        <table>
+          <tr>
+            <th>Compatibility:</th>
+            <td>BSF 2.3 and above</td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://www.ulfdittmer.com/jlog/">http://www.ulfdittmer.com/jlog/</a></td>
+          </tr>
+          <tr>
+            <th>Contact:</th>
+            <td><a href="mailto:udittmer@yahoo.com">Ulf Dittmer</a></td>
+          </tr>
+          <tr>
+            <th>License:</th>
+            <td>GPL (same as JLog itself)</td>
+          </tr>
+        </table>
+      </subsection>
+
     </section>
 
   </body>
 </document>
+
