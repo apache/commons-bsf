@@ -103,7 +103,7 @@ public class EventAdapterRegistry {
 	  } catch (ClassNotFoundException e) {
 		if (dynamic) {
 		  // Unable to resolve one, try to generate one.
-		  adapterClass =
+		  adapterClass = // if second argument is set to 'true', then the class file will be stored in the filesystem
 			EventAdapterGenerator.makeEventAdapterClass (listenerType, false);
 		}
 	  }

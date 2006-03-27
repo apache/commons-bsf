@@ -8,7 +8,7 @@
   </properties>
 
   <body>
-    
+
     <section name="Related Projects">
 
       <p>Nothing listed here is directly supported by the BSF
@@ -165,7 +165,7 @@
           </tr>
         </table>
       </subsection>
-      
+
       <subsection name="NetRexx">
 
         <p>
@@ -310,10 +310,10 @@
 
       <subsection name="ObjectScript">
         <p>
-          "ObjectScript is a general purpose object-oriented programming language. It is designed to 
-          be simple to learn, easy to use, yet still powerful, combining the convenience of an 
+          "ObjectScript is a general purpose object-oriented programming language. It is designed to
+          be simple to learn, easy to use, yet still powerful, combining the convenience of an
           interactive interpreter with many of the features of Java, plus operator overloading,
-          regular expressions, closures, XML-RPC support, etc.  And a behind the scenes compiler 
+          regular expressions, closures, XML-RPC support, etc.  And a behind the scenes compiler
           compiles script code to JVM bytecode for faster execution."
         </p>
         <table>
@@ -361,6 +361,57 @@
           <tr>
             <th>License:</th>
             <td>GPL (same as JLog itself)</td>
+          </tr>
+        </table>
+      </subsection>
+
+      <subsection name="ooRexx">
+        <p>
+        "Open Object Rexx (ooRexx, http://www.ooRexx.org) is a free
+        and opensource language, which was originally developed by IBM.
+        The non-profit SIG  Rexx Language Association (http://www.RexxLA.org)
+        received the source code from IBM and released an opensource version
+        to the community in 2005.
+
+        <br></br>The BSF engine for Rexx (BSF4Rexx) comes with an ooRexx wrapper
+        program (BSF.CLS) which camouflages Java as ooRexx, easying programming
+        considerably (e.g. no need for type information/casting).
+        </p>
+
+        <table>
+          <tr>
+            <th>Compatibility:</th>
+            <td>BSF 2.3 and above</td>
+          </tr>
+          <tr>
+            <th>URL (ooRexx):</th>
+            <td><a href="http://www.ooRexx.org/">http://www.ooRexx.org/</a></td>
+          </tr>
+          <tr>
+            <th>URL (BSF4Rexx, temporary):</th>
+             <td><a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/ (temporary)</a></td>
+          </tr>
+          <tr>
+            <th>URL (BSF4Rexx, planned home):</th>
+             <td><a href="http://bsf4rexx.sourceforge.net/">http://bsf4rexx.sourceforge.net (starting at the end of April 2006)</a></td>
+          </tr>
+          <tr>
+            <th>Contact (ooRexx):</th>
+            <td><a href="mailto:president@rexxla.org">Ulf Dittmer</a></td>
+          </tr>
+          <tr>
+            <th>Contact (BSF4Rexx):</th>
+            <td><a href="mailto:ronyf@apache.org">Ulf Dittmer</a></td>
+          </tr>
+          <tr>
+            <th>License:</th>
+            <td>ooRexx: IBM's opensource license CPL v 1.0
+            </td>
+          </tr>
+            <tr>
+              <th>License:</th>
+              <td>BSF4Rexx: Apache v2.0
+              </td>
           </tr>
         </table>
       </subsection>

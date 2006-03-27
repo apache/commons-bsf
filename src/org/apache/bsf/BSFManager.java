@@ -90,7 +90,7 @@ public class BSFManager {
     // version string in the form of: "abb.yyyymmdd",
     // where "a" is the major version number, "bb" the minor version number,
     // and "yyyymmdd" represents the date in sorted order (four digit year, two digit month, two digit day)
-    protected static String version="204.20060117";
+    protected static String version="205.20060327";
 
     // table of registered scripting engines
     protected static Hashtable registeredEngines = new Hashtable();
@@ -127,7 +127,7 @@ public class BSFManager {
     // stores BSFDeclaredBeans representing objects
     // introduced by a client of BSFManager
     protected Vector declaredBeans = new Vector();
-    
+
     private Log logger = LogFactory.getLog(this.getClass().getName());
 
     //////////////////////////////////////////////////////////////////////
@@ -224,7 +224,7 @@ public class BSFManager {
                         Vector arguments)
         throws BSFException {
     	logger.debug("BSFManager:apply");
-    	
+
     	final BSFEngine e = loadScriptingEngine(lang);
         final String sourcef = source;
         final int lineNof = lineNo, columnNof = columnNo;
@@ -277,7 +277,7 @@ public class BSFManager {
                              CodeBuffer cb)
         throws BSFException {
     	logger.debug("BSFManager:compileApply");
-    	
+
         final BSFEngine e = loadScriptingEngine(lang);
         final String sourcef = source;
         final int lineNof = lineNo, columnNof = columnNo;
@@ -324,7 +324,7 @@ public class BSFManager {
                             CodeBuffer cb)
         throws BSFException {
     	logger.debug("BSFManager:compileExpr");
-        
+
     	final BSFEngine e = loadScriptingEngine(lang);
         final String sourcef = source;
         final int lineNof = lineNo, columnNof = columnNo;
@@ -367,7 +367,7 @@ public class BSFManager {
                               CodeBuffer cb)
         throws BSFException {
     	logger.debug("BSFManager:compileScript");
-    	
+
         final BSFEngine e = loadScriptingEngine(lang);
         final String sourcef = source;
         final int lineNof = lineNo, columnNof = columnNo;
@@ -422,7 +422,7 @@ public class BSFManager {
     public void declareBean(String beanName, Object bean, Class type)
         throws BSFException {
     	logger.debug("BSFManager:declareBean");
-    	
+
         registerBean(beanName, bean);
 
         BSFDeclaredBean tempBean = new BSFDeclaredBean(beanName, bean, type);
@@ -456,7 +456,7 @@ public class BSFManager {
                        Object expr)
         throws BSFException {
     	logger.debug("BSFManager:eval");
-    	
+
         final BSFEngine e = loadScriptingEngine(lang);
         final String sourcef = source;
         final int lineNof = lineNo, columnNof = columnNo;
@@ -506,7 +506,7 @@ public class BSFManager {
                      Object script)
         throws BSFException {
     	logger.debug("BSFManager:exec");
-    	
+
         final BSFEngine e = loadScriptingEngine(lang);
         final String sourcef = source;
         final int lineNof = lineNo, columnNof = columnNo;
@@ -546,7 +546,7 @@ public class BSFManager {
                      Object script)
         throws BSFException {
     	logger.debug("BSFManager:iexec");
-    	
+
         final BSFEngine e = loadScriptingEngine(lang);
         final String sourcef = source;
         final int lineNof = lineNo, columnNof = columnNo;
@@ -696,7 +696,7 @@ public class BSFManager {
      */
     public BSFEngine loadScriptingEngine(String lang) throws BSFException {
     	logger.debug("BSFManager:loadScriptingEngine");
-    	
+
         // if its already loaded return that
         BSFEngine eng = (BSFEngine) loadedEngines.get(lang);
         if (eng != null) {
@@ -755,7 +755,7 @@ public class BSFManager {
      */
     public Object lookupBean(String beanName) {
     	logger.debug("BSFManager:lookupBean");
-    	
+
         try {
             return ((BSFDeclaredBean)objectRegistry.lookup(beanName)).bean;
         }
@@ -774,7 +774,7 @@ public class BSFManager {
      */
     public void registerBean(String beanName, Object bean) {
     	logger.debug("BSFManager:registerBean");
-    	
+
         BSFDeclaredBean tempBean;
 
         if(bean == null) {
@@ -817,7 +817,7 @@ public class BSFManager {
      */
     public void setClassLoader(ClassLoader classLoader) {
     	logger.debug("BSFManager:setClassLoader");
-    	
+
         pcs.firePropertyChange("classLoader", this.classLoader, classLoader);
         this.classLoader = classLoader;
     }
@@ -830,7 +830,7 @@ public class BSFManager {
      */
     public void setClassPath(String classPath) {
     	logger.debug("BSFManager:setClassPath");
-    	
+
         pcs.firePropertyChange("classPath", this.classPath, classPath);
         this.classPath = classPath;
     }
@@ -844,7 +844,7 @@ public class BSFManager {
      */
     public void setObjectRegistry(ObjectRegistry objectRegistry) {
     	logger.debug("BSFManager:setObjectRegistry");
-    	
+
         this.objectRegistry = objectRegistry;
     }
 
@@ -862,7 +862,7 @@ public class BSFManager {
      */
     public void setTempDir(String tempDir) {
     	logger.debug("BSFManager:setTempDir");
-    	
+
         pcs.firePropertyChange("tempDir", this.tempDir, tempDir);
         this.tempDir = tempDir;
     }
@@ -872,7 +872,7 @@ public class BSFManager {
      */
     public void terminate() {
     	logger.debug("BSFManager:terminate");
-    	
+
         Enumeration enginesEnum = loadedEngines.elements();
         BSFEngine engine;
         while (enginesEnum.hasMoreElements()) {
@@ -898,7 +898,7 @@ public class BSFManager {
      */
     public void undeclareBean(String beanName) throws BSFException {
     	logger.debug("BSFManager:undeclareBean");
-    	
+
         unregisterBean(beanName);
 
         BSFDeclaredBean tempBean = null;
@@ -929,7 +929,7 @@ public class BSFManager {
      */
     public void unregisterBean(String beanName) {
     	logger.debug("BSFManager:unregisterBean");
-    	
+
         objectRegistry.unregister(beanName);
     }
 }

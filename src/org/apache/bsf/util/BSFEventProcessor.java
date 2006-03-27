@@ -61,7 +61,7 @@ import java.io.PrintStream;
 
 /**
  * This is used to support binding scripts to be run when an event
- * occurs. 
+ * occurs.
  *
  * @author Sanjiva Weerawarana
  */
@@ -101,7 +101,7 @@ public class BSFEventProcessor implements EventProcessor {
 	try {
 	  processExceptionableEvent (inFilter, evtInfo);
 	} catch (RuntimeException re) {
-	  // rethrow this .. I don't want to intercept run-time stuff 
+	  // rethrow this .. I don't want to intercept run-time stuff
 	  // that can in fact occur legit
 	  throw re;
 	} catch (Exception e) {
@@ -117,8 +117,8 @@ public class BSFEventProcessor implements EventProcessor {
   // an exception which must go all the way back to the source (as in
   // the vetoableChange case)
 
-  public void processExceptionableEvent (String inFilter, Object[] evtInfo) 
-														 throws Exception {
+  public void processExceptionableEvent (String inFilter, Object[] evtInfo) throws Exception
+  {
 	if ((filter != null) && !filter.equals (inFilter)) {
 	  // ignore this event
 	  return;

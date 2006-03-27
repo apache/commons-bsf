@@ -69,6 +69,7 @@ import org.apache.bsf.util.*;
  *
  * @author   Sanjiva Weerawarana
  * @author   Sam Ruby
+ * @author   Rony G. Flatscher (added addEventListenerReturningEventInfos)
  */
 public class EngineUtils {
     // the BSF class loader that knows how to load from the a specific
@@ -118,6 +119,64 @@ public class EngineUtils {
         BSFEventProcessor ep = new BSFEventProcessor (engine, manager, filter,
                                                       source, lineNo, columnNo,
                                                       script);
+
+        try {
+            ReflectionUtils.addEventListener (bean, eventSetName, ep);
+        } catch (Exception e) {
+            e.printStackTrace ();
+            throw new BSFException (BSFException.REASON_OTHER_ERROR,
+                                    "ouch while adding event listener: "
+                                    + e, e);
+        }
+    }
+
+
+    /**
+     * Add a script as a listener to some event coming out of an object. The
+     * first two args identify the src of the event and the event set
+     * and the rest identify the script which should be run when the event
+     * fires. The processing will use the engine's apply() method.
+     *
+     * @param bean         event source
+     * @param eventSetName name of event set from event src to bind to
+     * @param filter       filter for events
+     * @param engine       BSFEngine which can run this script
+     * @param manager      BSFManager of the above engine
+     * @param source       (context info) the source of this expression (e.g., filename)
+     * @param lineNo       (context info) the line number in source for expr
+     * @param columnNo     (context info) the column number in source for expr
+     * @param script       the script to execute when the event occurs
+     * @param dataFromScriptingEngine
+     *                     this contains any object supplied by the scripting engine and gets sent
+     *                     back with the supplied script, if the event occurs.
+     *                     This could be used e.g. for indicating to the scripting engine which
+     *                     scripting engine object/routine/function/procedure
+     *                     should be ultimately informed of the event occurrence.
+     *
+     * @exception BSFException if anything goes wrong while running the script
+     */
+    public static void addEventListenerReturningEventInfos ( Object bean,
+                               String eventSetName,
+                               String filter,
+                               BSFEngine engine,
+                               BSFManager manager,
+                               String source,
+                               int lineNo,
+                               int columnNo,
+                               Object script,
+                               Object dataFromScriptingEngine
+                               ) throws BSFException
+    {
+        BSFEventProcessorReturningEventInfos ep =
+        new BSFEventProcessorReturningEventInfos (engine,
+                                                  manager,
+                                                  filter,
+                                                  source,
+                                                  lineNo,
+                                                  columnNo,
+                                                  script,
+                                                  dataFromScriptingEngine
+                                                  );
 
         try {
             ReflectionUtils.addEventListener (bean, eventSetName, ep);

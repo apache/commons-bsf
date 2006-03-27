@@ -63,8 +63,8 @@ public class AdapterClassLoader extends ClassLoader
 {
   private static Hashtable classCache = new Hashtable();
   private Class c;
-  
-  private Log logger = LogFactory.getLog(this.getClass().getName()); 
+
+  private Log logger = LogFactory.getLog(this.getClass().getName());
 
   public AdapterClassLoader()
   {
@@ -74,7 +74,7 @@ public class AdapterClassLoader extends ClassLoader
   {
 	if ((c = getLoadedClass(name)) == null)
 	{
-	  c = defineClass(name, b, 0, b.length);
+	  c = defineClass(name.replace('/','.'), b, 0, b.length);   // rgf, 2006-02-03
 	  put(name, c);
 	}
 	else
