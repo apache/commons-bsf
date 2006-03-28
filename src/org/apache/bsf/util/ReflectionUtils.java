@@ -70,7 +70,6 @@ import org.apache.bsf.util.type.*;
  *
  * @author   Sanjiva Weerawarana
  * @author   Joseph Kesselman
- * @author   Rony G. Flatscher (added Proxy-handling needed for OpenOffice.org 1.1.x and 2.0.x as of 2006-02-03)
  */
 public class ReflectionUtils {
 
@@ -104,55 +103,14 @@ public class ReflectionUtils {
 	EventSetDescriptor esd = (EventSetDescriptor)
 	  findFeatureByName ("event", eventSetName, bi.getEventSetDescriptors ());
 
-
-	// get the class object for the event
-	Class listenerType = null;
-        int idx2mmm=0;
-        java.lang.reflect.Method mmm[]=null;        // array object to store methods from Proxy-class reflected methods
-
 	if (esd == null)        // no events found, maybe a proxy from OpenOffice.org?
         {
-            if (java.lang.reflect.Proxy.class.isInstance(source)==true) // a Proxy class, hence reflect "manually"
-            {
-                mmm=source.getClass().getMethods();  // get all methods
-                for (idx2mmm=0; idx2mmm<mmm.length; idx2mmm++)
-                {
-                    String methName=mmm[idx2mmm].getName();
-                        // looking for a method "add_XYZ_Listener(someEventClass)
-                    if (methName.endsWith("Listener")==true)
-                    {
-                        String un=getUnqualifiedName(methName);
-
-                        if (un.startsWith("add"))       // get first argument, which must be an Event class
-                        {
-                            String tmpName=un.substring(3, un.length()-8);   // -lengthOf(("add"=3)+("Listener"=8))
-                            if (eventSetName.equalsIgnoreCase(tmpName))
-                            {
-                                java.lang.Class params[]=mmm[idx2mmm].getParameterTypes();
-                                if (params.length>0)
-                                {
-                                    listenerType=params[0]; // o.k. found ListenerClass
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (listenerType==null)     // o.k. no listenerType found, throw up ...
-            {
-                throw new IllegalArgumentException ("event set '" + eventSetName +
-                                                    "' unknown for source type '" + source.getClass () + "'");
-            }
-
+          throw new IllegalArgumentException ("event set '" + eventSetName +
+                                              "' unknown for source type '" + source.getClass () + "'");
 	}
-        else    // ListenerType from EventSetDescriptor
-        {
-            listenerType=esd.getListenerType(); // get ListenerType class object from EventSetDescriptor
-        }
 
-
+	// get the class object for the event
+	Class listenerType=esd.getListenerType(); // get ListenerType class object from EventSetDescriptor
 
 	// find an event adapter class of the right type
 	Class adapterClass = EventAdapterRegistry.lookup (listenerType);
@@ -178,73 +136,15 @@ public class ReflectionUtils {
 	  // in this case to support the source-side filtering.
 	  //
 	  // ** TBD **: the following two lines need to change appropriately
-          if (mmm==null)
-          {
-              addListenerMethod = esd.getAddListenerMethod ();
-          }
-          else
-          {
-              addListenerMethod = mmm[idx2mmm];
-          }
+          addListenerMethod = esd.getAddListenerMethod ();
 	  args = new Object[] {adapter};
 	}
         else
         {
-          if (mmm==null) {
-              addListenerMethod = esd.getAddListenerMethod ();
-          }
-          else
-          {
-              addListenerMethod = mmm[idx2mmm];
-          }
+          addListenerMethod = esd.getAddListenerMethod ();
 	  args = new Object[] {adapter};
 	}
 	addListenerMethod.invoke (source, args);
-  }
-  //////////////////////////////////////////////////////////////////////////
-
-
-  /** Compares two strings in a &quot;relaxed&quot; manner, i.e.
-   *  tests case-insensitively, whether the second argument
-   *  <code>haystack</code> ends with the first argument <code>endName</code>
-   *  string.
-   *
-   * @param endName the string which should end <code>haystack</code>
-   * @param haystack the string to test <code>endName</code> against
-   *
-   * @return <code>true</code>, if <code>haystack</code> ends with the
-   *         string <code>endName</code> (comparison carried out case-insensitively),
-   *         <code>false</code> else
-   */
-  static boolean compareRelaxed(String endName, String haystack)
-  {
-      int endNameLength=endName.length(),
-          tmpLength    =haystack.length();
-
-      if (endNameLength>tmpLength)        // interface endName is shorter than the sought of one
-      {
-          return false;
-      }
-      else if (endNameLength!=tmpLength)  // cut off haystack from the right to match length of received endName
-      {
-          //             012345678
-          //     abc=3   x.y.z.abc=9  9-3=6
-          haystack=haystack.substring(tmpLength-endNameLength);    // cut off from the right
-      }
-
-      return endName.equalsIgnoreCase(haystack);
-  }
-  //////////////////////////////////////////////////////////////////////////
-
-  /** Returns unqualified name (string after the last dot) from dotted string or string itself, if no dot in string.
-   *
-   * @param s String to extract unqualified name
-   * @return returns unqualified name or s, if no dot in string
-   */
-  static String getUnqualifiedName(String s)
-  {
-      int    lastPos=s.lastIndexOf('.');          // get position of last dot
-      return lastPos==-1 ? s : s.substring(lastPos+1) ;
   }
   //////////////////////////////////////////////////////////////////////////
 

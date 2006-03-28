@@ -53,14 +53,6 @@
  * please see <http://www.apache.org/>.
  */
 
- /* changes:
-                2006-02-03, Rony G. Flatscher: added OpenOffice.org support (versions 1.1.x and 2.0.1)
-                            which need special handling due to their omission to tagt heir event
-                            listeners as implementing "java.util.EventListener" inhibiting standard
-                            introspection to identify events; therefore a "manual" branch got introduced
-                            to identify OpenOffice.org event listeners
- */
-
 package org.apache.bsf.util.event.generator;
 
 import java.io.*;
@@ -77,7 +69,6 @@ public class EventAdapterGenerator
 {
   public static AdapterClassLoader ldr = new AdapterClassLoader();
   static Class  EVENTLISTENER          = null;
-  static Class  OPENOFFICE_XEVENTLISTENER = null;
   static String CLASSPACKAGE           = "org/apache/bsf/util/event/adapters/";
   static String WRITEDIRECTORY         = null;
 
@@ -129,17 +120,6 @@ public class EventAdapterGenerator
             ex.printStackTrace();
         }
 
-
-            // try to load the OpenOffice.org (OOo) counterpart of EventListener; unfortunately as of 2006
-            // OOo's XEventListener does not report to have 'java.util.EventListener' implemented, hence
-            // Introspector cannot identify events !
-        try
-        {
-            OPENOFFICE_XEVENTLISTENER = Thread.currentThread().getContextClassLoader().loadClass ("com.sun.star.lang.XEventListener");
-        }
-        catch (Exception e)
-        {
-        }
 
 	// start of the Java Class File
 	CLASSHEADER = ByteUtility.addBytes(CLASSHEADER,(byte)0xCA);  // magic
@@ -234,11 +214,7 @@ public class EventAdapterGenerator
   {
       logger.info("EventAdapterGenerator");
 
-        if( EVENTLISTENER.isAssignableFrom(listenerType) ||
-                // test explicitly OpenOffice.org listener types; as of 2006-02-03 neither 1.1.5 nor
-                // OOo 2.0.1 do indicate that they implement 'java.lang.EventListener'
-            ( OPENOFFICE_XEVENTLISTENER!=null && OPENOFFICE_XEVENTLISTENER.isAssignableFrom(listenerType) )
-        )
+        if( EVENTLISTENER.isAssignableFrom(listenerType) )
 	{
 	  boolean exceptionable    = false;
 	  boolean nonExceptionable = false;
