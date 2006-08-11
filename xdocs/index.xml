@@ -60,6 +60,10 @@ BSF supports several scripting languages currently:
    <li>
    Java (using BeanShell, from the BeanShell project)
    </li>
+   
+   <li>
+   <a href="http://www.ulfdittmer.com/jlog/index.html">JLog</a>
+   </li>
 
    <li>
    JRuby
@@ -76,6 +80,15 @@ BSF supports several scripting languages currently:
    <li>
    <a href="http://objectscript.sourceforge.net/">ObjectScript</a>
    </li>
+   
+   <li>
+   	<a href="http://www.oorexx.org/"> Open Object Rexx (ooRexx)</a>, using 
+	the <a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF Rexx
+	engine</a> for BSF, and the precompiled JNI-interface BSF4Rexx .DLL 
+	(Windows) or .so (Linux) file together with the ooRexx wrapper class 
+	'BSF.CLS', which camouflages Java as ooRexx.
+   </li>
+   
 </ul>
 </p>
 

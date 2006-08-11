@@ -271,25 +271,6 @@
 
   </section>
   
-  <section name="Debugging">
-
-    <p>
-    Debugging support has been added to BSF over the last year. In its
-    current form, only debugging of Javascript in JSPs is supported. The
-    focus has been to design an API that would permit a generic debugging
-    framework for multiple scripting engines; however, this has remained
-    an goal for BSF 3.0. Included in the debugging support for BSF 2.3 is a
-    rudimentary command-line debugger named jsdb, which acts as a client
-    to a debugging server that is managed by the <code>BSFManager</code>.
-    </p>
-
-    <p>
-    An example of a production debugger using the BSF debugging engine is at
-    <a href="http://www.eclipse.org/">http://www.eclipse.org/</a>.
-    </p>
-
-  </section>
-
 </body>
 </document>
 

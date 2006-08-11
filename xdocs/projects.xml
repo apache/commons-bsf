@@ -104,41 +104,6 @@
         </table>
       </subsection>
 
-      <subsection name="JPython">
-
-        <p>
-        "JPython is a new implementation of the Python programming language
-        which is designed to run on SUN's Java(tm) Platform.  It consists of
-        a compiler to compile Python source code down to Java bytecodes which
-        can run directly on a JVM, a set of support libraries which are used
-        by the compiled Java bytecodes, and extra support to make it trivial
-        to use Java packages from within JPython."
-        </p>
-
-        <p>
-        NOTE: new development has shifted to Jython
-        </p>
-
-        <table>
-          <tr>
-            <th>Compatibility:</th>
-            <td>JPython 1.03, with BSF 2.2 and above (succeeded by Jython)</td>
-          </tr>
-          <tr>
-            <th>URL:</th>
-            <td><a href="http://www.cs.bham.ac.uk/resources/ums/java/packages/JPython1.1/html/">http://www.cs.bham.ac.uk/resources/ums/java/packages/JPython1.1/html/</a></td>
-          </tr>
-          <tr>
-            <th>Contact:</th>
-            <td><a href ="http://mail.python.org/pipermail/jpython-interest/">JPython mailing list archives</a></td>
-          </tr>
-          <tr>
-            <th>License:</th>
-            <td>JPython Software License</td>
-          </tr>
-        </table>
-      </subsection>
-
       <subsection name="Jacl">
 
         <p>
@@ -157,7 +122,7 @@
           </tr>
           <tr>
             <th>Contact:</th>
-            <td><a href ="news://comp.lang.tcl">comp.lang.tcl newsgroup</a></td>
+            <td><a href ="http://tcljava.sourceforge.net/docs/website/mail.html">Tcl/Java Mailing Lists</a></td>
           </tr>
           <tr>
             <th>License:</th>
@@ -185,7 +150,7 @@
           </tr>
           <tr>
             <th>Contact:</th>
-            <td><a href="http://www2.hursley.ibm.com/netrexx/nrmlist.html">NetRexx 2 mailing list</a></td>
+            <td><a href="http://www-306.ibm.com/software/awdtools/netrexx/mailinglist.html">NetRexx 2 mailing list</a></td>
           </tr>
           <tr>
             <th>License:</th>
