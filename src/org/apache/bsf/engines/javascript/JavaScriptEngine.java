@@ -16,26 +16,23 @@
 
 package org.apache.bsf.engines.javascript;
 
-import java.io.InputStream;
-import java.io.IOException;
 import java.util.Vector;
 
-import org.mozilla.javascript.Script;
-import org.mozilla.javascript.ClassDefinitionException;
+import org.apache.bsf.BSFDeclaredBean;
+import org.apache.bsf.BSFException;
+import org.apache.bsf.BSFManager;
+import org.apache.bsf.util.BSFEngineImpl;
+import org.apache.bsf.util.BSFFunctions;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.EvaluatorException;
+import org.mozilla.javascript.ImporterTopLevel;
 import org.mozilla.javascript.JavaScriptException;
-import org.mozilla.javascript.PropertyException;
 import org.mozilla.javascript.NativeJavaObject;
-import org.mozilla.javascript.Scriptable;
+import org.mozilla.javascript.Script;
 import org.mozilla.javascript.ScriptRuntime;
-import org.mozilla.javascript.ScriptableObject;
+import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.WrappedException;
 import org.mozilla.javascript.Wrapper;
-import org.mozilla.javascript.ImporterTopLevel;
-
-import org.apache.bsf.*;
-import org.apache.bsf.util.*;
 
 /**
  * This is the interface to Netscape's Rhino (JavaScript) from the
@@ -214,7 +211,7 @@ public class JavaScriptEngine extends BSFEngineImpl {
         try {
             Context cx = Context.enter();
             global = new ImporterTopLevel(cx);
-            Scriptable bsf = cx.toObject(new BSFFunctions(mgr, this), global);
+            Scriptable bsf = Context.toObject(new BSFFunctions(mgr, this), global);
             global.put("bsf", global, bsf);
 
             int size = declaredBeans.size();

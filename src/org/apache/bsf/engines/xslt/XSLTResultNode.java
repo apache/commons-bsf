@@ -16,10 +16,7 @@
 
 package org.apache.bsf.engines.xslt;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
-import org.w3c.dom.*;
+import org.w3c.dom.Node;
 
 public class XSLTResultNode
 {

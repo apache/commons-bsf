@@ -16,7 +16,14 @@
 
 package org.apache.bsf.util.cf;
 
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.Writer;
 
 /**
  * This is an example of how a <code>CodeFormatter</code> bean can be used.

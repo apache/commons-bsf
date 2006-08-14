@@ -16,7 +16,11 @@
 
 package org.apache.bsf.util;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.StringWriter;
 
 /**
  * This file is a collection of input/output utilities.

@@ -16,7 +16,8 @@
 
 package org.apache.bsf.util.event.generator;
 
-import java.util.*;
+import java.util.Hashtable;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

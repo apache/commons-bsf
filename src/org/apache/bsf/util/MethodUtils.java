@@ -16,10 +16,11 @@
 
 package org.apache.bsf.util;
 
-import java.util.*;
-import java.io.*;
-import java.beans.*;
-import java.lang.reflect.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.Enumeration;
+import java.util.Vector;
 
 /**
  * This file is a collection of reflection utilities for dealing with

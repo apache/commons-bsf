@@ -16,8 +16,9 @@
 
 package org.apache.bsf.util;
 
-import org.apache.bsf.*;
-import org.apache.bsf.util.EngineUtils;
+import org.apache.bsf.BSFEngine;
+import org.apache.bsf.BSFException;
+import org.apache.bsf.BSFManager;
 
 /**
  * This is a utility that engine implementors may use as the Java

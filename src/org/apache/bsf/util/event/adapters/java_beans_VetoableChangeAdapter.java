@@ -16,8 +16,9 @@
 
 package org.apache.bsf.util.event.adapters;
 
-import java.awt.event.*;
-import java.beans.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyVetoException;
+import java.beans.VetoableChangeListener;
 
 import org.apache.bsf.util.event.EventAdapterImpl;
 

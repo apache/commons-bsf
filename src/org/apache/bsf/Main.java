@@ -17,12 +17,18 @@
 package org.apache.bsf;
 
 import java.awt.Frame;
-import java.awt.event.*;
-
-import java.io.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.Reader;
 import java.util.Hashtable;
 
-import org.apache.bsf.util.*;
+import org.apache.bsf.util.CodeBuffer;
+import org.apache.bsf.util.IOUtils;
 
 /**
  * This is the main driver for BSF to be run on the command line

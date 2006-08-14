@@ -16,8 +16,8 @@
 
 package org.apache.bsf;
 
-import java.util.Vector;
 import java.beans.PropertyChangeListener;
+import java.util.Vector;
 
 import org.apache.bsf.util.CodeBuffer;
 

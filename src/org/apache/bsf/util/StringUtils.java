@@ -16,11 +16,19 @@
 
 package org.apache.bsf.util;
 
-import java.io.*;
-import java.util.*;
-import java.net.URL;
-import java.net.MalformedURLException;
 import java.beans.Introspector;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.StringTokenizer;
+import java.util.Vector;
 
 /**
  * Deals with strings (probably need to elaborate some more).

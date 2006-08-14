@@ -16,13 +16,12 @@
 
 package org.apache.bsf.engines.javaclass;
 
-import java.util.*;
-import java.io.*;
-import java.lang.reflect.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
-import org.apache.bsf.util.MethodUtils;
-import org.apache.bsf.*;
+import org.apache.bsf.BSFException;
 import org.apache.bsf.util.BSFEngineImpl;
+import org.apache.bsf.util.MethodUtils;
 
 /**
  * This is the interface to scripts consisting of Java objects from the 

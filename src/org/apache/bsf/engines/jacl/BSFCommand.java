@@ -16,13 +16,17 @@
 
 package org.apache.bsf.engines.jacl;
 
-import java.util.*;
-import java.io.*;
+import org.apache.bsf.BSFEngine;
+import org.apache.bsf.BSFException;
+import org.apache.bsf.BSFManager;
+import org.apache.bsf.util.EngineUtils;
 
-import tcl.lang.*;
-
-import org.apache.bsf.*;
-import org.apache.bsf.util.*;
+import tcl.lang.Command;
+import tcl.lang.Interp;
+import tcl.lang.ReflectObject;
+import tcl.lang.TCL;
+import tcl.lang.TclException;
+import tcl.lang.TclObject;
 
 // class used to add "bsf" command to the Jacl runtime
 class BSFCommand implements Command {

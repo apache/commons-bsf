@@ -16,9 +16,14 @@
 
 package org.apache.bsf.util.cf;
 
-import java.io.*;
-import java.util.*;
-import org.apache.bsf.util.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
+
+import org.apache.bsf.util.IndentWriter;
+import org.apache.bsf.util.StringUtils;
 
 /**
  * A <code>CodeFormatter</code> bean is used to format raw Java code. It

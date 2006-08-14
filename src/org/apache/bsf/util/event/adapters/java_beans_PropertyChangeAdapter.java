@@ -16,8 +16,8 @@
 
 package org.apache.bsf.util.event.adapters;
 
-import java.awt.event.*;
-import java.beans.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import org.apache.bsf.util.event.EventAdapterImpl;
 

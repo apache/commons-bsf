@@ -16,13 +16,25 @@
 
 package org.apache.bsf.util;
 
-import java.util.*;
-import java.io.*;
-import java.beans.*;
-import java.lang.reflect.*;
+import java.beans.BeanInfo;
+import java.beans.Beans;
+import java.beans.EventSetDescriptor;
+import java.beans.FeatureDescriptor;
+import java.beans.IndexedPropertyDescriptor;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
-import org.apache.bsf.util.event.*;
-import org.apache.bsf.util.type.*;
+import org.apache.bsf.util.event.EventAdapter;
+import org.apache.bsf.util.event.EventAdapterRegistry;
+import org.apache.bsf.util.event.EventProcessor;
+import org.apache.bsf.util.type.TypeConvertor;
+import org.apache.bsf.util.type.TypeConvertorRegistry;
 
 /**
  * This file is a collection of reflection utilities. There are utilities

@@ -16,18 +16,25 @@
 
 package org.apache.bsf;
 
-import java.util.*;
-import java.util.logging.Logger;
-import java.io.*;
-import java.beans.*;
-import java.security.*;
+import java.beans.PropertyChangeSupport;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.security.AccessController;
+import java.security.PrivilegedActionException;
+import java.security.PrivilegedExceptionAction;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.MissingResourceException;
+import java.util.NoSuchElementException;
+import java.util.Properties;
+import java.util.StringTokenizer;
+import java.util.Vector;
 
-import org.apache.bsf.util.*;
+import org.apache.bsf.util.CodeBuffer;
+import org.apache.bsf.util.ObjectRegistry;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import javax.naming.*;
 
 /**
  * This class is the entry point to the bean scripting framework. An

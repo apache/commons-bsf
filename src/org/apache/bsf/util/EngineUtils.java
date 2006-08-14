@@ -16,13 +16,13 @@
 
 package org.apache.bsf.util;
 
-import java.lang.reflect.*;
-import java.util.*;
-import java.io.*;
-import java.beans.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
-import org.apache.bsf.*;
-import org.apache.bsf.util.*;
+import org.apache.bsf.BSFEngine;
+import org.apache.bsf.BSFException;
+import org.apache.bsf.BSFManager;
 
 /**
  * This class contains utilities that language integrators can use

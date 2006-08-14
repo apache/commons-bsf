@@ -18,7 +18,7 @@ package org.apache.bsf.util.type;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.util.*;
+import java.util.Hashtable;
 
 /**
  * The <em>TypeConvertorRegistry</em> is the registry of type convertors.

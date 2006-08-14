@@ -16,7 +16,6 @@
 
 package org.apache.bsf.util.event;
 
-import java.util.EventObject;
 
 /**
  * <em>EventProcessor</em> is the interface that event adapters use to

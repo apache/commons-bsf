@@ -16,9 +16,9 @@
 
 package org.apache.bsf.util;
 
+import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.io.PrintWriter;
 import java.util.Hashtable;
 import java.util.Stack;
 import java.util.Vector;

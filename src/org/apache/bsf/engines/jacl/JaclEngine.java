@@ -16,13 +16,20 @@
 
 package org.apache.bsf.engines.jacl;
 
-import java.util.*;
-import java.io.*;
+import java.util.Vector;
 
-import tcl.lang.*;
+import org.apache.bsf.BSFDeclaredBean;
+import org.apache.bsf.BSFException;
+import org.apache.bsf.BSFManager;
+import org.apache.bsf.util.BSFEngineImpl;
 
-import org.apache.bsf.*;
-import org.apache.bsf.util.*;
+import tcl.lang.Interp;
+import tcl.lang.ReflectObject;
+import tcl.lang.TclDouble;
+import tcl.lang.TclException;
+import tcl.lang.TclInteger;
+import tcl.lang.TclObject;
+import tcl.lang.TclString;
 
 /**
  * This is the interface to Scriptics's Jacl (Tcl) from the

@@ -16,8 +16,9 @@
 
 package org.apache.bsf.util;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.Hashtable;
-import java.io.*;
 
 /**
  * This class loader knows to load a class from the tempDir dir

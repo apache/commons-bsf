@@ -16,10 +16,13 @@
 
 package org.apache.bsf.util;
 
-import java.util.*;
-import java.io.*;
-import java.beans.*;
-import org.apache.bsf.*;
+import java.beans.PropertyChangeEvent;
+import java.util.Vector;
+
+import org.apache.bsf.BSFDeclaredBean;
+import org.apache.bsf.BSFEngine;
+import org.apache.bsf.BSFException;
+import org.apache.bsf.BSFManager;
 
 /**
  * This is a base implementation of the BSFEngine interface which

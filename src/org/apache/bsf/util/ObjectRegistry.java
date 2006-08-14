@@ -16,7 +16,7 @@
 
 package org.apache.bsf.util;
 
-import java.util.*;
+import java.util.Hashtable;
 
 /**
  * The <em>ObjectRegistry</em> is used to do name-to-object reference lookups.

@@ -16,14 +16,21 @@
 
 package org.apache.bsf.engines.java;
 
-import java.util.*;
-import java.util.logging.Logger;
-import java.io.*;
-import java.lang.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.lang.reflect.Method;
+import java.util.Hashtable;
+import java.util.Vector;
 
-import org.apache.bsf.*;
-import org.apache.bsf.util.*;
+import org.apache.bsf.BSFException;
+import org.apache.bsf.BSFManager;
+import org.apache.bsf.util.BSFEngineImpl;
+import org.apache.bsf.util.CodeBuffer;
+import org.apache.bsf.util.EngineUtils;
+import org.apache.bsf.util.JavaUtils;
+import org.apache.bsf.util.MethodUtils;
+import org.apache.bsf.util.ObjInfo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

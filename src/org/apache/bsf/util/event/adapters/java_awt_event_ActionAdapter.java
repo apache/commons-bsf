@@ -16,7 +16,8 @@
 
 package org.apache.bsf.util.event.adapters;
 
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import org.apache.bsf.util.event.EventAdapterImpl;
 

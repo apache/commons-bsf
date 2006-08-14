@@ -17,6 +17,7 @@
 package org.apache.bsf.util.event;
 
 import java.util.Hashtable;
+
 import org.apache.bsf.util.event.generator.EventAdapterGenerator;
 
 /**

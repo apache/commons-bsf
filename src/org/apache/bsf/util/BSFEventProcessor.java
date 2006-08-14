@@ -16,9 +16,10 @@
 
 package org.apache.bsf.util;
 
-import org.apache.bsf.util.event.*;
-import org.apache.bsf.*;
-import java.io.PrintStream;
+import org.apache.bsf.BSFEngine;
+import org.apache.bsf.BSFException;
+import org.apache.bsf.BSFManager;
+import org.apache.bsf.util.event.EventProcessor;
 
 /**
  * This is used to support binding scripts to be run when an event

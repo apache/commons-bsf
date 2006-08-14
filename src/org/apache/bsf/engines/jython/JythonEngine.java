@@ -19,12 +19,16 @@ package org.apache.bsf.engines.jython;
 import java.io.ByteArrayInputStream;
 import java.util.Vector;
 
-import org.python.util.*;
-import org.python.core.*;
-
-import org.apache.bsf.*;
+import org.apache.bsf.BSFDeclaredBean;
+import org.apache.bsf.BSFException;
+import org.apache.bsf.BSFManager;
 import org.apache.bsf.util.BSFEngineImpl;
 import org.apache.bsf.util.BSFFunctions;
+import org.python.core.Py;
+import org.python.core.PyException;
+import org.python.core.PyJavaInstance;
+import org.python.core.PyObject;
+import org.python.util.InteractiveInterpreter;
 
 /**
  * This is the interface to Jython (http://www.jython.org/) from BSF.

@@ -16,7 +16,9 @@
 
 package org.apache.bsf.util;
 
-import java.io.*;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.Writer;
 
 /**
  * An <code>IndentWriter</code> object behaves the same as a
