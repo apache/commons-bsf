@@ -16,6 +16,7 @@
 
 package org.apache.bsf.engines.javascript;
 
+import java.util.Iterator;
 import java.util.Vector;
 
 import org.apache.bsf.BSFDeclaredBean;
@@ -28,7 +29,6 @@ import org.mozilla.javascript.EvaluatorException;
 import org.mozilla.javascript.ImporterTopLevel;
 import org.mozilla.javascript.JavaScriptException;
 import org.mozilla.javascript.NativeJavaObject;
-import org.mozilla.javascript.Script;
 import org.mozilla.javascript.ScriptRuntime;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.WrappedException;
@@ -122,7 +122,6 @@ public class JavaScriptEngine extends BSFEngineImpl {
 
         String scriptText = oscript.toString();
         Object retval = null;
-        Script script;
         Context cx;
 
         try {
@@ -214,9 +213,8 @@ public class JavaScriptEngine extends BSFEngineImpl {
             Scriptable bsf = Context.toObject(new BSFFunctions(mgr, this), global);
             global.put("bsf", global, bsf);
 
-            int size = declaredBeans.size();
-            for (int i = 0; i < size; i++) {
-                declareBean((BSFDeclaredBean) declaredBeans.elementAt(i));
+            for(Iterator it = declaredBeans.iterator(); it.hasNext();) {
+            	declareBean((BSFDeclaredBean) it.next());
             }
         } 
         catch (Throwable t) {
