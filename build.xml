@@ -55,48 +55,11 @@ Copyright:
 
 <project name="BSF Build" default="compile" basedir=".">
 
-  <target name="init">
+  <import file="build-properties.xml"/>
+	
+  <target name="init" depends="clean">
     <tstamp/>
-
-    <property name="project.name" value="bsf"/>
-    <property name="project.fullName" value="Bean Scripting Framework"/>
-    <property name="project.version" value="2.3.0"/>
-    <property name="project.debug" value="off"/>
-    <property name="project.deprecation" value="on"/>
-
-    <property name="packages" value="org.apache.*"/>
-    <property name="src.dir" value="src"/>
-    <property name="samples.dir" value="samples"/>
-
-    <property name="build.file" value="build.xml"/>
-    <property name="build.dir" value="build"/>
-    <property name="build.dest" value="build/classes"/>
-    <property name="build.lib" value="build/lib"/>
-    <property name="build.lib.win32" value="build/lib/win32"/>
-    <property name="build.samples" value="build/samples"/>
-    <property name="build.samples.calc" value="build/samples/calc"/>
-    <property name="build.samples.jsplike" value="build/samples/jsplike"/>
-    <property name="build.samples.scriptedui"
-              value="build/samples/scriptedui"/>
-    <property name="build.samples.xsl" value="build/samples/xsl"/>
-    <property name="build.javadocs" value="build/javadocs"/>
-  	<property name="build.tests" value="build/testcases" />
-
-    <property name="dist.dir" value="dist"/>
-    <property name="dist.dir.root"
-              value="${dist.dir}/${project.name}-${project.version}"/>
-    <property name="dist.bin.file"
-              value="${dist.dir}/${project.name}-bin-${project.version}"/>
-    <property name="dist.src.file"
-              value="${dist.dir}/${project.name}-src-${project.version}"/>
-
-    <property name="site.src" location="xdocs"/>
-    <property name="site.dest" location="docs"/>
-    <property name="site.projectFile" value="stylesheets/project.xml"/>
-    <property name="templ.path" location="xdocs/stylesheets"/>
-    <property name="velocity.props" location="${site.src}/velocity.properties"/>
   	
-  	<property name="tests.dir" value="test"/>
 
     <!-- ================================================================= -->
     <!-- Sets version and time/date specific values                        -->
@@ -200,6 +163,7 @@ Copyright:
     <antcall target="checkJython"/>
     <antcall target="checkNetRexx"/>
     <antcall target="checkRhino"/>
+  	<!--<echo message="Warning: Rhino dependencies were not resolved." unless="rhino.present"/>-->
     <antcall target="checkXalan"/>
     <antcall target="checkJUnit"/>
   </target>
@@ -221,6 +185,8 @@ Copyright:
     <exclude name="**/xslt/**" unless="xalan.present"/>
     <exclude name="**/test/**" unless="junit.present"/>
   </patternset>
+	
+  
 
   <!-- =================================================================== -->
   <!-- Compiles the source directory                                       -->
@@ -233,24 +199,28 @@ Copyright:
         <include name="**/*.properties"/>
       </fileset>
     </copy>
-
     <javac srcdir="${src.dir}"
            destdir="${build.dest}"
            debug="${project.debug}"
            deprecation="${project.deprecation}">
+    	<classpath>
+    		<fileset dir="lib" includes="*.jar" />
+    	  </classpath>
       <patternset refid="javac.source.files"/>
     </javac>
 
-    <!-- ================================================================= -->
-    <!-- Produces the jar file                                             -->
-    <!-- ================================================================= -->
-    <mkdir dir="${build.lib}"/>
-    <jar jarfile="${build.lib}/${project.name}.jar" basedir="${build.dest}"/>
-
-    <uptodate property="javadoc.required"
-              targetfile="${build.lib}/${project.name}.jar">
-      <srcfiles dir="${build.dir}" includes="**/*.html"/>
-    </uptodate>
+    </target>
+	
+  <!-- ================================================================= -->
+  <!-- Produces the jar file                                             -->
+  <!-- ================================================================= --> 	
+  <target name="jar" depends="compile" description="Produces the jar file and copies to ${build.lib}">
+  	<mkdir dir="${build.lib}"/>   
+  	<jar jarfile="${build.lib}/${project.name}.jar" basedir="${build.dest}"/>
+  	<uptodate property="javadoc.required"
+  	          targetfile="${build.lib}/${project.name}.jar">
+  	      <srcfiles dir="${build.dir}" includes="**/*.html"/>
+  	</uptodate>
   </target>
 	
   <!-- =================================================================== -->
@@ -258,10 +228,12 @@ Copyright:
   <!-- =================================================================== -->
   <target name="samples"
           description="Compiles the samples."
-          depends="compile">
+          depends="jar">
     <copy todir="${build.samples}">
       <fileset dir="${samples.dir}"/>
     </copy>
+  	
+  	<echo message="lib=${build.lib}/${project.name}.jar"/>
     <javac srcdir="${build.samples.calc}"
            destdir="${build.samples.calc}"
            classpath="${build.lib}/${project.name}.jar"
@@ -287,13 +259,13 @@ Copyright:
   <!-- =================================================================== -->
   <!-- Creates the API documentation                                       -->
   <!-- =================================================================== -->
-  <target name="javadocs" if="javadoc.required"
+  <target name="javadocs"
           description="Generates the API documentation."
           depends="compile" >
     <mkdir dir="${build.javadocs}"/>
              <!-- FIXME: Excluding some packages temporarily -->
     <javadoc packagenames="${packages}"
-             excludepackagenames="org.apache.bsf.engines.java, org.apache.bsf.engines.javaclass, org.apache.bsf.engines.activescript"
+             excludepackagenames="org.apache.bsf.engines.java, org.apache.bsf.engines.javaclass"
              sourcepath="${src.dir}"
              destdir="${build.javadocs}"
              author="true"
@@ -346,12 +318,8 @@ Copyright:
   <!-- =================================================================== -->
   <target name="bindist"
           description="Creates the binary distribution(s)."
-          depends="compile, javadocs, samples">
-    <delete dir="${dist.dir.root}"/>
-    <delete file="${dist.bin.file}.tar"/>
-    <delete file="${dist.bin.file}.tar.gz"/>
-    <delete file="${dist.bin.file}.zip"/>
-
+          depends="javadocs, samples">
+    
     <copy todir="${dist.dir.root}/docs/api">
       <fileset dir="${build.javadocs}"/>
     </copy>
@@ -396,11 +364,7 @@ Copyright:
   <target name="srcdist"
           description="Creates the source distribution(s)."
           depends="init">
-    <delete dir="${dist.dir.root}"/>
-    <delete file="${dist.src.file}.tar"/>
-    <delete file="${dist.src.file}.tar.gz"/>
-    <delete file="${dist.src.file}.zip"/>
-
+  	
     <copy todir="${dist.dir.root}/src">
       <fileset dir="${src.dir}"/>
     </copy>
@@ -466,8 +430,7 @@ Copyright:
   <!-- Cleans everything                                                   -->
   <!-- =================================================================== -->
   <target name="clean"
-          description="Removes build and dist directories."
-          depends="init">
+          description="Removes build and dist directories.">
     <delete dir="${build.dir}"/>
     <delete dir="${dist.dir}"/>
   </target>
