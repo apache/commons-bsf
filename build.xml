@@ -225,8 +225,6 @@ Copyright:
 		<copy todir="${build.samples}">
 			<fileset dir="${samples.dir}" />
 		</copy>
-
-		<echo message="lib=${build.lib}/${project.name}.jar" />
 		<javac srcdir="${build.samples.calc}" destdir="${build.samples.calc}" classpath="${build.lib}/${project.name}.jar" debug="${project.debug}" deprecation="${project.deprecation}" />
 		<javac srcdir="${build.samples.jsplike}" destdir="${build.samples.jsplike}" classpath="${build.lib}/${project.name}.jar" debug="${project.debug}" deprecation="${project.deprecation}" />
 		<javac srcdir="${build.samples.scriptedui}" destdir="${build.samples.scriptedui}" classpath="${build.lib}/${project.name}.jar" debug="${project.debug}" deprecation="${project.deprecation}" />
@@ -239,7 +237,7 @@ Copyright:
 	<target name="javadocs" description="Generates the API documentation." depends="compile" >
 		<mkdir dir="${build.javadocs}" />
 		<!-- FIXME: Excluding some packages temporarily -->
-		<javadoc packagenames="${packages}" sourcepath="src" failonerror="true" excludepackagenames="org.apache.bsf.engines.java, org.apache.bsf.engines.javaclass" destdir="${build.javadocs}" author="true" version="false" use="true" windowtitle="${project.fullName} API" doctitle="${project.fullName}">
+		<javadoc packagenames="${packages}" failonerror="true" excludepackagenames="org.apache.bsf.engines.java, org.apache.bsf.engines.javaclass" destdir="${build.javadocs}" author="true" version="false" use="true" windowtitle="${project.fullName} API" doctitle="${project.fullName}">
 			<classpath><fileset dir="lib"><include name="*.jar"/></fileset></classpath>
 			<fileset dir="${src.dir}"><patternset refid="java.source.files"></patternset></fileset>
 		</javadoc>
