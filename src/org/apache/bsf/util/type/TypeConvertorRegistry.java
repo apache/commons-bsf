@@ -181,7 +181,6 @@ public class TypeConvertorRegistry {
 	String key = from.getName () + " -> " + to.getName ();
 	TypeConvertor tc = (TypeConvertor) reg.get (key);
 	if (tc == null) {
-	  Class objectClass = Object.class;
 	  if (from != void.class
 		  && from != Void.class
 		  && to == String.class) {

@@ -84,7 +84,6 @@ import org.apache.commons.logging.LogFactory;
 public class JavaEngine extends BSFEngineImpl
 {
   Class javaclass=null;
-  private boolean bsfHandleCreated = false;
   static Hashtable codeToClass=new Hashtable();
   static String serializeCompilation="";
   static String placeholder="$$CLASSNAME$$";

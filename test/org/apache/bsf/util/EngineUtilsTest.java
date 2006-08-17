@@ -143,7 +143,7 @@ public class EngineUtilsTest extends TestCase {
         // try to create a bean by passing a wrong string ...
         // should throw a BSFException
             try {
-                Object obj1 = EngineUtils.createBean("nonExsitentClass",null);
+                EngineUtils.createBean("nonExsitentClass",null);
                 fail();
             }
             catch (BSFException bsfe) {

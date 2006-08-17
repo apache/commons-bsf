@@ -43,7 +43,7 @@ public class EngineUtils {
         Class mc=Method.class;            // get the "Method" class object
         Class arg[]={boolean.class};      // define an array with the primitive "boolean" pseudo class object
         try {
-            Object o=mc.getMethod("setAccessible", arg ); // is this method available?
+            mc.getMethod("setAccessible", arg ); // is this method available?
             bMethodHasSetAccessible=true; // no exception, hence method exists
         }
         catch (Exception e)

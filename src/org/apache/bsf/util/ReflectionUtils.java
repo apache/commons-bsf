@@ -371,7 +371,6 @@ public class ReflectionUtils {
 	// get write method and type of property
 	Method wm;
 	Class propType;
-	Object[] args;
 	if (index != null) {
 	  // if index != null, then property is indexed - pd better be so too
 	  if (!(pd instanceof IndexedPropertyDescriptor)) {
