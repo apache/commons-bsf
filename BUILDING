@@ -33,6 +33,3 @@ where [target] is one of the following:
    dist               creates both the binary and the src distributions
                       in "./dist/"
    clean              removes all the generated files and directories
-
-There are also convenience scripts provided for using the collections
-distributed with jakarta-bsf (Ant, for instance) for the build.
