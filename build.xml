@@ -62,7 +62,7 @@ Copyright:
 	<!-- =================================================================== -->
 	<patternset id="java.source.files">
 		<!-- Optionally includes engines based on dependencies being present -->
-		<!-- FIXME: Exclude the first three, temporarily -->
+
 
 		<include name="**/bsf/*.java" />
 		<include name="**/util/**/*.java" />
@@ -179,7 +179,7 @@ Copyright:
 		<antcall target="checkJython" />
 		<antcall target="checkNetRexx" />
 		<antcall target="checkRhino" />
-		<!--<echo message="Warning: Rhino dependencies were not resolved." unless="rhino.present"/>-->
+
 		<antcall target="checkXalan" />
 		<antcall target="checkJUnit" />
 	</target>
@@ -196,9 +196,11 @@ Copyright:
 		<mkdir dir="${build.dest}"/>
 		<javac srcdir="${src.dir}" destdir="${build.dest}" debug="${project.debug}" deprecation="${project.deprecation}">
 			<classpath>
-				<fileset dir="lib"><include name="*.jar"/></fileset>
+				<fileset dir="lib">
+					<include name="*.jar"/>
+				</fileset>
 			</classpath>
-			<patternset refid="java.source.files"></patternset>			
+			<patternset refid="java.source.files"/>
 		</javac>
 	</target>
 
@@ -252,11 +254,11 @@ Copyright:
 			<classpath refid="anakia.classpath" />
 		</taskdef>
 
-		<anakia basedir="${site.src}" destdir="${site.dest}/" extension=".html" style="./site.vsl" projectFile="${site.projectFile}" excludes="**/stylesheets/** faq.xml" includes="**/*.xml" lastModifiedCheck="true" templatePath="${templ.path}" velocityPropertiesFile="${velocity.props}">
-		</anakia>
+		<anakia basedir="${site.src}" destdir="${site.dest}/" extension=".html" style="./site.vsl" projectFile="${site.projectFile}" excludes="**/stylesheets/** faq.xml" includes="**/*.xml" lastModifiedCheck="true" templatePath="${templ.path}" velocityPropertiesFile="${velocity.props}"/>
 
-		<anakia basedir="${site.src}" destdir="${site.dest}/" extension=".html" style="./faq.vsl" projectFile="${site.projectFile}" includes="faq.xml" lastModifiedCheck="true" templatePath="${templ.path}" velocityPropertiesFile="${velocity.props}">
-		</anakia>
+
+		<anakia basedir="${site.src}" destdir="${site.dest}/" extension=".html" style="./faq.vsl" projectFile="${site.projectFile}" includes="faq.xml" lastModifiedCheck="true" templatePath="${templ.path}" velocityPropertiesFile="${velocity.props}"/>
+
 
 		<copy todir="${site.dest}/images" filtering="no">
 			<fileset dir="${site.src}/images">

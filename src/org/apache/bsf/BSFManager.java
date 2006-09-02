@@ -25,6 +25,7 @@ import java.security.PrivilegedActionException;
 import java.security.PrivilegedExceptionAction;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.MissingResourceException;
 import java.util.NoSuchElementException;
 import java.util.Properties;
@@ -114,16 +115,17 @@ public class BSFManager {
                 Properties p = new Properties();
                 p.load(is);
 
-                Enumeration keys = p.propertyNames();
-                while (keys.hasMoreElements()) {
+                for (Enumeration keys = p.propertyNames(); keys.hasMoreElements();) {
+
                     String key = (String) keys.nextElement();
                     String value = p.getProperty(key);
+                    String className = value.substring(0, value.indexOf(","));
 
-                    StringTokenizer tokens = new StringTokenizer(value, ",");
-                    String className = (String) tokens.nextToken();
+
+
 
                     // get the extensions for this language
-                    String exts = (String) tokens.nextToken();
+                    String exts = value.substring(value.indexOf(",")+1, value.length());
                     StringTokenizer st = new StringTokenizer(exts, "|");
                     String[] extensions = new String[st.countTokens()];
                     for (int i = 0; st.hasMoreTokens(); i++) {
@@ -133,16 +135,16 @@ public class BSFManager {
                     registerScriptingEngine(key, className, extensions);
                 }
             }
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
+
             ex.printStackTrace();
             System.err.println("Error reading Languages file " + ex);
-        }
-        catch (NoSuchElementException nsee) {
+        } catch (NoSuchElementException nsee) {
+
             nsee.printStackTrace();
             System.err.println("Syntax error in Languages resource bundle");
-        }
-        catch (MissingResourceException mre) {
+        } catch (MissingResourceException mre) {
+
             mre.printStackTrace();
             System.err.println("Initialization error: " + mre.toString());
         }
@@ -163,8 +165,8 @@ public class BSFManager {
          *      &quot;dd&quot; two digit day.
      * @since 2006-01-17
      */
-    public static String getVersion()
-    {
+    public static String getVersion() {
+
         return version;
     }
 
@@ -210,8 +212,8 @@ public class BSFManager {
                         }
                     });
             result = resultf;
-        }
-        catch (PrivilegedActionException prive) {
+        } catch (PrivilegedActionException prive) {
+
         	logger.error("Exception: ", prive);
             throw (BSFException) prive.getException();
         }
@@ -263,8 +265,8 @@ public class BSFManager {
                         return null;
                     }
                 });
-        }
-        catch (PrivilegedActionException prive) {
+        } catch (PrivilegedActionException prive) {
+
         	logger.error("Exception :", prive);
             throw (BSFException) prive.getException();
         }
@@ -306,8 +308,8 @@ public class BSFManager {
                         return null;
                     }
                 });
-        }
-        catch (PrivilegedActionException prive) {
+        } catch (PrivilegedActionException prive) {
+
         	logger.error("Exception :", prive);
             throw (BSFException) prive.getException();
         }
@@ -350,8 +352,8 @@ public class BSFManager {
                         return null;
                     }
                 });
-        }
-        catch (PrivilegedActionException prive) {
+        } catch (PrivilegedActionException prive) {
+
         	logger.error("Exception :", prive);
             throw (BSFException) prive.getException();
         }
@@ -439,8 +441,8 @@ public class BSFManager {
                         }
                     });
             result = resultf;
-        }
-        catch (PrivilegedActionException prive) {
+        } catch (PrivilegedActionException prive) {
+
         	logger.error("Exception: ", prive);
             throw (BSFException) prive.getException();
         }
@@ -487,8 +489,8 @@ public class BSFManager {
                         return null;
                     }
                 });
-        }
-        catch (PrivilegedActionException prive) {
+        } catch (PrivilegedActionException prive) {
+
         	logger.error("Exception :", prive);
             throw (BSFException) prive.getException();
         }
@@ -527,8 +529,8 @@ public class BSFManager {
                         return null;
                     }
                 });
-        }
-        catch (PrivilegedActionException prive) {
+        } catch (PrivilegedActionException prive) {
+
         	logger.error("Exception :", prive);
             throw (BSFException) prive.getException();
         }
@@ -550,8 +552,8 @@ public class BSFManager {
         if (classPath == null) {
             try {
                 classPath = System.getProperty("java.class.path");
-            }
-            catch (Throwable t) {
+            } catch (Throwable t) {
+
             	logger.debug("Exception :", t);
                 // prolly a security exception .. so no can do
             }
@@ -577,8 +579,9 @@ public class BSFManager {
 
         if (dotIndex != -1) {
             String extn = fileName.substring(dotIndex + 1);
-            String langval = (String) extn2Lang.get(extn), lang = null;
-            int index = 0, loops = 0;
+            String langval = (String) extn2Lang.get(extn);
+            String lang = null;
+            int index, loops = 0;
 
             if (langval != null) {
                 while ((index = langval.indexOf(":", 0)) != -1) {
@@ -594,8 +597,8 @@ public class BSFManager {
                         String engineName =
                             (String) registeredEngines.get(lang);
                         Class.forName(engineName);
-                    }
-                    catch (ClassNotFoundException cnfe) {
+                    } catch (ClassNotFoundException cnfe) {
+
                         // Bummer.
                         lang = langval;
                         continue;
@@ -604,7 +607,7 @@ public class BSFManager {
                     // Got past that? Good.
                     break;
                 }
-                if (loops == 0) lang = langval;
+                if (loops == 0) { lang = langval; }
             }
 
             if (lang != null && lang != "") {
@@ -700,12 +703,12 @@ public class BSFManager {
             loadedEngines.put(lang, eng);
             pcs.addPropertyChangeListener(eng);
             return eng;
-        }
-        catch (PrivilegedActionException prive) {
+        } catch (PrivilegedActionException prive) {
+
         	    logger.error("Exception :", prive);
                 throw (BSFException) prive.getException();
-        }
-        catch (Throwable t) {
+        } catch (Throwable t) {
+
         	logger.error("Exception :", t);
             throw new BSFException(BSFException.REASON_OTHER_ERROR,
                                    "unable to load language: " + lang,
@@ -726,8 +729,8 @@ public class BSFManager {
 
         try {
             return ((BSFDeclaredBean)objectRegistry.lookup(beanName)).bean;
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
+
         	logger.debug("Exception :", e);
             return null;
         }
@@ -747,8 +750,8 @@ public class BSFManager {
 
         if(bean == null) {
             tempBean = new BSFDeclaredBean(beanName, null, null);
-        }
-        else {
+        } else {
+
             tempBean = new BSFDeclaredBean(beanName, bean, bean.getClass());
         }
         objectRegistry.register(beanName, tempBean);
@@ -871,8 +874,8 @@ public class BSFManager {
 
         BSFDeclaredBean tempBean = null;
         boolean found = false;
-        for (int i = 0; i < declaredBeans.size(); i++) {
-            tempBean = (BSFDeclaredBean) declaredBeans.elementAt(i);
+        for (Iterator i = declaredBeans.iterator(); i.hasNext();) {
+            tempBean = (BSFDeclaredBean) i.next();
             if (tempBean.name.equals(beanName)) {
             	found = true;
                 break;

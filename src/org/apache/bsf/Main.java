@@ -92,7 +92,7 @@ public class Main {
 				in = new FileReader(inFileName);
 			} else {
 				in = new InputStreamReader(System.in);
-				inFileName = "<STDIN>";
+				inFileName = DEFAULT_IN_FILE_NAME;
 			}
 
 			BSFManager mgr = new BSFManager();
@@ -114,45 +114,47 @@ public class Main {
 					cb);
 				cb.print(pw, true);
 				out.close();
-			} else
+			} else {
 				if (mode.equals(ARG_VAL_EXEC)) {
 					mgr.exec(language, inFileName, 0, 0, IOUtils.getStringFromReader(in));
-				} else /* eval */ {
-					Object obj =
-                                            mgr.eval(language, inFileName, 0, 0, IOUtils.getStringFromReader(in));
-                                        
+				} else { /* eval */
+					Object obj = mgr.eval(language, inFileName, 0, 0, IOUtils.getStringFromReader(in));
+
+
 					// Try to display the result.
-                                        
+
 					if (obj instanceof java.awt.Component) {
-                                            Frame f;
-                                            
-                                            if (obj instanceof Frame) {
-						f = (Frame) obj;
-                                            } else {
-						f = new Frame ("BSF Result: " + inFileName);
-						f.add ((java.awt.Component) obj);
-                                            }
-                                            
-                                            // Add a window listener to quit on closing.
-                                            f.addWindowListener(
-                                                                new WindowAdapter () {
-                                                                    public void windowClosing (WindowEvent e) {
-                                                                        System.exit (0);
-                                                                    }
-                                                                });
-                                            f.pack ();
-                                            f.show ();
+					    Frame f;
+                        if (obj instanceof Frame) {
+                            f = (Frame) obj;
+                        } else {
+                            f = new Frame ("BSF Result: " + inFileName);
+                            f.add ((java.awt.Component) obj);
+                        }
+                        // Add a window listener to quit on closing.
+                        f.addWindowListener(
+                                new WindowAdapter () {
+                                    public void windowClosing (WindowEvent e) {
+                                        System.exit (0);
+                                    }
+                                }
+                        );
+                        f.pack ();
+                        f.show ();
+
 					} else {
-                                            System.err.println("Result: " + 
-                                                               obj);
+                        System.err.println("Result: " + obj);
+
 					}
-                                        
+
 					System.err.println("Result: " + obj);
 				}
+            }
 		} catch (BSFException e) {
-                    e.printStackTrace();
+		    e.printStackTrace();
 		}
 	}
+    
 	private static void printHelp() {
 		System.err.println("Usage:");
 		System.err.println();
