@@ -1,5 +1,6 @@
 /* This is a simple demo of a JavaScript script that uses the Java
-   URL class to download some content from some URL. */
+   URL class to download some content from some URL.
+   */
 
 URL_ADDR = "http://www.cnn.com/";
 

@@ -3,7 +3,7 @@
 
 package require java
 
-set f [java::new java.awt.Frame "BSH Calculator"]
+set f [java::new java.awt.Frame "BSH Calculator (jacl/tcl)"]
 bsf addEventListener $f "window" "windowClosing" "exit"
 set p [java::new java.awt.Panel]
 
@@ -43,9 +43,9 @@ $f toFront
 
 proc getField {f} {
   set t [$f getText]
-  if {$t == ""} { 
+  if {$t == ""} {
     return 0
-  } else { 
+  } else {
     return [java::call java.lang.Integer parseInt $t]
   }
 }

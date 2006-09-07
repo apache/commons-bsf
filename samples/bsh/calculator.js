@@ -1,8 +1,8 @@
 /* A silly little calculator implemented in Javascript (Rhino) using
    Java components for the UI. */
 
-f = new java.awt.Frame ("BSH Calculator");
-bsf.addEventListener (f, "window", "windowClosing", 
+f = new java.awt.Frame ("BSH Calculator (js)");
+bsf.addEventListener (f, "window", "windowClosing",
                       "java.lang.System.exit (0);");
 
 f1 = new java.awt.TextField (20);

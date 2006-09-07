@@ -23,7 +23,7 @@ def doMath (e):
 	prod.setText (repr (n1 * n2))
 	quo.setText (repr (n1 / n2))
 
-f = awt.Frame ('BSH Calculator', windowClosing=exit)
+f = awt.Frame ('BSH Calculator (jpython)', windowClosing=exit)
 
 f1 = awt.TextField (20, actionPerformed=doMath)
 f2 = awt.TextField (20, textValueChanged=doMath)
