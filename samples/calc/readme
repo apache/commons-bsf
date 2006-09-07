@@ -1,3 +1,21 @@
+To run this demo type:
+
+	java TestCalc filename
+
+Please note that as of 2006-09-07 the proprietary Windows scripting languages
+do not run with the standard distribution. Reason: due to licensing issues IBM
+was not able to donate the necessary supporting OLE/ActiveX C++ code.
+
+Maybe someone picks up this task?
+
+The Rexx example (transcribed from the original Windows script examples) works,
+as it is not dependent on the Windows infrastructure:
+
+        java TestCalc TestCalc.rex
+
+---rgf, 2006-09-07
+
+================ original text of "readme" as of 2003-10-07 =============
 
 To run this demo type:
 	java TestCalc filename
