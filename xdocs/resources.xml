@@ -40,7 +40,7 @@
       </subsection>
 -->
     </section>
-    
+
     <section name="Articles and Presentations">
 
       <p>The following sections list articles and presentations written about BSF.  If
@@ -87,7 +87,7 @@
         <p>
         For extensions written in languages other than Java, Xalan-Java uses
         the Bean Scripting Framework (BSF), an architecture for incorporating
-        scripting into Java applications and applets. 
+        scripting into Java applications and applets.
         </p>
 
         <table>
@@ -225,9 +225,25 @@
             <td><a href="mailto:Rony.Flatscher@wu-wien.ac.at">Rony G. Flatscher</a></td>
           </tr>
           <tr>
-            <th>URL:</th>
+            <th>URL (&quot;The Vienna Version of BSF4Rexx&quot;):</th>
+
+            <td><a href="http://wi.wu-wien.ac.at/rgf/rexx/orx17/2006_orx17_BSF_ViennaEd.pdf">http://wi.wu-wien.ac.at/rgf/rexx/orx17/2006_orx17_BSF_ViennaEd.pdf</td>
+<!--
             <td><a href="wi.wu-wien.ac.at/Studium/LVA-Unterlagen/ poolv/folien/2001_orx12.pdf">wi.wu-wien.ac.at/Studium/LVA-Unterlagen/ poolv/folien/2001_orx12.pdf</a></td>
+-->
           </tr>
+
+          <tr>
+              <th>URL (&quot;The Vienna Version of BSF4Rexx&quot;, allows open-platform scripting of OpenOffice.org with the help of BSF):</th>
+              <td><a href="http://wi.wu-wien.ac.at/rgf/rexx/orx17/2006_orx17_UNO.pdf">http://wi.wu-wien.ac.at/rgf/rexx/orx17/2006_orx17_UNO.pdf</td>
+          </tr>
+
+
+              <tr>
+                  <th>URL (&quot;BSF4Rexx: Camouflaging Java&quot;, presentation at <a href="http://asia.apachecon.com">ApacheCon Asia 2006</a>):</th>
+                  <td><a href="http://asia.apachecon.com/wp-content/presentations/ApacheConAsia2006-08-16-Flatscher-BSF4Rexx.pdf">http://asia.apachecon.com/wp-content/presentations/ApacheConAsia2006-08-16-Flatscher-BSF4Rexx.pdf</td>
+              </tr>
+
         </table>
       </subsection>
 

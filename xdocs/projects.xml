@@ -17,14 +17,13 @@
       mailing list may help.</p>
 
       <subsection name="BeanShell">
-
         <p>
-        "BeanShell is a small, free, embeddable, Java source interpreter
+        &quot;BeanShell is a small, free, embeddable, Java source interpreter
         with object scripting language features, written in Java. BeanShell
         executes standard Java statements and expressions, in addition to
         obvious scripting commands and syntax. BeanShell supports scripted
         objects as simple method closures like those in Perl and
-        JavaScript(tm)."
+        JavaScript(tm).&quot;
         </p>
 
         <table>
@@ -47,10 +46,39 @@
         </table>
       </subsection>
 
-      <subsection name="Rhino">
 
+      <subsection name="Groovy">
         <p>
-        "Rhino is an open-source implementation of JavaScript written
+        &quot;Groovy is a powerful scripting language for the JVM which compiles down to Java bytecode and implements
+        various high level features for Java developers such as dynamic typing, powerful closures for neat object navigation,
+        native syntax for Maps and Lists, operator overloading, new extended JDK methods, AOP hooks and auto-boxing.
+        Groovy also features a markup language for working with structured data (XML, DOM, SAX, Ant tasks, Swing etc).
+        &quot;
+        </p>
+        <table>
+          <tr>
+            <th>Compatibility:</th>
+            <td>BSF 2.3 and above</td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://groovy.codehaus.org/">http://groovy.codehaus.org/</a></td>
+          </tr>
+          <tr>
+            <th>Contact:</th>
+            <td><a href="http://groovy.codehaus.org/mail-lists.html">Mailing lists</a></td>
+          </tr>
+          <tr>
+            <th>License:</th>
+            <td>BSD (Apache-like) License</td>
+          </tr>
+        </table>
+      </subsection>
+
+
+      <subsection name="JavaScript/Rhino">
+        <p>
+        "JavaScript/Rhino is an open-source implementation of JavaScript written
         entirely in Java. It is typically embedded into Java applications
         to provide scripting to end users."
         </p>
@@ -75,40 +103,11 @@
         </table>
       </subsection>
 
-      <subsection name="Jython">
-
-        <p>
-        "Jython is an implementation of the high-level, dynamic,
-        object-oriented language Python written in 100% Pure Java, and
-        seamlessly integrated with the Java platform. It thus allows you
-        to run Python on any Java platform."
-        </p>
-
-        <table>
-          <tr>
-            <th>Compatibility:</th>
-            <td>Jython 2.1, with BSF 2.2 and above</td>
-          </tr>
-          <tr>
-            <th>URL:</th>
-            <td><a href="http://www.jython.org/">http://www.jython.org/</a></td>
-          </tr>
-          <tr>
-            <th>Contact:</th>
-            <td><a href ="http://sourceforge.net/mail/?group_id=12867">Jython Mailing lists</a></td>
-          </tr>
-          <tr>
-            <th>License:</th>
-            <td>Jython Software License</td>
-          </tr>
-        </table>
-      </subsection>
 
       <subsection name="Jacl">
-
         <p>
-        "Jacl, which stands for Java Command Language, is a Java implementation
-        of TCL 8.x."
+        &quot;Jacl, which stands for Java Command Language, is a Java implementation
+        of TCL 8.x.&quot;
         </p>
 
         <table>
@@ -131,68 +130,13 @@
         </table>
       </subsection>
 
-      <subsection name="NetRexx">
-
-        <p>
-        "NetRexx is a <i>human-oriented</i> programming language which makes
-        writing and using Java classes quicker and easier than writing in
-        Java."
-        </p>
-
-        <table>
-          <tr>
-            <th>Compatibility:</th>
-            <td>NetRexx 2.0.2, with BSF 2.2 and above</td>
-          </tr>
-          <tr>
-            <th>URL:</th>
-            <td><a href="http://www2.hursley.ibm.com/netrexx/">http://www2.hursley.ibm.com/netrexx/</a></td>
-          </tr>
-          <tr>
-            <th>Contact:</th>
-            <td><a href="http://www-306.ibm.com/software/awdtools/netrexx/mailinglist.html">NetRexx 2 mailing list</a></td>
-          </tr>
-          <tr>
-            <th>License:</th>
-            <td>IBM License Agreement for IBM Employee-Written Software</td>
-          </tr>
-        </table>
-      </subsection>
-
-      <subsection name="JRuby">
-
-        <p>
-        "JRuby is a pure Java implementation of the Ruby interpreter,
-        being developed by Jan Arne Petersen and others."
-        </p>
-
-        <table>
-          <tr>
-            <th>Compatibility:</th>
-            <td>BSF 2.2 and above</td>
-          </tr>
-          <tr>
-            <th>URL:</th>
-            <td><a href="http://jruby.sourceforge.net/">http://jruby.sourceforge.net/</a></td>
-          </tr>
-          <tr>
-            <th>Contact:</th>
-            <td><a href="mailto:jpeterson@uni-bonn.de">Jan Arne Petersen</a></td>
-          </tr>
-          <tr>
-            <th>License:</th>
-            <td>dual GPL/LGPL</td>
-          </tr>
-        </table>
-      </subsection>
 
       <subsection name="JudoScript">
-
         <p>
-        "Judoscript is a 3GL-and-4GL; it retains 3GL's powerful
+        &quot;Judoscript is a 3GL-and-4GL; it retains 3GL's powerful
         programmability, and extends its reach into many of today's popular
-        applications areas with 4GL approach (figuratively, "WYSIWYG
-        programming"), making their uses easy, effective and elegant."
+        applications areas with 4GL approach (figuratively, &quot;WYSIWYG
+        programming&quot;), making their uses easy, effective and elegant.&quot;
         </p>
 
         <table>
@@ -215,132 +159,103 @@
         </table>
       </subsection>
 
-      <subsection name="Xalan">
 
+      <subsection name="JRuby">
         <p>
-        "Xalan-Java is an XSLT processor for transforming XML documents into
-        HTML, text, or other XML document types. It implements the W3C
-        Recommendations for XSL Transformations (XSLT) and the XML Path
-        Language (XPath). It can be used from the command line, in an applet
-        or a servlet, or as a module in other program."
+        &quot;JRuby is a pure Java implementation of the Ruby interpreter,
+        being developed by Jan Arne Petersen and others.&quot;
         </p>
 
         <table>
           <tr>
             <th>Compatibility:</th>
-            <td>Xalan 2.2 and above (XSLT), with BSF 2.3 and above</td>
+            <td>BSF 2.2 and above</td>
           </tr>
           <tr>
             <th>URL:</th>
-            <td><a href="http://xml.apache.org/xalan-j/index.html">http://xml.apache.org/xalan-j/index.html</a></td>
+            <td><a href="http://jruby.sourceforge.net/">http://jruby.sourceforge.net/</a></td>
           </tr>
           <tr>
             <th>Contact:</th>
-            <td><a href="http://xml.apache.org/overview.html">Apache XML Project "Get Involved" page</a></td>
+            <td><a href="mailto:jpeterson@uni-bonn.de">Jan Arne Petersen</a></td>
           </tr>
           <tr>
             <th>License:</th>
-            <td>Apache Software License</td>
+            <td>dual GPL/LGPL</td>
           </tr>
         </table>
       </subsection>
 
-      <subsection name="Groovy">
+
+      <subsection name="Jython">
         <p>
-        "Groovy is a powerful scripting language for the JVM which compiles down to Java bytecode and implements
-        various high level features for Java developers such as dynamic typing, powerful closures for neat object navigation,
-        native syntax for Maps and Lists, operator overloading, new extended JDK methods, AOP hooks and auto-boxing.
-        Groovy also features a markup language for working with structured data (XML, DOM, SAX, Ant tasks, Swing etc).
-        "
+        &quot;Jython is an implementation of the high-level, dynamic,
+        object-oriented language Python written in 100% Pure Java, and
+        seamlessly integrated with the Java platform. It thus allows you
+        to run Python on any Java platform.&quot;
         </p>
+
         <table>
           <tr>
             <th>Compatibility:</th>
-            <td>BSF 2.3 and above</td>
+            <td>Jython 2.1, with BSF 2.2 and above</td>
           </tr>
           <tr>
             <th>URL:</th>
-            <td><a href="http://groovy.codehaus.org/">http://groovy.codehaus.org/</a></td>
+            <td><a href="http://www.jython.org/">http://www.jython.org/</a></td>
           </tr>
           <tr>
             <th>Contact:</th>
-            <td><a href="http://groovy.codehaus.org/mail-lists.html">Mailing lists</a></td>
+            <td><a href ="http://sourceforge.net/mail/?group_id=12867">Jython Mailing lists</a></td>
           </tr>
           <tr>
             <th>License:</th>
-            <td>BSD (Apache-like) License</td>
+            <td>Jython Software License</td>
           </tr>
         </table>
       </subsection>
 
-      <subsection name="ObjectScript">
+      <subsection name="NetRexx">
         <p>
-          "ObjectScript is a general purpose object-oriented programming language. It is designed to
-          be simple to learn, easy to use, yet still powerful, combining the convenience of an
-          interactive interpreter with many of the features of Java, plus operator overloading,
-          regular expressions, closures, XML-RPC support, etc.  And a behind the scenes compiler
-          compiles script code to JVM bytecode for faster execution."
+        &quot;NetRexx is a <i>human-oriented</i> programming language which makes
+        writing and using Java classes quicker and easier than writing in
+        Java.&quot;
         </p>
+
         <table>
           <tr>
             <th>Compatibility:</th>
-            <td>BSF 2.3 and above</td>
+            <td>NetRexx 2.0.2, with BSF 2.2 and above</td>
           </tr>
           <tr>
             <th>URL:</th>
-            <td><a href="http://objectscript.sourceforge.net/">http://objectscript.sourceforge.net/</a></td>
+            <td><a href="http://www2.hursley.ibm.com/netrexx/">http://www2.hursley.ibm.com/netrexx/</a></td>
           </tr>
           <tr>
             <th>Contact:</th>
-            <td><a href="mailto:rob@ti.com">Rob Clark</a></td>
+            <td><a href="http://www-306.ibm.com/software/awdtools/netrexx/mailinglist.html">NetRexx 2 mailing list</a></td>
           </tr>
           <tr>
             <th>License:</th>
-            <td>LGPL</td>
+            <td>IBM License Agreement for IBM Employee-Written Software</td>
           </tr>
         </table>
       </subsection>
 
-      <subsection name="Prolog">
+      <subsection name="ObjectRexx/Rexx">
         <p>
-          "Prolog is a logic-oriented language based on predicate calculus. While it is not
-		  really a scripting language, there is a range of problems that are much easier to
-		  express in it than in Java, and for these cases a Prolog BSF engine comes in handy.
-		  It is also useful for adding a GUI to Prolog programs.
-		  The underlying Prolog interpreter is JLog, which can be run as an applet, an application
-		  or embedded through an API, and can be found at http://sf.net/projects/jlogic/.
-        </p>
-        <table>
-          <tr>
-            <th>Compatibility:</th>
-            <td>BSF 2.3 and above</td>
-          </tr>
-          <tr>
-            <th>URL:</th>
-            <td><a href="http://www.ulfdittmer.com/jlog/">http://www.ulfdittmer.com/jlog/</a></td>
-          </tr>
-          <tr>
-            <th>Contact:</th>
-            <td><a href="mailto:udittmer@yahoo.com">Ulf Dittmer</a></td>
-          </tr>
-          <tr>
-            <th>License:</th>
-            <td>GPL (same as JLog itself)</td>
-          </tr>
-        </table>
-      </subsection>
+        &quot;Open Object Rexx (ooRexx, <a  href="http://www.ooRexx.org">http://www.ooRexx.org</a>) is a free
+        and opensource language, which was originally developed by IBM, and made available for opensourcing and further
+        developing it.
+        <br></br>
 
-      <subsection name="ooRexx">
-        <p>
-        "Open Object Rexx (ooRexx, http://www.ooRexx.org) is a free
-        and opensource language, which was originally developed by IBM.
-        The non-profit SIG  Rexx Language Association (http://www.RexxLA.org)
-        received the source code from IBM and released an opensource version
-        to the community in 2005.
+        The non-profit SIG  Rexx Language Association (<a href="http://www.RexxLA.org">http://www.RexxLA.org</a>)
+        received the source code from IBM at the end of 2004 and released an opensource version
+        to the community in the spring of 2005.
 
-        <br></br>The BSF engine for Rexx (BSF4Rexx) comes with an ooRexx wrapper
+        <br></br><a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">The BSF engine for Rexx (BSF4Rexx) </a> comes with an ooRexx wrapper
         program (BSF.CLS) which camouflages Java as ooRexx, easying programming
-        considerably (e.g. no need for type information/casting).
+        considerably (e.g. no need for type information/casting).&quot;
         </p>
 
         <table>
@@ -380,6 +295,98 @@
           </tr>
         </table>
       </subsection>
+
+
+      <subsection name="ObjectScript">
+        <p>
+          &quot;ObjectScript is a general purpose object-oriented programming language. It is designed to
+          be simple to learn, easy to use, yet still powerful, combining the convenience of an
+          interactive interpreter with many of the features of Java, plus operator overloading,
+          regular expressions, closures, XML-RPC support, etc.  And a behind the scenes compiler
+          compiles script code to JVM bytecode for faster execution.&quot;
+        </p>
+        <table>
+          <tr>
+            <th>Compatibility:</th>
+            <td>BSF 2.3 and above</td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://objectscript.sourceforge.net/">http://objectscript.sourceforge.net/</a></td>
+          </tr>
+          <tr>
+            <th>Contact:</th>
+            <td><a href="mailto:rob@ti.com">Rob Clark</a></td>
+          </tr>
+          <tr>
+            <th>License:</th>
+            <td>LGPL</td>
+          </tr>
+        </table>
+      </subsection>
+
+      <subsection name="Prolog">
+        <p>
+          &quot;Prolog is a logic-oriented language based on predicate calculus. While it is not
+		  really a scripting language, there is a range of problems that are much easier to
+		  express in it than in Java, and for these cases a Prolog BSF engine comes in handy.
+		  It is also useful for adding a GUI to Prolog programs.
+		  The underlying Prolog interpreter is JLog, which can be run as an applet, an application
+		  or embedded through an API, and can be found at <a =href"http://sf.net/projects/jlogic/">http://sf.net/projects/jlogic/</a>.&quot;
+        </p>
+        <table>
+          <tr>
+            <th>Compatibility:</th>
+            <td>BSF 2.3 and above</td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://www.ulfdittmer.com/jlog/">http://www.ulfdittmer.com/jlog/</a></td>
+          </tr>
+          <tr>
+            <th>Contact:</th>
+            <td><a href="mailto:udittmer@yahoo.com">Ulf Dittmer</a></td>
+          </tr>
+          <tr>
+            <th>License:</th>
+            <td>GPL (same as JLog itself)</td>
+          </tr>
+        </table>
+      </subsection>
+
+      <subsection name="Xalan/XSLT">
+        <p>
+        &quot;Xalan-Java is an XSLT processor for transforming XML documents into
+        HTML, text, or other XML document types. It implements the W3C
+        Recommendations for XSL Transformations (XSLT) and the XML Path
+        Language (XPath). It can be used from the command line, in an applet
+        or a servlet, or as a module in other program.
+
+        <br></br>
+        Starting with Sun's Java 1.4SE a W3C compliant set of classes for XSLT is part
+        of the runtime environment.&quot;
+        </p>
+
+        <table>
+          <tr>
+            <th>Compatibility:</th>
+            <td>Xalan 2.2 and above (XSLT), with BSF 2.3 and above</td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://xml.apache.org/xalan-j/index.html">http://xml.apache.org/xalan-j/index.html</a></td>
+          </tr>
+          <tr>
+            <th>Contact:</th>
+            <td><a href="http://xml.apache.org/overview.html">Apache XML Project "Get Involved" page</a></td>
+          </tr>
+          <tr>
+            <th>License:</th>
+            <td>Apache Software License</td>
+          </tr>
+        </table>
+      </subsection>
+
 
     </section>
 
