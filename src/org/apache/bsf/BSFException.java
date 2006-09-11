@@ -26,12 +26,12 @@ package org.apache.bsf;
  * @author   Sanjiva Weerawarana
  */
 public class BSFException extends Exception {
-  public static int REASON_INVALID_ARGUMENT = 0;
-  public static int REASON_IO_ERROR = 10;
-  public static int REASON_UNKNOWN_LANGUAGE = 20;
-  public static int REASON_EXECUTION_ERROR = 100;
-  public static int REASON_UNSUPPORTED_FEATURE = 499;
-  public static int REASON_OTHER_ERROR = 500;
+  public static final int REASON_INVALID_ARGUMENT = 0;
+  public static final int REASON_IO_ERROR = 10;
+  public static final int REASON_UNKNOWN_LANGUAGE = 20;
+  public static final int REASON_EXECUTION_ERROR = 100;
+  public static final int REASON_UNSUPPORTED_FEATURE = 499;
+  public static final int REASON_OTHER_ERROR = 500;
 
   int reason;
   Throwable targetThrowable;

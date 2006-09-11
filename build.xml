@@ -1,6 +1,24 @@
 <?xml version="1.0"?>
 
-<!-- ===================================================================
+<!--
+
+   Copyright 2004,2004 The Apache Software Foundation.
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+   
+   http://www.apache.org/licenses/LICENSE-2.0
+   
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+   
+
+
+ ===================================================================
 
    Master Build file for BSF
 
@@ -54,7 +72,7 @@ Copyright:
 ==================================================================== -->
 
 <project name="BSF Build" default="compile" basedir=".">
-
+	
 	<import file="build-properties.xml" />
 
 	<!-- =================================================================== -->
@@ -62,11 +80,8 @@ Copyright:
 	<!-- =================================================================== -->
 	<patternset id="java.source.files">
 		<!-- Optionally includes engines based on dependencies being present -->
-
-
 		<include name="**/bsf/*.java" />
 		<include name="**/util/**/*.java" />
-
 		<include name="**/jacl/**" if="jacl.present" />
 		<include name="**/javascript/**" if="rhino.present" />
 		<include name="**/jython/**" if="jython.present" />
@@ -80,6 +95,11 @@ Copyright:
 			<include name="*.jar" />
 		</fileset>
 		<pathelement location="${build.dest}" />
+	</path>
+	
+	<path id="test.classpath">
+		<path refid="compile.classpath"/>
+		<pathelement location="${build.tests}"/>
 	</path>
 	
 	<target name="init" depends="clean">
@@ -103,27 +123,27 @@ Copyright:
 		<!-- Determines what optional components are available                 -->
 		<!-- ================================================================= -->
 		<available property="jacl.present" classname="tcl.lang.JACL" />
-
+		
 		<available property="jython.present" classname="org.python.util.jython" />
-
+		
 		<available property="netrexx.present" classname="netrexx.lang.Rexx" />
-
+		
 		<available property="rhino.present" classname="org.mozilla.javascript.Scriptable" />
-
+		
 		<available property="xalan.present" classname="org.apache.xalan.xslt.EnvironmentCheck" />
-
+		
 		<available property="junit.present" classname="junit.framework.TestCase" />
-
+		
 		<uptodate property="javac.notRequired" targetfile="${build.lib}/${project.name}.jar">
 			<srcfiles dir="${src.dir}">
 				<patternset refid="javac.source.files" />
 			</srcfiles>
 		</uptodate>
-
+		
 		<uptodate property="javadoc.required" targetfile="${build.lib}/${project.name}.jar">
 			<srcfiles dir="${build.dir}" includes="**/*.html" />
 		</uptodate>
-
+		
 		<antcall target="checkDependencies" />
 	</target>
 
@@ -136,11 +156,11 @@ Copyright:
 				<include name="*.jar" />
 			</fileset>
 		</path>
-
+		
 		<available property="AnakiaTask.present" classname="org.apache.velocity.anakia.AnakiaTask">
 			<classpath refid="anakia.classpath" />
 		</available>
-
+		
 		<antcall target="checkAnakiaTask" />
 	</target>
 
@@ -173,13 +193,13 @@ Copyright:
 	<target name="checkJUnit" unless="junit.present">
 		<echo message="Warning: JUnit dependencies were not resolved." />
 	</target>
-
+	
 	<target name="checkDependencies" unless="javac.notRequired">
 		<antcall target="checkJacl" />
 		<antcall target="checkJython" />
 		<antcall target="checkNetRexx" />
 		<antcall target="checkRhino" />
-
+		
 		<antcall target="checkXalan" />
 		<antcall target="checkJUnit" />
 	</target>
@@ -210,10 +230,19 @@ Copyright:
 	<target name="jar" depends="compile" description="Produces the jar file and copies to ${build.lib}">
 		<mkdir dir="${build.lib}" />
 		<copy todir="${build.dest}">
-					<fileset dir="${src.dir}">
-						<include name="**/*.properties" />
-					</fileset>
-				</copy>
+			<fileset dir="${src.dir}">
+				<include name="**/*.properties" />
+			</fileset>
+		</copy>
+		
+		<mkdir dir="${build.dest}/META-INF" />
+		<copy todir="${build.dest}/META-INF">
+			<fileset dir="${basedir}">
+				<include name="**/LICENSE.txt" />
+				<include name="**/NOTICE.txt" />
+			</fileset>
+		</copy>
+		
 		<jar jarfile="${build.lib}/${project.name}.jar" basedir="${build.dest}" />
 		<uptodate property="javadoc.required" targetfile="${build.lib}/${project.name}.jar">
 			<srcfiles dir="${build.dir}" includes="**/*.html" />
@@ -236,14 +265,16 @@ Copyright:
 	<!-- =================================================================== -->
 	<!-- Creates the API documentation                                       -->
 	<!-- =================================================================== -->
-	<target name="javadocs" description="Generates the API documentation." depends="compile" >
+	<target name="javadocs" description="Generates the API documentation." depends="compile">
 		<mkdir dir="${build.javadocs}" />
 		<!-- FIXME: Excluding some packages temporarily -->
 		<javadoc packagenames="${packages}" failonerror="true" excludepackagenames="org.apache.bsf.engines.java, org.apache.bsf.engines.javaclass" destdir="${build.javadocs}" author="true" version="false" use="true" windowtitle="${project.fullName} API" doctitle="${project.fullName}">
-			<classpath><fileset dir="lib"><include name="*.jar"/></fileset></classpath>
-			<fileset dir="${src.dir}"><patternset refid="java.source.files"></patternset></fileset>
+			<classpath refid="compile.classpath" />
+			<fileset dir="${src.dir}">
+				<patternset refid="java.source.files"></patternset>
+			</fileset>
 		</javadoc>
-
+	
 	</target>
 
 	<!-- =================================================================== -->
@@ -253,13 +284,13 @@ Copyright:
 		<taskdef name="anakia" classname="org.apache.velocity.anakia.AnakiaTask">
 			<classpath refid="anakia.classpath" />
 		</taskdef>
-
+		
 		<anakia basedir="${site.src}" destdir="${site.dest}/" extension=".html" style="./site.vsl" projectFile="${site.projectFile}" excludes="**/stylesheets/** faq.xml" includes="**/*.xml" lastModifiedCheck="true" templatePath="${templ.path}" velocityPropertiesFile="${velocity.props}"/>
 
-
+		
 		<anakia basedir="${site.src}" destdir="${site.dest}/" extension=".html" style="./faq.vsl" projectFile="${site.projectFile}" includes="faq.xml" lastModifiedCheck="true" templatePath="${templ.path}" velocityPropertiesFile="${velocity.props}"/>
 
-
+		
 		<copy todir="${site.dest}/images" filtering="no">
 			<fileset dir="${site.src}/images">
 				<include name="**/*.gif" />
@@ -273,7 +304,7 @@ Copyright:
 	<!-- Creates the binary distribution                                     -->
 	<!-- =================================================================== -->
 	<target name="bindist" description="Creates the binary distribution(s)." depends="javadocs, samples">
-
+		
 		<copy todir="${dist.dir.root}/docs/api">
 			<fileset dir="${build.javadocs}" />
 		</copy>
@@ -283,13 +314,14 @@ Copyright:
 		<copy todir="${dist.dir.root}/samples">
 			<fileset dir="${build.samples}" />
 		</copy>
-
-		<copy file="AUTHORS" tofile="${dist.dir.root}/AUTHORS" />
-		<copy file="README" tofile="${dist.dir.root}/README" />
-		<copy file="INSTALL" tofile="${dist.dir.root}/INSTALL" />
-		<copy file="CHANGES" tofile="${dist.dir.root}/CHANGES" />
-		<copy file="TODO" tofile="${dist.dir.root}/TODO" />
-		<copy file="LICENSE" tofile="${dist.dir.root}/LICENSE" />
+		
+		<copy file="AUTHORS.txt" tofile="${dist.dir.root}/AUTHORS.txt" />
+		<copy file="README.txt" tofile="${dist.dir.root}/README.txt" />
+		<copy file="INSTALL.txt" tofile="${dist.dir.root}/INSTALL.txt" />
+		<copy file="CHANGES.txt" tofile="${dist.dir.root}/CHANGES.txt" />
+		<copy file="TODO.txt" tofile="${dist.dir.root}/TODO.txt" />
+		<copy file="LICENSE.txt" tofile="${dist.dir.root}/LICENSE.txt" />
+		<copy file="RELEASE-NOTE.txt" tofile="${dist.dir.root}/RELEASE-NOTE.txt" />
 
 		<!-- ================================================================= -->
 		<!-- Produces the tar/gzip file                                        -->
@@ -308,18 +340,19 @@ Copyright:
 	<!-- Creates the source distribution                                     -->
 	<!-- =================================================================== -->
 	<target name="srcdist" description="Creates the source distribution(s)." depends="init">
-
+		
 		<copy todir="${dist.dir.root}/src">
 			<fileset dir="${src.dir}" />
 		</copy>
-
-		<copy file="BUILDING" tofile="${dist.dir.root}/BUILDING" />
-		<copy file="INSTALL" tofile="${dist.dir.root}/INSTALL" />
-		<copy file="README" tofile="${dist.dir.root}/README" />
-		<copy file="CHANGES" tofile="${dist.dir.root}/CHANGES" />
-		<copy file="TODO" tofile="${dist.dir.root}/TODO" />
-		<copy file="AUTHORS" tofile="${dist.dir.root}/AUTHORS" />
-		<copy file="LICENSE" tofile="${dist.dir.root}/LICENSE" />
+		
+		<copy file="BUILDING.txt" tofile="${dist.dir.root}/BUILDING.txt" />
+		<copy file="INSTALL.txt" tofile="${dist.dir.root}/INSTALL.txt" />
+		<copy file="README.txt" tofile="${dist.dir.root}/README.txt" />
+		<copy file="CHANGES.txt" tofile="${dist.dir.root}/CHANGES.txt" />
+		<copy file="TODO.txt" tofile="${dist.dir.root}/TODO.txt" />
+		<copy file="AUTHORS.txt" tofile="${dist.dir.root}/AUTHORS.txt" />
+		<copy file="LICENSE.txt" tofile="${dist.dir.root}/LICENSE.txt" />
+		<copy file="RELEASE.txt" tofile="${dist.dir.root}/RELEASE.txt" />
 		<copy file="${build.file}" tofile="${dist.dir.root}/${build.file}" />
 
 		<!-- ================================================================= -->
@@ -341,18 +374,20 @@ Copyright:
 	<!-- =================================================================== -->
 	<target name="compile-test" if="junit.present" depends="compile">
 		<mkdir dir="${build.tests}" />
-		<javac srcdir="${tests.dir}" destdir="${build.tests}" classpath="${build.lib}/${project.name}.jar" />
+		<javac srcdir="${tests.dir}" destdir="${build.tests}" classpath="${build.dest}" />
 	</target>
 
 	<!-- =================================================================== -->
 	<!-- Performs unit tests                                                 -->
 	<!-- =================================================================== -->
 	<target name="test" if="junit.present" description="Performs unit tests on BSF." depends="compile-test">
+		<copy todir="${build.dest}" overwrite="true">
+			<fileset dir="${src.dir}">
+				<include name="**/*.properties" />
+			</fileset>
+		</copy>
 		<junit>
-			<classpath>
-				<pathelement location="${build.lib}/${project.name}.jar" />
-				<pathelement location="${build.tests}" />
-			</classpath>
+			<classpath refid="test.classpath" />
 			<formatter type="brief" usefile="false" />
 			<test name="org.apache.bsf.BSFTest" />
 		</junit>
@@ -370,6 +405,6 @@ Copyright:
 		<delete dir="${build.dir}" />
 		<delete dir="${dist.dir}" />
 	</target>
-
+	
 	<target name="all" depends="build-site, dist" />
 </project>
