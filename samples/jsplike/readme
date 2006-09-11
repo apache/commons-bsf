@@ -1,9 +1,0 @@
-
-You can run any of the JSPLikeIn* scripts as follows:
-
-        java JSPLikeIn<x>
-
-where <x> is any of the languages supported.
-
-You need to have '.', the BSF jar file, and any language-specific
-jars/zips on your classpath.

@@ -1,0 +1,29 @@
+# A silly little calculator implemented in Jacl using
+# Java components for the UI.
+# Rony G. Flatscher, 2006-08-08
+
+package require java
+
+set p [bsf lookupBean "centerPanel"]
+$p setLayout [java::new java.awt.BorderLayout]
+
+$p add "Center" [java::new java.awt.Label     "Middle from Jacl"]
+$p add "North"  [java::new java.awt.TextField "north text from Jacl"]
+$p add "South"  [java::new java.awt.TextField "south text from Jacl"]
+$p add "East"   [java::new java.awt.Button    "inner east from Jacl"]
+$p add "West"   [java::new java.awt.Button    "inner west from Jacl"]
+
+$p setBackground [java::field java.awt.Color pink]
+
+set f [$p getParent]
+
+# needed, because the getParent() returns a "java.awt.Container" not "java.awt.Frame"
+# in the Jacl engine! The following does not hint at the Java class (other than
+# java.lang.Object) such that the Jacl engine *seems* to start reflection at the
+# class from which the object got created from
+
+set f [bsf lookupBean "parentFrame"]
+
+$f setTitle "Hello from Jacl (title reset from Jacl)"
+
+

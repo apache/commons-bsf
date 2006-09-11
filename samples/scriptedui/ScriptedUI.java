@@ -25,6 +25,7 @@ public class ScriptedUI {
     f.add ("South", new Button ("South Button"));
 
     mgr.registerBean ("centerPanel", p);
+    mgr.registerBean ("parentFrame", f); // --rgf, 2006-08-08: to allow Jacl to get to frame ...
 
     // exec script engine code to do its thing for this
     try {
@@ -45,7 +46,7 @@ public class ScriptedUI {
     f.pack ();
     f.show ();
   }
-  
+
   public static void main (String[] args) throws Exception {
     if (args.length != 1) {
       System.err.println ("Usage: java ScriptedUI filename");

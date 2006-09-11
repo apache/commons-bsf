@@ -1,14 +1,4 @@
-/* to be placed in "samples/calc/TestCalc-oo.rxj"; Object Rexx version
-
-add the following line to "samples/calc/TestCalc.java" in
-the static method where the extensionmap is defined:
-
-    extensionmap.put("rex", "rexx");
-    extensionmap.put("rxj", "rexx");
-
----rgf, 2001-05-02 (on the way back home from the 12th Int'l Rexx Symposium
----rgf, 2003-01-23 (on the way back home from Augsburg by train), ---rgf, 2003-05-10
-
+/*
     ------------------------ Apache Version 2.0 license -------------------------
        Copyright (C) 2001-2006 Rony G. Flatscher
 
@@ -25,18 +15,6 @@ the static method where the extensionmap is defined:
        limitations under the License.
     -----------------------------------------------------------------------------
 */
-
-if rxFuncQuery("BSF") then  /* no bsf4rexx support available yet, hence load Java */
-do
-   call rxFuncAdd "BsfLoadFuncs", "BSF4Rexx", "BsfLoadFuncs"
-   call BsfLoadFuncs    /* load all BSF-functions                    */
-   call BsfLoadJava     /* load the JVM and set up BSF4Rexx-support  */
-end
-
-if      BsfInvokedBy()=1 then say "This Rexx program was invoked by Java!"
-else if BsfInvokedBy()=2 then say "This Rexx program was invoked by Rexx, JVM loaded by Rexx!"
-else                          say "No JVM present, we got troubles ..."
-
 
 /*********************************************************
  * A simple four function calculator, written in REXX    *
@@ -70,8 +48,7 @@ end
 /* *** Place everything in the frame            */
 frame = .bsf~bsf.lookupBean("frame")
 frame~~setTitle("Object Rexx Calc") ~~resize(130, 200)
-frame~~add("North", res) ~~add("Center", panel)
-frame~~validate ~~show
+frame~~add("North", res) ~~add("Center", panel) ~~validate ~~show
 frame~bsf.addEventListener("window", "windowClosing", "call bsf 'exit'")
 
 /* *** Initialize the state of the calculator   */
@@ -128,3 +105,4 @@ clear:
    return
 
 ::requires BSF.CLS    -- add Object Rexx proxy support
+
