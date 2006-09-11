@@ -1,6 +1,9 @@
 /* A silly little calculator implemented in Object Rexx using
-   Java components for the UI. 2001-05-02, 2003-01-23, ---rgf, 2003-05-10
-   ("bsf\samples\bsh\calculator.js" served as an example)
+   Java components for the UI. ("bsf\samples\bsh\calculator.js" served as an example)
+
+   ooRexx (FOSS):   <http://www.ooRexx.org>
+   BSF4Rexx (FOSS): <http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/> or
+                    eventually at <https://sourceforge.net/projects/bsf4rexx>
 
    license:
 

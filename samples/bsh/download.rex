@@ -1,5 +1,9 @@
 /* This is a simple demo of a Rexx (modelled after the JavaScript) script that
-   uses the Java URL class to download some content from some URL. rgf, 2003-01-27, 2003-05-10
+   uses the Java URL class to download some content from some URL.
+
+   ooRexx (FOSS):   <http://www.ooRexx.org>
+   BSF4Rexx (FOSS): <http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/> or
+                    eventually at <https://sourceforge.net/projects/bsf4rexx>
 
    license:
 

@@ -1,4 +1,8 @@
 /*
+   ooRexx (FOSS):   <http://www.ooRexx.org>
+   BSF4Rexx (FOSS): <http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/> or
+                    eventually at <https://sourceforge.net/projects/bsf4rexx>
+
     ------------------------ Apache Version 2.0 license -------------------------
        Copyright (C) 2001-2006 Rony G. Flatscher
 
