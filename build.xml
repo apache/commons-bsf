@@ -214,7 +214,7 @@ Copyright:
 	<!-- =================================================================== -->
 	<target name="compile" description="Compiles the BSF *.java files." depends="prepare">
 		<mkdir dir="${build.dest}"/>
-		<javac srcdir="${src.dir}" destdir="${build.dest}" debug="${project.debug}" deprecation="${project.deprecation}">
+		<javac srcdir="${src.dir}" destdir="${build.dest}" debug="${project.debug}" deprecation="${project.deprecation}" source="${source.level}">
 			<classpath>
 				<fileset dir="lib">
 					<include name="*.jar"/>
@@ -256,10 +256,10 @@ Copyright:
 		<copy todir="${build.samples}">
 			<fileset dir="${samples.dir}" />
 		</copy>
-		<javac srcdir="${build.samples.calc}" destdir="${build.samples.calc}" classpath="${build.lib}/${project.name}.jar" debug="${project.debug}" deprecation="${project.deprecation}" />
-		<javac srcdir="${build.samples.jsplike}" destdir="${build.samples.jsplike}" classpath="${build.lib}/${project.name}.jar" debug="${project.debug}" deprecation="${project.deprecation}" />
-		<javac srcdir="${build.samples.scriptedui}" destdir="${build.samples.scriptedui}" classpath="${build.lib}/${project.name}.jar" debug="${project.debug}" deprecation="${project.deprecation}" />
-		<javac srcdir="${build.samples.xsl}" destdir="${build.samples.xsl}" classpath="${build.lib}/${project.name}.jar" debug="${project.debug}" deprecation="${project.deprecation}" />
+		<javac srcdir="${build.samples.calc}" destdir="${build.samples.calc}" classpath="${build.lib}/${project.name}.jar" debug="${project.debug}" deprecation="${project.deprecation}" source="${source.level}" />
+		<javac srcdir="${build.samples.jsplike}" destdir="${build.samples.jsplike}" classpath="${build.lib}/${project.name}.jar" debug="${project.debug}" deprecation="${project.deprecation}" source="${source.level}" />
+		<javac srcdir="${build.samples.scriptedui}" destdir="${build.samples.scriptedui}" classpath="${build.lib}/${project.name}.jar" debug="${project.debug}" deprecation="${project.deprecation}" source="${source.level}" />
+		<javac srcdir="${build.samples.xsl}" destdir="${build.samples.xsl}" classpath="${build.lib}/${project.name}.jar" debug="${project.debug}" deprecation="${project.deprecation}" source="${source.level}" />
 	</target>
 
 	<!-- =================================================================== -->
@@ -268,7 +268,7 @@ Copyright:
 	<target name="javadocs" description="Generates the API documentation." depends="compile">
 		<mkdir dir="${build.javadocs}" />
 		<!-- FIXME: Excluding some packages temporarily -->
-		<javadoc packagenames="${packages}" failonerror="true" excludepackagenames="org.apache.bsf.engines.java, org.apache.bsf.engines.javaclass" destdir="${build.javadocs}" author="true" version="false" use="true" windowtitle="${project.fullName} API" doctitle="${project.fullName}">
+		<javadoc packagenames="${packages}" failonerror="true" excludepackagenames="org.apache.bsf.engines.java, org.apache.bsf.engines.javaclass" destdir="${build.javadocs}" author="true" version="false" use="true" windowtitle="${project.fullName} API" doctitle="${project.fullName}" source="${source.level}">
 			<classpath refid="compile.classpath" />
 			<fileset dir="${src.dir}">
 				<patternset refid="java.source.files"></patternset>
@@ -352,7 +352,7 @@ Copyright:
 		<copy file="TODO.txt" tofile="${dist.dir.root}/TODO.txt" />
 		<copy file="AUTHORS.txt" tofile="${dist.dir.root}/AUTHORS.txt" />
 		<copy file="LICENSE.txt" tofile="${dist.dir.root}/LICENSE.txt" />
-		<copy file="RELEASE.txt" tofile="${dist.dir.root}/RELEASE.txt" />
+		<copy file="RELEASE-NOTE.txt" tofile="${dist.dir.root}/RELEASE-NOTE.txt" />
 		<copy file="${build.file}" tofile="${dist.dir.root}/${build.file}" />
 
 		<!-- ================================================================= -->
@@ -374,7 +374,7 @@ Copyright:
 	<!-- =================================================================== -->
 	<target name="compile-test" if="junit.present" depends="compile">
 		<mkdir dir="${build.tests}" />
-		<javac srcdir="${tests.dir}" destdir="${build.tests}" classpath="${build.dest}" />
+		<javac srcdir="${tests.dir}" destdir="${build.tests}" classpath="${build.dest}" source="${source.level}" />
 	</target>
 
 	<!-- =================================================================== -->

@@ -24,6 +24,8 @@
     <property name="build.samples.xsl" value="build/samples/xsl"/>
     <property name="build.javadocs" value="build/javadocs"/>
   	<property name="build.tests" value="build/testcases" />
+  	
+  	<property name="source.level" value="1.3" />
 
     <property name="dist.dir" value="dist"/>
     <property name="dist.dir.root"
