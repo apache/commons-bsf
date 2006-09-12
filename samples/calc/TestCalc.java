@@ -33,7 +33,8 @@ public class TestCalc extends Frame {
     }
 
     Frame f = new TestCalc(args[0]);
-    f.show();
+    // f.show(); // javac 1.5 warns to use f.show(), Apache build scripts abort as a result :(
+    f.setVisible(true);     // available since Java 1.1
 
     f.addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent e) { System.exit(0); }

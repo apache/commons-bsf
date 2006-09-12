@@ -44,7 +44,8 @@ public class ScriptedUI {
 
     // now pack and show the frame
     f.pack ();
-    f.show ();
+    // f.show(); // javac 1.5 warns to use f.show(), Apache build scripts abort as a result :(
+    f.setVisible(true);     // available since Java 1.1
   }
 
   public static void main (String[] args) throws Exception {

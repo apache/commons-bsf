@@ -1,6 +1,6 @@
 /**
- * This is an example of using an XSL script to fill in a Java 
- * table with data obtained from an XML file. 
+ * This is an example of using an XSL script to fill in a Java
+ * table with data obtained from an XML file.
  */
 
 import java.io.*;
@@ -45,11 +45,12 @@ public class TableFiller {
     // load and run the xsl file to fill in the table. Note that we're
     // running the xsl script for its side effect of filling in the table
     // and so we don't care what the resulting document is.
-    mgr.exec ("xslt", xslfilename, 0, 0, 
+    mgr.exec ("xslt", xslfilename, 0, 0,
 	      IOUtils.getStringFromReader (new FileReader (xslfilename)));
 
     // display the frame
     frame.pack ();
-    frame.show ();
+    // frame.show(); // javac 1.5 warns to use f.show(), Apache build scripts abort as a result :(
+    frame.setVisible(true);     // available since Java 1.1
   }
 }
