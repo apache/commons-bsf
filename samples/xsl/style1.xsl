@@ -16,10 +16,8 @@
 </xsl:template>
 
 <xsl:template match="person">
-  <xsl:variable name="junk1" select="
-    java:add ($panel, java:java.awt.Label.new (string(@first)))"/>
-  <xsl:variable name="junk2" select="
-    java:add ($panel, java:java.awt.Label.new (string(@last)))"/>
+  <xsl:variable name="junk1" select="java:add ($panel, java:java.awt.Label.new (string(@first)))"/>
+  <xsl:variable name="junk2" select="java:add ($panel, java:java.awt.Label.new (string(@last)))"/>
 </xsl:template>
 
 </xsl:stylesheet>

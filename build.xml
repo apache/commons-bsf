@@ -7,15 +7,15 @@
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
    You may obtain a copy of the License at
-   
+
    http://www.apache.org/licenses/LICENSE-2.0
-   
+
    Unless required by applicable law or agreed to in writing, software
    distributed under the License is distributed on an "AS IS" BASIS,
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
-   
+
 
 
  ===================================================================
@@ -72,7 +72,7 @@ Copyright:
 ==================================================================== -->
 
 <project name="BSF Build" default="compile" basedir=".">
-	
+
 	<import file="build-properties.xml" />
 
 	<!-- =================================================================== -->
@@ -89,19 +89,19 @@ Copyright:
 		<include name="**/xslt/**" if="xalan.present" />
 		<include name="**/test/**" if="junit.present" />
 	</patternset>
-	
+
 	<path id="compile.classpath">
 		<fileset dir="lib">
 			<include name="*.jar" />
 		</fileset>
 		<pathelement location="${build.dest}" />
 	</path>
-	
+
 	<path id="test.classpath">
 		<path refid="compile.classpath"/>
 		<pathelement location="${build.tests}"/>
 	</path>
-	
+
 	<target name="init" depends="clean">
 		<tstamp />
 
@@ -123,27 +123,27 @@ Copyright:
 		<!-- Determines what optional components are available                 -->
 		<!-- ================================================================= -->
 		<available property="jacl.present" classname="tcl.lang.JACL" />
-		
+
 		<available property="jython.present" classname="org.python.util.jython" />
-		
+
 		<available property="netrexx.present" classname="netrexx.lang.Rexx" />
-		
+
 		<available property="rhino.present" classname="org.mozilla.javascript.Scriptable" />
-		
+
 		<available property="xalan.present" classname="org.apache.xalan.xslt.EnvironmentCheck" />
-		
+
 		<available property="junit.present" classname="junit.framework.TestCase" />
-		
+
 		<uptodate property="javac.notRequired" targetfile="${build.lib}/${project.name}.jar">
 			<srcfiles dir="${src.dir}">
 				<patternset refid="javac.source.files" />
 			</srcfiles>
 		</uptodate>
-		
+
 		<uptodate property="javadoc.required" targetfile="${build.lib}/${project.name}.jar">
 			<srcfiles dir="${build.dir}" includes="**/*.html" />
 		</uptodate>
-		
+
 		<antcall target="checkDependencies" />
 	</target>
 
@@ -156,11 +156,11 @@ Copyright:
 				<include name="*.jar" />
 			</fileset>
 		</path>
-		
+
 		<available property="AnakiaTask.present" classname="org.apache.velocity.anakia.AnakiaTask">
 			<classpath refid="anakia.classpath" />
 		</available>
-		
+
 		<antcall target="checkAnakiaTask" />
 	</target>
 
@@ -193,13 +193,13 @@ Copyright:
 	<target name="checkJUnit" unless="junit.present">
 		<echo message="Warning: JUnit dependencies were not resolved." />
 	</target>
-	
+
 	<target name="checkDependencies" unless="javac.notRequired">
 		<antcall target="checkJacl" />
 		<antcall target="checkJython" />
 		<antcall target="checkNetRexx" />
 		<antcall target="checkRhino" />
-		
+
 		<antcall target="checkXalan" />
 		<antcall target="checkJUnit" />
 	</target>
@@ -234,7 +234,7 @@ Copyright:
 				<include name="**/*.properties" />
 			</fileset>
 		</copy>
-		
+
 		<mkdir dir="${build.dest}/META-INF" />
 		<copy todir="${build.dest}/META-INF">
 			<fileset dir="${basedir}">
@@ -242,7 +242,7 @@ Copyright:
 				<include name="**/NOTICE.txt" />
 			</fileset>
 		</copy>
-		
+
 		<jar jarfile="${build.lib}/${project.name}.jar" basedir="${build.dest}" />
 		<uptodate property="javadoc.required" targetfile="${build.lib}/${project.name}.jar">
 			<srcfiles dir="${build.dir}" includes="**/*.html" />
@@ -257,7 +257,6 @@ Copyright:
 			<fileset dir="${samples.dir}" />
 		</copy>
 		<javac srcdir="${build.samples.calc}" destdir="${build.samples.calc}" classpath="${build.lib}/${project.name}.jar" debug="${project.debug}" deprecation="${project.deprecation}" source="${source.level}" />
-		<javac srcdir="${build.samples.jsplike}" destdir="${build.samples.jsplike}" classpath="${build.lib}/${project.name}.jar" debug="${project.debug}" deprecation="${project.deprecation}" source="${source.level}" />
 		<javac srcdir="${build.samples.scriptedui}" destdir="${build.samples.scriptedui}" classpath="${build.lib}/${project.name}.jar" debug="${project.debug}" deprecation="${project.deprecation}" source="${source.level}" />
 		<javac srcdir="${build.samples.xsl}" destdir="${build.samples.xsl}" classpath="${build.lib}/${project.name}.jar" debug="${project.debug}" deprecation="${project.deprecation}" source="${source.level}" />
 	</target>
@@ -274,7 +273,7 @@ Copyright:
 				<patternset refid="java.source.files"></patternset>
 			</fileset>
 		</javadoc>
-	
+
 	</target>
 
 	<!-- =================================================================== -->
@@ -284,13 +283,13 @@ Copyright:
 		<taskdef name="anakia" classname="org.apache.velocity.anakia.AnakiaTask">
 			<classpath refid="anakia.classpath" />
 		</taskdef>
-		
+
 		<anakia basedir="${site.src}" destdir="${site.dest}/" extension=".html" style="./site.vsl" projectFile="${site.projectFile}" excludes="**/stylesheets/** faq.xml" includes="**/*.xml" lastModifiedCheck="true" templatePath="${templ.path}" velocityPropertiesFile="${velocity.props}"/>
 
-		
+
 		<anakia basedir="${site.src}" destdir="${site.dest}/" extension=".html" style="./faq.vsl" projectFile="${site.projectFile}" includes="faq.xml" lastModifiedCheck="true" templatePath="${templ.path}" velocityPropertiesFile="${velocity.props}"/>
 
-		
+
 		<copy todir="${site.dest}/images" filtering="no">
 			<fileset dir="${site.src}/images">
 				<include name="**/*.gif" />
@@ -304,7 +303,7 @@ Copyright:
 	<!-- Creates the binary distribution                                     -->
 	<!-- =================================================================== -->
 	<target name="bindist" description="Creates the binary distribution(s)." depends="javadocs, samples">
-		
+
 		<copy todir="${dist.dir.root}/docs/api">
 			<fileset dir="${build.javadocs}" />
 		</copy>
@@ -314,7 +313,7 @@ Copyright:
 		<copy todir="${dist.dir.root}/samples">
 			<fileset dir="${build.samples}" />
 		</copy>
-		
+
 		<copy file="AUTHORS.txt" tofile="${dist.dir.root}/AUTHORS.txt" />
 		<copy file="README.txt" tofile="${dist.dir.root}/README.txt" />
 		<copy file="INSTALL.txt" tofile="${dist.dir.root}/INSTALL.txt" />
@@ -340,11 +339,11 @@ Copyright:
 	<!-- Creates the source distribution                                     -->
 	<!-- =================================================================== -->
 	<target name="srcdist" description="Creates the source distribution(s)." depends="init">
-		
+
 		<copy todir="${dist.dir.root}/src">
 			<fileset dir="${src.dir}" />
 		</copy>
-		
+
 		<copy file="BUILDING.txt" tofile="${dist.dir.root}/BUILDING.txt" />
 		<copy file="INSTALL.txt" tofile="${dist.dir.root}/INSTALL.txt" />
 		<copy file="README.txt" tofile="${dist.dir.root}/README.txt" />
@@ -405,6 +404,6 @@ Copyright:
 		<delete dir="${build.dir}" />
 		<delete dir="${dist.dir}" />
 	</target>
-	
+
 	<target name="all" depends="build-site, dist" />
 </project>
