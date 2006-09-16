@@ -315,12 +315,13 @@ Copyright:
 		</copy>
 
 		<copy file="AUTHORS.txt" tofile="${dist.dir.root}/AUTHORS.txt" />
-		<copy file="README.txt" tofile="${dist.dir.root}/README.txt" />
-		<copy file="INSTALL.txt" tofile="${dist.dir.root}/INSTALL.txt" />
 		<copy file="CHANGES.txt" tofile="${dist.dir.root}/CHANGES.txt" />
-		<copy file="TODO.txt" tofile="${dist.dir.root}/TODO.txt" />
+		<copy file="INSTALL.txt" tofile="${dist.dir.root}/INSTALL.txt" />
 		<copy file="LICENSE.txt" tofile="${dist.dir.root}/LICENSE.txt" />
+		<copy file="NOTICE.txt" tofile="${dist.dir.root}/NOTICE.txt" />
+		<copy file="README.txt" tofile="${dist.dir.root}/README.txt" />
 		<copy file="RELEASE-NOTE.txt" tofile="${dist.dir.root}/RELEASE-NOTE.txt" />
+		<copy file="TODO.txt" tofile="${dist.dir.root}/TODO.txt" />
 
 		<!-- ================================================================= -->
 		<!-- Produces the tar/gzip file                                        -->
@@ -344,14 +345,15 @@ Copyright:
 			<fileset dir="${src.dir}" />
 		</copy>
 
-		<copy file="BUILDING.txt" tofile="${dist.dir.root}/BUILDING.txt" />
-		<copy file="INSTALL.txt" tofile="${dist.dir.root}/INSTALL.txt" />
-		<copy file="README.txt" tofile="${dist.dir.root}/README.txt" />
-		<copy file="CHANGES.txt" tofile="${dist.dir.root}/CHANGES.txt" />
-		<copy file="TODO.txt" tofile="${dist.dir.root}/TODO.txt" />
 		<copy file="AUTHORS.txt" tofile="${dist.dir.root}/AUTHORS.txt" />
+		<copy file="BUILDING.txt" tofile="${dist.dir.root}/BUILDING.txt" />
+		<copy file="CHANGES.txt" tofile="${dist.dir.root}/CHANGES.txt" />
+		<copy file="INSTALL.txt" tofile="${dist.dir.root}/INSTALL.txt" />
 		<copy file="LICENSE.txt" tofile="${dist.dir.root}/LICENSE.txt" />
+		<copy file="NOTICE.txt" tofile="${dist.dir.root}/NOTICE.txt" />
+		<copy file="README.txt" tofile="${dist.dir.root}/README.txt" />
 		<copy file="RELEASE-NOTE.txt" tofile="${dist.dir.root}/RELEASE-NOTE.txt" />
+		<copy file="TODO.txt" tofile="${dist.dir.root}/TODO.txt" />
 		<copy file="${build.file}" tofile="${dist.dir.root}/${build.file}" />
 
 		<!-- ================================================================= -->
