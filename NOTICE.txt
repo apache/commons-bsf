@@ -1,6 +1,6 @@
-Beans Scripting Framework
-Copyright 2003-2006 The Apache Software Foundation.
+Beans Scripting Framework (BSF)
+Copyright 2002-2006 The Apache Software Foundation.
 
 This product includes software developed at
 The Apache Software Foundation (http://www.apache.org/).
- 
+
