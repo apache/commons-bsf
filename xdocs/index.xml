@@ -4,6 +4,7 @@
   <properties>
     <author email="chuck@topsail.org">Chuck Murcko</author>
     <author email="victor.j.orlikowski@alumni.duke.edu">Victor Orlikowski</author>
+    <author email="rony@apache.org">Rony G. Flatscher</author>
     <title>Bean Scripting Framework</title>
   </properties>
 
@@ -11,17 +12,17 @@
 
   <section name="Bean Scripting Framework">
 
-<p>
-Bean Scripting Framework (BSF) is a set of Java classes which provides scripting
-language support within Java applications, and access to Java
-objects and methods from scripting languages. BSF allows one to
-write JSPs in languages other than Java while providing access to the Java
-class library. In addition, BSF permits any Java application to be implemented
-in part (or dynamically extended) by a language that is embedded within it.
-This is achieved by providing an API that permits calling scripting
-language engines from within Java, as well as an object registry that exposes
-Java objects to these scripting language engines.
-</p>
+        <p>
+                Bean Scripting Framework (BSF) is a set of Java classes which provides scripting
+                language support within Java applications, and access to Java
+                objects and methods from scripting languages. BSF allows one to
+                write JSPs in languages other than Java while providing access to the Java
+                class library. In addition, BSF permits any Java application to be implemented
+                in part (or dynamically extended) by a language that is embedded within it.
+                This is achieved by providing an API that permits calling scripting
+                language engines from within Java, as well as an object registry that exposes
+                Java objects to these scripting language engines.
+        </p>
 
   </section>
 
@@ -32,63 +33,59 @@ BSF supports several scripting languages currently:
 
 <ul>
    <li>
-   Javascript (using Rhino ECMAScript, from the Mozilla project)
+       <a href="http://www.mozilla.org/rhino/">Javascript (using Rhino ECMAScript, from the Mozilla project)</a>
    </li>
 
    <li>
-   Python (using either Jython or JPython)
+       <a href="http://www-306.ibm.com/software/awdtools/netrexx/">NetRexx</a> (an extension of the IBM REXX scripting language in Java)
    </li>
 
    <li>
-   Tcl (using Jacl)
+       <a href="http://jython.sourceforge.net/">Python (using Jython) </a>
    </li>
 
    <li>
-   NetRexx (an extension of the IBM REXX scripting language in Java)
+       <a href="http://tcljava.sourceforge.net/">Tcl (using Jacl)</a>
    </li>
 
    <li>
-   XSLT Stylesheets (as a component of Apache XML project's Xalan and Xerces)
+       <a href="http://xalan.apache.org">XSLT Stylesheets (as a component of Apache XML project's Xalan and Xerces)</a>
    </li>
 </ul>
 </p>
 
-<p> In addition, the following languages are supported with their own BSF
-    engines:
+<p> In addition, the following languages are supported with their own BSF engines:
 
 <ul>
    <li>
-   Java (using BeanShell, from the BeanShell project)
-   </li>
-   
-   <li>
-   <a href="http://www.ulfdittmer.com/jlog/index.html">JLog</a>
+       Java (using <a href="http://www.beanshell.org/">BeanShell</a>, from the BeanShell project)
    </li>
 
    <li>
-   JRuby
+       <a href="http://groovy.codehaus.org/">Groovy</a>
    </li>
 
    <li>
-   JudoScript
+       <a href="http://www.ulfdittmer.com/jlog/index.html">JLog</a> (<a href="http://jlogic.sourceforge.net/">PROLOG implemented in Java</a>)
    </li>
 
    <li>
-   <a href="http://groovy.codehaus.org/">Groovy</a>
+       <a href="http://jruby.codehaus.org/">JRuby</a>
    </li>
 
    <li>
-   <a href="http://objectscript.sourceforge.net/">ObjectScript</a>
+       <a href="http://www.judoscript.com">JudoScript</a>
    </li>
-   
+
    <li>
-   	<a href="http://www.oorexx.org/"> Open Object Rexx (ooRexx)</a>, using 
-	the <a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF Rexx
-	engine</a> for BSF, and the precompiled JNI-interface BSF4Rexx .DLL 
-	(Windows) or .so (Linux) file together with the ooRexx wrapper class 
-	'BSF.CLS', which camouflages Java as ooRexx.
+       <a href="http://objectscript.sourceforge.net/">ObjectScript</a>
    </li>
-   
+
+   <li>
+       	<a href="http://www.oorexx.org/">ooRexx (Open Object Rexx)</a>, using
+    	<a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a>.
+   </li>
+
 </ul>
 </p>
 
@@ -98,16 +95,16 @@ available on the <a href="projects.html">Related Projects</a> page.
 </p>
 
   </section>
-  
+
   <section name="Documentation">
-  
+
 <p>
-You can view the documentation for the current release (Jakarta BSF 2.3)
+You can view the documentation for the current release (Jakarta BSF 2.4)
 <a href="manual.html">online</a>
 </p>
 
 <p>
-Documentation and examples are included in the source and binary distributions. 
+Documentation and examples are included in the source and binary distributions.
 </p>
 
   </section>
@@ -132,20 +129,20 @@ Documentation and examples are included in the source and binary distributions.
 <a href="http://www.apache.org/dist/jakarta/jakarta-bsf/release/v2.3/rpms/"></a>
 -->
             Download source or binary RPMs</li>
-    </ul>  
+    </ul>
   </section>
-  
+
   <section name="Development Release">
     <p>
     You can download the latest development release:
     </p>
     <ul>
         <li>
-<a href="http://www.apache.org/dist/jakarta/jakarta-bsf/dev/v2.3.0/bin/">
+<a href="http://www.apache.org/dist/jakarta/jakarta-bsf/dev/v2.4.0/bin/">
             Download the development binary release</a>
         </li>
         <li>
-<a href="http://www.apache.org/dist/jakarta/jakarta-bsf/dev/v2.3.0/src/">
+<a href="http://www.apache.org/dist/jakarta/jakarta-bsf/dev/v2.4.0/src/">
             Download the development source release</a>
         </li>
         <li>
@@ -154,24 +151,24 @@ Documentation and examples are included in the source and binary distributions.
 -->
             Download development source or binary RPMs
         </li>
-    </ul>  
+    </ul>
   </section>
-  
+
   <section name="Nightly Builds">
     <p>
-    If you wish to use the latest BSF features, you can try downloading a nightly 
+    If you wish to use the latest BSF features, you can try downloading a nightly
     build from <a href="http://jakarta.apache.org/builds/jakarta-bsf/nightly/">here</a>
     </p>
-    
+
   </section>
-  
+
   <section name="Towards BSF 3.0">
     <p>
     We are beginning to discuss design details for BSF 3.0. Please
     read the latest <a href="bsfnews.html">BSF news</a> for more details.
     </p>
   </section>
-  
+
   <section name="Get Involved">
 <ul>
 <li><a href="http://jakarta.apache.org/getinvolved/getinvolvedindex.html">Get Involved</a></li>

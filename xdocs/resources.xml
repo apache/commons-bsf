@@ -103,7 +103,7 @@
         </table>
       </subsection>
 
-      <subsection name="Using Rhino with BSF and Apache">
+      <subsection name="Using JavaScript/Rhino with BSF and Apache">
         <p>
         The Bean Scripting Framework (or BSF) was originally developed by
         IBM and now published as open source. It provides a framework for
@@ -198,7 +198,7 @@
 
       <subsection name="The Augsburg Version of BSF4Rexx">
         <p>
-          &quot;BSF4Rexx&quot;, the Bean Scripting Framework for Rexx, allows one to use the Rexx
+          <a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">&quot;BSF4Rexx&quot;, the Bean Scripting Framework for Rexx</a>, allows one to use the Rexx
          and Object Rexx programming languages with the open source Bean Scripting
          Framework (BSF) which enables Java programs to easily invoke scripts and
          programs written in another language than Java. This article introduces the
@@ -235,7 +235,7 @@
             technology thereby making bleeding edge software concepts available to Java
             programmers. For that reason the JRE has been an attractive target for making its
             functionality available to Rexx programs in the form of external Rexx functions, notably
-            with the &quot;BSF4Rexx&quot; (Bean Scripting Framework for Rexx) technology introduced at
+            with the <a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">&quot;BSF4Rexx&quot; (Bean Scripting Framework for Rexx)</a> technology introduced at
             past International Rexx Symposiae. BSF4Rexx supplies a procedural interface to Java,
             such that Rexx programs need to simply use CALL-statements or function-calls to
             bridge into Java.
@@ -270,7 +270,7 @@
 
       <subsection name="Automating OpenOffice.Org with ooRexx: Architecture, Gluing to Rexx using BSF4Rexx">
         <p>
-                The opensource Microsoft Office clone &quot;OpenOffice&quot; is available on
+                The opensource Microsoft Office clone <a href="http://www.OpenOffice.org">&quot;OpenOffice&quot;</a> is available on
                 multiple plat-forms, from Windows, over Linux to OS/2.  It can read/write
                 Microsoft office file-formats, such as Word, Excel or PowerPoint.  Its
                 scripting architecture is radically dif-ferent from what Microsoft has
@@ -283,14 +283,14 @@
                 Objects) interface, which allows C, C++ and Python programs to exploit
                 OpenOffice.  On the Windows platform there is an ActiveX/OLE-interface
                 supplied, such that ActiveX-script languages like VBS, JS, as well as
-                ooRexx can be used for scripting purposes, but such programs will lock-in
+                <a href="http://www.ooRexx.org">ooRexx</a> can be used for scripting purposes, but such programs will lock-in
                 the company into the Windows operating system.
       </p>
 
       <p>
                 For the programming language Java, OpenOffice supplies a Java interface to
                 UNO, which can also be exploited in rather innovative ways, e.g.  using
-                BSF4Rexx (Bean Scripting Framework for Rexx) to bridge between OpenOffice
+                <a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx (Bean Scripting Framework for Rexx)</a> to bridge between OpenOffice
                 and ooRexx.  Such a solution would allow for the driving/scripting of
                 OpenOffice in a platform independent way, allowing customers to eventually
                 break out of possibly undesired lock-ins (e.g.  Windows operating system
@@ -318,7 +318,7 @@
 
       <subsection name="Automating OpenOffice.Org with ooRexx: ooRexx, Nutshell Examples For Write and Calc">
         <p>
-                This article will give numerous little &quot;nutshell&quot; examples of driving OpenOffice.org via ooRexx. All the examples will run unaltered under Linux and Windows.
+                This article will give numerous little &quot;nutshell&quot; examples of driving <a href="http://www.OpenOffice.org">OpenOffice.org</a> via <a href="http://www.ooRexx.org">ooRexx</a>. All the examples will run unaltered under Linux and Windows.
         </p>
 
         <table>
@@ -334,15 +334,43 @@
       </subsection>
 
 
+
+      <subsection name="Automating Subversion - An Open Object Rexx Approach">
+        <p>
+                This work explores and implements scripts which allow driving the source
+                code version control system &quot;subversion&quot; from <a href="http://www.ooRexx.org">ooRexx</a>.  As there are Java
+                implementations for subversion it is possible to employ <a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a> to drive
+                the application.
+        </p>
+
+        <table>
+          <tr>
+            <th>Author:</th>
+            <td>Bernhard Hoisl</td>
+          </tr>
+          <tr>
+            <th>URL (Text)::</th>
+            <td><a href="http://wi.wu-wien.ac.at/rgf/diplomarbeiten/BakkStuff/2005/200507_Subversion_Hoisl/200507_AutomatingSubversion.pdf">http://wi.wu-wien.ac.at/rgf/diplomarbeiten/BakkStuff/2005/200507_Subversion_Hoisl/200507_AutomatingSubversion.pdf</a></td>
+          </tr>
+          <tr>
+            <th>URL_(Examples):</th>
+            <td><a href="http://wi.wu-wien.ac.at/rgf/diplomarbeiten/BakkStuff/2005/200507_Subversion_Hoisl/200507_examples.zip">http://wi.wu-wien.ac.at/rgf/diplomarbeiten/BakkStuff/2005/200507_Subversion_Hoisl/200507_examples.zip</a></td>
+          </tr>
+        </table>
+      </subsection>
+
+
+
+
       <subsection name='OpenOffice.org Automation: Object Model, Scripting Languages, "Nutshell"-Examples'>
           <p>
-            This work explores and demonstrates how OpenOffice.org can be automated
+            This work explores and demonstrates how <a href="http://www.OpenOffice.org">OpenOffice.org</a> can be automated
             via Object REXX by using the Java programming interfaces of OpenOffice.org
-            and BSF4Rexx.
+            and <a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a>.
           </p>
 
           <p>
-            This time specific ooRexx support for OpenOffice (module &quot;UNO.CLS&quot; by
+            This time specific <a href="http://www.ooRexx.org">ooRexx</a> support for OpenOffice (module &quot;UNO.CLS&quot; by
             Rony G.  Flatscher, derived from OOO.CLS which is based on the Java
             interface to the UNO component technology of OpenOffice) is used, which
             cuts down the necessary code dramatically and makes those programs easy
@@ -369,8 +397,8 @@
       <subsection name="OpenOffice.org Automatisation with Object Rexx">
         <p>
                 This work builds on the work of Mr.  Ahammer (above).  It explores and
-                demonstrates how OpenOffice.org can be automated via Object REXX by using
-                the Java programming interfaces of OpenOffice.org and BSF4Rexx.
+                demonstrates how <a href="http://www.OpenOffice.org">OpenOffice.org</a> can be automated via Object REXX by using
+                the Java programming interfaces of OpenOffice.org and <a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a>.
         </p>
 
         <p>
@@ -399,8 +427,8 @@
 
       <subsection name="BSF4Rexx and OpenOffice.org Nutshell-Examples">
         <p>
-                This seminar paper introduces the easy to learn syntax of Open Object Rexx
-                (ooRexx) and the BSF4Rexx external Rexx function package, which allows the
+                This seminar paper introduces the easy to learn syntax of <a href="http://www.ooRexx.org">Open Object Rexx
+                (ooRexx)</a> and the <a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a> external Rexx function package, which allows the
                 weakly typed language ooRexx to interface with (strictly typed) Java.
         </p>
 
@@ -420,7 +448,7 @@
         <table>
           <tr>
             <th>Author:</th>
-            <td>Gerhard Goerlich, Asmund Realfsen, David Spanberger
+            <td>Gerhard G&#246;rlich, &#197;smund Realfsen, David Spanberger
             </td>
           </tr>
           <tr>
@@ -437,9 +465,9 @@
 
       <subsection name="OpenOffice.org Automatisation with Object Rexx (Calc)">
         <p>
-                This paper gives an introduction to the OpenOffice.org architecture and
+                This paper gives an introduction to the <a href="http://www.OpenOffice.org">OpenOffice.org</a> architecture and
                 explains how the OpenOffice.org Calc component can be automated by using
-                the scripting language Open Object Rexx (ooRexx).  This components are
+                the scripting language <a href="http://www.ooRexx.org">Open Object Rexx (ooRexx)</a>.  This components are
                 open sourced and can be downloaded free of charge from the internet.
         </p>
 
@@ -475,8 +503,8 @@
       <subsection name="ooRexx Snippets for OpenOffice.org Writer">
         <p>
         </p>
-                This paper deals with the use of ooRexx as a scripting language for
-                automation of OpenOffice.org Writer.
+                This paper deals with the use of <a href="http://www.ooRexx.org">ooRexx</a> as a scripting language for
+                automation of <a href="http://www.OpenOffice.org">OpenOffice.org</a> Writer.
 
         <p>
                 At first, there will be an introduction to the technical requirements,
@@ -523,60 +551,80 @@
 
     <section name="Presentations">
 
-      <subsection name="An Introduction to BSF">
-        <p>This article is a short introduction into the basic
-        concepts of BSF. To be presented at ApacheCon 2002.</p>
+          <subsection name="An Introduction to BSF">
+            <p>This article is a short introduction into the basic
+            concepts of BSF. To be presented at ApacheCon 2002.</p>
 
-        <table>
-          <tr>
-            <th>Author:</th>
-            <td><a href="mailto:victor.j.orlikowski@alumni.duke.edu">Victor Orlikowski</a></td>
-          </tr>
-          <tr>
-            <th>URL:</th>
-            <td><a href="http://www.dulug.duke.edu/~vjo/papers/ApacheCon_US_2002/">http://www.dulug.duke.edu/~vjo/papers/ApacheCon_US_2002/</a></td>
-          </tr>
-        </table>
-      </subsection>
-
-      <subsection name="Java Bean Scripting with Rexx (PDF)">
-        <p>
-        Using <a href="http://www.ooRexx.org">Rexx</a> with BSF
-        </p>
-
-        <table>
-          <tr>
-            <th>Author:</th>
-            <td><a href="mailto:rony@apache.org">Rony G. Flatscher</a></td>
-          </tr>
-          <tr>
-            <th>URL:</th>
-
-            <td><a href="http://wi.wu-wien.ac.at/rgf/rexx/orx17/2006_orx17_BSF_ViennaEd.pdf">http://wi.wu-wien.ac.at/rgf/rexx/orx17/2006_orx17_BSF_ViennaEd.pdf</a>
-                    <br>(&quot;The Vienna Version of BSF4Rexx&quot;)</br>
-            </td>
-<!--
-            <td><a href="wi.wu-wien.ac.at/Studium/LVA-Unterlagen/ poolv/folien/2001_orx12.pdf">wi.wu-wien.ac.at/Studium/LVA-Unterlagen/ poolv/folien/2001_orx12.pdf</a></td>
--->
-          </tr>
-
-          <tr>
-              <th>URL:</th>
-              <td><a href="http://wi.wu-wien.ac.at/rgf/rexx/orx17/2006_orx17_UNO.pdf">http://wi.wu-wien.ac.at/rgf/rexx/orx17/2006_orx17_UNO.pdf</a>
-                       <br>(&quot;The Vienna Version of BSF4Rexx&quot;, allows open-platform scripting of OpenOffice.org with the help of BSF)</br>
-              </td>
-          </tr>
-
-
+            <table>
               <tr>
-                  <th>URL:</th>
-                  <td><a href="http://asia.apachecon.com/wp-content/presentations/ApacheConAsia2006-08-16-Flatscher-BSF4Rexx.pdf">http://asia.apachecon.com/wp-content/presentations/ApacheConAsia2006-08-16-Flatscher-BSF4Rexx.pdf</a>
-                           <br>(&quot;BSF4Rexx: Camouflaging Java&quot;, presentation at <a href="http://asia.apachecon.com">ApacheCon Asia 2006</a>)</br>
-                  </td>
+                <th>Author:</th>
+                <td><a href="mailto:victor.j.orlikowski@alumni.duke.edu">Victor Orlikowski</a></td>
               </tr>
+              <tr>
+                <th>URL:</th>
+                <td><a href="http://www.dulug.duke.edu/~vjo/papers/ApacheCon_US_2002/">http://www.dulug.duke.edu/~vjo/papers/ApacheCon_US_2002/</a></td>
+              </tr>
+            </table>
+          </subsection>
 
-        </table>
-      </subsection>
+
+          <subsection name='The Vienna Version of "BSF4Rexx"'>
+            <p>
+                    This presentation introduces the &quot;The Vienna Version of <a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a>&quot;,
+                    International Rexx Symposium 2006, Austin, Texas.
+            </p>
+
+            <table>
+              <tr>
+                <th>Author:</th>
+                <td><a href="mailto:rony@apache.org">Rony G. Flatscher</a></td>
+              </tr>
+              <tr>
+                <th>URL:</th>
+                <td><a href="http://wi.wu-wien.ac.at/rgf/rexx/orx17/2006_orx17_BSF_ViennaEd.pdf">http://wi.wu-wien.ac.at/rgf/rexx/orx17/2006_orx17_BSF_ViennaEd.pdf</a></td>
+              </tr>
+            </table>
+          </subsection>
+
+
+          <subsection name='UNO.CLS: An (Open) Object Rexx Module for Universal Network Objects'>
+            <p>
+                    &quot;The Vienna Version of <a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a>&quot;, allows open-platform scripting of
+                    <a href="http://www.OpenOffice.org">OpenOffice.org (OOo)</a> with the help of BSF. This is done by using the Java APIs of OOo via BSF to
+                    address the OOo &quot;Universal Network Objects (UNO)&quot; components, which are used to assemble OOo.
+                    <br></br>
+                    Presented at the International Rexx Symposium 2006, Austin, Texas.
+            </p>
+
+            <table>
+              <tr>
+                <th>Author:</th>
+                <td><a href="mailto:rony@apache.org">Rony G. Flatscher</a></td>
+              </tr>
+              <tr>
+                <th>URL:</th>
+                <td><a href="http://wi.wu-wien.ac.at/rgf/rexx/orx17/2006_orx17_UNO.pdf">http://wi.wu-wien.ac.at/rgf/rexx/orx17/2006_orx17_UNO.pdf</a></td>
+              </tr>
+            </table>
+          </subsection>
+
+
+          <subsection name="BSF4Rexx: Camouflaging Java">
+            <p>
+                   This presentation shows what one is able to do with BSF as well, presented at <a href="http://asia.apachecon.com">ApacheCon Asia 2006</a>, Sri Lanka.
+            </p>
+
+            <table>
+              <tr>
+                <th>Author:</th>
+                <td><a href="mailto:rony@apache.org">Rony G. Flatscher</a></td>
+              </tr>
+              <tr>
+                <th>URL:</th>
+                <td><a href="http://asia.apachecon.com/wp-content/presentations/ApacheConAsia2006-08-16-Flatscher-BSF4Rexx.pdf">http://asia.apachecon.com/wp-content/presentations/ApacheConAsia2006-08-16-Flatscher-BSF4Rexx.pdf</a></td>
+              </tr>
+            </table>
+          </subsection>
 
     </section>
   </body>
