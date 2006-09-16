@@ -1,5 +1,33 @@
+changes for Apache BSF 2.4.0 (from RELEASE-NOTE.txt)
+
+    *) can be used as an extension package to Java by placing it into
+       "jre/lib/ext" [using the thread's context classloader, ie. the result
+       of 'Thread.currentThread().getContextClassLoader()']
+
+    *) removed experimental 'DebugLog' class, superceded by commons-logging
+       and log4j
+
+    *) removed 'org.apache.bsf.engines.activescript.*', as it is not
+       supported anymore (stems from the original IBM codebase, but would
+       need native Windows code to bridge OLE/ActiveX)
+
+    *) removed 'org.apache.bsf.engines.jpython', as it is superceded by
+       the newer 'org.apache.bsf.engines.jython'
+
+    *) 'org.apache.bsf.BSFMain.java': new method
+       "public String getVersion()", returns string in the form
+       'abb.yyyymmdd', where 'a' is major number, 'bb' minor number,
+       'yyyy' four digit year, 'mm' two digit month, 'dd' two digit day;
+       e.g. '240.20060909' stands for: BSF version 2.4 as of 2006-09-09
+
+    *) new class 'org.apache.bsf.utils.BSFEventProcessorReturningEventInfos'
+
+    *) 'org.apache.bsf.utils.EngineUtils.java': added the method
+       'addEventListenerReturningEventInfos(...)'
+
+
 changes for Apache BSF 2.3.0
-    *) Revert BSF debug support (due to several usability issues) 
+    *) Revert BSF debug support (due to several usability issues)
        and refactor source.
        [Victor Orlikowski <victor.j.orlikowski@alumni.duke.edu>]
 

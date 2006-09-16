@@ -11,6 +11,13 @@ Original Rhino Debugger/JSDI Authors:
   Jason Crawford <ccjason@us.ibm.com>
   John Ponzo <jponzo@us.ibm.com>
 
-Maintainers:
+Maintainers (BSF 2.3.0):
   Victor J. Orlikowski <vjo@us.ibm.com>
   Charles Murcko <cmurcko@us.ibm.com>
+
+Maintainers (BSF 2.4.0) by first name:
+  Rony G. Flatscher <rony@apache.org>
+  Sanjiva Weerawarana <sanjiva@apache.org>
+  Sanka Samaranayke <sanka@apache.org>
+
+

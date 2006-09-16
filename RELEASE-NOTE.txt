@@ -98,4 +98,5 @@ People who have contributed to this release one way or the other
        Sanjiva Weerawarana
        Sanka Samaranayke
        Thomas Klaeger (Kl&auml;ger)
-       Victor J. Orlikowski 
+       Victor J. Orlikowski
+

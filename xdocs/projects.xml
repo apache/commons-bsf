@@ -332,7 +332,7 @@
 		  express in it than in Java, and for these cases a Prolog BSF engine comes in handy.
 		  It is also useful for adding a GUI to Prolog programs.
 		  The underlying Prolog interpreter is JLog, which can be run as an applet, an application
-		  or embedded through an API, and can be found at <a =href"http://sf.net/projects/jlogic/">http://sf.net/projects/jlogic/</a>.&quot;
+		  or embedded through an API, and can be found at <a href="http://sf.net/projects/jlogic/">http://sf.net/projects/jlogic/</a>.&quot;
         </p>
         <table>
           <tr>
