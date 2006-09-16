@@ -1,12 +1,12 @@
 /*
  * Copyright 2004,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,7 +33,7 @@ import org.apache.bsf.util.IOUtils;
 /**
  * This is the main driver for BSF to be run on the command line
  * to eval/exec/compile scripts directly.
- * 
+ *
  * @author   Sanjiva Weerawarana
  * @author   Matthew J. Duftler
  * @author   Sam Ruby
@@ -140,8 +140,8 @@ public class Main {
                                 }
                         );
                         f.pack ();
-                        f.show ();
-
+                        // f.show(); // javac 1.5 warns to use f.show(), Apache build scripts abort as a result  :(
+                        f.setVisible(true);     // available since Java 1.1
 					} else {
                         System.err.println("Result: " + obj);
 
@@ -154,7 +154,7 @@ public class Main {
 		    e.printStackTrace();
 		}
 	}
-    
+
 	private static void printHelp() {
 		System.err.println("Usage:");
 		System.err.println();
