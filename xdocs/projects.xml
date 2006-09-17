@@ -16,7 +16,7 @@
       the contact information. Failing that, a query to the bsf-users
       mailing list may help.</p>
 
-      <subsection name="BeanShell (Interpretative Java">
+      <subsection name="BeanShell (Interpretative Java)">
         <p>
         &quot;BeanShell is a small, free, embeddable, Java source interpreter
         with object scripting language features, written in Java. BeanShell
@@ -77,6 +77,33 @@
       </subsection>
 
 
+      <subsection name="Jacl (Tcl)">
+        <p>
+        &quot;Jacl, which stands for Java Command Language, is a Java implementation
+        of TCL 8.x.&quot;
+        </p>
+
+        <table>
+          <tr>
+            <th>Compatibility:</th>
+            <td>Jacl 1.2.6, with BSF 2.2 and above</td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://tcl.activestate.com/software/java/">http://tcl.activestate.com/software/java/</a></td>
+          </tr>
+          <tr>
+            <th>Contact:</th>
+            <td><a href ="http://tcljava.sourceforge.net/docs/website/mail.html">Tcl/Java Mailing Lists</a></td>
+          </tr>
+          <tr>
+            <th>License:</th>
+            <td>Sun, ORO, and UCB licenses (see source)</td>
+          </tr>
+        </table>
+      </subsection>
+
+
       <subsection name="JavaScript/Rhino (JavaScript in Java)">
         <p>
         &quot;JavaScript/Rhino is an open-source implementation of JavaScript written
@@ -104,32 +131,6 @@
           <tr>
             <th>License:</th>
             <td><a href="http://www.opensource.org/licenses/mozilla1.1.php">Mozilla Public License, version 1.1</a></td>
-          </tr>
-        </table>
-      </subsection>
-
-      <subsection name="Jacl (Tcl)">
-        <p>
-        &quot;Jacl, which stands for Java Command Language, is a Java implementation
-        of TCL 8.x.&quot;
-        </p>
-
-        <table>
-          <tr>
-            <th>Compatibility:</th>
-            <td>Jacl 1.2.6, with BSF 2.2 and above</td>
-          </tr>
-          <tr>
-            <th>URL:</th>
-            <td><a href="http://tcl.activestate.com/software/java/">http://tcl.activestate.com/software/java/</a></td>
-          </tr>
-          <tr>
-            <th>Contact:</th>
-            <td><a href ="http://tcljava.sourceforge.net/docs/website/mail.html">Tcl/Java Mailing Lists</a></td>
-          </tr>
-          <tr>
-            <th>License:</th>
-            <td>Sun, ORO, and UCB licenses (see source)</td>
           </tr>
         </table>
       </subsection>
@@ -166,6 +167,33 @@
       </subsection>
 
 
+      <subsection name="JRuby (Ruby in Java)">
+        <p>
+        &quot;JRuby is a pure Java implementation of the Ruby interpreter,
+        being developed by Jan Arne Petersen and others.&quot;
+        </p>
+
+        <table>
+          <tr>
+            <th>Compatibility:</th>
+            <td>BSF 2.2 and above</td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://jruby.sourceforge.net/">http://jruby.sourceforge.net/</a></td>
+          </tr>
+          <tr>
+            <th>Contact:</th>
+            <td><a href="mailto:jpeterson@uni-bonn.de">Jan Arne Petersen</a></td>
+          </tr>
+          <tr>
+            <th>License:</th>
+            <td>dual <a href="http://www.opensource.org/licenses/gpl-license.php">GPL</a>/<a href="http://www.opensource.org/licenses/lgpl-license.php">LGPL</a></td>
+          </tr>
+        </table>
+      </subsection>
+
+
       <subsection name="JudoScript">
         <p>
         &quot;Judoscript is a 3GL-and-4GL; it retains 3GL's powerful
@@ -190,33 +218,6 @@
           <tr>
             <th>License:</th>
             <td><a href="http://www.opensource.org/licenses/lgpl-license.php">LGPL</a></td>
-          </tr>
-        </table>
-      </subsection>
-
-
-      <subsection name="JRuby (Ruby in Java)">
-        <p>
-        &quot;JRuby is a pure Java implementation of the Ruby interpreter,
-        being developed by Jan Arne Petersen and others.&quot;
-        </p>
-
-        <table>
-          <tr>
-            <th>Compatibility:</th>
-            <td>BSF 2.2 and above</td>
-          </tr>
-          <tr>
-            <th>URL:</th>
-            <td><a href="http://jruby.sourceforge.net/">http://jruby.sourceforge.net/</a></td>
-          </tr>
-          <tr>
-            <th>Contact:</th>
-            <td><a href="mailto:jpeterson@uni-bonn.de">Jan Arne Petersen</a></td>
-          </tr>
-          <tr>
-            <th>License:</th>
-            <td>dual <a href="http://www.opensource.org/licenses/gpl-license.php">GPL</a>/<a href="http://www.opensource.org/licenses/lgpl-license.php">LGPL</a></td>
           </tr>
         </table>
       </subsection>
@@ -305,12 +306,17 @@
                   </tr>
 
                   <tr>
-                    <th>Contact (ooRexx):</th>
+                    <th>Contact:</th>
                     <td><a href="mailto:president@rexxla.org">President of RexxLA</a></td>
                   </tr>
 
                   <tr>
-                    <th>License (ooRexx):</th>
+                    <th>URL:</th>
+                     <td><a href="http://www.ooRexx.org">http://www.ooRexx.org</a></td>
+                  </tr>
+
+                  <tr>
+                    <th>License:</th>
                     <td><a href="http://www.opensource.org/licenses/cpl1.0.php">IBM's opensource license CPL v 1.0</a> (hence you can bundle this freely with commercial software as well)
                     </td>
                   </tr>
@@ -328,22 +334,22 @@
                   </tr>
 
                   <tr>
-                    <th>URL (BSF4Rexx, temporary):</th>
-                     <td><a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/ (temporary)</a></td>
+                    <th>URL:</th>
+                     <td><a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/</a> (temporary home)</td>
                   </tr>
 
                   <tr>
-                    <th>URL (BSF4Rexx, planned home):</th>
-                     <td><a href="http://bsf4rexx.sourceforge.net/">http://bsf4rexx.sourceforge.net (starting at the end of April 2006)</a></td>
+                    <th>URL:</th>
+                     <td><a href="http://bsf4rexx.sourceforge.net/">http://bsf4rexx.sourceforge.net (starting at the end of April 2006)</a>  (planned home)</td>
                   </tr>
 
                   <tr>
-                    <th>Contact (BSF4Rexx):</th>
+                    <th>Contact:</th>
                     <td><a href="mailto:ronyf@apache.org">Rony G. Flatscher</a></td>
                   </tr>
 
                     <tr>
-                      <th>License (BSF4Rexx):</th>
+                      <th>License:</th>
                       <td><a href="http://www.opensource.org/licenses/apache2.0.php">Apache v2.0</a>  (hence you can bundle this freely with commercial software as well)
                       </td>
                   </tr>
