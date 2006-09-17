@@ -29,58 +29,40 @@ changes for Apache BSF 2.4.0 (from RELEASE-NOTE.txt)
 changes for Apache BSF 2.3.0
     *) Revert BSF debug support (due to several usability issues)
        and refactor source.
-       [Victor Orlikowski <victor.j.orlikowski@alumni.duke.edu>]
 
     *) add javadocs and realclean targets to build.xml
        scrub remaining email addresses from source for spam prevention
        add AUTHORS, BUILDING, INSTALL, README, and TODO files
-       [Chuck Murcko <chuck@topsail.org>]
 
-    *) Cleaned out META* junk [Chuck Murcko <chuck@topsail.org>]
+    *) Cleaned out META* junk
 
     *) Removed bsf/src/org/apache/bsf/engines/activescript/samples/*
-       because of copyright issues [Chuck Murcko <chuck@topsail.org>]
+       because of copyright issues
 
     *) Changes for org.apache.* namespace, license changes
-       [Chuck Murcko <chuck@topsail.org>]
 
 changes to BSF 2.2
     *) Fix taglibs, and allow debugging through taglibs
-       [Victor Orlikowski <vjo@us.ibm.com>]
 
     *) Entry/Exit debugging added
-       [Victor Orlikowski <vjo@us.ibm.com>]
 
     *) Overall logging solution, involving a loglevel property
-       [Victor Orlikowski <vjo@us.ibm.com>]
 
     *) BSF taglib added to drop package
-       [Chuck Murcko <cmurcko@us.ibm.com>]
 
     *) Debug Protocol versioning and handshake
-       [Victor Orlikowski <vjo@us.ibm.com>]
 
     *) Miscellaneous bugfixes, additions, and cleanups.
-       [Victor Orlikowski <vjo@us.ibm.com>]
-       [Olivier Gruber <ogruber@us.ibm.com>]
 
     *) updated XSLT support for Xalan 2
-       [Victor Orlikowski <vjo@us.ibm.com>]
 
     *) added Jython engine
-       [Chuck Murcko <cmurcko@us.ibm.com>]
 
     *) JSDI and debug engine for ECMAScript
-       [Olivier Gruber <ogruber@us.ibm.com>]
-       [Jason Crawford <ccjason@us.ibm.com>]
-       [John Ponzo <jponzo@us.ibm.com>]
 
     *) added master build.xml
-       [Victor Orlikowski <vjo@us.ibm.com>]
 
     *) added scripts module to the bsf23 module
-       [Chuck Murcko <cmurcko@us.ibm.com>]
 
     *) added bsf23 module for rollup of bsf, bsf_debug, and jsdb
        created bsf-build-23 module for other files (support, build.xml)
-       [Chuck Murcko <cmurcko@us.ibm.com>]
