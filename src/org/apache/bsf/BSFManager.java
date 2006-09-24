@@ -56,9 +56,11 @@ import org.apache.commons.logging.LogFactory;
  * @author   Don Schwarz (added support for registering languages dynamically)
  */
 public class BSFManager {
-    // version string in the form of: "abb.yyyymmdd",
-    // where "a" is the major version number, "bb" the minor version number,
-    // and "yyyymmdd" represents the date in sorted order (four digit year, two digit month, two digit day)
+    // version string is in the form "abc.yyyymmdd" where
+    // "abc" represents a dewey decimal number (three levels, each between 0 and 9),
+    // and "yyyy" a four digit year, "mm" a two digit month, "dd" a two digit day.
+    //
+    // Example: "240.20060925" stands for: BSF version "2.4.0" as of "2006-09-25"
     protected static String version="240.20060925";
 
     // table of registered scripting engines
