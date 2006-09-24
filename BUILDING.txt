@@ -1,35 +1,39 @@
-To build BSF, one needs the following:
+From the ant "build.xml" file:
 
-    Servlet API .jar via Tomcat or other source
-    Supported language .jar files:
+   Master Build file for BSF
+
+Notes:
+
+   This is the build file for use with the Jakarta Ant build tool.
+
+Optional additions:
 
     BeanShell   -> http://www.beanshell.org/ (3rd party BSF engine)
-    Jacl        -> http://www.scriptics.com/java/
-    JPython     -> http://www.jpython.org/
     JRuby       -> http://www.jruby.org/ (3rd party BSF engine)
+    Jacl        -> http://www.scriptics.com/java/
+    JavaScript  -> http://www.mozilla.org/rhino/
     JudoScript  -> http://www.judoscript.com/ (3rd party BSF engine)
     Jython      -> http://www.jython.org/
     NetRexx     -> http://www2.hursley.ibm.com/netrexx/
-    Rhino       -> http://www.mozilla.org/rhino/
-    Xalan       -> http://xml.apache.org/xalan/
+    Xalan       -> http://xml.apache.org/xalan-j
 
-As a convenience, these language .jars are currently collected at:
+Build Instructions:
 
-    http://www.topsail.org/goodies/BSFlang/
+   To build, run
 
-Make sure the .jars (and Ant) are in your CLASSPATH, and then use the command
+     java org.apache.tools.ant.Main <target>
 
-    ant [target]
+   on the directory where this file is located with the target you want.
 
-where [target] is one of the following:
+Most useful targets:
 
-   compile            creates the "bsf.jar" package in "./build/lib"
-                      (default target)
-   samples            compiles the samples into "./build/samples"
-   javadocs           creates javadocs for the whole package in 
-                      "./build/javadocs"
-   bindist            creates the complete binary distribution in "./dist/"
-   srcdist            creates the complete src distribution in "./dist/"
-   dist               creates both the binary and the src distributions
-                      in "./dist/"
-   clean              removes all the generated files and directories
+ - all        -> creates the binary and src distributions, and builds the site
+ - bindist    -> creates the complete binary distribution in "./dist/"
+ - build-site -> creates the website in "./docs"
+ - clean      -> removes all the generated files and directories
+ - compile    -> creates the "bsf.jar" package in "./build/lib" (default target)
+ - dist       -> creates both the binary and the src distributions in "./dist/"
+ - javadocs   -> creates the javadocs in "./build/javadocs"
+ - samples    -> creates/compiles the samples into "./build/samples"
+ - srcdist    -> creates the complete src distribution in "./dist/"
+

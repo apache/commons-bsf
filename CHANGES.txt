@@ -15,10 +15,11 @@ changes for Apache BSF 2.4.0 (from RELEASE-NOTE.txt)
        the newer 'org.apache.bsf.engines.jython'
 
     *) 'org.apache.bsf.BSFMain.java': new method
-       "public String getVersion()", returns string in the form
-       'abb.yyyymmdd', where 'a' is major number, 'bb' minor number,
-       'yyyy' four digit year, 'mm' two digit month, 'dd' two digit day;
-       e.g. '240.20060909' stands for: BSF version 2.4 as of 2006-09-09
+       "public String getVersion()", returns string in the form of a
+       dewey decimal number 'abc' (three levels, each between 0 and 9)
+       'abc.yyyymmdd', 'yyyy' four digit year, 'mm' two digit month,
+       'dd' two digit day;
+       e.g. '240.20060925' stands for: BSF version 2.4.0 as of 2006-09-25
 
     *) new class 'org.apache.bsf.utils.BSFEventProcessorReturningEventInfos'
 

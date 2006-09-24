@@ -394,10 +394,22 @@
         Recommendations for XSL Transformations (XSLT) and the XML Path
         Language (XPath). It can be used from the command line, in an applet
         or a servlet, or as a module in other program.
+        </p>
 
-        <br></br>
-        Starting with Sun's Java 1.4SE a W3C compliant set of classes for XSLT is part
-        of the runtime environment.&quot;
+        <p><em>Hint:</em>
+            Starting with Sun's Java 1.4SE a W3C compliant set of classes for XSLT is part
+            of the runtime environment.&quot;, <em>however</em>, with other versions of
+            Java or newer versions of Xalan distributions you <em>may</em> need to explicitly extract the
+            archive
+            <em><code>xalan.jar</code></em> and put it into the <code>CLASSPATH</code>
+            environment variable or alternatively, copy it into the Java <em><code>endorsed</code></em> or
+            <em><code>ext</code></em>ension directory of your
+            Java distribution (usually in <code>$(JAVA_JRE_HOME)/jre/lib/{endorsed|ext}</code>). The download
+            site of Xalan (Java version) is at: <a href="http://xml.apache.org/xalan-j/downloads.html">http://xml.apache.org/xalan-j/downloads.html</a>
+            <br></br>
+            (You can determine quite easily whether you need to do that: just try to run the <code>xslt</code> sample
+            of the BSF distribution. If you encounter the error <code> 'Could not compile stylesheet'</code>, then
+            you need to explicitly supply the <code>xalan.jar</code> from the Xalan distribution.)
         </p>
 
         <table>

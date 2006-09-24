@@ -59,7 +59,7 @@ public class BSFManager {
     // version string in the form of: "abb.yyyymmdd",
     // where "a" is the major version number, "bb" the minor version number,
     // and "yyyymmdd" represents the date in sorted order (four digit year, two digit month, two digit day)
-    protected static String version="240.20060917";
+    protected static String version="240.20060925";
 
     // table of registered scripting engines
     protected static Hashtable registeredEngines = new Hashtable();
@@ -157,12 +157,15 @@ public class BSFManager {
 
    /** Returns the version string of BSF.
      *
-     * @return version string in the form &quot;"abb.yyyymmdd"&quot; where
-         *      &quot;a&quot; represents the major version number,
-         *      &quot;bb&quot; the minor version number,
-         *      &quot;yyyy&quot; four digit year,
-         *      &quot;mm&quot; two digit month, and
-         *      &quot;dd&quot; two digit day.
+     * @return version string in the form &quot;abc.yyyymmdd&quot; where
+       &quot;abc&quot; represents a dewey decimal number (three levels, each between 0 and 9), and
+       &quot;yyyy&quot; a four digit year, &quot;mm&quot; a two digit month,
+       &quot;dd&quot; a two digit day.
+    *
+       <br>Example: &quot;<code>240.20060925</code>&quot;
+       stands for: BSF version <code>2.4.0</code> as of <code>2006-09-25</code>.
+    *
+    *
      * @since 2006-01-17
      */
     public static String getVersion() {

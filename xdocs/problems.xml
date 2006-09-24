@@ -19,7 +19,7 @@
            you may encounter - these are just some suggestions to point
            you in the right direction.
         </p>
-         
+
       <subsection name="Read the Manual">
          <p>
             The first step to take when you have a problem with BSF is to read
@@ -50,7 +50,7 @@
             else may have already encountered this problem, and perhaps it has
             been fixed. The next step, therefore, may be to try a nightly build
             of BSF to see if the problem has been fixed. Nightly builds for BSF
-            are available from the 
+            are available from the
             <a href="http://www.apache.org/dist/jakarta/jakarta-bsf/nightly/">
             Jakarta web site</a>. While BSF nightly builds are typically quite
             stable and are used by
@@ -65,7 +65,7 @@
             optional task.
         </p>
       </subsection>
-      
+
       <subsection name="Has It Been Reported?">
          <p>
             If the current nightly build doesn't resolve your problem, it is
@@ -85,7 +85,7 @@
             of this bug.
          </p>
       </subsection>
-      
+
       <subsection name="Filing a Bug Report">
          <p>
             By this time, you may have decided that there is an unreported
@@ -101,9 +101,9 @@
             correct values for the various inputs when creating the bug, such
             as which version of BSF you are running, and on which platform,
             etc. Once the bug is created, you can also add attachments to
-            the bug report. 
+            the bug report.
          </p>
-         <p> 
+         <p>
             What information should you include in your bug report? The
             easiest bugs to fix are those that are most easily reproducible,
             so it is really helpful if you can produce a small test case that
@@ -134,21 +134,21 @@
             These are just a different type of bug report. If you look in the
             bug database, you will see that one of the severity settings for
             a bug is &quot;Enhancement&quot;. Just fill the bug report in,
-            set the severity of the bug to &quot;Enhancement&quot;, and 
+            set the severity of the bug to &quot;Enhancement&quot;, and
             state in the description how you would like to have BSF enhanced.
             Again, you should first check whether there are any existing
             enhancment requests that cover your needs. If so, just add your
             vote to these.
          </p>
       </subsection>
-      
+
       <subsection name="Fixing the Bug">
          <p>
             If you aren't satisfied with just filing a bug report, you can
             try to find the cause of the problem and provide a fix yourself.
             The best way to do that is by working with the latest code from CVS.
             Alternatively, you can work with the source code available from the
-            <a href="http://jakarta.apache.org/builds/jakarta-bsf/release/v2.3/src/">
+            <a href="http://jakarta.apache.org/builds/jakarta-bsf/release/v2.4/src/">
             source distributions</a>. If you
             are going to tackle the problem at this level, you may want to
             discuss some details first on the <nobr><code>bsf-dev</code></nobr>
@@ -175,15 +175,15 @@
             <font face="verdana" size="-1">
             cvs diff -u Javac.java &gt; javac.diffs<br></br><br></br>
             </font>
-           
-           Note: You should give your patch files meaningful names. 
+
+           Note: You should give your patch files meaningful names.
            This makes it easier for developers who need to apply a number
            of different patch files.
         </p>
       </subsection>
-      
-         
+
+
     </section>
-    
+
   </body>
 </document>

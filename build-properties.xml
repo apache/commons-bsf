@@ -2,7 +2,7 @@
 <project name="props">
     <property name="project.name" value="bsf"/>
     <property name="project.fullName" value="Bean Scripting Framework"/>
-    <property name="project.version" value="2.4.0-RC2-20060916"/>
+    <property name="project.version" value="2.4.0-20060925"/>
     <property name="project.debug" value="on"/>
     <property name="project.deprecation" value="on"/>
 
