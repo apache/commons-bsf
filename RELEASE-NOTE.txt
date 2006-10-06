@@ -18,7 +18,7 @@ limitations under the License.
 
 
 =========================
-BSF 2.4, 2006-09-25
+BSF 2.4, 2006-10-06
 =========================
 
 =========================================================
@@ -77,7 +77,7 @@ Changes to previous release candidate
          dewey decimal number 'abc' (three levels, each between 0 and 9)
          'abc.yyyymmdd', 'yyyy' four digit year, 'mm' two digit month,
          'dd' two digit day;
-         e.g. '240.20060925' stands for: BSF version 2.4.0 as of 2006-09-25
+         e.g. '240.20061006' stands for: BSF version 2.4.0 as of 2006-10-06
 
        - new class 'org.apache.bsf.utils.BSFEventProcessorReturningEventInfos'
 

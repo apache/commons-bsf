@@ -61,7 +61,7 @@ public class BSFManager {
     // and "yyyy" a four digit year, "mm" a two digit month, "dd" a two digit day.
     //
     // Example: "240.20060925" stands for: BSF version "2.4.0" as of "2006-09-25"
-    protected static String version="240.20060925";
+    protected static String version="240.20061006";
 
     // table of registered scripting engines
     protected static Hashtable registeredEngines = new Hashtable();
@@ -164,8 +164,8 @@ public class BSFManager {
        &quot;yyyy&quot; a four digit year, &quot;mm&quot; a two digit month,
        &quot;dd&quot; a two digit day.
     *
-       <br>Example: &quot;<code>240.20060925</code>&quot;
-       stands for: BSF version <code>2.4.0</code> as of <code>2006-09-25</code>.
+       <br>Example: &quot;<code>240.20061006</code>&quot;
+       stands for: BSF version <code>2.4.0</code> as of <code>2006-10-06</code>.
     *
     *
      * @since 2006-01-17
