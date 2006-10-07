@@ -24,8 +24,8 @@
     </menu>
 
     <menu name="Download">
-        <item name="Binaries"              href="/site/binindex.html"/>
-        <item name="Source Code"           href="/site/sourceindex.html"/>
+        <item name="Binaries"              href="/site/downloads/downloads_bsf.cgi"/>
+        <item name="Source Code"           href="/site/downloads/downloads_bsf.cgi"/>
     </menu>
 
     <menu name="Jakarta">
