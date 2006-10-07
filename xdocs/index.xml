@@ -118,7 +118,7 @@ Documentation and examples are included in the source and binary distributions.
 <!--
 <a href="http://www.apache.org/dist/jakarta/jakarta-bsf/release/v2.3/bin/"></a>
 -->
-            <a href="http://www.apache.org/dist/jakarta/jakarta-bsf/release/v2.4/bin/">
+            <a href="http://jakarta.apache.org/site/downloads/downloads_bsf.cgi">
                         Download the binary release
              </a>
        </li>
@@ -127,7 +127,7 @@ Documentation and examples are included in the source and binary distributions.
 <!--
 <a href="http://www.apache.org/dist/jakarta/jakarta-bsf/release/v2.3/src/"></a>
 -->
-            <a href="http://www.apache.org/dist/jakarta/jakarta-bsf/release/v2.4/src/">
+            <a href="http://jakarta.apache.org/site/downloads/downloads_bsf.cgi">
                          Download the source release
             </a>
         </li>
@@ -141,7 +141,7 @@ Documentation and examples are included in the source and binary distributions.
 
     </ul>
   </section>
-
+<!--
   <section name="Development Release">
     <p>
     You can download the latest development release:
@@ -157,16 +157,14 @@ Documentation and examples are included in the source and binary distributions.
         </li>
 
 
-<!--
         <li>
 <a href="http://www.apache.org/dist/jakarta/jakarta-bsf/dev/v2.3.0/rpms/"></a>
             Download development source or binary RPMs
         </li>
--->
 
     </ul>
   </section>
-
+-->
   <section name="Nightly Builds">
     <p>
     If you wish to use the latest BSF features, you can try downloading a nightly
