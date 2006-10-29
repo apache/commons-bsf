@@ -16,8 +16,11 @@
 
 package org.apache.bsf.engines.jython;
 
+import java.beans.PropertyChangeEvent;
 import java.io.ByteArrayInputStream;
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.bsf.BSFDeclaredBean;
 import org.apache.bsf.BSFException;
@@ -28,6 +31,7 @@ import org.python.core.Py;
 import org.python.core.PyException;
 import org.python.core.PyJavaInstance;
 import org.python.core.PyObject;
+import org.python.core.PySystemState;
 import org.python.util.InteractiveInterpreter;
 
 /**
@@ -37,10 +41,12 @@ import org.python.util.InteractiveInterpreter;
  * @author   Sanjiva Weerawarana
  * @author   Finn Bock <bckfnn@worldonline.dk>
  * @author   Chuck Murcko
+ * @author   Sonny To" <son.c.to@gmail.com>, 2006-10-30
  */
 
 public class JythonEngine extends BSFEngineImpl {
   BSFPythonInterpreter interp;
+  private final static Pattern fromRegExp = Pattern.compile("from ([.^\\S]*)");
   
   /**
    * call the named method of the given object.
@@ -105,8 +111,10 @@ public class JythonEngine extends BSFEngineImpl {
               }
               index++;
           }
-          
-          interp.exec (script.toString ());
+
+          String scriptStr = script.toString ();
+          importPackage(scriptStr);
+          interp.exec (scriptStr);
           
           Object result = interp.eval ("bsf_temp_fn()");
           
@@ -125,7 +133,9 @@ public class JythonEngine extends BSFEngineImpl {
   public Object eval (String source, int lineNo, int columnNo, 
 		      Object script) throws BSFException {
 	try {
-	  Object result = interp.eval (byteify(script.toString ()));
+	  String scriptStr = byteify(script.toString ());
+	  importPackage(scriptStr);
+	  Object result = interp.eval (scriptStr);
 	  if (result != null && result instanceof PyJavaInstance)
 		result = ((PyJavaInstance)result).__tojava__(Object.class);
 	  return result;
@@ -141,10 +151,20 @@ public class JythonEngine extends BSFEngineImpl {
   public void exec (String source, int lineNo, int columnNo,
 		    Object script) throws BSFException {
 	try {
-	  interp.exec (byteify(script.toString ()));
+	  String scriptStr = byteify(script.toString());
+	  importPackage(scriptStr);
+	  interp.exec (scriptStr);
 	} catch (PyException e) {
 	  throw new BSFException (BSFException.REASON_EXECUTION_ERROR,
 			      "exception from Jython:\n" + e, e);
+	}
+  }
+
+  private void importPackage(String script) {
+	Matcher matcher = fromRegExp.matcher(script);
+	while (matcher.find()) {
+		String packageName = matcher.group(1);
+		PySystemState.add_package(packageName);
 	}
   }
 
@@ -154,6 +174,7 @@ public class JythonEngine extends BSFEngineImpl {
   public void iexec (String source, int lineNo, int columnNo,
                      Object script) throws BSFException {
       String scriptStr = byteify(script.toString());
+      importPackage(scriptStr);
       int newline = scriptStr.indexOf("\n");
 
       if (newline > -1)
@@ -240,5 +261,16 @@ public class JythonEngine extends BSFEngineImpl {
               throw exc;
           }
       }
+  }
+
+
+  public void propertyChange(PropertyChangeEvent e) {
+	  super.propertyChange(e);
+	  String name = e.getPropertyName();
+      Object value = e.getNewValue();
+      if (name.equals("classLoader")) {
+		Py.getSystemState().setClassLoader((ClassLoader) value);
+      }
+
   }
 }
