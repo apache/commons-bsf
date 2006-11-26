@@ -1,0 +1,64 @@
+/* author:     Rony G. Flatscher
+   name:       TableFiller.rex
+   date:       2006-11-26
+   purpose:    demonstrate how to use the xsl-BSF-engine from ooRexx, modelled after
+               "TableFiller.java"
+
+   needs:      Java 4.x *or*
+
+               Note on using Java 1.5, Java 1.6 or higher:
+
+               - if the sample does not work in these environments then, copy the Xalan-jars from
+                 "http://xml.apache.org/xalan-j/downloads.html" distribution into the "endorsed"
+                 directory of these Java versions (e.g. "JAVA_JRE_HOME /jre/lib/endorsed/"); make
+                 sure that the archive "xalan.jar" (from the xalan-tool jar) is available as well;
+                 tested with Xalan 2.7 and 2.8 on Java 1.5 and beta-version of Java 1.6
+
+   usage:      rexxj TableFiller.rex style1.xsl table-data.xml
+               rexxj TableFiller.rex style2.xsl table-data.xml
+*/
+
+parse arg xslFileName xmlFileName
+if xmlFileName="" then
+do
+   say "Usage: rexxj TableFiller.rex xslfilename xmlfilename"
+   exit -1
+end
+
+frame=.bsf~new("java.awt.Frame", "Table Filler (ooRexx)")
+frame~bsf.addEventListener('window', 'windowClosing', 'call bsf "exit"')
+
+panel=.bsf~new("java.awt.Panel", .bsf~new("java.awt.GridLayout", -1, 2))
+
+   -- import the Java Font class, store it in .local as "jfont"
+call bsf.import "java.awt.Font", "jfont"
+f=.jfont~new("SansSerif", .jfont~bold , 14)
+
+do text over .list~of("First", "Last")
+   l=.bsf~new("java.awt.Label", text) ~~setFont(f)
+   panel~add(l)
+end
+
+frame~add("Center", panel)
+
+mgr=.bsf~new("org.apache.bsf.BSFManager") -- create a new BSFManager instance
+mgr~declareBean("panel", panel, panel~getClass)
+mgr~registerBean("xslt:src", .bsf~new("java.io.FileReader", xmlFileName))
+
+-- xslString=bsf.import("org.apache.bsf.util.IOUtils")~getStringFromReader(.bsf~new("java.io.Filereader", xslFileName))
+xslString=charin(xslFileName, 1, chars(xslFileName))  -- read content of file
+mgr~exec("xslt", xslFileName, 0, 0, xslString)
+
+frame ~~pack ~~setVisible(.true)
+
+do forever
+   a = bsf("pollEventText")     /* wait for an eventText to be sent     */
+   interpret a                  /* execute as a Rexx program            */
+   say "(in Rexx), polled: ["a"]"
+   if result= "SHUTDOWN, REXX !" then leave     /* JVM will be shutdown */
+end
+say "Now exiting Rexx."
+
+
+
+::requires bsf.cls      -- load BSF (Java) support
