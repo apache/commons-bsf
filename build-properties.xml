@@ -2,11 +2,12 @@
 <project name="props">
     <property name="project.name" value="bsf"/>
     <property name="project.fullName" value="Bean Scripting Framework"/>
-    <property name="project.version" value="2.4.0-20061006"/>
+    <property name="project.version" value="2.4.1-20061208"/>
     <property name="project.debug" value="on"/>
     <property name="project.deprecation" value="on"/>
 
     <property name="build.file" value="build.xml"/>
+    <property name="build.properties.file" value="build-properties.xml"/>
     <property name="build.dir" value="build"/>
     <property name="build.dest" value="build/classes"/>
     <property name="build.lib" value="build/lib"/>

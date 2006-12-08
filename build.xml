@@ -355,6 +355,7 @@ Copyright:
 		<copy file="RELEASE-NOTE.txt" tofile="${dist.dir.root}/RELEASE-NOTE.txt" />
 		<copy file="TODO.txt" tofile="${dist.dir.root}/TODO.txt" />
 		<copy file="${build.file}" tofile="${dist.dir.root}/${build.file}" />
+		<copy file="${build.properties.file}" tofile="${dist.dir.root}/${build.properties.file}" />
 
 		<!-- ================================================================= -->
 		<!-- Produces the tar/gzip file                                        -->
