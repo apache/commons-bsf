@@ -1,12 +1,12 @@
 /*
  * Copyright 2004,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,36 +31,45 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.bsf.BSFDeclaredBean;
 import org.apache.bsf.BSFException;
 import org.apache.bsf.BSFManager;
+import org.apache.bsf.BSF_Log;
+import org.apache.bsf.BSF_LogFactory;
 import org.apache.bsf.util.BSFEngineImpl;
 import org.apache.bsf.util.BSFFunctions;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.xpath.objects.XObject;
 import org.w3c.dom.Node;
 
 /**
  * Xerces XSLT interface to BSF. Requires Xalan and Xerces from Apache.
- * 
+ *
  * This integration uses the BSF registry to pass in any src document
- * and stylesheet base URI that the user may wish to set. 
+ * and stylesheet base URI that the user may wish to set.
  *
  * @author   Sanjiva Weerawarana
  * @author   Sam Ruby
  *
  * Re-implemented for the Xalan 2 codebase
- * 
+ *
  * @author   Victor J. Orlikowski
+ * @author   Rony G. Flatscher (added BSF_Log[Factory] to allow BSF to run without org.apache.commons.logging present)
  */
 public class XSLTEngine extends BSFEngineImpl {
     TransformerFactory tFactory;
     Transformer transformer;
-    
-    Log logger = LogFactory.getLog(this.getClass().getName());
+
+    // Log logger = LogFactory.getLog(this.getClass().getName());
+    BSF_Log logger = null;
+
+    public XSLTEngine ()
+    {
+            // handle logger
+        logger = BSF_LogFactory.getLog(this.getClass().getName());
+    }
+
 
     /**
      * call the named method of the given object.
      */
-    public Object call (Object object, String method, Object[] args) 
+    public Object call (Object object, String method, Object[] args)
         throws BSFException {
 	throw new BSFException (BSFException.REASON_UNSUPPORTED_FEATURE,
                                 "BSF:XSLTEngine can't call methods");
@@ -77,7 +86,7 @@ public class XSLTEngine extends BSFEngineImpl {
      * Evaluate an expression. In this case, an expression is assumed
      * to be a stylesheet of the template style (see the XSLT spec).
      */
-    public Object eval (String source, int lineNo, int columnNo, 
+    public Object eval (String source, int lineNo, int columnNo,
                         Object oscript) throws BSFException {
 	// get the style base URI (the place from where Xerces XSLT will
 	// look for imported/included files and referenced docs): if a
@@ -90,7 +99,7 @@ public class XSLTEngine extends BSFEngineImpl {
 	// Locate the stylesheet.
 	StreamSource styleSource;
 
-        styleSource = 
+        styleSource =
             new StreamSource(new StringReader(oscript.toString ()));
         styleSource.setSystemId(styleBaseURI);
 
@@ -143,21 +152,21 @@ public class XSLTEngine extends BSFEngineImpl {
 		}
             }
 	} else {
-            // create an empty document - real src must come into the 
+            // create an empty document - real src must come into the
             // stylesheet using "doc(...)" [see XSLT spec] or the stylesheet
             // must be of literal result element type
             xis = new StreamSource();
 	}
-	
+
 	// set all declared beans as parameters.
 	for (int i = 0; i < declaredBeans.size (); i++) {
             BSFDeclaredBean b = (BSFDeclaredBean) declaredBeans.elementAt (i);
             transformer.setParameter (b.name, new XObject (b.bean));
 	}
 
-	// declare a "bsf" parameter which is the BSF handle so that 
+	// declare a "bsf" parameter which is the BSF handle so that
 	// the script can do BSF stuff if it wants to
-	transformer.setParameter ("bsf", 
+	transformer.setParameter ("bsf",
                                   new XObject (new BSFFunctions (mgr, this)));
 
 	// do it

@@ -1,12 +1,12 @@
 /*
  * Copyright 2004,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,14 +25,15 @@ import java.util.Vector;
 
 import org.apache.bsf.BSFException;
 import org.apache.bsf.BSFManager;
+import org.apache.bsf.BSF_Log;
+import org.apache.bsf.BSF_LogFactory;
+
 import org.apache.bsf.util.BSFEngineImpl;
 import org.apache.bsf.util.CodeBuffer;
 import org.apache.bsf.util.EngineUtils;
 import org.apache.bsf.util.JavaUtils;
 import org.apache.bsf.util.MethodUtils;
 import org.apache.bsf.util.ObjInfo;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * This is the interface to Java from the
@@ -80,6 +81,7 @@ import org.apache.commons.logging.LogFactory;
  * provide better control over when and how much overhead occurs.
  * <p>
  * @author Joe Kesselman
+ * @author   Rony G. Flatscher (added BSF_Log[Factory] to allow BSF to run without org.apache.commons.logging present)
  */
 public class JavaEngine extends BSFEngineImpl {
     Class javaclass = null;
@@ -87,9 +89,10 @@ public class JavaEngine extends BSFEngineImpl {
     static String serializeCompilation = "";
     static String placeholder = "$$CLASSNAME$$";
     String minorPrefix;
-        
-    private Log logger = LogFactory.getLog(this.getClass().getName());
-    
+
+    // private Log logger = LogFactory.getLog(this.getClass().getName());
+    private BSF_Log logger = null;
+
     /**
      * Create a scratchfile, open it for writing, return its name.
      * Relies on the filesystem to provide us with uniqueness testing.
@@ -98,7 +101,7 @@ public class JavaEngine extends BSFEngineImpl {
      * even if the classfile has been deleted.
      */
     private int uniqueFileOffset = -1;
-    
+
     private class GeneratedFile {
         File file = null;
         FileOutputStream fos = null;
@@ -109,33 +112,35 @@ public class JavaEngine extends BSFEngineImpl {
             this.className = className;
         }
     }
-    
+
     /**
      * Constructor.
      */
     public JavaEngine () {
+            // handle logger
+        logger = BSF_LogFactory.getLog(this.getClass().getName());
         // Do compilation-possible check here??????????????
     }
-    
-    public Object call (Object object, String method, Object[] args) 
+
+    public Object call (Object object, String method, Object[] args)
     throws BSFException
     {
         throw new BSFException (BSFException.REASON_UNSUPPORTED_FEATURE,
         "call() is not currently supported by JavaEngine");
     }
-    
+
     public void compileScript (String source, int lineNo, int columnNo,
             Object script, CodeBuffer cb) throws BSFException {
         ObjInfo oldRet = cb.getFinalServiceMethodStatement ();
-        
+
         if (oldRet != null && oldRet.isExecutable ()) {
             cb.addServiceMethodStatement (oldRet.objName + ";");
         }
-        
+
         cb.addServiceMethodStatement (script.toString ());
         cb.setFinalServiceMethodStatement (null);
     }
-    
+
     /**
      * This is used by an application to evaluate a string containing
      * some expression. It should store the "bsf" handle where the
@@ -153,20 +158,20 @@ public class JavaEngine extends BSFEngineImpl {
      * We will attempt to use it, then if necessary fall back on invoking
      * javac via the command line.
      */
-    public Object eval (String source, int lineNo, int columnNo, 
+    public Object eval (String source, int lineNo, int columnNo,
             Object oscript) throws BSFException
             {
         Object retval = null;
         String classname = null;
         GeneratedFile gf = null;
-        
+
         String basescript = oscript.toString();
         String script = basescript;	// May be altered by $$CLASSNAME$$ expansion
-        
+
         try {
             // Do we already have a class exactly matching this code?
             javaclass = (Class)codeToClass.get(basescript);
-            
+
             if(javaclass != null) {
                 classname=javaclass.getName();
             } else {
@@ -176,14 +181,14 @@ public class JavaEngine extends BSFEngineImpl {
                 }
                 // Obtain classname
                 classname = gf.className;
-                
+
                 // Write the kluge header to the file.
                 gf.fos.write(("import java.lang.*;"+
                         "import java.util.*;"+
                         "public class "+classname+" {\n" +
                 "  static public Object BSFJavaEngineEntry(org.apache.bsf.BSFManager bsf) {\n")
                 .getBytes());
-                
+
                 // Edit the script to replace placeholder with the generated
                 // classname. Note that this occurs _after_ the cache was checked!
                 int startpoint = script.indexOf(placeholder);
@@ -203,63 +208,63 @@ public class JavaEngine extends BSFEngineImpl {
                         script = changed.toString();
                     }
                 }
-                
+
                 // MJD - debug
 //              BSFDeclaredBean tempBean;
 //              String          className;
-//              
+//
 //              for (int i = 0; i < declaredBeans.size (); i++) {
 //              tempBean  = (BSFDeclaredBean) declaredBeans.elementAt (i);
 //              className = StringUtils.getClassName (tempBean.bean.getClass ());
-//              
+//
 //              gf.fos.write ((className + " " +
 //              tempBean.name + " = (" + className +
 //              ")bsf.lookupBean(\"" +
 //              tempBean.name + "\");").getBytes ());
 //              }
                 // MJD - debug
-                
+
                 // Copy the input to the file.
                 // Assumes all available -- probably mistake, but same as other engines.
                 gf.fos.write(script.getBytes());
                 // Close the method and class
                 gf.fos.write(("\n  }\n}\n").getBytes());
                 gf.fos.close();
-                
+
                 // Compile through Java to .class file
                 // May not be threadsafe. Serialize access on static object:
                 synchronized(serializeCompilation) {
                     JavaUtils.JDKcompile(gf.file.getPath(), classPath);
                 }
-                
+
                 // Load class.
                 javaclass = EngineUtils.loadClass(mgr, classname);
-                
+
                 // Stash class for reuse
                 codeToClass.put(basescript, javaclass);
             }
-            
-            Object[] callArgs = {mgr};      
+
+            Object[] callArgs = {mgr};
             retval = internalCall(this,"BSFJavaEngineEntry",callArgs);
         }
-        
-        
+
+
         catch(Exception e) {
             e.printStackTrace ();
             throw new BSFException (BSFException.REASON_IO_ERROR, e.getMessage ());
         } finally {
             // Cleanup: delete the .java and .class files
-            
+
 //          if(gf!=null && gf.file!=null && gf.file.exists())
 //          gf.file.delete();  // .java file
-            
-            
+
+
             if(classname!=null) {
                 // Generated class
                 File file = new File(tempDir+File.separatorChar+classname+".class");
 //              if(file.exists())
 //              file.delete();
-                
+
                 // Search for and clean up minor classes, classname$xxx.class
                 file = new File(tempDir);  // ***** Is this required?
                 minorPrefix = classname+"$"; // Indirect arg to filter
@@ -281,7 +286,7 @@ public class JavaEngine extends BSFEngineImpl {
         }
         return retval;
     }
-    
+
     public void initialize (BSFManager mgr, String lang,
             Vector declaredBeans) throws BSFException {
         super.initialize (mgr, lang, declaredBeans);
@@ -294,7 +299,7 @@ public class JavaEngine extends BSFEngineImpl {
      * passed to the extension, which may be either
      * Vectors of Nodes, or Strings.
      */
-    Object internalCall (Object object, String method, Object[] args) 
+    Object internalCall (Object object, String method, Object[] args)
     throws BSFException
     {
         //***** ISSUE: Only static methods are currently supported
@@ -315,7 +320,7 @@ public class JavaEngine extends BSFEngineImpl {
         }
         return retval;
     }
-    
+
     private GeneratedFile openUniqueFile(String directory,String prefix,String suffix) {
         File file = null;
         FileOutputStream fos = null;

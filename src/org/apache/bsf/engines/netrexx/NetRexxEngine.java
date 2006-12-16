@@ -1,12 +1,12 @@
 /*
  * Copyright 2004,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,13 +28,13 @@ import java.util.Vector;
 import org.apache.bsf.BSFDeclaredBean;
 import org.apache.bsf.BSFException;
 import org.apache.bsf.BSFManager;
+import org.apache.bsf.BSF_Log;
+import org.apache.bsf.BSF_LogFactory;
 import org.apache.bsf.util.BSFEngineImpl;
 import org.apache.bsf.util.BSFFunctions;
 import org.apache.bsf.util.EngineUtils;
 import org.apache.bsf.util.MethodUtils;
 import org.apache.bsf.util.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * This is the interface to NetRexx from the
@@ -78,6 +78,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author  Joe Kesselman
  * @author  Sanjiva Weerawarana
+ * @author   Rony G. Flatscher (added BSF_Log[Factory] to allow BSF to run without org.apache.commons.logging present)
  */
 public class NetRexxEngine extends BSFEngineImpl
 {
@@ -86,9 +87,10 @@ public class NetRexxEngine extends BSFEngineImpl
 	static String serializeCompilation="";
 	static String placeholder="$$CLASSNAME$$";
 	String minorPrefix;
-	
-	private Log logger = LogFactory.getLog(this.getClass().getName());
-	  
+
+	// private Log logger = LogFactory.getLog(this.getClass().getName());
+	private BSF_Log logger = null;
+
 	/**
 	 * Create a scratchfile, open it for writing, return its name.
 	 * Relies on the filesystem to provide us with uniqueness testing.
@@ -100,41 +102,43 @@ public class NetRexxEngine extends BSFEngineImpl
 	 * of the NetRexx engine.
 	 */
   private static int uniqueFileOffset=0;
-  private class GeneratedFile 
+  private class GeneratedFile
   {
 	File file=null;
 	FileOutputStream fos=null;
 	String className=null;
-	GeneratedFile(File file,FileOutputStream fos,String className) 
+	GeneratedFile(File file,FileOutputStream fos,String className)
 	  {
 		  this.file=file;
 		  this.fos=fos;
 		  this.className=className;
 	  }
   }
-	
+
 	// rexxclass used to be an instance variable, on the theory that
 	// each NetRexxEngine was an instance of a specific script.
 	// BSF is currently reusing Engines, so caching the class
 	// no longer makes sense.
 	// Class rexxclass;
-	
+
 	/**
 	 * Constructor.
 	 */
 	public NetRexxEngine ()
 	{
+                    // handle logger
+                logger = BSF_LogFactory.getLog(this.getClass().getName());
 		/*
 		  The following line is intended to cause the constructor to
 		  throw a NoClassDefFoundError if the NetRexxC.zip dependency
 		  is not resolved.
-		  
+
 		  If this line was not here, the problem would not surface until
 		  the actual processing of a script. We want to know all is well
 		  at the time the engine is instantiated, not when we attempt to
 		  process a script.
 		  */
-		
+
 		new netrexx.lang.BadArgumentException();
 	}
 	/**
@@ -145,7 +149,7 @@ public class NetRexxEngine extends BSFEngineImpl
 	 * passed to the extension, which may be either
 	 * Vectors of Nodes, or Strings.
 	 */
-	public Object call (Object object, String method, Object[] args) 
+	public Object call (Object object, String method, Object[] args)
 	throws BSFException
 	{
 		throw new BSFException(BSFException.REASON_UNSUPPORTED_FEATURE,
@@ -160,7 +164,7 @@ public class NetRexxEngine extends BSFEngineImpl
 	 * passed to the extension, which may be either
 	 * Vectors of Nodes, or Strings.
 	 */
-	Object callStatic(Class rexxclass, String method, Object[] args) 
+	Object callStatic(Class rexxclass, String method, Object[] args)
 	throws BSFException
 	{
 		//***** ISSUE: Currently supports only static methods
@@ -173,7 +177,7 @@ public class NetRexxEngine extends BSFEngineImpl
 				Class[] argtypes=new Class[args.length];
 				for(int i=0;i<args.length;++i)
 					argtypes[i]=args[i].getClass();
-				
+
 				Method m=MethodUtils.getMethod(rexxclass, method, argtypes);
 				retval=m.invoke(null,args);
 			}
@@ -243,26 +247,26 @@ public class NetRexxEngine extends BSFEngineImpl
 	 * Nobody knows whether javac is threadsafe.
 	 * I'm going to serialize access to the compilers to protect it.
 	 */
-	public Object execEvalShared (String source, int lineNo, int columnNo, 
+	public Object execEvalShared (String source, int lineNo, int columnNo,
 							  Object oscript,boolean returnsObject)
 	throws BSFException
 	{
 		Object retval=null;
 		String classname=null;
 		GeneratedFile gf=null;
-		
+
 		// Moved into the exec process; see comment above.
 		Class rexxclass=null;
-		
+
 		String basescript=oscript.toString();
 		String script=basescript; // May be altered by $$CLASSNAME$$ expansion
-		
+
 		try {
                     // Do we already have a class exactly matching this code?
                     rexxclass=(Class)codeToClass.get(basescript);
-                    
+
                     if(rexxclass!=null)
-                    	
+
 			{
                             logger.debug("NetRexxEngine: Found pre-compiled class" +
                                                    " for script '" + basescript + "'");
@@ -273,15 +277,15 @@ public class NetRexxEngine extends BSFEngineImpl
                             gf=openUniqueFile(tempDir,"BSFNetRexx",".nrx");
                             if(gf==null)
                                 throw new BSFException("couldn't create NetRexx scratchfile");
-                            
+
                             // Obtain classname
                             classname=gf.className;
-                            
+
                             // Decide whether to declare a return type
                             String returnsDecl="";
                             if(returnsObject)
                                 returnsDecl="returns java.lang.Object";
-                            
+
                             // Write the kluge header to the file.
                             // ***** By doing so we give up the ability to use Property blocks.
                             gf.fos.write(("class "+classname+";\n")
@@ -290,7 +294,7 @@ public class NetRexxEngine extends BSFEngineImpl
                                          ("method BSFNetRexxEngineEntry(bsf=org.apache.bsf.util.BSFFunctions) "+
                                           " public static "+returnsDecl+";\n")
 								 .getBytes());
-				
+
                             // Edit the script to replace placeholder with the generated
                             // classname. Note that this occurs _after_ the cache was
                             // checked!
@@ -312,50 +316,50 @@ public class NetRexxEngine extends BSFEngineImpl
                                             script=changed.toString();
 					}
 				}
-                            
+
                             BSFDeclaredBean tempBean;
                             String          className;
-                            
+
                             for (int i = 0; i < declaredBeans.size (); i++)
 				{
                                     tempBean  = (BSFDeclaredBean) declaredBeans.elementAt (i);
                                     className = StringUtils.getClassName (tempBean.type);
-                                    
+
                                     gf.fos.write ((tempBean.name + " =" + className + "   bsf.lookupBean(\"" +
                                                    tempBean.name + "\");").getBytes());
 				}
-                            
+
                             if(returnsObject)
                                 gf.fos.write("return ".getBytes());
-                            
+
                             // Copy the input to the file.
                             // Assumes all available -- probably mistake, but same as
                             // other engines.
                             gf.fos.write(script.getBytes());
                             gf.fos.close();
-                            
-                            logger.debug("NetRexxEngine: wrote temp file " + 
+
+                            logger.debug("NetRexxEngine: wrote temp file " +
                                                    gf.file.getPath () + ", now compiling");
-                            
+
                             // Compile through Java to .class file
                     String command=gf.file.getPath(); //classname;
-                    if (logger.isDebugEnabled()) {  
+                    if (logger.isDebugEnabled()) {
                     	command += " -verbose4";
                     } else {
                         command += " -noverbose";
                         command += " -noconsole";
                     }
-                    
+
                     netrexx.lang.Rexx cmdline= new netrexx.lang.Rexx(command);
                     int retValue;
-                    
+
                     // May not be threadsafe. Serialize access on static object:
                     synchronized(serializeCompilation)
                         {
                             // compile to a .java file
                             retValue =
                                 COM.ibm.netrexx.process.NetRexxC.main(cmdline,
-                                                                      new PrintWriter(System.err)); 
+                                                                      new PrintWriter(System.err));
                         }
 
 				// Check if there were errors while compiling the Rexx code.
@@ -396,27 +400,27 @@ public class NetRexxEngine extends BSFEngineImpl
 		{
 			// Cleanup: delete the .nrx and .class files
 			// (if any) generated by NetRexx Trace requests.
-			
+
 			if(gf!=null && gf.file!=null && gf.file.exists())
 				gf.file.delete();  // .nrx file
-			
+
 			if(classname!=null)
 			{
 				// Generated src
 				File file=new File(tempDir+File.separatorChar+classname+".java");
 				if(file.exists())
 					file.delete();
-				
+
 				// Generated class
 				file=new File(classname+".class");
 				if(file.exists())
 					file.delete();
-				
+
 				// Can this be done without disrupting trace?
 				file=new File(tempDir+File.separatorChar+classname+".crossref");
 				if(file.exists())
 					file.delete();
-				
+
 				// Search for and clean up minor classes, classname$xxx.class
 				file=new File(tempDir);
 				minorPrefix=classname+"$"; // Indirect arg to filter
@@ -444,7 +448,7 @@ public class NetRexxEngine extends BSFEngineImpl
 					}
 			}
 		}
-		
+
 		return retval;
 	}
 	public void initialize(BSFManager mgr, String lang,Vector declaredBeans)
@@ -463,7 +467,7 @@ private GeneratedFile openUniqueFile(String directory,String prefix,String suffi
 		String className = null;
 		for(i=max,++uniqueFileOffset;
 			fos==null && i>0;
-			--i,++uniqueFileOffset)     
+			--i,++uniqueFileOffset)
 		{
 			// Probably a timing hazard here... ***************
 			try

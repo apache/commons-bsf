@@ -1,12 +1,12 @@
 /*
  * Copyright 2004,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,16 +16,18 @@
 
 package org.apache.bsf.util.event.generator;
 
+import org.apache.bsf.BSF_Log;
+import org.apache.bsf.BSF_LogFactory;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /** EventAdapterGenerator
   *
   * Generate an "Event Adapter" dynamically during program execution
   *
+ * @author   Rony G. Flatscher (added BSF_Log[Factory] to allow BSF to run without org.apache.commons.logging present)
   **/
 public class EventAdapterGenerator
 {
@@ -44,13 +46,13 @@ public class EventAdapterGenerator
   // the initialization method, noargs constructor
   static byte   INITMETHOD[];
 
-  private static Log logger;
+  private static BSF_Log logger=null;
 
   /* The static initializer */
   static
   {
-	logger = LogFactory.getLog(
-				(org.apache.bsf.util.event.generator.EventAdapterGenerator.class).getName());
+	// logger = LogFactory.getLog((org.apache.bsf.util.event.generator.EventAdapterGenerator.class).getName());
+        logger = BSF_LogFactory.getLog((org.apache.bsf.util.event.generator.EventAdapterGenerator.class).getName());
 
 	String USERCLASSPACKAGE = System.getProperty("DynamicEventClassPackage",
 												 "");

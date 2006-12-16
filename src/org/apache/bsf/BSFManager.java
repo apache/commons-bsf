@@ -34,8 +34,10 @@ import java.util.Vector;
 
 import org.apache.bsf.util.CodeBuffer;
 import org.apache.bsf.util.ObjectRegistry;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+    // org.apache.commons.logging is delegated to "org.apache.bsf.BSF_Log[Factory]"
+// import org.apache.commons.logging.Log;
+// import org.apache.commons.logging.LogFactory;
 
 /**
  * This class is the entry point to the bean scripting framework. An
@@ -54,14 +56,15 @@ import org.apache.commons.logging.LogFactory;
  * @author   Sam Ruby
  * @author   Olivier Gruber (added original debugging support)
  * @author   Don Schwarz (added support for registering languages dynamically)
+ * @author   Rony G. Flatscher (added BSF_Log[Factory] to allow BSF to run without org.apache.commons.logging present)
  */
 public class BSFManager {
     // version string is in the form "abc.yyyymmdd" where
     // "abc" represents a dewey decimal number (three levels, each between 0 and 9),
     // and "yyyy" a four digit year, "mm" a two digit month, "dd" a two digit day.
     //
-    // Example: "240.20060925" stands for: BSF version "2.4.0" as of "2006-09-25"
-    protected static String version="240.20061006";
+    // Example: "241.20061208" stands for: BSF version "2.4.1" as of "2006-12-08"
+    protected static String version="241.20061208";
 
     // table of registered scripting engines
     protected static Hashtable registeredEngines = new Hashtable();
@@ -99,7 +102,8 @@ public class BSFManager {
     // introduced by a client of BSFManager
     protected Vector declaredBeans = new Vector();
 
-    private Log logger = LogFactory.getLog(this.getClass().getName());
+    // private Log logger = LogFactory.getLog(this.getClass().getName());
+    private BSF_Log logger = null;
 
     //////////////////////////////////////////////////////////////////////
     //
@@ -154,6 +158,9 @@ public class BSFManager {
 
     public BSFManager() {
         pcs = new PropertyChangeSupport(this);
+            // handle logger
+        // logger = LogFactory.getLog(this.getClass().getName());
+        logger = BSF_LogFactory.getLog(this.getClass().getName());
     }
 
 
@@ -164,8 +171,8 @@ public class BSFManager {
        &quot;yyyy&quot; a four digit year, &quot;mm&quot; a two digit month,
        &quot;dd&quot; a two digit day.
     *
-       <br>Example: &quot;<code>240.20061006</code>&quot;
-       stands for: BSF version <code>2.4.0</code> as of <code>2006-10-06</code>.
+       <br>Example: &quot;<code>241.20061208</code>&quot;
+       stands for: BSF version <code>2.4.1</code> as of <code>2006-12-08</code>.
     *
     *
      * @since 2006-01-17
