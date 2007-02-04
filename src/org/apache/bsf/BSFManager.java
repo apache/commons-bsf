@@ -1,5 +1,5 @@
 /*
- * Copyright 2004,2004 The Apache Software Foundation.
+ * Copyright 2004,2007 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -58,13 +58,16 @@ import org.apache.bsf.util.ObjectRegistry;
  * @author   Don Schwarz (added support for registering languages dynamically)
  * @author   Rony G. Flatscher (added BSF_Log[Factory] to allow BSF to run without org.apache.commons.logging present)
  */
+
+// changed 2007-01-28: fixed Class.forName() to use the context class loader instead; oversaw this the last time
+
 public class BSFManager {
     // version string is in the form "abc.yyyymmdd" where
     // "abc" represents a dewey decimal number (three levels, each between 0 and 9),
     // and "yyyy" a four digit year, "mm" a two digit month, "dd" a two digit day.
     //
-    // Example: "241.20061208" stands for: BSF version "2.4.1" as of "2006-12-08"
-    protected static String version="241.20061208";
+    // Example: "242.20070128" stands for: BSF version "2.4.2" as of "2007-01-28"
+    protected static String version="242.20070128";
 
     // table of registered scripting engines
     protected static Hashtable registeredEngines = new Hashtable();
@@ -113,7 +116,9 @@ public class BSFManager {
 
     static {
         try {
-            Enumeration e = BSFManager.class.getClassLoader().getResources("org/apache/bsf/Languages.properties");
+            // Enumeration e = BSFManager.class.getClassLoader().getResources("org/apache/bsf/Languages.properties");
+            // use the Thread's context class loader to locate the resources
+            Enumeration e = Thread.currentThread().getContextClassLoader().getResources("org/apache/bsf/Languages.properties");
             while (e.hasMoreElements()) {
                 URL url = (URL)e.nextElement();
                 InputStream is = url.openStream();
@@ -172,7 +177,7 @@ public class BSFManager {
        &quot;dd&quot; a two digit day.
     *
        <br>Example: &quot;<code>241.20061208</code>&quot;
-       stands for: BSF version <code>2.4.1</code> as of <code>2006-12-08</code>.
+       stands for: BSF version <code>2.4.2</code> as of <code>2007-01-28</code>.
     *
     *
      * @since 2006-01-17
@@ -608,7 +613,8 @@ public class BSFManager {
                     try {
                         String engineName =
                             (String) registeredEngines.get(lang);
-                        Class.forName(engineName);
+                        // Class.forName(engineName);
+                        Thread.currentThread().getContextClassLoader().loadClass (engineName); // rgf, 2007-01-28
                     } catch (ClassNotFoundException cnfe) {
 
                         // Bummer.
@@ -697,10 +703,12 @@ public class BSFManager {
         // create the engine and initialize it. if anything goes wrong
         // except.
         try {
-            Class engineClass =
-                (classLoader == null)
-                ? Class.forName(engineClassName)
-                : classLoader.loadClass(engineClassName);
+            Class engineClass = Thread.currentThread().getContextClassLoader().loadClass (engineClassName);
+               // (classLoader == null)
+               //  ? // Class.forName(engineClassName)
+               //    Thread.currentThread().getContextClassLoader().loadClass (engineClassName) // rgf, 2007-01-28
+               //  : classLoader.loadClass(engineClassName);
+
             final BSFEngine engf = (BSFEngine) engineClass.newInstance();
             final BSFManager thisf = this;
             final String langf = lang;
