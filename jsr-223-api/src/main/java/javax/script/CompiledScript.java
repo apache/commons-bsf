@@ -17,12 +17,7 @@
 package javax.script;
 
 /**
- * ComplieScript interface is an abstraction for the intermediate 
- * code produced by the compilation and contains methods which allow
- * the re-execution of the intermediate code retained.
- * 
- * @author Nandika Jayawardana <nandika@opensource.lk>
- * @author Sanka Samaranayake  <ssanka@gmail.com>
+ * See Javadoc of <a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Java Scripting API</a>
  */
 public abstract class CompiledScript {
     

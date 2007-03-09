@@ -4,11 +4,7 @@ package javax.script;
 import java.io.Reader;
 
 /**
- * The ScriptEngine interfaces contains only the methods which are expected to
- * be fully functional in every Java ScriptEngine.
- * 
- * @author Nandika Jayawardana <nandika@opensource.lk>
- * @author Sanka Samaranayake  <sanka@opensource.lk>
+ * See Javadoc of <a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Java Scripting API</a>
  */
 public interface ScriptEngine {
     

@@ -2,13 +2,7 @@
 package javax.script;
 
 /**
- * ScriptException is a generic checked exception thrown by mehtods 
- * of scripting API. Checked exceptions thrown by the underlying 
- * interpreters must be caught and used to initialize 
- * ScriptExceptions.
- * 
- * @author Nandika Jayawardana <nandika@opensource.lk>
- * @author Sanka Samaranayake  <sanka@opensource.lk> 
+ * See Javadoc of <a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Java Scripting API</a>
  */
 public class ScriptException extends Exception {
     

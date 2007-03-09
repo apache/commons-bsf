@@ -3,11 +3,7 @@ package javax.script;
 import java.util.Map;
 
 /**
- * Namespace is an interface which exposes a collectoin of key-value 
- * pairs.
- * 
- * @author Nandika Jayawardana <nandika@opensource.lk>
- * @author Sanka Samaranayake  <ssanka@gmail.com>
+ * See Javadoc of <a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Java Scripting API</a>
  */
 public interface Bindings extends Map{
 

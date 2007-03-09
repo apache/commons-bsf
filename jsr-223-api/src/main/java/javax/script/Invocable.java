@@ -2,12 +2,7 @@
 package javax.script;
 
 /**
- * The Invocable interface (optional) contains methods which allow 
- * the Java application to invoke intermediate codes in the 
- * underlying scripting interpreter.
- * 
- * @author Nandika Jayawardana <nandika@opensource.lk>
- * @author Sanka Samaranayake  <sanka@opensource.lk>
+ * See Javadoc of <a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Java Scripting API</a>
  */
 public interface Invocable {
 	

@@ -19,12 +19,7 @@ package javax.script;
 import java.io.Reader;
 
 /**
- * Compilable is an optional interface which must be implemented by 
- * ScriptEngines whose methods compile a script to a from that can be executed
- * repeatedly without recompilation.
- * 
- * @author Nandika Jayawardana <nandika@opensource.lk>
- * @author Sanka Samaranayake  <ssanka@gmail.com>
+ * See Javadoc of <a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Java Scripting API</a>
  */
 public interface Compilable {
 

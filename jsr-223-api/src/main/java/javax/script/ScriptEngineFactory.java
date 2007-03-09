@@ -4,13 +4,7 @@ package javax.script;
 import java.util.List;
 
 /**
- * ScriptEngineFactory is used to describe a ScriptEngine instance. 
- * Each ScriptEngine class implementing ScriptEngine has a 
- * corresponding factory which exposes metadata describing the engine
- * class. 
- * 
- * Nandika Jayawardana <nandika@opensource.lk>
- * Sanka Samaranayake  <sanka@opensource.lk>
+ * See Javadoc of <a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Java Scripting API</a>
  */
 public interface ScriptEngineFactory {
     
