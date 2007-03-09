@@ -27,7 +27,7 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
     <groupId>org.apache.bsf.testing</groupId>
-    <artifactId>javascript</artifactId>
+    <artifactId>bsf-testing-javascript</artifactId>
     <name>Apache BSF testing for JavaScript</name>
     <description>Apache BSF testing for JavaScript</description>
 
