@@ -6,11 +6,7 @@ import java.io.Writer;
 import java.util.List;
 
 /**
- * The ScriptContext interface exposes the key-value pairs in various
- * scopes.
- * 
- * @author Nandika Jayawardana <nandika@opensource.lk>
- * @author Sanka Samaranayake  <sanka@opensource.lk>
+ * See Javadoc of <a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Java Scripting API</a>
  */
 public interface ScriptContext {
 	

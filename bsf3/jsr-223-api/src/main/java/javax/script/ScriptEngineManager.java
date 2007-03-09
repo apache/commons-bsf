@@ -10,13 +10,7 @@ import java.util.List;
 import sun.misc.Service;
 
 /**
- * ScriptEngineManager implements a discovery and instantiation 
- * mechanisams for ScriptEngine class. It also contains a collection 
- * of key-value pairs which storing state shared by all engines 
- * created by manager.
- * 
- * Nandika Jayawardana <nandika@opensource.lk>
- * Sanka Samaranayake  <sanka@opensource.lk> 
+ * See Javadoc of <a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Java Scripting API</a>
  */
 public class ScriptEngineManager {
 

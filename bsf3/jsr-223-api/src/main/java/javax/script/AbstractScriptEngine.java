@@ -3,11 +3,7 @@ package javax.script;
 import java.io.Reader;
 
 /**
- * GenericScriptEngine is an abstarct class which implements the ScriptEngine
- * interface and it contains default implementations for several eval() methods.
- * 
- * @author Nandika Jayawardana <nandika@opensource.lk>
- * @author Sanka Samaranayake  <sanka@opensource.lk>
+ * See Javadoc of <a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Java Scripting API</a>
  */
 public abstract class AbstractScriptEngine implements ScriptEngine {
 		

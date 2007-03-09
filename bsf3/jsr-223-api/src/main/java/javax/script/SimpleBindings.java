@@ -8,12 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * SimpleNamespace is an implementation of Namespace using an 
- * instance of java.util.HashMap or another Map passed in a 
- * constructor to store and expose key-pair values.
- * 
- * @author Nandika Jayawardana <nandika@opensource.lk>
- * @author Sanka Samaranayake  <sanka@opensoruce.lk>
+ * See Javadoc of <a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Java Scripting API</a>
  */
 public class SimpleBindings implements Bindings {
 	
