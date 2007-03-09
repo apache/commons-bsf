@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+-->
+<project name="Engine-Installer">
+
+    <property name="engines.version" value="1.0-SNAPSHOT"/>
+
+    <target name="check-installed">
+        <condition property="already.installed" >
+			<and>
+                <available file="${localRepository}/com/sun/scripting/js-engine/${engines.version}/js-engine-${engines.version}.jar"/>
+			</and>
+        </condition>
+        <condition property="maven.suffix" value="">
+            <os family="unix"/>
+        </condition>
+        <condition property="maven.suffix" value=".bat">
+            <os family="windows"/>
+        </condition>
+    </target>
+
+    <taskdef name="retroweaver" classname="com.rc.retroweaver.ant.RetroWeaverTask">
+       <classpath>
+          <pathelement location="${localRepository}/net/sourceforge/retroweaver/retroweaver/1.2.3/retroweaver-1.2.3.jar"/>
+          <pathelement location="${localRepository}/net/sourceforge/retroweaver/retroweaver-rt/1.2.3/retroweaver-rt-1.2.3.jar"/>
+          <pathelement location="${localRepository}/asm/asm/2.2.1/asm-2.2.1.jar"/>
+          <pathelement location="${localRepository}/asm/asm-commons/2.2.1/asm-commons-2.2.1.jar"/>
+          <pathelement location="${localRepository}/backport-util-concurrent/backport-util-concurrent/2.1/backport-util-concurrent-2.1.jar"/>
+       </classpath>
+    </taskdef>
+
+    <target name="install-engines" depends="check-installed" unless="already.installed">
+        <mkdir dir="${basedir}/target/engines-download/"/>
+        <get src="https://scripting.dev.java.net/files/documents/4957/37593/jsr223-engines.zip"
+            dest="${basedir}/target/engines-download/engines.zip"
+            verbose="true"
+            usetimestamp="false"/>
+		<unzip src="${basedir}/target/engines-download/engines.zip"
+               dest="${basedir}/target/engines-download/engines"
+               overwrite="false"/>
+
+        <mkdir dir="${basedir}/target/patched-engines/"/>
+        <retroweaver inputjar="${basedir}/target/engines-download/engines/javascript/build/js-engine.jar" outputjar="${basedir}/target/patched-engines/js-engine.jar"/>
+
+        <exec executable="mvn${maven.suffix}" dir="${basedir}" failonerror="false">
+            <arg line="install:install-file -DgroupId=org.apache.bsf.engines -DartifactId=js-engine -Dversion=${engines.version} -Dpackaging=jar -DgeneratePom=true -Dfile=${basedir}/target/patched-engines/js-engine.jar"/>
+        </exec>
+
+    </target>
+
+</project>
