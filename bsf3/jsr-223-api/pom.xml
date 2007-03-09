@@ -27,8 +27,8 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>bsf-api</artifactId>
-    <name>Apache BSF JSR-223 API</name>
-    <description>JSR-223 API Implementation</description>
+    <name>Apache BSF API</name>
+    <description>BSF API Implementation</description>
 
     <dependencies>
 
