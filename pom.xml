@@ -156,6 +156,7 @@
         <module>jsr-223-api</module>
         <module>install-engines</module>
         <module>testing/javascript</module>
+        <module>testing/ruby</module>
     </modules>
 
 </project>
