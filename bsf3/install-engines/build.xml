@@ -19,13 +19,13 @@
 -->
 <project name="Engine-Installer">
 
-    <property name="engines.version" value="1.0-SNAPSHOT"/>
+    <property name="engines.version" value="3.0-SNAPSHOT"/>
 
     <target name="check-installed">
         <condition property="already.installed" >
-			<and>
-                <available file="${localRepository}/com/sun/scripting/js-engine/${engines.version}/js-engine-${engines.version}.jar"/>
-			</and>
+           <and>
+              <available file="${localRepository}/org/apache/bsf/engines/js-engine/${engines.version}/js-engine-${engines.version}.jar"/>
+           </and>
         </condition>
         <condition property="maven.suffix" value="">
             <os family="unix"/>
