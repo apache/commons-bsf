@@ -51,7 +51,7 @@
 
         <mkdir dir="${merged.engines.dir}"/>
         <unzip src="${basedir}${download.dir}engines/beanshell/build/bsh-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${basedir}${download.dir}engines/browserjs/build/browserjs-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
+        <!-- unzip src="${basedir}${download.dir}engines/browserjs/build/browserjs-engine.jar" dest="${merged.engines.dir}" overwrite="true"/ -->
         <!-- unzip src="${basedir}${download.dir}engines/ejs/build/js-engine.jar" dest="${merged.engines.dir}" overwrite="true"/ -->
         <unzip src="${basedir}${download.dir}engines/freemarker/build/freemarker-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
         <unzip src="${basedir}${download.dir}engines/groovy/build/groovy-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
