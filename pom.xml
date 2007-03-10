@@ -153,7 +153,7 @@
     </distributionManagement>
 
     <modules>
-        <module>jsr-223-api</module>
+        <module>bsf-api</module>
         <module>bsf-engines</module>
         <module>utils</module>
         <module>testing/javascript</module>
