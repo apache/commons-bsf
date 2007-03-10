@@ -155,7 +155,7 @@
     <modules>
         <module>bsf-api</module>
         <module>bsf-engines</module>
-        <module>utils</module>
+        <module>bsf-utils</module>
         <module>testing/javascript</module>
         <module>testing/ruby</module>
     </modules>
