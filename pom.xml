@@ -154,7 +154,8 @@
 
     <modules>
         <module>jsr-223-api</module>
-        <module>install-engines</module>
+        <module>bsf-engines</module>
+        <module>utils</module>
         <module>testing/javascript</module>
         <module>testing/ruby</module>
     </modules>
