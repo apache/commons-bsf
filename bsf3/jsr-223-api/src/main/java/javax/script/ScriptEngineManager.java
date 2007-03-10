@@ -46,7 +46,14 @@ public class ScriptEngineManager {
         Iterator iterator = Service.providers(ScriptEngineFactory.class);
      	
         while (iterator.hasNext()) {
-			ScriptEngineFactory factory = (ScriptEngineFactory) iterator.next();
+			ScriptEngineFactory factory;
+        	try {
+    			factory = (ScriptEngineFactory) iterator.next();
+        	} catch (Throwable e) {
+        		// likely jars required by every script engine not on classpath
+        		// TODO: log exception
+        		continue;
+        	}
 			engineSpis.add(factory);
             
             List data = factory.getNames();
