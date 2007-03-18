@@ -78,7 +78,7 @@
 
         <!-- Copy in the META-INF files for services, LICENSE and NOTICE -->
 
-        <copy todir="${merged.engines.dir}">
+        <copy todir="${merged.engines.dir}" overwrite="true">
            <fileset dir="${basedir}/src/main/resources"/>
         </copy>
 
