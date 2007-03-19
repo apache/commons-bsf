@@ -20,7 +20,7 @@ package org.apache.bsf.testing.e4x;
 
 import java.io.StringReader;
 
-import javax.script.Invocable;
+import javax.script.Bindings;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -32,42 +32,66 @@ import javax.xml.stream.XMLStreamReader;
 import junit.framework.TestCase;
 
 import org.apache.axiom.om.OMElement;
-import org.apache.axiom.om.OMNode;
 import org.apache.axiom.om.impl.builder.StAXOMBuilder;
-import org.apache.bsf.e4x.E4XHelper;
-import org.mozilla.javascript.xml.XMLObject;
+import org.apache.bsf.xml.XMLHelper;
+import org.mozilla.javascript.Context;
+import org.mozilla.javascript.ContextHelper;
 
 /**
  * Tests a basic JavaScrip/E4X invocation
  */
 public class HelloTestCase extends TestCase {
 	
-	private E4XHelper e4xHelper;
+//	private ScriptEngine engine;
+//	private XMLHelper xmlHelper;
 
-	public void testInvokeFunction() throws ScriptException, XMLStreamException, FactoryConfigurationError {
-		ScriptEngineManager manager = new ScriptEngineManager();
-		ScriptEngine engine = manager.getEngineByExtension("js");
-		engine.eval("function hello(xml) { return <foo>{xml.b}</foo>; }" );
-		assertTrue(engine instanceof Invocable);
-		Invocable invocableScript = (Invocable) engine;
-
-		XMLObject xmlIn = e4xHelper.toE4X(createOm("<a><b>petra</b></a>"));
-
-		Object xmlOut = invocableScript.invokeFunction("hello", new Object[]{xmlIn});
-
-		OMNode omOut = e4xHelper.fromE4X((XMLObject) xmlOut);
-		assertEquals("<foo><b>petra</b></foo>", omOut.toString());
+//	public void testInvokeFunction() throws ScriptException, XMLStreamException, FactoryConfigurationError {
+//		engine.eval("function isXML(xml) { return typeof xml.b == xml; }" );
+//		engine.eval("function hello(xml) { return <foo>{xml.b}</foo>; }" );
+//		assertTrue(engine instanceof Invocable);
+//		Invocable invocableScript = (Invocable) engine;
+//
+//		Object xmlIn = xmlHelper.toScriptXML(createOm("<a><b>petra</b></a>"));
+//
+//		Object o = invocableScript.invokeFunction("isXML", new Object[]{xmlIn});
+//		assertTrue(o instanceof Boolean);
+//		assertTrue(((Boolean)o).booleanValue());
+//
+//		Object xmlOut = invocableScript.invokeFunction("hello", new Object[]{xmlIn});
+//
+//		OMElement omOut = xmlHelper.toOMElement(xmlOut);
+//		assertEquals("<foo><b>petra</b></foo>", omOut.toString());
+//	}
+	
+	public void testE4X() throws ScriptException, XMLStreamException, FactoryConfigurationError {
+        ScriptEngine engine = new ScriptEngineManager().getEngineByExtension("js");
+        XMLHelper convertor = XMLHelper.getArgHelper(engine);
+        Object o = convertor.toScriptXML(createOMElement("<a><b>petra</b></a>"));
+        OMElement om = convertor.toOMElement(o);
+        assertEquals("<a><b>petra</b></a>", om.toString());
+        
+        Bindings bindings = engine.createBindings();
+        bindings.put("o", o);
+        Object x = engine.eval("typeof o", bindings);
+        assertEquals("xml", x);
 	}
 	
-	protected OMElement createOm(String s) throws XMLStreamException, FactoryConfigurationError {
-		XMLStreamReader parser = 
-			XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(s));
+	protected OMElement createOMElement(String s) throws XMLStreamException, FactoryConfigurationError {
+		XMLStreamReader parser = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(s));
 		StAXOMBuilder builder = new StAXOMBuilder(parser);
 		OMElement om = builder.getDocumentElement();
 		return om;
 	}
 
     protected void setUp() {
-    	e4xHelper = new E4XHelper();
+//		ScriptEngineManager manager = new ScriptEngineManager();
+//		engine = manager.getEngineByExtension("js");
+//		xmlHelper = XMLHelper.getArgHelper(engine);
+        Context cx = Context.enter();
+        try {
+        	ContextHelper.setTopCallScope(cx, cx.initStandardObjects());
+        } finally {
+            Context.exit();
+        }
     }
 }

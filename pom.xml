@@ -159,6 +159,8 @@
         <module>distribution</module>
         <module>testing/javascript</module>
         <module>testing/ruby</module>
+        <module>testing/python</module>
+        <module>testing/e4x</module>
     </modules>
 
 </project>

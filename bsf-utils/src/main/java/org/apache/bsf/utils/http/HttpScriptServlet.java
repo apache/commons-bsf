@@ -41,9 +41,10 @@ import javax.servlet.http.HttpServletResponse;
  * @author Nandika Jayawardana <nandika@opensource.lk>
  * @author Sanka Samaranayake  <sanka@opensource.lk>
  */
-public abstract class HttpScriptServlet extends GenericServlet {
-    
-    public HttpScriptServlet(){
+public class HttpScriptServlet extends GenericServlet {
+	private static final long serialVersionUID = 1L;
+
+	public HttpScriptServlet(){
     }
    
 	/**
@@ -56,8 +57,11 @@ public abstract class HttpScriptServlet extends GenericServlet {
 	 * @return an initialized HttpScriptContext
 	 * @throws ServletException if an error occurs
 	 */
-    public abstract HttpScriptContext getContext(HttpServletRequest req,
-			HttpServletResponse res) throws ServletException;
+    public HttpScriptContext getContext(HttpServletRequest req,
+			HttpServletResponse res) throws ServletException {
+    	
+    	return null; // TODO
+    }
 	
     /**
      * Returns a ScriptEngine instance which is used by the 
@@ -67,7 +71,9 @@ public abstract class HttpScriptServlet extends GenericServlet {
      * @return an instance of a ScriptEngine which is used by the 
      *         HttpScriptServlet to executes a single request
      */
-	public abstract ScriptEngine getEngine(HttpServletRequest req);
+	public ScriptEngine getEngine(HttpServletRequest req) {
+       return null; // TODO		
+	}
 	
     /**
      * Called to indicate that the ScriptEngine returned by call to
@@ -75,7 +81,9 @@ public abstract class HttpScriptServlet extends GenericServlet {
      * 
      * @param eng the ScriptEngine which is no longer in use
      */
-    public abstract void releaseEngine(ScriptEngine eng);
+    public void releaseEngine(ScriptEngine eng) {
+    	
+    }
     
     /**
      * Executes a script using the HttpScriptContext obtained by a 
