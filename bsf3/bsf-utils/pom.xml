@@ -38,6 +38,49 @@
           <version>3.0-beta1-SNAPSHOT</version>
           <scope>compile</scope>
        </dependency>
+      <dependency>
+          <groupId>org.apache.bsf</groupId>
+          <artifactId>bsf-engines</artifactId>
+          <version>3.0-beta1-SNAPSHOT</version>
+          <scope>compile</scope>
+       </dependency>
+
+      <dependency>
+          <groupId>org.apache.ws.commons.axiom</groupId>
+          <artifactId>axiom-api</artifactId>
+          <version>1.2.2</version>
+          <scope>compile</scope>
+      </dependency>
+      <dependency>
+          <groupId>org.apache.ws.commons.axiom</groupId>
+          <artifactId>axiom-impl</artifactId>
+          <version>1.2.2</version>
+          <scope>compile</scope>
+      </dependency>
+        <dependency>
+            <groupId>stax</groupId>
+            <artifactId>stax-api</artifactId>
+            <version>1.0.1</version>
+          <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.woodstox</groupId>
+            <artifactId>wstx</artifactId>
+            <version>asl-3.2.0</version>
+          <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>rhino</groupId>
+            <artifactId>js</artifactId>
+            <version>1.6R5</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>xmlbeans</groupId>
+            <artifactId>xbean</artifactId>
+            <version>2.2.0</version>
+            <scope>compile</scope>
+        </dependency>
 
       <dependency>
           <groupId>javax.servlet</groupId>
