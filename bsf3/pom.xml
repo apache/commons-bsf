@@ -33,6 +33,10 @@
     <packaging>pom</packaging>
     <url>http://jakarta.apache.org/bsf/</url>
 
+    <properties>
+        <bsf.version>3.0-beta1-SNAPSHOT</bsf.version>
+    </properties>
+
     <issueManagement>
         <url>http://issues.apache.org/jira/browse/BSF</url>
     </issueManagement>
@@ -74,6 +78,53 @@
         <name>Apache Software Foundation</name>
         <url>http://www.apache.org/</url>
     </organization>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <version>2.1</version>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>distribution/bin.xml</descriptor>
+                                <descriptor>distribution/src.xml</descriptor>
+                            </descriptors>
+                            <finalName>bsf-${bsf.version}</finalName>
+                        </configuration>
+                    </plugin>
+
+                    <!--<plugin>-->
+                        <!--<artifactId>maven-site-plugin</artifactId>-->
+                        <!--<inherited>false</inherited>-->
+                    <!--</plugin>-->
+                    <!---->
+                    <!-- plugin>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.1</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <attach>true</attach>
+                        </configuration>
+                    </plugin -->
+                </plugins>
+            </build>
+            <activation>
+                <property>
+                    <name>release</name>
+                </property>
+            </activation>
+        </profile>
+    </profiles>
 
     <build>
         <defaultGoal>install</defaultGoal>

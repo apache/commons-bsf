@@ -9,6 +9,14 @@ The Apache Software Foundation (http://www.apache.org/).
 * a compatible implementation of JSR-223.                              *
 *----------------------------------------------------------------------*
 
+The Apache BSF binary distribution includes software distributed under the
+BSD License. See the LICENSE file for details.
+
+COPYRIGHT NOTICES
+
+* The Apache BSF binary includes script engines under the following copyright:
+    Copyright (c) 2006, Sun Microsystems, Inc.
+
 
 
 
