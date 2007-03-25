@@ -4,21 +4,34 @@ Building BSF 3
 BSF 3 is built with Apache Maven. Download and install Apache Maven 
 (version 2.0.4 or newer) from: http://maven.apache.org/download.html.
 
-To build BSF 3, from the top-level BSF 3 directory use the command 'mvn'.
+To build BSF 3, in the top-level BSF 3 directory use the command 'mvn'.
 
 This will automatically download any dependency jars from remote Maven 
 repositories. Remote repositories may sometimes be unreliable, if you 
 get intermitent repository errors just try running 'mvn' again.
 
-Once dependency jars have been downloaded you can use '-o' to run 
-Maven in offline mode, eg 'mvn -o'. 
-
 Other useful Maven commands are:
-'mvn clean install' to remove old artifacts and rebuild from scratch
-'mvn eclipse:eclipse' to setup Eclipse projects for the BSF modules
+
+'mvn clean install'
+  - to remove old artifacts and rebuild from scratch
+
+'mvn assembly:assembly -Drelease'
+  - to build the src and bin distros
+
+'mvn eclipse:eclipse'
+ - to setup Eclipse projects for the BSF modules
 
 Note, currently there is a bug in the BSF 3 projects setup which causes
 the Eclipse projects to be created badly for the test projects when
 running 'mvn eclipse:eclipse' in the BSF top-level directory. A temporary
 work around is to also run 'mvn eclipse:eclipse' within each test project
 directory, eg, testing\javascript or testing\ruby.
+
+Once dependency jars have been downloaded you can use '-o' to run 
+Maven in offline mode which is faster, eg 'mvn -o'. 
+
+Between BSF releases the BSF build may have dependencies based
+on a SNAPSHOT release. If this is the case the -U parameter 
+may sometimes be required to update to the latest SNAPSHOT 
+build of that dependency, eg. 'mvn -U'   
+
