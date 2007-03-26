@@ -22,14 +22,14 @@
 
 <project name="Create-bsf-all">
 
-    <property name="bsf.version" value="3.0-beta1-SNAPSHOT"/>
+    <property name="bsf.version" value="3.0-beta1"/>
 
     <target name="create-bsf-all">
 
         <mkdir dir="${basedir}\target\bsf-all"/>
-        <unzip src="${localRepository}/org/apache/bsf/bsf-api/3.0-beta1-SNAPSHOT/bsf-api-3.0-beta1-SNAPSHOT.jar" dest="${basedir}\target\bsf-all" overwrite="false"/>
-        <unzip src="${localRepository}/org/apache/bsf/bsf-engines/3.0-beta1-SNAPSHOT/bsf-engines-3.0-beta1-SNAPSHOT.jar" dest="${basedir}\target\bsf-all" overwrite="false"/>
-        <unzip src="${localRepository}/org/apache/bsf/bsf-utils/3.0-beta1-SNAPSHOT/bsf-utils-3.0-beta1-SNAPSHOT.jar" dest="${basedir}\target\bsf-all" overwrite="false"/>
+        <unzip src="${localRepository}/org/apache/bsf/bsf-api/3.0-beta1/bsf-api-3.0-beta1.jar" dest="${basedir}\target\bsf-all" overwrite="false"/>
+        <unzip src="${localRepository}/org/apache/bsf/bsf-engines/3.0-beta1/bsf-engines-3.0-beta1.jar" dest="${basedir}\target\bsf-all" overwrite="false"/>
+        <unzip src="${localRepository}/org/apache/bsf/bsf-utils/3.0-beta1/bsf-utils-3.0-beta1.jar" dest="${basedir}\target\bsf-all" overwrite="false"/>
 
         <copy file="${basedir}/src/bin/LICENSE" tofile="${basedir}\target\bsf-all\LICENSE" overwrite="true" />
         <copy file="${basedir}/src/bin/NOTICE" tofile="${basedir}\target\bsf-all\NOTICE" overwrite="true" />
