@@ -1,13 +1,12 @@
 This file contains the PGP keys of various developers that work on
-the Apache HTTP Server and its subprojects.
+the Apache BSF project.
 
 Please don't use these keys for email unless you have asked the owner
 because some keys are only used for code signing.
 
 Please realize that this file itself or the public key servers may be
 compromised.  You are encouraged to validate the authenticity of these keys in
-an out-of-band manner.  For information about our validation and signing
-policies, please read http://httpd.apache.org/dev/verification.html.
+an out-of-band manner.
 
 Apache users: pgp < KEYS
 Apache developers: 
