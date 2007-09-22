@@ -1,5 +1,5 @@
 /*
- * Copyright 2004,2004 The Apache Software Foundation.
+ * Copyright 2004,2007 The Apache Software Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,10 +14,22 @@
  * limitations under the License.
  */
 
+
+ /*
+ 2007-01-29: Rony G. Flatscher: added BSF_Log[Factory] to allow BSF to run without org.apache.commons.logging present
+
+ 2007-09-21: Rony G. Flatscher, new class loading sequence:
+
+        - Thread's context class loader
+        - BSFManager's defining class loader
+ */
+
 package org.apache.bsf.util.event.generator;
 
 import org.apache.bsf.BSF_Log;
 import org.apache.bsf.BSF_LogFactory;
+
+import org.apache.bsf.BSFManager;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -27,7 +39,6 @@ import java.io.IOException;
   *
   * Generate an "Event Adapter" dynamically during program execution
   *
- * @author   Rony G. Flatscher (added BSF_Log[Factory] to allow BSF to run without org.apache.commons.logging present)
   **/
 public class EventAdapterGenerator
 {
@@ -77,7 +88,19 @@ public class EventAdapterGenerator
 	}
 	try
 	// { EVENTLISTENER = Class.forName("java.util.EventListener"); }
-	{ EVENTLISTENER = Thread.currentThread().getContextClassLoader().loadClass ("java.util.EventListener"); } // rgf, 2006-01-05
+	{
+            // EVENTLISTENER = Thread.currentThread().getContextClassLoader().loadClass ("java.util.EventListener"); // rgf, 2006-01-05
+
+            // rgf, 20070917: first try context class loader, then BSFManager's defining class loader
+            try {
+                 EVENTLISTENER = Thread.currentThread().getContextClassLoader().loadClass ("java.util.EventListener");
+            }
+            catch(ClassNotFoundException ex01)
+            {
+                EVENTLISTENER = BSFManager.getDefinedClassLoader().loadClass ("java.util.EventListener");
+            }
+
+        }
 	catch(ClassNotFoundException ex)
 	{
             System.err.println(ex.getMessage());
@@ -176,7 +199,7 @@ public class EventAdapterGenerator
   /* methods that take an EventListener Class Type to create an EventAdapterClass */
   public static Class makeEventAdapterClass(Class listenerType,boolean writeClassFile)
   {
-      logger.info("EventAdapterGenerator");
+      logger.debug("EventAdapterGenerator");
 
         if( EVENTLISTENER.isAssignableFrom(listenerType) )
 	{
@@ -191,7 +214,7 @@ public class EventAdapterGenerator
 
 	  /* Derive Names */
 	  String listenerTypeName      = listenerType.getName();
-          logger.info("ListenerTypeName: "+listenerTypeName);
+          logger.debug("ListenerTypeName: "+listenerTypeName);
 	  String adapterClassName      =
 		CLASSPACKAGE+
 		(listenerTypeName.endsWith("Listener")
@@ -206,7 +229,7 @@ public class EventAdapterGenerator
 	  {
 		if (null != (cached = ldr.getLoadedClass(finalAdapterClassName)))
 		{
-                    logger.info("cached:  "+cached);
+                    logger.debug("cached:  "+cached);
 		  try
 		  {
 			if (!listenerType.isAssignableFrom(cached))

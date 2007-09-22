@@ -1,12 +1,12 @@
 /*
- * Copyright 2004,2004 The Apache Software Foundation.
- * 
+ * Copyright 2004,2007 The Apache Software Foundation.
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,6 +15,8 @@
  */
 
 package org.apache.bsf.util;
+
+import org.apache.bsf.BSFManager;   // rgf, 20070917
 
 import java.beans.BeanInfo;
 import java.beans.Beans;
@@ -44,7 +46,16 @@ import org.apache.bsf.util.type.TypeConvertorRegistry;
  * @author   Sanjiva Weerawarana
  * @author   Joseph Kesselman
  */
+ /*  2007-09-21: Rony G. Flatscher, new class loading sequence:
+
+        - supplied class loader (given as an argument)
+        - Thread's context class loader
+        - BSFManager's defining class loader
+ */
 public class ReflectionUtils {
+    // rgf, 20070921: class loaders that we might need to load classes
+    static ClassLoader bsfManagerDefinedCL=BSFManager.getDefinedClassLoader();
+
 
   //////////////////////////////////////////////////////////////////////////
 
@@ -67,7 +78,7 @@ public class ReflectionUtils {
    *            running add event listener method
    */
   public static void addEventListener (Object source, String eventSetName,
-									   EventProcessor processor)
+				       EventProcessor processor)
 	   throws IntrospectionException, IllegalArgumentException,
 			  IllegalAccessException, InstantiationException,
 			  InvocationTargetException {
@@ -142,16 +153,77 @@ public class ReflectionUtils {
    * @exception IOException               if I/O error in beans.instantiate
    */
   public static Bean createBean (ClassLoader cld, String className,
-								 Class[] argTypes, Object[] args)
+				 Class[] argTypes, Object[] args)
 	   throws ClassNotFoundException, NoSuchMethodException,
 			  InstantiationException, IllegalAccessException,
 			  IllegalArgumentException, InvocationTargetException,
 			  IOException {
 	if (argTypes != null) {
+
+/* original (remarked 20070917, rgf)
 	  // find the right constructor and use that to create bean
 	  Class cl = (cld != null) ? cld.loadClass (className)
 				   : Thread.currentThread().getContextClassLoader().loadClass (className); // rgf, 2006-01-05
                                    // : Class.forName (className);
+*/
+            // TODO: final decision about class loading strategy
+            // rgf, 20070917: if class loader given, use that one, else try
+            //                the Thread's context class loader and then
+            //                the BSFMananger defining class loader
+          Class cl=null;
+          ClassNotFoundException exCTX=null;
+
+// -----------------------------
+          if (cld != null) {    // class loader supplied as argument
+              try {     // CL passed as argument
+                  cl=cld.loadClass(className);
+              }
+              catch (ClassNotFoundException e02) {
+                  exCTX=e02;
+              }
+          }
+
+          if (cl==null) {
+              try {         // CTXCL
+                  cl=Thread.currentThread().getContextClassLoader().loadClass(className);
+              }
+              catch (ClassNotFoundException e01)  {
+              }
+          }
+
+
+          if (cl==null) {   // class not loaded yet
+                    // defined CL
+              if (cld != bsfManagerDefinedCL) {   // if not used already, attempt to load
+                  cl=bsfManagerDefinedCL.loadClass(className);
+              }
+              else {    // already , throw exception
+                  throw exCTX;        // re-throw very first exception
+              }
+          }
+// -----------------------------
+
+/*
+          try {     // try supplied class loader
+              if (cld !=null)
+                  cl=cld.loadClass(className);
+          }
+          catch (ClassNotFoundException e01) {
+              try {
+                  cl=Thread.currentThread().getContextClassLoader().loadClass(className);
+              }
+              catch (ClassNotFoundException e02)  {
+                  ClassLoader defCL=BSFManager.getDefinedClassLoader();
+                  if (cld != defCL) {
+                      cl=defCL.loadClass(className);
+                  }
+                  else
+                  {
+                      throw e01;        // re-throw original class not found exception
+                  }
+              }
+          }
+*/
 
 	  Constructor c = MethodUtils.getConstructor (cl, argTypes);
 	  return new Bean (cl, c.newInstance (args));
@@ -182,8 +254,7 @@ public class ReflectionUtils {
    * @exception InvocationTargetException if constructor excepted
    * @exception IOException               if I/O error in beans.instantiate
    */
-  public static Bean createBean (ClassLoader cld, String className,
-								 Object[] args)
+  public static Bean createBean (ClassLoader cld, String className, Object[] args)
 	   throws ClassNotFoundException, NoSuchMethodException,
 			  InstantiationException, IllegalAccessException,
 			  IllegalArgumentException, InvocationTargetException,
@@ -205,7 +276,7 @@ public class ReflectionUtils {
    */
   private static
   FeatureDescriptor findFeatureByName (String featureType, String name,
-									   FeatureDescriptor[] fds) {
+				       FeatureDescriptor[] fds) {
 	for (int i = 0; i < fds.length; i++) {
 	  if (name.equals (fds[i].getName())) {
 		return fds[i];
@@ -229,7 +300,7 @@ public class ReflectionUtils {
 	  return new Bean (fieldType, value);
 	} catch (NoSuchFieldException e) {
 	  throw new IllegalArgumentException ("field '" + fieldName + "' is " +
-										  "unknown for '" + target + "'");
+					      "unknown for '" + target + "'");
 	}
   }
   //////////////////////////////////////////////////////////////////////////
@@ -250,7 +321,7 @@ public class ReflectionUtils {
    * @exception InvocationTargetException if read method excepts
    */
   public static Bean getProperty (Object target, String propName,
-								  Integer index)
+				  Integer index)
 	   throws IntrospectionException, IllegalArgumentException,
 			  IllegalAccessException, InvocationTargetException {
 	// find the property descriptor
@@ -259,7 +330,7 @@ public class ReflectionUtils {
 	  findFeatureByName ("property", propName, bi.getPropertyDescriptors ());
 	if (pd == null) {
 	  throw new IllegalArgumentException ("property '" + propName + "' is " +
-										  "unknown for '" + target + "'");
+					      "unknown for '" + target + "'");
 	}
 
 	// get read method and type of property
@@ -269,8 +340,8 @@ public class ReflectionUtils {
 	  // if index != null, then property is indexed - pd better be so too
 	  if (!(pd instanceof IndexedPropertyDescriptor)) {
 		throw new IllegalArgumentException ("attempt to get non-indexed " +
-											"property '" + propName +
-											"' as being indexed");
+						    "property '" + propName +
+						    "' as being indexed");
 	  }
 	  IndexedPropertyDescriptor ipd = (IndexedPropertyDescriptor) pd;
 	  rm = ipd.getIndexedReadMethod ();
@@ -282,7 +353,7 @@ public class ReflectionUtils {
 
 	if (rm == null) {
 	  throw new IllegalArgumentException ("property '" + propName +
-										  "' is not readable");
+					      "' is not readable");
 	}
 
 	// now get the value
@@ -295,7 +366,7 @@ public class ReflectionUtils {
 	return new Bean (propType, propVal);
   }
   public static void setField (Object target, String fieldName, Bean value,
-							   TypeConvertorRegistry tcr)
+			       TypeConvertorRegistry tcr)
 	  throws IllegalArgumentException, IllegalAccessException {
 	// This is to handle how we do static fields.
 	Class targetClass = (target instanceof Class)
@@ -323,14 +394,14 @@ public class ReflectionUtils {
 	  }
 	  if (!okeydokey) {
 		throw new IllegalArgumentException ("unable to assign '" + value.value +
-											"' to field '" + fieldName + "'");
+						    "' to field '" + fieldName + "'");
 	  }
 
 	  // now set the value
 	  f.set (target, fieldVal);
 	} catch (NoSuchFieldException e) {
 	  throw new IllegalArgumentException ("field '" + fieldName + "' is " +
-										  "unknown for '" + target + "'");
+					      "unknown for '" + target + "'");
 	}
   }
   //////////////////////////////////////////////////////////////////////////
@@ -355,8 +426,8 @@ public class ReflectionUtils {
    * @exception InvocationTargetException if write method excepts
    */
   public static void setProperty (Object target, String propName,
-								  Integer index, Object value,
-								  Class valueType, TypeConvertorRegistry tcr)
+				  Integer index, Object value,
+				  Class valueType, TypeConvertorRegistry tcr)
 	   throws IntrospectionException, IllegalArgumentException,
 			  IllegalAccessException, InvocationTargetException {
 	// find the property descriptor
@@ -365,7 +436,7 @@ public class ReflectionUtils {
 	  findFeatureByName ("property", propName, bi.getPropertyDescriptors ());
 	if (pd == null) {
 	  throw new IllegalArgumentException ("property '" + propName + "' is " +
-										  "unknown for '" + target + "'");
+					      "unknown for '" + target + "'");
 	}
 
 	// get write method and type of property
@@ -375,7 +446,7 @@ public class ReflectionUtils {
 	  // if index != null, then property is indexed - pd better be so too
 	  if (!(pd instanceof IndexedPropertyDescriptor)) {
 		throw new IllegalArgumentException ("attempt to set non-indexed " +
-											"property '" + propName +
+						    "property '" + propName +
 											"' as being indexed");
 	  }
 	  IndexedPropertyDescriptor ipd = (IndexedPropertyDescriptor) pd;
@@ -388,7 +459,7 @@ public class ReflectionUtils {
 
 	if (wm == null) {
 	  throw new IllegalArgumentException ("property '" + propName +
-										  "' is not writeable");
+					      "' is not writeable");
 	}
 
 	// type convert the value if necessary
@@ -408,7 +479,7 @@ public class ReflectionUtils {
 	}
 	if (!okeydokey) {
 	  throw new IllegalArgumentException ("unable to assign '" + value +
-										  "' to property '" + propName + "'");
+					      "' to property '" + propName + "'");
 	}
 
 	// now set the value

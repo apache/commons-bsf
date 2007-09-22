@@ -34,6 +34,7 @@ import  java.lang.reflect.*;
 */
 
 /* ---rgf, 2007-01-29, loading and invoking all methods via reflection
+   ---rgf, 2007-09-17, adjusted for using default class loader, if system class loader fails
 */
 
 public class BSF_Log // implements org.apache.commons.logging.Log
@@ -66,11 +67,21 @@ public class BSF_Log // implements org.apache.commons.logging.Log
     final private static int isWarnEnabled  = 17 ;
 
     {           // try to demand load the apache commons logging LogFactory
-        try
+        try     // rgf, 20070917: o.k., if not found, try definedClassLoader instead
         {
             ClassLoader cl= Thread.currentThread().getContextClassLoader();
 
-            oac_Log        = cl.loadClass("org.apache.commons.logging.Log"       );
+            String str4Log="org.apache.commons.logging.Log";
+
+            try {
+                oac_Log        = cl.loadClass(str4Log);
+            }
+            catch (ClassNotFoundException e1) // not found by contextClassLoader
+            {                                 // try defined class loader instead
+                ClassLoader defCL=BSFManager.getDefinedClassLoader();
+                oac_Log = defCL.loadClass(str4Log);
+                cl=defCL;       // class found, hence we use the definedClassLoader here
+            }
 
             oac_LogFactory = cl.loadClass("org.apache.commons.logging.LogFactory");
 

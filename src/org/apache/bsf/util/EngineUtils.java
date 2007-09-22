@@ -1,12 +1,12 @@
 /*
- * Copyright 2004,2004 The Apache Software Foundation.
- * 
+ * Copyright 2004,2007 The Apache Software Foundation.
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,10 +32,21 @@ import org.apache.bsf.BSFManager;
  * @author   Sam Ruby
  * @author   Rony G. Flatscher (added addEventListenerReturningEventInfos)
  */
+
+ /*  2007-09-21: Rony G. Flatscher, new class loading sequence:
+
+        - Thread's context class loader
+        - settable class loader stored with BSF manager
+        - BSFManager's defining class loader
+        - BSF-custom class loader (loads from temp dir)
+ */
 public class EngineUtils {
     // the BSF class loader that knows how to load from the a specific
     // temp directory
     static BSFClassLoader bsfCL;
+
+    // rgf, 20070917: class loaders that we might need to load classes
+    static ClassLoader bsfManagerDefinedCL=BSFManager.getDefinedClassLoader();
 
     // ---rgf, 2003-02-13, determine whether changing accessibility of Methods is possible
     static boolean bMethodHasSetAccessible=false;
@@ -86,7 +97,7 @@ public class EngineUtils {
         } catch (Exception e) {
             e.printStackTrace ();
             throw new BSFException (BSFException.REASON_OTHER_ERROR,
-                                    "ouch while adding event listener: "
+                                    "[EngineUtils.addEventListener()] ouch while adding event listener: "
                                     + e, e);
         }
     }
@@ -144,7 +155,7 @@ public class EngineUtils {
         } catch (Exception e) {
             e.printStackTrace ();
             throw new BSFException (BSFException.REASON_OTHER_ERROR,
-                                    "ouch while adding event listener: "
+                                    "[EngineUtils.addEventListenerReturningEventInfos()] ouch while adding event listener: "
                                     + e, e);
         }
     }
@@ -240,7 +251,7 @@ public class EngineUtils {
                           ((InvocationTargetException)e).getTargetException () :
                           null;
             throw new BSFException (BSFException.REASON_OTHER_ERROR,
-                                    "method invocation failed: " + e +
+                                    "[EngineUtils.callBeanMethod()] method invocation failed: " + e +
                                     ((t==null) ? "" :
                                      (" target exception: " + t)), t);
         }
@@ -302,7 +313,7 @@ public class EngineUtils {
             }
         } catch (Exception e) {
             throw new BSFException (BSFException.REASON_OTHER_ERROR,
-                                    e.getMessage (), e);
+                                    "[EngineUtils.createBean()]" + e.getMessage (), e);
         }
     }
 
@@ -343,8 +354,10 @@ public class EngineUtils {
     }
 
     /**
-     * Load a class using the class loader of given manager. If that fails
-     * try using a class loader that loads from the tempdir of the manager.
+     * Loads a class using the following sequence of class loaders:
+     * Thread's context class loader, settable class loader stored with BSFManager,
+     * BSFManager's defining class loader, BSF customized class loader (from the
+     * BSFManager's temporary directory).
      *
      * @param mgr  BSFManager who's classLoader and tempDir props are
      *        consulted
@@ -356,13 +369,45 @@ public class EngineUtils {
      */
     public static Class loadClass (BSFManager mgr, String name)
         throws BSFException {
-        ClassLoader classLoader = mgr.getClassLoader ();
+
+        ClassLoader mgrCL = null;
 
         try {
+            // -------------------
+            // TODO: final decision about the sequence of class loaders !
+            //
+            // rgf, 20070917: class loader sequence:
+            //                - Thread's context class loader
+            //                - settable class loader stored with BSF manager
+            //                - BSFManager's defining class loader
+            //                - BSF-custom class loader (loads from temp dir)
+            try {   // try the Thread's context loader first
+                    return Thread.currentThread().getContextClassLoader().loadClass(name);
+            }
+            catch (ClassNotFoundException e01) {
+            }
+
+            try {   // try the class loader of the supplied BSFManager ("mgr")
+                mgrCL = mgr.getClassLoader ();
+                if (mgrCL != null) {
+                    return mgrCL.loadClass(name);
+                }
+            }
+            catch (ClassNotFoundException e02) {
+                    // o.k., now try the defined class loader
+            }
+
+                // try the class loader stored with the BSF manager
+            if (mgrCL != bsfManagerDefinedCL) {
+                return bsfManagerDefinedCL.loadClass(name);
+            }
+
+/*
             return (classLoader == null) ?
                        // Class.forName (name)
                        Thread.currentThread().getContextClassLoader().loadClass (name)
                 : classLoader.loadClass (name);
+*/
         } catch (ClassNotFoundException e) {
             // try to load it from the temp dir using my own class loader
             try {
@@ -372,8 +417,9 @@ public class EngineUtils {
                 return bsfCL.loadClass (name);
             } catch (ClassNotFoundException e2) {
                 throw new BSFException (BSFException.REASON_OTHER_ERROR,
-                        "unable to load class '" + name + "':" + e, e);
+                        "[EngineUtils.loadClass()] unable to load class '" + name + "':" + e, e);
             }
         }
+        return null;
     }
 }

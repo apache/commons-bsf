@@ -59,21 +59,46 @@ import org.apache.bsf.util.ObjectRegistry;
  * @author   Rony G. Flatscher (added BSF_Log[Factory] to allow BSF to run without org.apache.commons.logging present)
  */
 
-// changed 2007-01-28: fixed Class.forName() to use the context class loader instead; oversaw this the last time
+// changed 2007-01-28: ---rgf, fixed Class.forName() to use the context class loader instead; oversaw this the last time
+/* changed 2007-09-17: ---rgf, some Java hosts do not set the Thread's context class loader and
+                               load BSF with a customized ClassLoader!
+                               Resolution:
+                               - use Thread context ClassLoader, if resource or class to
+                                 load not found, then
+                               - use the BSFManager's defining ClassLoader instead, if it is
+                                 different to the context ClassLoader
+*/
 
 public class BSFManager {
     // version string is in the form "abc.yyyymmdd" where
     // "abc" represents a dewey decimal number (three levels, each between 0 and 9),
     // and "yyyy" a four digit year, "mm" a two digit month, "dd" a two digit day.
     //
-    // Example: "242.20070128" stands for: BSF version "2.4.2" as of "2007-01-28"
-    protected static String version="242.20070128";
+    // Example: "242.20070921" stands for: BSF version "2.4.3" as of "2007-09-21"
+    protected static String version="243.20070921";
 
     // table of registered scripting engines
     protected static Hashtable registeredEngines = new Hashtable();
 
     // mapping of file extensions to languages
     protected static Hashtable extn2Lang = new Hashtable();
+
+    // get the defined CL (ClassLoader which got used to define this class object) // rgf, 20070917
+    protected static ClassLoader definedClassLoader;
+/*
+    protected static ClassLoader appClassLoader;        // application/system class loader
+    protected static ClassLoader extClassLoader;        // extension (option) class loader
+*/
+
+    /** Returns the defined ClassLoader (the ClassLoader that got used to define the
+     *  org.apache.bsf.BSFManager class object).
+     *  @return the defined ClassLoader instance
+     */
+    public static ClassLoader getDefinedClassLoader()  // rgf, 20070917
+    {
+        return definedClassLoader;
+    }
+
 
     // table of scripting engine instances created by this manager.
     // only one instance of a given language engine is created by a single
@@ -87,10 +112,15 @@ public class BSFManager {
     // of my interesting properties change
     protected PropertyChangeSupport pcs;
 
+/* rgf (20070917): wrong assumption; context ClassLoader needs to be explicitly
+                   requested before usage as BSF could be deployed with different
+                   context ClassLoaders on different threads!
+*/
+
     // the class loader to use if a class loader is needed. Default is
     // he who loaded me (which may be null in which case its Class.forName).
-    // protected ClassLoader classLoader = getClass().getClassLoader();
-    protected ClassLoader classLoader = Thread.currentThread().getContextClassLoader(); // rgf, 2006-01-05
+    protected ClassLoader classLoader = getClass().getClassLoader();
+    // rgf, 20070917, reset to original// protected ClassLoader classLoader = Thread.currentThread().getContextClassLoader(); // rgf, 2006-01-05
 
     // temporary directory to use to dump temporary files into. Note that
     // if class files are dropped here then unless this dir is in the
@@ -115,10 +145,27 @@ public class BSFManager {
     //////////////////////////////////////////////////////////////////////
 
     static {
+        String strInfo="org.apache.bsf.BSFManager.dumpEnvironment() [from static{}]";
         try {
+            definedClassLoader=BSFManager.class.getClassLoader();   // get defining ClassLoader
+
+/*
+            RGFInfo.newSection(strInfo);
+            RGFInfo.dumpClassLoaderInfos(BSFManager.class, "org.apache.bsf.BSFManager");
+            RGFInfo.append("BSFManager.staticBlock, registering BSF scripting engines:\n");
+*/
+
             // Enumeration e = BSFManager.class.getClassLoader().getResources("org/apache/bsf/Languages.properties");
             // use the Thread's context class loader to locate the resources
-            Enumeration e = Thread.currentThread().getContextClassLoader().getResources("org/apache/bsf/Languages.properties");
+            String resourceName="org/apache/bsf/Languages.properties";
+            Enumeration e = Thread.currentThread().getContextClassLoader().getResources(resourceName);
+
+            if (!e.hasMoreElements()) // 20070917: if no resources (BSF engines!), then use defCL
+            {
+//                RGFInfo.append("==> no BSF engines found from context ClassLoader, now using defCL !\n");
+                e=definedClassLoader.getResources(resourceName);
+            }
+
             while (e.hasMoreElements()) {
                 URL url = (URL)e.nextElement();
                 InputStream is = url.openStream();
@@ -133,14 +180,15 @@ public class BSFManager {
                     String className = value.substring(0, value.indexOf(","));
 
 
-
-
                     // get the extensions for this language
                     String exts = value.substring(value.indexOf(",")+1, value.length());
                     StringTokenizer st = new StringTokenizer(exts, "|");
                     String[] extensions = new String[st.countTokens()];
+
+//                    RGFInfo.append("\tregistering BSF engine: key=["+key+"]\tclassName=["+className+"] nr. of extensions=["+extensions.length+"\n");
                     for (int i = 0; st.hasMoreTokens(); i++) {
                         extensions[i] = ((String) st.nextToken()).trim();
+//                        RGFInfo.append("\t\t--->extension=["+extensions[i]+"]\n");
                     }
 
                     registerScriptingEngine(key, className, extensions);
@@ -150,14 +198,22 @@ public class BSFManager {
 
             ex.printStackTrace();
             System.err.println("Error reading Languages file " + ex);
+//            RGFInfo.append("\t*ERROR* reading Language file ["+ex+"]\n");
         } catch (NoSuchElementException nsee) {
 
             nsee.printStackTrace();
             System.err.println("Syntax error in Languages resource bundle");
+//            RGFInfo.append("\t*ERROR* Syntax error in Languages resourcebundle ["+nsee+"]\n");
         } catch (MissingResourceException mre) {
 
             mre.printStackTrace();
             System.err.println("Initialization error: " + mre.toString());
+//            RGFInfo.append("\t*ERROR* initializing ["+mre+"]\n");
+        }
+        finally
+        {
+//            RGFInfo.dumpEnvironment();
+//            RGFInfo.endSection(strInfo);
         }
     }
 
@@ -231,7 +287,7 @@ public class BSFManager {
             result = resultf;
         } catch (PrivilegedActionException prive) {
 
-        	logger.error("Exception: ", prive);
+        	logger.error("[BSFManager] Exception: ", prive);
             throw (BSFException) prive.getException();
         }
 
@@ -284,7 +340,7 @@ public class BSFManager {
                 });
         } catch (PrivilegedActionException prive) {
 
-        	logger.error("Exception :", prive);
+        	logger.error("[BSFManager] Exception :", prive);
             throw (BSFException) prive.getException();
         }
     }
@@ -327,7 +383,7 @@ public class BSFManager {
                 });
         } catch (PrivilegedActionException prive) {
 
-        	logger.error("Exception :", prive);
+        	logger.error("[BSFManager] Exception :", prive);
             throw (BSFException) prive.getException();
         }
     }
@@ -371,7 +427,7 @@ public class BSFManager {
                 });
         } catch (PrivilegedActionException prive) {
 
-        	logger.error("Exception :", prive);
+        	logger.error("[BSFManager] Exception :", prive);
             throw (BSFException) prive.getException();
         }
     }
@@ -460,7 +516,7 @@ public class BSFManager {
             result = resultf;
         } catch (PrivilegedActionException prive) {
 
-        	logger.error("Exception: ", prive);
+        	logger.error("[BSFManager] Exception: ", prive);
             throw (BSFException) prive.getException();
         }
 
@@ -508,7 +564,7 @@ public class BSFManager {
                 });
         } catch (PrivilegedActionException prive) {
 
-        	logger.error("Exception :", prive);
+        	logger.error("[BSFManager] Exception :", prive);
             throw (BSFException) prive.getException();
         }
     }
@@ -548,7 +604,7 @@ public class BSFManager {
                 });
         } catch (PrivilegedActionException prive) {
 
-        	logger.error("Exception :", prive);
+        	logger.error("[BSFManager] Exception :", prive);
             throw (BSFException) prive.getException();
         }
     }
@@ -571,7 +627,7 @@ public class BSFManager {
                 classPath = System.getProperty("java.class.path");
             } catch (Throwable t) {
 
-            	logger.debug("Exception :", t);
+            	logger.debug("[BSFManager] Exception :", t);
                 // prolly a security exception .. so no can do
             }
         }
@@ -610,16 +666,22 @@ public class BSFManager {
                     loops++;
 
                     // Test to see if in classpath
+                    String engineName=null;
                     try {
-                        String engineName =
+                        engineName =
                             (String) registeredEngines.get(lang);
                         // Class.forName(engineName);
                         Thread.currentThread().getContextClassLoader().loadClass (engineName); // rgf, 2007-01-28
-                    } catch (ClassNotFoundException cnfe) {
+                    } catch (ClassNotFoundException cnfe) { // 20070917: hmm, maybe defCL can load it ?
+                        try {
+                            definedClassLoader.loadClass(engineName);
+                        }
+                        catch (ClassNotFoundException cnfe2) {
+                            // Bummer.
+                            lang = langval;
+                            continue;
+                        }
 
-                        // Bummer.
-                        lang = langval;
-                        continue;
                     }
 
                     // Got past that? Good.
@@ -633,7 +695,7 @@ public class BSFManager {
             }
         }
         throw new BSFException(BSFException.REASON_OTHER_ERROR,
-                               "file extension missing or unknown: "
+                               "[BSFManager.getLangFromFilename] file extension missing or unknown: "
                                + "unable to determine language for '"
                                + fileName
                                + "'");
@@ -695,15 +757,23 @@ public class BSFManager {
         // is it a registered language?
         String engineClassName = (String) registeredEngines.get(lang);
         if (engineClassName == null) {
-        	logger.error("unsupported language: " + lang);
+        	logger.error("[BSFManager] unsupported language: " + lang);
             throw new BSFException(BSFException.REASON_UNKNOWN_LANGUAGE,
-                                   "unsupported language: " + lang);
+                                   "[BSFManager.loadScriptingEngine()] unsupported language: " + lang);
         }
 
         // create the engine and initialize it. if anything goes wrong
         // except.
         try {
-            Class engineClass = Thread.currentThread().getContextClassLoader().loadClass (engineClassName);
+
+            Class engineClass;
+            try {  // 20070917
+                engineClass = Thread.currentThread().getContextClassLoader().loadClass (engineClassName);
+            }
+            catch (ClassNotFoundException cnfe) {
+                engineClass = definedClassLoader.loadClass (engineClassName);
+            }
+
                // (classLoader == null)
                //  ? // Class.forName(engineClassName)
                //    Thread.currentThread().getContextClassLoader().loadClass (engineClassName) // rgf, 2007-01-28
@@ -725,13 +795,13 @@ public class BSFManager {
             return eng;
         } catch (PrivilegedActionException prive) {
 
-        	    logger.error("Exception :", prive);
+        	    logger.error("[BSFManager] Exception :", prive);
                 throw (BSFException) prive.getException();
         } catch (Throwable t) {
 
-        	logger.error("Exception :", t);
+        	logger.error("[BSFManager] Exception :", t);
             throw new BSFException(BSFException.REASON_OTHER_ERROR,
-                                   "unable to load language: " + lang,
+                                   "[BSFManager.loadScriptingEngine()] unable to load language: " + lang,
                                    t);
         }
     }
@@ -751,7 +821,7 @@ public class BSFManager {
             return ((BSFDeclaredBean)objectRegistry.lookup(beanName)).bean;
         } catch (IllegalArgumentException e) {
 
-        	logger.debug("Exception :", e);
+        	logger.debug("[BSFManager] Exception :", e);
             return null;
         }
     }
@@ -799,6 +869,7 @@ public class BSFManager {
             }
         }
     }
+
 
     /**
      * Set the class loader for those that need to use it. Default is he
@@ -923,4 +994,6 @@ public class BSFManager {
 
         objectRegistry.unregister(beanName);
     }
+
+
 }
