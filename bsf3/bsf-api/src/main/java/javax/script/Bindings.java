@@ -36,7 +36,7 @@ public interface Bindings extends Map{
 	 * @throws IllegalArgumentException if the key is null not an 
      *         instance of java.lang.String
      * */
-	public Object put(Object key,Object value)throws IllegalArgumentException;
+	public Object put(Object key,Object value);
 
 	
     /**
@@ -48,9 +48,9 @@ public interface Bindings extends Map{
      * @throws IllegalArgumentException if a key is null or is not an
      *         instance of java.lang.String
      */
-    public void putAll(Map toMerge) throws IllegalArgumentException;
+    public void putAll(Map toMerge);
 
     public boolean containsKey(Object key);
-    public Object get(Object key) throws NullPointerException, ClassCastException, IllegalArgumentException;
-    public Object remove(Object key) throws NullPointerException, ClassCastException, IllegalArgumentException;
+    public Object get(Object key);
+    public Object remove(Object key);
 }

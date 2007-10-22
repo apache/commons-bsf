@@ -60,19 +60,22 @@ public class ScriptEngineManager {
      * Constructs ScriptEngineManager and initializes it.
      */
 	public ScriptEngineManager() {
-		
-        Iterator iterator = Service.providers(ScriptEngineFactory.class);
-     	
+        this(Thread.currentThread().getContextClassLoader());
+	}
+    
+    public ScriptEngineManager(ClassLoader loader) {
+        Iterator iterator = Service.providers(ScriptEngineFactory.class, loader);
+        
         while (iterator.hasNext()) {
-			ScriptEngineFactory factory;
-        	try {
-    			factory = (ScriptEngineFactory) iterator.next();
-        	} catch (Throwable e) {
-        		// likely jars required by every script engine not on classpath
-        		// TODO: log exception
-        		continue;
-        	}
-			engineSpis.add(factory);
+            ScriptEngineFactory factory;
+            try {
+                factory = (ScriptEngineFactory) iterator.next();
+            } catch (Throwable e) {
+                // likely jars required by every script engine not on classpath
+                // TODO: log exception
+                continue;
+            }
+            engineSpis.add(factory);
             
             List data = factory.getNames();
             // gets all descriptinve names for Scripting Engine
@@ -89,8 +92,8 @@ public class ScriptEngineManager {
             for (int i=0; i<data.size(); i++) {
                 mimeTypeAssociations.put(data.get(i), factory);
             }            
-		}
-	}
+        }
+    }
 	
     /**
      * Retrieves the associated value for the spefied key in the 
@@ -181,26 +184,25 @@ public class ScriptEngineManager {
      * Retrieves an array of instances of ScriptEngineFactory class 
      * which are found by the discovery mechanism.
      * 
-     * @return an array of all discovered ScriptEngineFactory 
+     * @return a list of all discovered ScriptEngineFactory 
      *         instances 
      */
-    public ScriptEngineFactory[] getEngineFactories(){
+    public List getEngineFactories(){
     	ArrayList factories = new ArrayList();
     	Iterator iter = engineSpis.iterator();
     	
     	while(iter.hasNext()) {
     		factories.add(iter.next());
     	}
-    	return (ScriptEngineFactory[]) factories.toArray(
-    			new ScriptEngineFactory[factories.size()]);
+    	return factories;
     }
     
     /**
-     * Retrieves the namespace corresponds to GLOBAL_SCOPE.
+     * Retrieves the bindings corresponds to GLOBAL_SCOPE.
      * 
-     * @return the namespace of GLOBAL_SCOPE
+     * @return the bindings of GLOBAL_SCOPE
      */
-    public Bindings getNamespace(){
+    public Bindings getBindings(){
             return globalscope;
     }
     
@@ -216,33 +218,33 @@ public class ScriptEngineManager {
     }
 	
     /**
-     * Register a extension with a ScriptEngineFactory class. It 
+     * Register a extension with a ScriptEngineFactory. It 
      * overrides any such association discovered previously.
      * 
      * @param extension the extension associated with the specified
      *        ScriptEngineFactory class
-     * @param factory the ScriptEngineFactory class associated with
+     * @param factory the ScriptEngineFactory associated with
      *        the specified extension
      */
-    public void registerEngineExtension(String extension, Class factory){
+    public void registerEngineExtension(String extension, ScriptEngineFactory factory){
         extensionAssocitions.put(extension, factory);        
     }
     
     /**
-     * Registers descriptive name with a ScriptEngineFactory class. 
+     * Registers descriptive name with a ScriptEngineFactory. 
      * It overrides any associations discovered previously.
      * 
      * @param name a descriptive name associated with the specifed 
      *        ScriptEngineFactory class
-     * @param factory the ScriptEngineFactory class associated with
+     * @param factory the ScriptEngineFactory associated with
      *        the specified descriptive name
      */
-    public void registerEngineName(String name, Class factory){
+    public void registerEngineName(String name, ScriptEngineFactory factory){
         nameAssociations.put(name, factory);
     }
     
     /**
-     * Registers a MIME type with a ScriptEngineFactory class. It 
+     * Registers a MIME type with a ScriptEngineFactory. It 
      * overrides any associations discovered previously.
      *  
      * @param mimeType the MIME type associated with specified 
@@ -250,16 +252,16 @@ public class ScriptEngineManager {
      * @param factory the ScriptEngineFactory associated with the
      *        specified MIME type
      */
-	public void registerEngineMimeType(String mimeType,Class factory){
+	public void registerEngineMimeType(String mimeType,ScriptEngineFactory factory){
 		mimeTypeAssociations.put(mimeType,factory);
 	}
 		
     /**
      * Sets the GLOBAL_SCOPE value to the specified namespace.
      * 
-     * @param namespace the namespace to be stored in GLOBAL_SCOPE 
+     * @param bindings the namespace to be stored in GLOBAL_SCOPE 
      */
-	public void setNamespace(Bindings namespace){
-		globalscope = namespace;
+	public void setBindings(Bindings bindings){
+		globalscope = bindings;
 	}
 } 

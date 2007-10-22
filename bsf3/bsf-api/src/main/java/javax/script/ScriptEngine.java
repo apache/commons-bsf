@@ -187,7 +187,7 @@ public interface ScriptEngine {
      * @return associated namespace for the specified level of scope
      * @throws IllegalArgumentException if the scope is invalid
      */
-    public Bindings getBindings(int scope) throws IllegalArgumentException;
+    public Bindings getBindings(int scope);
 		
     /**
      * Associates a key and a value in the ScriptEngine namespace.
@@ -197,7 +197,7 @@ public interface ScriptEngine {
      *              specified key
      * @throws IllegalArgumentException if the key is null
 	 */
-	public void put(String key, Object value) throws IllegalArgumentException;
+	public void put(String key, Object value);
     	
     /**
      * Associates the specified namespace with the specified level of
@@ -209,7 +209,7 @@ public interface ScriptEngine {
      *                  be associated with
      * @throws if the scope is invalid
      */
-	public void setBindings(Bindings bindings, int scope) throws IllegalArgumentException;
+	public void setBindings(Bindings bindings, int scope);
 	
     /**
      * Returns the default ScriptContext of the ScriptEngine whose Bindings, Readers
