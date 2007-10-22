@@ -58,7 +58,7 @@ public class SimpleScriptContext implements ScriptContext {
      * @param name the name of the attribute 
      * @return the value of the attribute
      */
-    public Object getAttribute(String name) throws IllegalArgumentException{
+    public Object getAttribute(String name) {
       
         if (name == null) {
             throw new IllegalArgumentException("name cannot be null");
@@ -83,8 +83,7 @@ public class SimpleScriptContext implements ScriptContext {
      * @return the value value associated with the specified name in
      *         specified level of scope
      */
-    public Object getAttribute(String name, int scope) 
-            throws IllegalArgumentException{
+    public Object getAttribute(String name, int scope) {
     	
         if (name == null) {
             throw new IllegalArgumentException("name cannot be null");
@@ -148,8 +147,7 @@ public class SimpleScriptContext implements ScriptContext {
      * @return value which is removed
      * @throws
      */
-    public Object removeAttribute(String name, int scope) 
-            throws IllegalArgumentException{ 
+    public Object removeAttribute(String name, int scope) { 
        
     	if (name == null) {
             throw new IllegalArgumentException("name is null");
@@ -177,8 +175,7 @@ public class SimpleScriptContext implements ScriptContext {
      * @throws IllegalArguementException if the name is null scope is
      *         invlaid
      */
-    public void setAttribute(String name, Object value, int scope) 
-            throws IllegalArgumentException{
+    public void setAttribute(String name, Object value, int scope) {
        
     	if (name == null) {
             throw new IllegalArgumentException("name is null");
@@ -204,11 +201,13 @@ public class SimpleScriptContext implements ScriptContext {
      *                  level of scope
      * @param scope     the level of scope 
 	 */	
-	public void setBindings(Bindings namespace, int scope) 
-            throws IllegalArgumentException {
+	public void setBindings(Bindings namespace, int scope) {
 	
 		switch (scope) {
 			case ENGINE_SCOPE:
+                if (namespace == null) {
+                    throw new NullPointerException("binding is null for ENGINE_SCOPE scope");
+                }
 				engineScope = namespace;
 				break;
 			case GLOBAL_SCOPE:

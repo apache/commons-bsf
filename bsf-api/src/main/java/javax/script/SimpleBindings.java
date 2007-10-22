@@ -52,6 +52,12 @@ public class SimpleBindings implements Bindings {
 	public SimpleBindings(Map map){
 		this.map = map;
 	}
+    
+    
+
+    public Object put(Object key, Object value) {
+        return put((String) key, value);
+    }
 
     /**
      * Associates the specified value with the specified key in a 
@@ -61,14 +67,17 @@ public class SimpleBindings implements Bindings {
      * @param key the String value which uniquely identifies the 
      *            object
      * @param value the object to be stored.
-     * @throws IllegalArgumentException if the key is null or is not
-     *         java.lang.String type
+     * @throws NullPointerException if the key is null
+     * @throws IllegalArgumentException if the key empty
      */
-    public Object put(Object key, Object value) 
-            throws IllegalArgumentException{
+    public Object put(String key, Object value) {
       
-    	if ((key == null) || !(key instanceof java.lang.String) ) {
-            throw new IllegalArgumentException("key is null or not a String");
+        if (key == null) {
+            throw new NullPointerException("key is null");
+        }
+        
+    	if (key.length() == 0) {
+            throw new IllegalArgumentException("key is empty");
         }       
 		
     	return map.put(key,value);
@@ -83,7 +92,7 @@ public class SimpleBindings implements Bindings {
      * @throws IllegalArgumentException if a key is null or is not 
      *         java.lang.String type in the specified map
      */
-	public void putAll(Map toMerge) throws IllegalArgumentException {
+	public void putAll(Map toMerge) {
         
         Set keySet= toMerge.keySet();
 		Iterator keys= keySet.iterator();

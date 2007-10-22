@@ -33,9 +33,11 @@ public interface Invocable {
 	 * @return resultant object after the execution of the procedure
      * @throws ScriptException if the invocation of the scripting procedure
      *         fails
+     * @throws NoSuchMethodException if method with given name or matching 
+     *         argument types cannot be found
 	 */
     public Object invokeFunction(String name, Object[] args) 
-            throws ScriptException;
+            throws ScriptException, NoSuchMethodException;
     
     /**
      * Invokes a procedure on an object which already defined in the
@@ -48,9 +50,11 @@ public interface Invocable {
      *                   procedure
 	 * @throws ScriptException if the invocation of the procedure 
      *         fails
+     * @throws NoSuchMethodException if a method with given name or matching 
+     *         argument types cannot be found
 	 */
 	public Object invokeMethod(Object thiz, String name, Object[] args) throws 
-            ScriptException;
+            ScriptException, NoSuchMethodException;
 	
     /**
      * Retrieves an instance of java class whose methods are 

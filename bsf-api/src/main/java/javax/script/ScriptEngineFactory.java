@@ -99,7 +99,7 @@ public interface ScriptEngineFactory {
 	 */
 	public Object getParameter(String key);	
 
-	public String getMethodCallSyntax(Object o, String method, String[] args);
+	public String getMethodCallSyntax(String obj, String method, String[] args);
 	
 	public String getOutputStatement(String toDisplay);
 	

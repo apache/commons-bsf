@@ -44,7 +44,7 @@ public interface ScriptContext {
      * @return the associated value with the specified name 
      * @throws IllegalArgumentException if the name is null 
      */
-    public Object getAttribute(String name) throws IllegalArgumentException;
+    public Object getAttribute(String name);
     
     /**
      * Retrieves the value of an attribute in the specified scope. 
@@ -57,8 +57,7 @@ public interface ScriptContext {
      * @throws IllegalArgumentException if the name is null or the 
      *         scope is invalid 
      */
-    public Object getAttribute(String name, int scope) throws 
-            IllegalArgumentException;
+    public Object getAttribute(String name, int scope);
     
     /**
      * Retrieves the lowest value of the scope for which the 
@@ -110,8 +109,7 @@ public interface ScriptContext {
      * @throws IllegalArgumentException if the name is null or if the 
      *         scope is invalid
      */
-    public Object removeAttribute(String name, int scope) throws
-            IllegalArgumentException;
+    public Object removeAttribute(String name, int scope);
     
     /**
 	 * Associates a specified value with the specifed name in the
@@ -123,8 +121,7 @@ public interface ScriptContext {
      * @throws IllegalArgumentException if the name is null or the
      *         scope is invalid
 	 */
-	public void setAttribute(String key,Object value,int scope) throws
-            IllegalArgumentException;
+	public void setAttribute(String key,Object value,int scope);
 	
 	/**
 	 * Associates the specified namespace with the specified scope. 
@@ -132,10 +129,11 @@ public interface ScriptContext {
 	 * @param bindings the namespace to be associated with the
      *        specified level of scope
 	 * @param scope     the specified level of scope 
-     * @throws IllegalArgumentException if the scope is invalid 
+     * @throws IllegalArgumentException if the scope is invalid
+     * @throws NullPointerException if the bindings is null and the 
+     *          scope is ScriptEngine.ENGINE_SCOPE
 	 */
-	public void setBindings(Bindings bindings,int scope) throws 
-            IllegalArgumentException;
+	public void setBindings(Bindings bindings,int scope);
 	
 	public List getScopes();
     

@@ -181,6 +181,8 @@ public abstract class AbstractScriptEngine implements ScriptEngine {
      * @param bindings the namespace to be associated with specified scope
      * @param scope     the level of scope of the specified namespace
      * @throws IllegalArgumentException if scope is invalid
+     * @throws IllegalArgumentException if the bindings is null and the scope 
+     *          is ScriptContext.ENGINE_SCOPE 
      */
 	public void setBindings(Bindings bindings, int scope)
 			throws UnsupportedOperationException {
