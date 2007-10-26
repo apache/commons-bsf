@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.apache.bsf</groupId>
         <artifactId>parent</artifactId>
-        <version>3.0-beta1-SNAPSHOT</version>
+        <version>3.0-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -35,13 +35,13 @@
       <dependency>
           <groupId>org.apache.bsf</groupId>
           <artifactId>bsf-api</artifactId>
-          <version>3.0-beta1-SNAPSHOT</version>
+          <version>3.0-SNAPSHOT</version>
           <scope>compile</scope>
        </dependency>
       <dependency>
           <groupId>org.apache.bsf</groupId>
           <artifactId>bsf-engines</artifactId>
-          <version>3.0-beta1-SNAPSHOT</version>
+          <version>3.0-SNAPSHOT</version>
           <scope>compile</scope>
        </dependency>
 
@@ -65,8 +65,8 @@
         </dependency>
         <dependency>
             <groupId>org.codehaus.woodstox</groupId>
-            <artifactId>wstx</artifactId>
-            <version>asl-3.2.0</version>
+            <artifactId>wstx-asl</artifactId>
+            <version>3.2.0</version>
           <scope>compile</scope>
         </dependency>
         <dependency>

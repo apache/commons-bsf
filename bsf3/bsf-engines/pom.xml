@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.apache.bsf</groupId>
         <artifactId>parent</artifactId>
-        <version>3.0-beta1-SNAPSHOT</version>
+        <version>3.0-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -31,6 +31,31 @@
     <description>Apache BSF project to install 3rd party script engines</description>
 
     <dependencies>
+        <dependency>
+            <groupId>net.sourceforge.retroweaver</groupId>
+            <artifactId>retroweaver</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.retroweaver</groupId>
+            <artifactId>retroweaver-rt</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>asm</groupId>
+            <artifactId>asm</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>asm</groupId>
+            <artifactId>asm-commons</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>backport-util-concurrent</groupId>
+            <artifactId>backport-util-concurrent</artifactId>
+            <version>2.1</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -30,7 +30,7 @@ import junit.framework.TestCase;
  */
 public class HelloTestCase extends TestCase {
 
-	public void testInvokeFunction() throws ScriptException {
+	public void testInvokeFunction() throws ScriptException, NoSuchMethodException {
 		ScriptEngineManager manager = new ScriptEngineManager();
 		ScriptEngine engine = manager.getEngineByExtension("py");
 		engine.eval("def hello(name):\n return 'Hello ' + name");
