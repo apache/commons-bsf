@@ -35,7 +35,7 @@ public class RubyTestcase extends TestCase {
 //		assertFalse(((Boolean)engine.eval("false;")).booleanValue());
 //	}
 
-	public void testInvokeFunction() throws ScriptException {
+	public void testInvokeFunction() throws ScriptException, NoSuchMethodException {
 		ScriptEngineManager manager = new ScriptEngineManager();
 		ScriptEngine engine = manager.getEngineByExtension("rb");
 		engine.eval("def hello(s)\n   return \"Hello \" + s\nend" );

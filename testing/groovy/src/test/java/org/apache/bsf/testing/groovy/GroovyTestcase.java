@@ -30,7 +30,7 @@ import junit.framework.TestCase;
  */
 public class GroovyTestcase extends TestCase {
 	
-	public void testInvokeFunction() throws ScriptException {
+	public void testInvokeFunction() throws ScriptException, NoSuchMethodException {
 		ScriptEngineManager manager = new ScriptEngineManager();
 		ScriptEngine engine = manager.getEngineByExtension("groovy");
 		engine.eval("def hello(name) { return 'Hello ' + name }" );

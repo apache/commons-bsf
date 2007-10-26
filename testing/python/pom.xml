@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.apache.bsf</groupId>
         <artifactId>parent</artifactId>
-        <version>3.0-beta1-SNAPSHOT</version>
+        <version>3.0-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -46,7 +46,7 @@
         <dependency>
             <groupId>org.apache.bsf</groupId>
             <artifactId>bsf-all</artifactId>
-            <version>3.0-beta1-SNAPSHOT</version>
+            <version>3.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

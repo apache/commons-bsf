@@ -35,7 +35,7 @@ public class JavaScriptTestcase extends TestCase {
 		assertFalse(((Boolean)engine.eval("false;")).booleanValue());
 	}
 
-	public void testInvokeFunction() throws ScriptException {
+	public void testInvokeFunction() throws ScriptException, NoSuchMethodException {
 		ScriptEngineManager manager = new ScriptEngineManager();
 		ScriptEngine engine = manager.getEngineByExtension("js");
 		engine.eval("function hello(s) { return 'Hello ' + s; }" );
@@ -44,7 +44,7 @@ public class JavaScriptTestcase extends TestCase {
 		assertEquals("Hello petra", invocableScript.invokeFunction("hello", new Object[]{"petra"}));
 	}
 
-	public void testInvokeMethod() throws ScriptException {
+	public void testInvokeMethod() throws ScriptException, NoSuchMethodException {
 		ScriptEngineManager manager = new ScriptEngineManager();
 		ScriptEngine engine = manager.getEngineByExtension("js");
 		engine.eval("function hello(s) { return 'Hello ' + s; }" );
