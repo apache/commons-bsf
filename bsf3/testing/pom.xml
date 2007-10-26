@@ -39,6 +39,7 @@
             <modules>
                 <module>e4x</module>
                 <module>groovy</module>
+                <module>groovy-1.1</module>
                 <module>javascript</module>
                 <module>python</module>
                 <module>ruby</module>
