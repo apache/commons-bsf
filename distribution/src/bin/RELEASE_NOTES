@@ -1,0 +1,48 @@
+BSF 3 beta2 Release Notes
+-------------------------
+
+Bean Scripting Framework (BSF) is a set of Java classes which
+provides scripting language support within Java applications, 
+and access to Java objects and methods from scripting languages.
+
+From version 3 BSF has been developed according to the JSR-223
+specification but has not yet been tested via the JSR-223 TCK.
+BSF can therefore not be considered a compatible implementation
+of JSR-223.
+
+Changes in the beta2 release
+----------------------------
+
+The beta2 release is an incremental improvement over the first
+beta release fixing several incompatibilities in the BSF API
+for the JSR-223 specification, as well as providing support for
+the latest releases of various languages such as Groovy 1.1, 
+JRuby 1.0.1, and Jython 2.2.1.
+
+While the beta2 release mostly maintains backward compatibility
+with the beta1 release with respect to client APIs and script
+language engine releases there is one breaking API change in the 
+javax.script.Invocable interface. The invokeFunction and 
+invokeMethod methods on that interface now throw an additional
+checked exception, java.lang.NoSuchMethodException. Therefore 
+client code using those methods must be updated when moving up
+to the BSF3 beta2 release.
+
+---   
+
+For more information on Apache BSF visit the website at:
+
+    http://jakarta.apache.org/bsf/
+
+Apache BSF welcomes your help. Any contribution, including code,
+testing, improving the documentation, or bug reporting is always
+appreciated. 
+
+Thank you for using Apache BSF!
+
+- The BSF Team.
+
+
+
+   
+
