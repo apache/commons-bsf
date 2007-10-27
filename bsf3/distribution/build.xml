@@ -26,15 +26,15 @@
 
     <target name="create-bsf-all">
 
-        <mkdir dir="${basedir}\target\bsf-all"/>
-        <unzip src="${localRepository}/org/apache/bsf/bsf-api/${bsf.version}/bsf-api-${bsf.version}.jar" dest="${basedir}\target\bsf-all" overwrite="false"/>
-        <unzip src="${localRepository}/org/apache/bsf/bsf-engines/${bsf.version}/bsf-engines-${bsf.version}.jar" dest="${basedir}\target\bsf-all" overwrite="false"/>
-        <unzip src="${localRepository}/org/apache/bsf/bsf-utils/${bsf.version}/bsf-utils-${bsf.version}.jar" dest="${basedir}\target\bsf-all" overwrite="false"/>
+        <mkdir dir="${basedir}/target/bsf-all"/>
+        <unzip src="${localRepository}/org/apache/bsf/bsf-api/${bsf.version}/bsf-api-${bsf.version}.jar" dest="${basedir}/target/bsf-all" overwrite="false"/>
+        <unzip src="${localRepository}/org/apache/bsf/bsf-engines/${bsf.version}/bsf-engines-${bsf.version}.jar" dest="${basedir}/target/bsf-all" overwrite="false"/>
+        <unzip src="${localRepository}/org/apache/bsf/bsf-utils/${bsf.version}/bsf-utils-${bsf.version}.jar" dest="${basedir}/target/bsf-all" overwrite="false"/>
 
-        <copy file="${basedir}/src/bin/LICENSE" tofile="${basedir}\target\bsf-all\LICENSE" overwrite="true" />
-        <copy file="${basedir}/src/bin/NOTICE" tofile="${basedir}\target\bsf-all\NOTICE" overwrite="true" />
+        <copy file="${basedir}/src/bin/LICENSE" tofile="${basedir}/target/bsf-all/LICENSE" overwrite="true" />
+        <copy file="${basedir}/src/bin/NOTICE" tofile="${basedir}/target/bsf-all/NOTICE" overwrite="true" />
 
-        <zip destfile="${basedir}/target/bsf-all-${bsf.version}.jar" basedir="${basedir}\target\bsf-all" />
+        <zip destfile="${basedir}/target/bsf-all-${bsf.version}.jar" basedir="${basedir}/target/bsf-all" />
 
         <!-- these are required for the mvn install command to work correctly -->
         <condition property="maven.suffix" value="">
@@ -45,7 +45,7 @@
         </condition>
 
         <exec executable="mvn${maven.suffix}" dir="${basedir}" failonerror="true">
-            <arg line="install:install-file -DgroupId=org.apache.bsf -DartifactId=bsf-all -Dversion=${bsf.version} -Dpackaging=jar -DgeneratePom=false -Dfile=${basedir}\target\bsf-all-${bsf.version}.jar"/>
+            <arg line="install:install-file -DgroupId=org.apache.bsf -DartifactId=bsf-all -Dversion=${bsf.version} -Dpackaging=jar -DgeneratePom=false -Dfile=${basedir}/target/bsf-all-${bsf.version}.jar"/>
         </exec>
 
     </target>
