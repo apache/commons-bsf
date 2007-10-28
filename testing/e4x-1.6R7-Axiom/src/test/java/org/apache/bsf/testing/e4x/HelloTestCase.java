@@ -35,16 +35,18 @@ import junit.framework.TestCase;
 import org.apache.axiom.om.OMElement;
 import org.apache.axiom.om.impl.builder.StAXOMBuilder;
 import org.apache.bsf.xml.XMLHelper;
-import org.mozilla.javascript.Context;
-import org.mozilla.javascript.ContextHelper;
 
 /**
  * Tests a basic JavaScrip/E4X invocation
  */
 public class HelloTestCase extends TestCase {
-	
+
 	private XMLHelper xmlHelper;
 	private ScriptEngine engine;
+	
+	static {
+        XMLHelper.init();
+	}
 
 	public void testInvokeFunctionInXML() throws ScriptException, XMLStreamException, FactoryConfigurationError, NoSuchMethodException {
 		engine.eval("function isXML(xml) { return typeof xml == 'xml'; }" );
@@ -91,11 +93,6 @@ public class HelloTestCase extends TestCase {
     protected void setUp() {
         engine = new ScriptEngineManager().getEngineByExtension("js");
         xmlHelper = XMLHelper.getArgHelper(engine);
-        Context cx = Context.enter();
-      	ContextHelper.setTopCallScope(cx, cx.initStandardObjects());
     }
 
-    protected void tearDown() {
-        Context.exit();
-    }
 }

@@ -29,7 +29,9 @@ package org.mozilla.javascript;
 public class ContextHelper {
 	
 	public static void setTopCallScope(Context cx, Scriptable scope) {
-		cx.topCallScope = scope;
+		if (cx.topCallScope == null) {
+			cx.topCallScope = scope;
+		}
 	}
 
 }

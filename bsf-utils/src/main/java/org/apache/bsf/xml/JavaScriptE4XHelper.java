@@ -31,7 +31,7 @@ public class JavaScriptE4XHelper extends DefaultXMLHelper {
 			Class.forName("org.wso2.javascript.xmlimpl.XMLLibImpl", true, JavaScriptE4XHelper.class.getClassLoader());
 			return new JavaScriptE4XAxiomHelper(engine);
 		} catch (ClassNotFoundException e) {
-			// TODO: support Rhino 1.6R7 DOM based E4X impl 
+			// TODO: also support Rhino 1.6R7 DOM based E4X impl 
 			return new JavaScriptE4XXmlBeansHelper(engine);
 		}
 	}
