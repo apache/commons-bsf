@@ -39,14 +39,14 @@ public abstract class XMLHelper {
 		}
 		String language = engine.getFactory().getLanguageName();
 		if ("ECMAScript".endsWith(language)) {
-			return new JavaScriptE4XHelper(engine);
+			return JavaScriptE4XHelper.getXMLHelper(engine);
 		} else if ("ruby".endsWith(language)) {
 			return new JRubyReXMLHelper(engine);
 		} else {
 			return new DefaultXMLHelper();
 		}
 	}
-
+	
 	public abstract Object toScriptXML(OMElement om) throws ScriptException;
 	public abstract OMElement toOMElement(Object scriptXML) throws ScriptException;
 

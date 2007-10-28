@@ -19,99 +19,21 @@
 package org.apache.bsf.xml;
 
 import javax.script.ScriptEngine;
-import javax.script.ScriptException;
-import javax.xml.stream.XMLStreamException;
-
-import org.apache.axiom.om.OMElement;
-import org.apache.axiom.om.impl.builder.StAXOMBuilder;
-import org.apache.xmlbeans.XmlObject;
-import org.mozilla.javascript.Context;
-import org.mozilla.javascript.Scriptable;
-import org.mozilla.javascript.ScriptableObject;
-import org.mozilla.javascript.Wrapper;
-import org.mozilla.javascript.xml.XMLObject;
 
 /**
  * XMLHelper for JavaScript E4X
  */
 public class JavaScriptE4XHelper extends DefaultXMLHelper {
 
-	private Scriptable scope;
+	public static XMLHelper getXMLHelper(ScriptEngine engine) {
 
-    private static boolean axiomE4XImpl = false;
-    static {
-        try {
-            Class.forName("org.mozilla.javascript.xmlimpl.AxiomNode");
-            axiomE4XImpl = true;
-        } catch (ClassNotFoundException ignore) {}
-    }
-
-    JavaScriptE4XHelper(ScriptEngine engine) {
-	    Context cx = Context.enter();
-	    try {
-	        this.scope = cx.initStandardObjects();
-	    } finally {
-	        Context.exit();
-	    }
-	}
-
-	public OMElement toOMElement(Object scriptXML) throws ScriptException {
-        if (scriptXML == null) {
-        	return null;
-        }
-
-        if (!(scriptXML instanceof XMLObject)) {
-            return null;
-        }
-
-        if (axiomE4XImpl) {
-            return (OMElement) ScriptableObject.callMethod(
-                (Scriptable) scriptXML, "getXmlObject", new Object[0]);
-
-        } else {
-            // TODO: E4X Bug? Shouldn't need this copy, but without it the outer element gets lost???
-            Scriptable jsXML =
-                (Scriptable) ScriptableObject.callMethod((Scriptable) scriptXML, "copy", new Object[0]);
-            Wrapper wrapper =
-                (Wrapper) ScriptableObject.callMethod((XMLObject)jsXML, "getXmlObject", new Object[0]);
-
-            XmlObject xmlObject = (XmlObject) wrapper.unwrap();
-
-            try {
-                StAXOMBuilder builder = new StAXOMBuilder(xmlObject.newInputStream());
-                return builder.getDocumentElement();
-
-            } catch (XMLStreamException e) {
-            	throw new ScriptException(e);
-            }
-        }
-	}
-
-	public Object toScriptXML(OMElement om) throws ScriptException {
-        if (om == null) {
-        	return null;
-        }
-        Context cx = Context.enter();
-        try {
-        	if (axiomE4XImpl) {
-
-        		return cx.newObject(scope, "XML", new Object[]{om});
-
-        	} else {
-
-        		XmlObject xml = null;
-                try {
-                    xml = XmlObject.Factory.parse(om.getXMLStreamReader());
-                } catch (Exception e) {
-                	throw new ScriptException(e);
-                }
-                Object wrappedXML = cx.getWrapFactory().wrap(cx, scope, xml, XmlObject.class);
-                return cx.newObject(scope, "XML", new Object[]{wrappedXML});
-
-        	}
-        } finally {
-            Context.exit();
-        }
+		try {
+			Class.forName("org.wso2.javascript.xmlimpl.XMLLibImpl", true, JavaScriptE4XHelper.class.getClassLoader());
+			return new JavaScriptE4XAxiomHelper(engine);
+		} catch (ClassNotFoundException e) {
+			// TODO: support Rhino 1.6R7 DOM based E4X impl 
+			return new JavaScriptE4XXmlBeansHelper(engine);
+		}
 	}
 
 }

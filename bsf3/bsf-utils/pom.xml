@@ -72,7 +72,7 @@
         <dependency>
             <groupId>rhino</groupId>
             <artifactId>js</artifactId>
-            <version>1.6R5</version>
+            <version>1.6R6</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
