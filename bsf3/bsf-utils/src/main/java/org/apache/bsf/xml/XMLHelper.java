@@ -32,8 +32,20 @@ import org.w3c.dom.Node;
  */
 public abstract class XMLHelper {
 
+	/**
+	 * Register axiom-e4x if its available
+	 * @deprecated temp approach for beta2 release
+	 */
+	public static void init() {
+		try {
+			Class.forName("org.wso2.javascript.xmlimpl.XMLLibImpl", true, JavaScriptE4XHelper.class.getClassLoader());
+			JavaScriptE4XAxiomHelper.init();
+		} catch (ClassNotFoundException e) {
+		}
+	}
+
 	public static XMLHelper getArgHelper(ScriptEngine engine) {
-		// TODO: better discovery mechanisim than hardcoded class names 
+		// TODO: better discovery mechanisim than hardcoded class names
 		if (engine == null) {
 			return null;
 		}

@@ -24,6 +24,7 @@ import javax.script.ScriptException;
 import org.apache.axiom.om.OMElement;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ContextFactory;
+import org.mozilla.javascript.ContextHelper;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 import org.mozilla.javascript.xml.XMLLib;
@@ -35,15 +36,6 @@ import org.mozilla.javascript.xml.XMLObject;
 public class JavaScriptE4XAxiomHelper extends DefaultXMLHelper {
 
 	private Scriptable scope;
-
-    class AxiomE4XContextFactory extends ContextFactory {
-
-        protected XMLLib.Factory getE4xImplementationFactory() {
-            return org.mozilla.javascript.xml.XMLLib.Factory.create(
-                    "org.wso2.javascript.xmlimpl.XMLLibImpl"
-            );
-        }
-    }
 
     JavaScriptE4XAxiomHelper(ScriptEngine engine) {
 
@@ -71,7 +63,9 @@ public class JavaScriptE4XAxiomHelper extends DefaultXMLHelper {
             return null;
         }
 
-        return (OMElement) ScriptableObject.callMethod( (Scriptable) scriptXML, "getXmlObject", new Object[0]);
+        Object o = ScriptableObject.callMethod( (Scriptable) scriptXML, "getXmlObject", new Object[0]);
+        return (OMElement) o;
+//        return (OMElement) ScriptableObject.callMethod( (Scriptable) scriptXML, "getXmlObject", new Object[0]);
 	}
 
 	public Object toScriptXML(OMElement om) throws ScriptException {
@@ -81,6 +75,9 @@ public class JavaScriptE4XAxiomHelper extends DefaultXMLHelper {
         Context cx = Context.enter();
         try {
 
+        	// TODO: why is this needed? A bug in axiom-e4x?
+	      	ContextHelper.setTopCallScope(cx, scope);
+
            return cx.newObject(scope, "XML", new Object[]{om});
 
         } finally {
@@ -88,4 +85,18 @@ public class JavaScriptE4XAxiomHelper extends DefaultXMLHelper {
         }
 	}
 
+	public static void init() {
+	    ContextFactory.initGlobal(new AxiomE4XContextFactory());
+	}
 }
+
+class AxiomE4XContextFactory extends ContextFactory {
+
+    protected XMLLib.Factory getE4xImplementationFactory() {
+        return org.mozilla.javascript.xml.XMLLib.Factory.create(
+                "org.wso2.javascript.xmlimpl.XMLLibImpl"
+        );
+    }
+}
+
+
