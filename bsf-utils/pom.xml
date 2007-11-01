@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.apache.bsf</groupId>
         <artifactId>parent</artifactId>
-        <version>3.0-beta2-SNAPSHOT</version>
+        <version>3.0-beta2</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -35,13 +35,13 @@
       <dependency>
           <groupId>org.apache.bsf</groupId>
           <artifactId>bsf-api</artifactId>
-          <version>3.0-beta2-SNAPSHOT</version>
+          <version>3.0-beta2</version>
           <scope>compile</scope>
        </dependency>
       <dependency>
           <groupId>org.apache.bsf</groupId>
           <artifactId>bsf-engines</artifactId>
-          <version>3.0-beta2-SNAPSHOT</version>
+          <version>3.0-beta2</version>
           <scope>compile</scope>
        </dependency>
 

@@ -22,7 +22,7 @@
 
 <project name="Create-bsf-all">
 
-    <property name="bsf.version" value="3.0-beta2-SNAPSHOT"/>
+    <property name="bsf.version" value="3.0-beta2"/>
 
     <target name="create-bsf-all">
 
