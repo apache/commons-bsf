@@ -19,6 +19,7 @@
 
 package javax.script;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -93,9 +94,25 @@ public class ScriptEngineManager {
                 mimeTypeAssociations.put(data.get(i), factory);
             }            
         }
+        
+        initXMLHelper(loader);
     }
-	
+
     /**
+     * Initialise the xml helper here so BSF clients don't have to.
+     * (Temporary approach for beta2 release)
+     */
+    private void initXMLHelper(ClassLoader loader) {
+    	try {
+			Class xmlHelperClass = Class.forName("org.apache.bsf.xml.XMLHelper", true, loader);
+			Method initMethod = xmlHelperClass.getMethod("init", new Class[]{});
+			initMethod.invoke(null, new Object[]{});
+		} catch (Throwable e) {
+			// ignore
+		}
+	}
+
+	/**
      * Retrieves the associated value for the spefied key in the 
      * GLOBAL_SCOPE
      *  

@@ -44,10 +44,6 @@ public class HelloTestCase extends TestCase {
 	private XMLHelper xmlHelper;
 	private ScriptEngine engine;
 	
-	static {
-        XMLHelper.init();
-	}
-
 	public void testInvokeFunctionInXML() throws ScriptException, XMLStreamException, FactoryConfigurationError, NoSuchMethodException {
 		engine.eval("function isXML(xml) { return typeof xml == 'xml'; }" );
 		assertTrue(engine instanceof Invocable);
