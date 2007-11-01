@@ -16,23 +16,21 @@
  * specific language governing permissions and limitations
  * under the License.    
  */
-package org.apache.bsf.xml;
-
-import javax.script.ScriptEngine;
+package org.mozilla.javascript;
 
 /**
- * XMLHelper for JavaScript E4X
+ * Hack to enable creating E4X XML from Axiom OMElements
+ * outside of a script invocation. To do this requires
+ * Context.topCallScope not be null, but outside of a script
+ * invocation it is null, hence this method to enable setting it.
+ * Could be a bug in the Axiom E4X impl as the XmlBeans impl
+ * does not require this.
  */
-public class JavaScriptE4XHelper extends DefaultXMLHelper {
-
-	public static XMLHelper getXMLHelper(ScriptEngine engine) {
-
-		try {
-			Class.forName("org.wso2.javascript.xmlimpl.XMLLibImpl", true, JavaScriptE4XHelper.class.getClassLoader());
-			return new JavaScriptE4XAxiomHelper(engine);
-		} catch (ClassNotFoundException e) {
-			// TODO: also support Rhino 1.6R7 DOM based E4X impl 
-			return new JavaScriptE4XXmlBeansHelper(engine);
+public class ContextHelper {
+	
+	public static void setTopCallScope(Context cx, Scriptable scope) {
+		if (cx.topCallScope == null) {
+			cx.topCallScope = scope;
 		}
 	}
 
