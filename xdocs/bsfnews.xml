@@ -4,11 +4,32 @@
   <properties>
     <author date="2002-11-12" email="chuck@topsail.org">Chuck Murcko</author>
     <author date="2006-09-16">Rony G. Flatscher</author>
+    <author date="2007-11-09">Ant Elder</author>
 
     <title>BSF News</title>
   </properties>
 
 <body>
+  <section name="BSF 3.0 Beta 2">
+    <h3>November, 9, 2007 - BSF 3.0 Beta2 Release Available</h3>
+    <p>
+     The second beta release of BSF 3.0 is now available for
+     <a href="http://jakarta.apache.org/site/downloads/downloads_bsf.cgi">
+     download</a>. If you have any feedback on this release, feel free to
+     join the discussion on the bsf-dev and bsf-user mailing lists.
+    </p>
+  </section>
+
+  <section name="BSF 3.0 Beta 1">
+    <h3>April, 16, 2007 - BSF 3.0 Beta1 Release Available</h3>
+    <p>
+     The first beta release of BSF 3.0 is now available for
+     <a href="http://jakarta.apache.org/site/downloads/downloads_bsf.cgi">
+     download</a>. If you have any feedback on this release, feel free to
+     join the discussion on the bsf-dev and bsf-user mailing lists.
+    </p>
+  </section>
+
   <section name="BSF 2.4.0">
     <h3>October, 06, 2006 - BSF 2.4.0 Available</h3>
     <p>
@@ -42,4 +63,3 @@
 
 </body>
 </document>
-
