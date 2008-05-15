@@ -84,6 +84,7 @@ Copyright:
 		<include name="**/util/**/*.java" />
 		<include name="**/jacl/**" if="jacl.present" />
 		<include name="**/javascript/**" if="rhino.present" />
+		<include name="**/jexl/**" if="jexl.present" />
 		<include name="**/jython/**" if="jython.present" />
 		<include name="**/netrexx/**" if="netrexx.present" />
 		<include name="**/xslt/**" if="xalan.present" />
@@ -123,6 +124,8 @@ Copyright:
 		<!-- Determines what optional components are available                 -->
 		<!-- ================================================================= -->
 		<available property="jacl.present" classpathref="compile.classpath" classname="tcl.lang.JACL" />
+
+		<available property="jexl.present" classpathref="compile.classpath" classname="org.apache.commons.jexl.Script" />
 
 		<available property="jython.present" classpathref="compile.classpath" classname="org.python.util.jython" />
 
@@ -170,6 +173,9 @@ Copyright:
 	<target name="checkJacl" unless="jacl.present">
 		<echo message="Warning: Jacl dependencies were not resolved." />
 	</target>
+	<target name="checkJexl" unless="jexl.present">
+		<echo message="Warning: JEXL dependencies were not resolved." />
+	</target>
 	<target name="checkJython" unless="jython.present">
 		<echo message="Warning: Jython dependencies were not resolved." />
 	</target>
@@ -196,6 +202,7 @@ Copyright:
 
 	<target name="checkDependencies" unless="javac.notRequired">
 		<antcall target="checkJacl" />
+		<antcall target="checkJexl" />
 		<antcall target="checkJython" />
 		<antcall target="checkNetRexx" />
 		<antcall target="checkRhino" />

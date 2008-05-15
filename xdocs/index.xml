@@ -41,6 +41,10 @@ BSF supports several scripting languages currently:
    </li>
 
    <li>
+       <a href="http://commons.apache.org/jexl/">Commons JEXL</a>
+   </li>
+
+   <li>
        <a href="http://jython.sourceforge.net/">Python (using Jython) </a>
    </li>
 

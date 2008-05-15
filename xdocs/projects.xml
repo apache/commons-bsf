@@ -104,6 +104,33 @@
       </subsection>
 
 
+      <subsection name="JEXL">
+        <p>
+        &quot;Java Expression Language (JEXL) is an expression language engine which
+        can be embedded in applications and frameworks.&quot;
+        </p>
+
+        <table>
+          <tr>
+            <th>Compatibility:</th>
+            <td>Commons JEXL 1.1, with BSF version TBD (Not yet released)</td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://commons.apache.org/jexl/">http://commons.apache.org/jexl/</a></td>
+          </tr>
+          <tr>
+            <th>Contact:</th>
+            <td><a href ="http://commons.apache.org/jexl/mail-lists.html">Commons Mailing Lists</a></td>
+          </tr>
+          <tr>
+            <th>License:</th>
+            <td><a href="http://www.opensource.org/licenses/apache2.0.php">Apache v2.0</a></td>
+          </tr>
+        </table>
+      </subsection>
+
+
       <subsection name="JavaScript/Rhino (JavaScript in Java)">
         <p>
         &quot;JavaScript/Rhino is an open-source implementation of JavaScript written
