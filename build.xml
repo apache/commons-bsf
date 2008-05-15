@@ -122,17 +122,17 @@ Copyright:
 		<!-- ================================================================= -->
 		<!-- Determines what optional components are available                 -->
 		<!-- ================================================================= -->
-		<available property="jacl.present" classname="tcl.lang.JACL" />
+		<available property="jacl.present" classpathref="compile.classpath" classname="tcl.lang.JACL" />
 
-		<available property="jython.present" classname="org.python.util.jython" />
+		<available property="jython.present" classpathref="compile.classpath" classname="org.python.util.jython" />
 
-		<available property="netrexx.present" classname="netrexx.lang.Rexx" />
+		<available property="netrexx.present" classpathref="compile.classpath" classname="netrexx.lang.Rexx" />
 
-		<available property="rhino.present" classname="org.mozilla.javascript.Scriptable" />
+		<available property="rhino.present" classpathref="compile.classpath" classname="org.mozilla.javascript.Scriptable" />
 
-		<available property="xalan.present" classname="org.apache.xalan.xslt.EnvironmentCheck" />
+		<available property="xalan.present" classpathref="compile.classpath" classname="org.apache.xalan.xslt.EnvironmentCheck" />
 
-		<available property="junit.present" classname="junit.framework.TestCase" />
+		<available property="junit.present" classpathref="compile.classpath" classname="junit.framework.TestCase" />
 
 		<uptodate property="javac.notRequired" targetfile="${build.lib}/${project.name}.jar">
 			<srcfiles dir="${src.dir}">
