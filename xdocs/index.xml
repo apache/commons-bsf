@@ -70,6 +70,10 @@ BSF supports several scripting languages currently:
    </li>
 
    <li>
+       <a href="http://groovy.codehaus.org/Groovy+Monkey">Groovy Monkey</a>
+   </li>
+
+   <li>
        <a href="http://www.ulfdittmer.com/jlog/index.html">JLog</a> (<a href="http://jlogic.sourceforge.net/">PROLOG implemented in Java</a>)
    </li>
 

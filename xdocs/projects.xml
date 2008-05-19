@@ -77,6 +77,31 @@
       </subsection>
 
 
+      <subsection name="Groovy Monkey">
+        <p>
+        &quot;<a href="http://groovy.codehaus.org/Groovy+Monkey">Groovy Monkey</a> is a
+        dynamic scripting tool for the Eclipse Platform/RCP that enables you to
+        automate tasks, explore the Eclipse API and engage in rapid prototyping.
+        Groovy Monkey makes use of the BSF framework to allow users to write scripts
+        in Beanshell, Groovy or the Ruby language.  If you have ever wanted to be
+        able to quickly experiment with or write simple automation tasks for the
+        Eclipse environment, this is the tool for you.
+        &quot;
+        </p>
+        <table>
+          <tr>
+            <th>Compatibility:</th>
+            <td>BSF 2.3 and above</td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://groovy.codehaus.org/Groovy+Monkey">http://groovy.codehaus.org/Groovy+Monkey</a></td>
+          </tr>
+    
+        </table>
+      </subsection>
+
+
       <subsection name="Jacl (Tcl)">
         <p>
         &quot;Jacl, which stands for Java Command Language, is a Java implementation
