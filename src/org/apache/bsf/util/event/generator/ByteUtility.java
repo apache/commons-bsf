@@ -169,19 +169,19 @@ public class ByteUtility
   public static float byteArrayToFloat(byte value[])
   {
 	float temp = 0;
-	temp += (((int)value[0]) & 0xFF) << 24;
-	temp += (((int)value[1]) & 0xFF) << 16;
-	temp += (((int)value[2]) & 0xFF) << 8;
-	temp += (((int)value[3]) & 0xFF);
+	temp += (value[0] & 0xFF) << 24;
+	temp += (value[1] & 0xFF) << 16;
+	temp += (value[2] & 0xFF) << 8;
+	temp += (value[3] & 0xFF);
 	return temp;
   }
   public static int byteArrayToInt(byte value[])
   {
 	int temp = 0;
-	temp += (((int)value[0]) & 0xFF) << 24;
-	temp += (((int)value[1]) & 0xFF) << 16;
-	temp += (((int)value[2]) & 0xFF) << 8;
-	temp += (((int)value[3]) & 0xFF);
+	temp += (value[0] & 0xFF) << 24;
+	temp += (value[1] & 0xFF) << 16;
+	temp += (value[2] & 0xFF) << 8;
+	temp += (value[3] & 0xFF);
 	return temp;
   }
   public static long byteArrayToLong(byte value[])
@@ -217,8 +217,8 @@ public class ByteUtility
   public static short byteArrayToShort(byte value[])
   {
 	short temp = 0;
-	temp += (((int)value[0]) & 0xFF) << 8;
-	temp += (((int)value[1]) & 0xFF);
+	temp += (value[0] & 0xFF) << 8;
+	temp += (value[1] & 0xFF);
 	return temp;
   }
   public static String byteToHexString(byte value)

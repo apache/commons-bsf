@@ -119,7 +119,6 @@ public class EngineUtilsTest extends TestCase {
         Object obj = EngineUtils.getTypeSignatureString(int1.getClass());
 
         assertEquals("Ljava/lang/Integer;",(String)obj);
-        assertEquals("I",
-                     (String)(EngineUtils.getTypeSignatureString(int.class)));
+        assertEquals("I", EngineUtils.getTypeSignatureString(int.class));
     }
 }

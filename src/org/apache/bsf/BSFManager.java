@@ -188,7 +188,7 @@ public class BSFManager {
 
 //                    RGFInfo.append("\tregistering BSF engine: key=["+key+"]\tclassName=["+className+"] nr. of extensions=["+extensions.length+"\n");
                     for (int i = 0; st.hasMoreTokens(); i++) {
-                        extensions[i] = ((String) st.nextToken()).trim();
+                        extensions[i] = st.nextToken().trim();
 //                        RGFInfo.append("\t\t--->extension=["+extensions[i]+"]\n");
                     }
 
