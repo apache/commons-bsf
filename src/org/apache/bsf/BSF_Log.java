@@ -141,7 +141,7 @@ public class BSF_Log // implements org.apache.commons.logging.Log
             }
             catch (Exception e) { e.printStackTrace(); }
         }
-    };
+    }
 
     public BSF_Log(String name)
     {
@@ -154,7 +154,7 @@ public class BSF_Log // implements org.apache.commons.logging.Log
             }
             catch (Exception e) { e.printStackTrace(); }
         }
-    };
+    }
 
     public BSF_Log(Class clazz)
     {
@@ -167,7 +167,7 @@ public class BSF_Log // implements org.apache.commons.logging.Log
             }
             catch (Exception e) { e.printStackTrace(); }
         }
-    };
+    }
 
     // --------------------------------------------------------------------
     public void debug(Object msg)
@@ -181,7 +181,7 @@ public class BSF_Log // implements org.apache.commons.logging.Log
 
         }
         catch (Exception e) { e.printStackTrace(); }
-    };
+    }
 
     public void debug(Object msg, Throwable t)
     {
@@ -193,7 +193,7 @@ public class BSF_Log // implements org.apache.commons.logging.Log
             meths[debug2].invoke(oac_logger, new Object [] {msg, t});
         }
         catch (Exception e) { e.printStackTrace(); }
-    };
+    }
 
     // --------------------------------------------------------------------
     public void error(Object msg)
@@ -206,7 +206,7 @@ public class BSF_Log // implements org.apache.commons.logging.Log
             meths[error1].invoke(oac_logger, new Object [] {msg});
         }
         catch (Exception e) { e.printStackTrace(); }
-    };
+    }
 
     public void error(Object msg, Throwable t)
     {
@@ -218,7 +218,7 @@ public class BSF_Log // implements org.apache.commons.logging.Log
             meths[error2].invoke(oac_logger, new Object [] {msg, t});
         }
         catch (Exception e) { e.printStackTrace(); }
-    };
+    }
 
 
     // --------------------------------------------------------------------
@@ -232,7 +232,7 @@ public class BSF_Log // implements org.apache.commons.logging.Log
             meths[fatal1].invoke(oac_logger, new Object [] {msg});
         }
         catch (Exception e) { e.printStackTrace(); }
-    };
+    }
 
     public void fatal(Object msg, Throwable t)
     {
@@ -243,7 +243,7 @@ public class BSF_Log // implements org.apache.commons.logging.Log
             meths[fatal2].invoke(oac_logger, new Object [] {msg, t});
         }
         catch (Exception e) { e.printStackTrace(); }
-    };
+    }
 
 
     // --------------------------------------------------------------------
@@ -257,7 +257,7 @@ public class BSF_Log // implements org.apache.commons.logging.Log
             meths[info1].invoke(oac_logger, new Object [] {msg});
         }
         catch (Exception e) { e.printStackTrace(); }
-    };
+    }
 
     public void info (Object msg, Throwable t)
     {
@@ -269,7 +269,7 @@ public class BSF_Log // implements org.apache.commons.logging.Log
             meths[info2].invoke(oac_logger, new Object [] {msg, t});
         }
         catch (Exception e) { e.printStackTrace(); }
-    };
+    }
 
 
     // --------------------------------------------------------------------
@@ -283,7 +283,7 @@ public class BSF_Log // implements org.apache.commons.logging.Log
             meths[trace1].invoke(oac_logger, new Object [] {msg});
         }
         catch (Exception e) { e.printStackTrace(); }
-    };
+    }
 
     public void trace(Object msg, Throwable t)
     {
@@ -295,7 +295,7 @@ public class BSF_Log // implements org.apache.commons.logging.Log
             meths[trace2].invoke(oac_logger, new Object [] {msg, t});
         }
         catch (Exception e) { e.printStackTrace(); }
-    };
+    }
 
 
     // --------------------------------------------------------------------
@@ -309,7 +309,7 @@ public class BSF_Log // implements org.apache.commons.logging.Log
             meths[warn1].invoke(oac_logger, new Object [] {msg});
         }
         catch (Exception e) { e.printStackTrace(); }
-    };
+    }
 
     public void warn (Object msg, Throwable t)
     {
@@ -321,7 +321,7 @@ public class BSF_Log // implements org.apache.commons.logging.Log
             meths[warn2].invoke(oac_logger, new Object [] {msg, t});
         }
         catch (Exception e) { e.printStackTrace(); }
-    };
+    }
 
 
     // --------------------------------------------------------------------
@@ -335,7 +335,7 @@ public class BSF_Log // implements org.apache.commons.logging.Log
             // return ((org.apache.commons.logging.Log) oac_logger).isDebugEnabled();
             return ((Boolean) meths[isDebugEnabled].invoke(oac_logger, new Object [] {})).booleanValue();
         }
-        catch (Exception e) { ; }
+        catch (Exception e) {  }
         finally             { return false; }
     }
 
@@ -348,7 +348,7 @@ public class BSF_Log // implements org.apache.commons.logging.Log
             // return ((org.apache.commons.logging.Log) oac_logger).isErrorEnabled();
             return ((Boolean) meths[isErrorEnabled].invoke(oac_logger, new Object [] {})).booleanValue();
         }
-        catch (Exception e) { ; }
+        catch (Exception e) {  }
         finally             { return false; }
     }
 
@@ -361,7 +361,7 @@ public class BSF_Log // implements org.apache.commons.logging.Log
             // return ((org.apache.commons.logging.Log) oac_logger).isFatalEnabled();
             return ((Boolean) meths[isFatalEnabled].invoke(oac_logger, new Object [] {})).booleanValue();
         }
-        catch (Exception e) { ; }
+        catch (Exception e) {  }
         finally             { return false; }
     }
 
@@ -374,7 +374,7 @@ public class BSF_Log // implements org.apache.commons.logging.Log
             // return ((org.apache.commons.logging.Log) oac_logger).isInfoEnabled();
             return ((Boolean) meths[isInfoEnabled].invoke(oac_logger, new Object [] {})).booleanValue();
         }
-        catch (Exception e) { ; }
+        catch (Exception e) {  }
         finally             { return false; }
     }
 
@@ -387,7 +387,7 @@ public class BSF_Log // implements org.apache.commons.logging.Log
             // return ((org.apache.commons.logging.Log) oac_logger).isTraceEnabled();
             return ((Boolean) meths[isTraceEnabled].invoke(oac_logger, new Object [] {})).booleanValue();
         }
-        catch (Exception e) { ; }
+        catch (Exception e) {  }
         finally             { return false; }
     }
 
@@ -400,7 +400,7 @@ public class BSF_Log // implements org.apache.commons.logging.Log
             // return ((org.apache.commons.logging.Log) oac_logger).isWarnEnabled();
             return ((Boolean) meths[isWarnEnabled].invoke(oac_logger, new Object [] {})).booleanValue();
         }
-        catch (Exception e) { ; }
+        catch (Exception e) {  }
         finally             { return false; }
     }
 

@@ -30,7 +30,7 @@ package org.apache.bsf;
 
 public class BSF_LogFactory
 {
-    protected BSF_LogFactory() {};              // mimickries org.apache.commons.logging.LogFactory
+    protected BSF_LogFactory() {}              // mimickries org.apache.commons.logging.LogFactory
 
     static public BSF_Log getLog (String name)
     {
