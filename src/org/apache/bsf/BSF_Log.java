@@ -38,15 +38,15 @@ import  java.lang.reflect.*;
    ---rgf, 2007-09-17, adjusted for using default class loader, if system class loader fails
 */
 
+//@Immutable
 public class BSF_Log // implements org.apache.commons.logging.Log
 {
     final private static int iDebug=0;  // don't show any debug-info
-    static private Class       oac_Log                     = null;
-    static private Class       oac_LogFactory              = null;
-    static private Method      oac_LogFactoryGetLog_Clazz  = null;
-    static private Method      oac_LogFactoryGetLog_String = null;
+    final static private Class       oac_LogFactory;
+    //NOTUSED final static private Method      oac_LogFactoryGetLog_Clazz;
+    final static private Method      oac_LogFactoryGetLog_String;
 
-    static private Method meths[] = new Method [18];  // store the Log methods
+    final static private Method meths[] = new Method [18];  // store the Log methods
         // define the slots in the array
     final private static int debug1 =  0 ;
     final private static int debug2 =  1 ;
@@ -67,30 +67,37 @@ public class BSF_Log // implements org.apache.commons.logging.Log
     final private static int warn2  = 16 ;
     final private static int isWarnEnabled  = 17 ;
 
-    {           // try to demand load the apache commons logging LogFactory
+    static {           // try to demand load the apache commons logging LogFactory
+
+        Class oac_LogFactory_ = null;
+        //NOTUSED Method oac_LogFactoryGetLog_Clazz_ = null;
+        Method oac_LogFactoryGetLog_String_ = null;
+        
         try     // rgf, 20070917: o.k., if not found, try definedClassLoader instead
         {
             ClassLoader cl= Thread.currentThread().getContextClassLoader();
 
             String str4Log="org.apache.commons.logging.Log";
 
+            Class logClass = null;
             try {
-                oac_Log        = cl.loadClass(str4Log);
+                logClass        = cl.loadClass(str4Log);
             }
             catch (ClassNotFoundException e1) // not found by contextClassLoader
             {                                 // try defined class loader instead
                 ClassLoader defCL=BSFManager.getDefinedClassLoader();
-                oac_Log = defCL.loadClass(str4Log);
+                logClass = defCL.loadClass(str4Log);
                 cl=defCL;       // class found, hence we use the definedClassLoader here
             }
 
-            oac_LogFactory = cl.loadClass("org.apache.commons.logging.LogFactory");
+            
+            oac_LogFactory_ = cl.loadClass("org.apache.commons.logging.LogFactory");
 
                 // get method with Class object argument
-            oac_LogFactoryGetLog_Clazz = oac_LogFactory.getMethod("getLog", new Class[] {Class.class});
+            //NOTUSED oac_LogFactoryGetLog_Clazz_ = oac_LogFactory_.getMethod("getLog", new Class[] {Class.class});
 
                 // get method with String object argument
-            oac_LogFactoryGetLog_String = oac_LogFactory.getMethod("getLog", new Class[] {String.class});
+            oac_LogFactoryGetLog_String_ = oac_LogFactory_.getMethod("getLog", new Class[] {String.class});
 
                 // get the Log methods
             String str[][]={{"debug", "isDebugEnabled"},
@@ -103,11 +110,11 @@ public class BSF_Log // implements org.apache.commons.logging.Log
             for ( ; i<6; i++)
             {
                 int j=i*3;
-                meths[j  ]=oac_Log.getMethod(str[i][0], new Class[] {Object.class});
+                meths[j  ]=logClass.getMethod(str[i][0], new Class[] {Object.class});
 
-                meths[j+1]=oac_Log.getMethod(str[i][0], new Class[] {Object.class, Throwable.class});
+                meths[j+1]=logClass.getMethod(str[i][0], new Class[] {Object.class, Throwable.class});
 
-                meths[j+2]=oac_Log.getMethod(str[i][1], new Class[] {} );
+                meths[j+2]=logClass.getMethod(str[i][1], new Class[] {} );
 
             }
         }
@@ -115,58 +122,51 @@ public class BSF_Log // implements org.apache.commons.logging.Log
         catch (ClassNotFoundException e)// o.k., so we do not use org.apache.commons.logging in this run
         {
             if (iDebug>1) e.printStackTrace();
+            //TODO - should we set oac_LogFactory=null here?
         }
         catch (NoSuchMethodException  e)// o.k., so we do not use org.apache.commons.logging in this run
         {
             if (iDebug>1) e.printStackTrace();
+            //TODO - should we set oac_LogFactory=null here?
         }
+        
+        // Set up final fields
+        oac_LogFactory = oac_LogFactory_;
+        //NOTUSED oac_LogFactoryGetLog_Clazz = oac_LogFactoryGetLog_Clazz_;
+        oac_LogFactoryGetLog_String = oac_LogFactoryGetLog_String_;
     }
 
 
     /** Name of the BSF_Log instance. */
-    String name=null;
+    final String name;
 
     /** Proxy object for <em>org.apache.commons.logging.Log</em>, if available. */
-    private Object oac_logger=null;
+    private final Object oac_logger;
 
 
     public BSF_Log()
     {
-        this.name="<?>";
-        if (oac_LogFactory!=null)
-        {
-            try     // try to get an org.apache.commons.logging.Log object from the LogFactory
-            {
-                oac_logger=oac_LogFactoryGetLog_String.invoke(oac_LogFactory, new Object[] {this.name});
-            }
-            catch (Exception e) { e.printStackTrace(); }
-        }
+        this("<?>");
     }
 
     public BSF_Log(String name)
     {
+        Object oac_logger_ = null;
         this.name=name;
         if (oac_LogFactory!=null)
         {
             try     // try to get an org.apache.commons.logging.Log object from the LogFactory
             {
-                oac_logger=oac_LogFactoryGetLog_String.invoke(oac_LogFactory, new Object[] {name});
+                oac_logger_=oac_LogFactoryGetLog_String.invoke(oac_LogFactory, new Object[] {name});
             }
             catch (Exception e) { e.printStackTrace(); }
         }
+        oac_logger = oac_logger_;
     }
 
     public BSF_Log(Class clazz)
     {
-        this.name=clazz.getName();
-        if (oac_LogFactory!=null)
-        {
-            try     // try to get an org.apache.commons.logging.Log object from the LogFactory
-            {
-                oac_logger=oac_LogFactoryGetLog_Clazz.invoke(oac_LogFactory, new Object[] {clazz});
-            }
-            catch (Exception e) { e.printStackTrace(); }
-        }
+        this(clazz.getName());
     }
 
     // --------------------------------------------------------------------
