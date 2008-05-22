@@ -25,34 +25,34 @@ import org.apache.bsf.BSF_LogFactory;
 import java.io.IOException;
 
 public class JavaUtils {
-	// Temporarily copied from JavaEngine...
+    // Temporarily copied from JavaEngine...
 
-	private static BSF_Log logger=null;
+    private static BSF_Log logger=null;
 
-	static {
+    static {
                     // handle logger
                 logger = BSF_LogFactory.getLog((org.apache.bsf.util.JavaUtils.class).getName());
-	}
+    }
 
-	public static boolean JDKcompile(String fileName, String classPath) {
-		String option = (logger.isDebugEnabled()) ? "-g" : "-O";
-		String args[] = { "javac", option, "-classpath", classPath, fileName };
+    public static boolean JDKcompile(String fileName, String classPath) {
+        String option = (logger.isDebugEnabled()) ? "-g" : "-O";
+        String args[] = { "javac", option, "-classpath", classPath, fileName };
 
-		logger.debug("JavaEngine: Compiling " + fileName);
-		logger.debug("JavaEngine: Classpath is " + classPath);
+        logger.debug("JavaEngine: Compiling " + fileName);
+        logger.debug("JavaEngine: Classpath is " + classPath);
 
-		try {
-			Process p = java.lang.Runtime.getRuntime().exec(args);
-			p.waitFor();
-			return (p.exitValue() != 0);
-		} catch (IOException e) {
-			logger.error("ERROR: IO exception during exec(javac).", e);
-		} catch (SecurityException e) {
-			logger.error("ERROR: Unable to create subprocess to exec(javac).",
-					e);
-		} catch (InterruptedException e) {
-			logger.error("ERROR: Wait for exec(javac) was interrupted.", e);
-		}
-		return false;
-	}
+        try {
+            Process p = java.lang.Runtime.getRuntime().exec(args);
+            p.waitFor();
+            return (p.exitValue() != 0);
+        } catch (IOException e) {
+            logger.error("ERROR: IO exception during exec(javac).", e);
+        } catch (SecurityException e) {
+            logger.error("ERROR: Unable to create subprocess to exec(javac).",
+                    e);
+        } catch (InterruptedException e) {
+            logger.error("ERROR: Wait for exec(javac) was interrupted.", e);
+        }
+        return false;
+    }
 }

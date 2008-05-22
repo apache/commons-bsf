@@ -25,10 +25,10 @@ public class XSLTResultNode
 
   public XSLTResultNode(Node node)
   {
-	this.node = node;
+    this.node = node;
   }
   public Node getNode()
   {
-	return node;
+    return node;
   }
 }

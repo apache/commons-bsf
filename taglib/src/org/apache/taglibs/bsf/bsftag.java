@@ -72,9 +72,9 @@ public class bsftag extends BodyTagSupport implements BodyTag
         if (bean == null) return;
         try {
             mgr.declareBean(name, bean, bean.getClass());
-	}
+    }
         catch(Exception e) {
-	    throw e;
+        throw e;
         }
     }
 }

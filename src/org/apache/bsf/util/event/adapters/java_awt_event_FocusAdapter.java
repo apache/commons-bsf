@@ -23,12 +23,12 @@ import java.awt.event.FocusListener;
 import org.apache.bsf.util.event.EventAdapterImpl;
 
 public class java_awt_event_FocusAdapter extends EventAdapterImpl
-											implements FocusListener {
+                                            implements FocusListener {
 
   public void focusGained (FocusEvent e) {
-	eventProcessor.processEvent ("focusGained", new Object[]{e});
+    eventProcessor.processEvent ("focusGained", new Object[]{e});
   }
   public void focusLost (FocusEvent e) {
-	eventProcessor.processEvent ("focusLost", new Object[]{e});
+    eventProcessor.processEvent ("focusLost", new Object[]{e});
   }
 }

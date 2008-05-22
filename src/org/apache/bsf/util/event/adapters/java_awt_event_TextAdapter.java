@@ -23,9 +23,9 @@ import java.awt.event.TextListener;
 import org.apache.bsf.util.event.EventAdapterImpl;
 
 public class java_awt_event_TextAdapter extends EventAdapterImpl 
-										   implements TextListener {
+                                           implements TextListener {
 
   public void textValueChanged (TextEvent e) {
-	eventProcessor.processEvent ("textValueChanged", new Object[]{e});
+    eventProcessor.processEvent ("textValueChanged", new Object[]{e});
   }
 }

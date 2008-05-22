@@ -38,33 +38,33 @@ public class BSFException extends Exception {
   Throwable targetThrowable;
 
   public BSFException (int reason, String msg) {
-	super (msg);
-	this.reason = reason;
+    super (msg);
+    this.reason = reason;
   }
   public BSFException (int reason, String msg, Throwable t) {
-	this (reason, msg);
-	targetThrowable = t;
+    this (reason, msg);
+    targetThrowable = t;
   }
   public BSFException (String msg) {
-	this (REASON_OTHER_ERROR, msg);
+    this (REASON_OTHER_ERROR, msg);
   }
   public int getReason () {
-	return reason;
+    return reason;
   }
   public Throwable getTargetException () {
-	return targetThrowable;
+    return targetThrowable;
   }
   public void printStackTrace () {
-	if (targetThrowable != null) {
-	  String msg = getMessage ();
+    if (targetThrowable != null) {
+      String msg = getMessage ();
 
-	  if (msg != null && !msg.equals (targetThrowable.getMessage ())) {
-		System.err.print (msg + ": ");
-	  }
+      if (msg != null && !msg.equals (targetThrowable.getMessage ())) {
+        System.err.print (msg + ": ");
+      }
 
-	  targetThrowable.printStackTrace ();
-	} else {
-	  super.printStackTrace ();
-	}
+      targetThrowable.printStackTrace ();
+    } else {
+      super.printStackTrace ();
+    }
   }
 }

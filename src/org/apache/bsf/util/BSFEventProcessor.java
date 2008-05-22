@@ -42,15 +42,15 @@ public class BSFEventProcessor implements EventProcessor {
    * public use.
    */
   BSFEventProcessor (BSFEngine engine, BSFManager manager, String filter,
-		     String source, int lineNo, int columnNo, Object script)
-	   throws BSFException {
-	this.engine = engine;
-	this.manager = manager;
-	this.filter = filter;
-	this.source = source;
-	this.lineNo = lineNo;
-	this.columnNo = columnNo;
-	this.script = script;
+             String source, int lineNo, int columnNo, Object script)
+       throws BSFException {
+    this.engine = engine;
+    this.manager = manager;
+    this.filter = filter;
+    this.source = source;
+    this.lineNo = lineNo;
+    this.columnNo = columnNo;
+    this.script = script;
   }
   //////////////////////////////////////////////////////////////////////////
   //
@@ -61,18 +61,18 @@ public class BSFEventProcessor implements EventProcessor {
   // those events if for which the filters match (if one is specified).
 
   public void processEvent (String inFilter, Object[] evtInfo) {
-	try {
-	  processExceptionableEvent (inFilter, evtInfo);
-	} catch (RuntimeException re) {
-	  // rethrow this .. I don't want to intercept run-time stuff
-	  // that can in fact occur legit
-	  throw re;
-	} catch (Exception e) {
-	  // should not occur
-	  System.err.println ("BSFError: non-exceptionable event delivery " +
-			  "threw exception (that's not nice): " + e);
-	  e.printStackTrace ();
-	}
+    try {
+      processExceptionableEvent (inFilter, evtInfo);
+    } catch (RuntimeException re) {
+      // rethrow this .. I don't want to intercept run-time stuff
+      // that can in fact occur legit
+      throw re;
+    } catch (Exception e) {
+      // should not occur
+      System.err.println ("BSFError: non-exceptionable event delivery " +
+              "threw exception (that's not nice): " + e);
+      e.printStackTrace ();
+    }
   }
   //////////////////////////////////////////////////////////////////////////
   //
@@ -82,12 +82,12 @@ public class BSFEventProcessor implements EventProcessor {
 
   public void processExceptionableEvent (String inFilter, Object[] evtInfo) throws Exception
   {
-	if ((filter != null) && !filter.equals (inFilter)) {
-	  // ignore this event
-	  return;
-	}
+    if ((filter != null) && !filter.equals (inFilter)) {
+      // ignore this event
+      return;
+    }
 
-	// run the script
-	engine.exec (source, lineNo, columnNo, script);
+    // run the script
+    engine.exec (source, lineNo, columnNo, script);
   }
 }

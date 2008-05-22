@@ -26,13 +26,13 @@ package org.apache.bsf;
  * @author  Sanjiva Weerawarana
  */
 public class BSFDeclaredBean {
-	public String name;
-	public Object bean;
-	public Class type;
+    public String name;
+    public Object bean;
+    public Class type;
 
-	BSFDeclaredBean(String name, Object bean, Class type) {
-		this.name = name;
-		this.bean = bean;
-		this.type = type;
-	}
+    BSFDeclaredBean(String name, Object bean, Class type) {
+        this.name = name;
+        this.bean = bean;
+        this.type = type;
+    }
 }

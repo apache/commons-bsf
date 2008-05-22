@@ -32,5 +32,5 @@ package org.apache.bsf.util.event;
 public interface EventProcessor {
   public void processEvent (String filter, Object[] eventInfo);
   public void processExceptionableEvent (String filter, Object[] eventInfo) 
-	   throws Exception;
+       throws Exception;
 }

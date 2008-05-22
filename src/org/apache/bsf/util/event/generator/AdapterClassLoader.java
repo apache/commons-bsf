@@ -35,65 +35,65 @@ public class AdapterClassLoader extends ClassLoader
 
   public AdapterClassLoader()
   {
-	super();
+    super();
         logger = BSF_LogFactory.getLog(this.getClass().getName());
   }
   public synchronized Class defineClass(String name, byte[] b)
   {
-	if ((c = getLoadedClass(name)) == null)
-	{
-	  c = defineClass(name.replace('/','.'), b, 0, b.length);   // rgf, 2006-02-03
-	  put(name, c);
-	}
-	else
-	{
-	  logger.error("AdapterClassLoader: " + c +
+    if ((c = getLoadedClass(name)) == null)
+    {
+      c = defineClass(name.replace('/','.'), b, 0, b.length);   // rgf, 2006-02-03
+      put(name, c);
+    }
+    else
+    {
+      logger.error("AdapterClassLoader: " + c +
                                  " previously loaded. Can not redefine class.");
-	}
+    }
 
-	return c;
+    return c;
   }
   final protected Class findClass(String name)
   {
-	return get(name);
+    return get(name);
   }
   final protected Class get(String name)
   {
-	return (Class)classCache.get(name);
+    return (Class)classCache.get(name);
   }
   public synchronized Class getLoadedClass(String name)
   {
-	Class c = findLoadedClass(name);
+    Class c = findLoadedClass(name);
 
-	if (c == null)
-	{
-	  try
-	  {
-		c = findSystemClass(name);
-	  }
-	  catch (ClassNotFoundException e)
-	  {
-	  }
-	}
+    if (c == null)
+    {
+      try
+      {
+        c = findSystemClass(name);
+      }
+      catch (ClassNotFoundException e)
+      {
+      }
+    }
 
-	if (c == null)
-	{
-	  c = findClass(name);
-	}
+    if (c == null)
+    {
+      c = findClass(name);
+    }
 
-	return c;
+    return c;
   }
   protected synchronized Class loadClass(String name, boolean resolve)
-	throws ClassNotFoundException
+    throws ClassNotFoundException
   {
-	Class c = getLoadedClass(name);
+    Class c = getLoadedClass(name);
 
-	if (c != null && resolve)
-	{
-	  resolveClass(c);
-	}
+    if (c != null && resolve)
+    {
+      resolveClass(c);
+    }
 
-	return c;
+    return c;
   }
   // Not in JDK 1.1, only in JDK 1.2.
 //  public AdapterClassLoader(ClassLoader loader)
@@ -103,6 +103,6 @@ public class AdapterClassLoader extends ClassLoader
 
   final protected void put(String name, Class c)
   {
-	classCache.put(name, c);
+    classCache.put(name, c);
   }
 }

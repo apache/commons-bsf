@@ -23,27 +23,27 @@ import java.awt.event.WindowListener;
 import org.apache.bsf.util.event.EventAdapterImpl;
 
 public class java_awt_event_WindowAdapter extends EventAdapterImpl
-			                                       implements WindowListener {
+                                                   implements WindowListener {
 
   public void windowActivated (WindowEvent e) {
-	eventProcessor.processEvent ("windowActivated", new Object[]{e});
+    eventProcessor.processEvent ("windowActivated", new Object[]{e});
   }
   public void windowClosed (WindowEvent e) {
-	eventProcessor.processEvent ("windowClosed", new Object[]{e});
+    eventProcessor.processEvent ("windowClosed", new Object[]{e});
   }
   public void windowClosing (WindowEvent e) {
-	eventProcessor.processEvent ("windowClosing", new Object[]{e});
+    eventProcessor.processEvent ("windowClosing", new Object[]{e});
   }
   public void windowDeactivated (WindowEvent e) {
-	eventProcessor.processEvent ("windowDeactivated", new Object[]{e});
+    eventProcessor.processEvent ("windowDeactivated", new Object[]{e});
   }
   public void windowDeiconified (WindowEvent e) {
-	eventProcessor.processEvent ("windowDeiconified", new Object[]{e});
+    eventProcessor.processEvent ("windowDeiconified", new Object[]{e});
   }
   public void windowIconified (WindowEvent e) {
-	eventProcessor.processEvent ("windowIconified", new Object[]{e});
+    eventProcessor.processEvent ("windowIconified", new Object[]{e});
   }
   public void windowOpened (WindowEvent e) {
-	eventProcessor.processEvent ("windowOpened", new Object[]{e});
+    eventProcessor.processEvent ("windowOpened", new Object[]{e});
   }
 }

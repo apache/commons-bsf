@@ -43,155 +43,155 @@ import java.io.Writer;
  */
 public class CFDriver
 {
-	/**
-	 * Not used.
-	 */
-	public CFDriver()
+    /**
+     * Not used.
+     */
+    public CFDriver()
   {
   }
   /**
-	* A driver for <code>CodeFormatter</code>.
-	*<p>
-	* Usage:
-	*<code><pre>
-	*  java org.apache.cf.CFDriver [args]
-	*<p>
-	*    args:
-	*<p>
-	*      [-in      fileName]   default: &lt;STDIN&gt;
-	*      [-out     fileName]   default: &lt;STDOUT&gt;
-	*      [-maxLine   length]   default: 74
-	*      [-step        size]   default: 2
-	*      [-delim      group]   default: (+
-	*      [-sdelim     group]   default: ,
-	*</pre></code>
-	*/
-	public static void main(String[] argv)
+    * A driver for <code>CodeFormatter</code>.
+    *<p>
+    * Usage:
+    *<code><pre>
+    *  java org.apache.cf.CFDriver [args]
+    *<p>
+    *    args:
+    *<p>
+    *      [-in      fileName]   default: &lt;STDIN&gt;
+    *      [-out     fileName]   default: &lt;STDOUT&gt;
+    *      [-maxLine   length]   default: 74
+    *      [-step        size]   default: 2
+    *      [-delim      group]   default: (+
+    *      [-sdelim     group]   default: ,
+    *</pre></code>
+    */
+    public static void main(String[] argv)
   {
-	if (argv.length % 2 == 0)
-	{
-	  String        inFile  = null,
-					outFile = null,
-					maxLine = null,
-					indStep = null,
-					delim   = null,
-					sDelim  = null;
-	  Reader        in      = null;
-		Writer        out     = null;
-	  CodeFormatter cf      = new CodeFormatter();
+    if (argv.length % 2 == 0)
+    {
+      String        inFile  = null,
+                    outFile = null,
+                    maxLine = null,
+                    indStep = null,
+                    delim   = null,
+                    sDelim  = null;
+      Reader        in      = null;
+        Writer        out     = null;
+      CodeFormatter cf      = new CodeFormatter();
 
-	  for (int i = 0; i < argv.length; i += 2)
-	  {
-		if (argv[i].startsWith("-i"))
-		  inFile = argv[i + 1];
-		else if (argv[i].startsWith("-o"))
-		  outFile = argv[i + 1];
-	  	else if (argv[i].startsWith("-m"))
-	  		maxLine = argv[i + 1];
-		else if (argv[i].startsWith("-st"))
-		  indStep = argv[i + 1];
-	  	else if (argv[i].startsWith("-d"))
-	  		delim = argv[i + 1];
-		else if (argv[i].startsWith("-sd"))
-		  sDelim = argv[i + 1];
-	  }
+      for (int i = 0; i < argv.length; i += 2)
+      {
+        if (argv[i].startsWith("-i"))
+          inFile = argv[i + 1];
+        else if (argv[i].startsWith("-o"))
+          outFile = argv[i + 1];
+        else if (argv[i].startsWith("-m"))
+            maxLine = argv[i + 1];
+        else if (argv[i].startsWith("-st"))
+          indStep = argv[i + 1];
+        else if (argv[i].startsWith("-d"))
+            delim = argv[i + 1];
+        else if (argv[i].startsWith("-sd"))
+          sDelim = argv[i + 1];
+      }
 
-	  if (inFile != null)
-	  {
-		try
-		{
-		  in = new FileReader(inFile);
-		}
-		catch (FileNotFoundException e)
-		{
-		  printError("Cannot open input file: " + inFile);
-			
-		  return;
-		}
-	  }
-	  else
-	  {
-		in = new InputStreamReader(System.in);
-	  }
+      if (inFile != null)
+      {
+        try
+        {
+          in = new FileReader(inFile);
+        }
+        catch (FileNotFoundException e)
+        {
+          printError("Cannot open input file: " + inFile);
+            
+          return;
+        }
+      }
+      else
+      {
+        in = new InputStreamReader(System.in);
+      }
 
-	  if (outFile != null)
-	  {
-		try
-		{
-		  out = new FileWriter(outFile);
-		}
-		catch (IOException e)
-		{
-		  printError("Cannot open output file: " + outFile);
-		  
-		  return;
-		}
-	  }
-	  else
-	  {
-		out = new OutputStreamWriter(System.out);
-	  }
+      if (outFile != null)
+      {
+        try
+        {
+          out = new FileWriter(outFile);
+        }
+        catch (IOException e)
+        {
+          printError("Cannot open output file: " + outFile);
+          
+          return;
+        }
+      }
+      else
+      {
+        out = new OutputStreamWriter(System.out);
+      }
 
-		if (maxLine != null)
-	  {
-	  	try
-		{
-			cf.setMaxLineLength(Integer.parseInt(maxLine));
-		}
-	  	catch (NumberFormatException nfe)
-		{
-			printError("Not a valid integer: " + maxLine);
-			
-			return;
-		}
-	  }
+        if (maxLine != null)
+      {
+        try
+        {
+            cf.setMaxLineLength(Integer.parseInt(maxLine));
+        }
+        catch (NumberFormatException nfe)
+        {
+            printError("Not a valid integer: " + maxLine);
+            
+            return;
+        }
+      }
 
-	  if (indStep != null)
-	  {
-		try
-		{
-		  cf.setIndentationStep(Integer.parseInt(indStep));
-		}
-		catch (NumberFormatException nfe)
-		{
-		  printError("Not a valid integer: " + indStep);
-		  
-		  return;
-		}
-	  }
-		
-		if (delim != null)
-		  cf.setDelimiters(delim);
-		
-		if (sDelim != null)
-		cf.setStickyDelimiters(sDelim);
-			
-		cf.formatCode(in, out);
-	}
-	else
-	  printHelp();
+      if (indStep != null)
+      {
+        try
+        {
+          cf.setIndentationStep(Integer.parseInt(indStep));
+        }
+        catch (NumberFormatException nfe)
+        {
+          printError("Not a valid integer: " + indStep);
+          
+          return;
+        }
+      }
+        
+        if (delim != null)
+          cf.setDelimiters(delim);
+        
+        if (sDelim != null)
+        cf.setStickyDelimiters(sDelim);
+            
+        cf.formatCode(in, out);
+    }
+    else
+      printHelp();
   }
-	private static void printError(String errMsg)
+    private static void printError(String errMsg)
   {
-  	System.err.println("ERROR: " + errMsg);
+    System.err.println("ERROR: " + errMsg);
   }
-	private static void printHelp()
+    private static void printHelp()
   {
-	System.out.println("Usage:");
-	System.out.println();
-	System.out.println("  java " + CFDriver.class.getName() + " [args]");
-	System.out.println();
-	System.out.println("    args:");
-	System.out.println();
-	System.out.println("      [-in      fileName]   default: <STDIN>");
-	System.out.println("      [-out     fileName]   default: <STDOUT>");
-	System.out.println("      [-maxLine   length]   default: " +
-					   CodeFormatter.DEFAULT_MAX);
-	System.out.println("      [-step        size]   default: " +
-					   CodeFormatter.DEFAULT_STEP);
-	System.out.println("      [-delim      group]   default: " +
-					   CodeFormatter.DEFAULT_DELIM);
-	System.out.println("      [-sdelim     group]   default: " +
-					   CodeFormatter.DEFAULT_S_DELIM);
+    System.out.println("Usage:");
+    System.out.println();
+    System.out.println("  java " + CFDriver.class.getName() + " [args]");
+    System.out.println();
+    System.out.println("    args:");
+    System.out.println();
+    System.out.println("      [-in      fileName]   default: <STDIN>");
+    System.out.println("      [-out     fileName]   default: <STDOUT>");
+    System.out.println("      [-maxLine   length]   default: " +
+                       CodeFormatter.DEFAULT_MAX);
+    System.out.println("      [-step        size]   default: " +
+                       CodeFormatter.DEFAULT_STEP);
+    System.out.println("      [-delim      group]   default: " +
+                       CodeFormatter.DEFAULT_DELIM);
+    System.out.println("      [-sdelim     group]   default: " +
+                       CodeFormatter.DEFAULT_S_DELIM);
   }
 }

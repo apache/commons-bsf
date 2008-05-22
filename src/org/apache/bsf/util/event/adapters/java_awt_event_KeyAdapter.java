@@ -23,15 +23,15 @@ import java.awt.event.KeyListener;
 import org.apache.bsf.util.event.EventAdapterImpl;
 
 public class java_awt_event_KeyAdapter extends EventAdapterImpl
-										  implements KeyListener {
+                                          implements KeyListener {
 
   public void keyPressed (KeyEvent e) {
-	eventProcessor.processEvent ("keyPressed", new Object[]{e});
+    eventProcessor.processEvent ("keyPressed", new Object[]{e});
   }
   public void keyReleased (KeyEvent e) {
-	eventProcessor.processEvent ("keyReleased", new Object[]{e});
+    eventProcessor.processEvent ("keyReleased", new Object[]{e});
   }
   public void keyTyped (KeyEvent e) {
-	eventProcessor.processEvent ("keyTyped", new Object[]{e});
+    eventProcessor.processEvent ("keyTyped", new Object[]{e});
   }
 }

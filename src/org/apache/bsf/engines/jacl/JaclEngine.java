@@ -52,86 +52,86 @@ public class JaclEngine extends BSFEngineImpl {
    * Vectors of Nodes, or Strings.
    */
   public Object call (Object obj, String method, Object[] args) 
-														throws BSFException {
-	StringBuffer tclScript = new StringBuffer (method);
-	if (args != null) {
-	  for( int i = 0 ; i < args.length ; i++ ) {
-	tclScript.append (" ");
-	tclScript.append (args[i].toString ());
-	  }
-	}
-	return eval ("<function call>", 0, 0, tclScript.toString ());
+                                                        throws BSFException {
+    StringBuffer tclScript = new StringBuffer (method);
+    if (args != null) {
+      for( int i = 0 ; i < args.length ; i++ ) {
+    tclScript.append (" ");
+    tclScript.append (args[i].toString ());
+      }
+    }
+    return eval ("<function call>", 0, 0, tclScript.toString ());
   }
   /**
    * Declare a bean
    */
   public void declareBean (BSFDeclaredBean bean) throws BSFException {
-	String expr = "set " + bean.name + " [bsf lookupBean \"" + bean.name +
+    String expr = "set " + bean.name + " [bsf lookupBean \"" + bean.name +
 	  "\"]";
-	eval ("<declare bean>", 0, 0, expr);
+    eval ("<declare bean>", 0, 0, expr);
   }
   /**
    * This is used by an application to evaluate a string containing
    * some expression.
    */
   public Object eval (String source, int lineNo, int columnNo, 
-		      Object oscript) throws BSFException {
-	String script = oscript.toString ();
-	try {
-	  interp.eval (script);
-	  TclObject result = interp.getResult();
-	  Object internalRep = result.getInternalRep();
+              Object oscript) throws BSFException {
+    String script = oscript.toString ();
+    try {
+      interp.eval (script);
+      TclObject result = interp.getResult();
+      Object internalRep = result.getInternalRep();
 
-	  // if the object has a corresponding Java type, unwrap it
-	  if (internalRep instanceof ReflectObject)
-		return ReflectObject.get(interp,result);
-	  if (internalRep instanceof TclString)
-		return result.toString();
-	  if (internalRep instanceof TclDouble)
-		return new Double(TclDouble.get(interp,result));
-	  if (internalRep instanceof TclInteger)
-		return new Integer(TclInteger.get(interp,result));
+      // if the object has a corresponding Java type, unwrap it
+      if (internalRep instanceof ReflectObject)
+        return ReflectObject.get(interp,result);
+      if (internalRep instanceof TclString)
+        return result.toString();
+      if (internalRep instanceof TclDouble)
+        return new Double(TclDouble.get(interp,result));
+      if (internalRep instanceof TclInteger)
+        return new Integer(TclInteger.get(interp,result));
 
-	  return result;
-	} catch (TclException e) { 
-	  throw new BSFException (BSFException.REASON_EXECUTION_ERROR,
-			      "error while eval'ing Jacl expression: " + 
-			      interp.getResult (), e);
-	}
+      return result;
+    } catch (TclException e) { 
+      throw new BSFException (BSFException.REASON_EXECUTION_ERROR,
+                  "error while eval'ing Jacl expression: " + 
+                  interp.getResult (), e);
+    }
   }
   /**
    * Initialize the engine.
    */
   public void initialize (BSFManager mgr, String lang,
-			  Vector declaredBeans) throws BSFException {
-	super.initialize (mgr, lang, declaredBeans);
+              Vector declaredBeans) throws BSFException {
+    super.initialize (mgr, lang, declaredBeans);
 
-	// create interpreter
-	interp = new Interp();
+    // create interpreter
+    interp = new Interp();
 
-	// register the extension that user's can use to get at objects
-	// registered by the app
-	interp.createCommand ("bsf", new BSFCommand (mgr, this));
+    // register the extension that user's can use to get at objects
+    // registered by the app
+    interp.createCommand ("bsf", new BSFCommand (mgr, this));
 
-	// Make java functions be available to Jacl
+    // Make java functions be available to Jacl
         try {
-   		interp.eval("jaclloadjava");
-	} catch (TclException e) {
-		throw new BSFException (BSFException.REASON_OTHER_ERROR,
-					"error while loading java package: " +
-					interp.getResult (), e);
-	}
+        interp.eval("jaclloadjava");
+    } catch (TclException e) {
+        throw new BSFException (BSFException.REASON_OTHER_ERROR,
+                    "error while loading java package: " +
+                    interp.getResult (), e);
+    }
 
-	int size = declaredBeans.size ();
-	for (int i = 0; i < size; i++) {
-	  declareBean ((BSFDeclaredBean) declaredBeans.elementAt (i));
-	}
+    int size = declaredBeans.size ();
+    for (int i = 0; i < size; i++) {
+      declareBean ((BSFDeclaredBean) declaredBeans.elementAt (i));
+    }
   }
 
   /**
    * Undeclare a previously declared bean.
    */
   public void undeclareBean (BSFDeclaredBean bean) throws BSFException {
-	eval ("<undeclare bean>", 0, 0, "set " + bean.name + " \"\"");
+    eval ("<undeclare bean>", 0, 0, "set " + bean.name + " \"\"");
   }
 }

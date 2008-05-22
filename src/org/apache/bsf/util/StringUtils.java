@@ -39,47 +39,47 @@ import java.util.Vector;
 public class StringUtils
 {
   public static final String lineSeparator =
-	System.getProperty("line.separator", "\n");
+    System.getProperty("line.separator", "\n");
   public static final String lineSeparatorStr = cleanString(lineSeparator);
 
   public static String classNameToVarName(String className)
   {
-	// Might represent an array.
-	int arrayDim = 0;
+    // Might represent an array.
+    int arrayDim = 0;
 
-	while (className.endsWith("[]"))
-	{
-	  className = className.substring(0, className.length() - 2);
-	  arrayDim++;
-	}
+    while (className.endsWith("[]"))
+    {
+      className = className.substring(0, className.length() - 2);
+      arrayDim++;
+    }
 
-	int    iLastPeriod = className.lastIndexOf('.');
-	String varName     = Introspector.decapitalize(
-										 iLastPeriod != -1
-										 ? className.substring(iLastPeriod + 1)
-										 : className);
+    int    iLastPeriod = className.lastIndexOf('.');
+    String varName     = Introspector.decapitalize(
+                                         iLastPeriod != -1
+                                         ? className.substring(iLastPeriod + 1)
+                                         : className);
 
-	if (arrayDim > 0)
-	{
-	  varName += "_" + arrayDim + "D";
-	}
+    if (arrayDim > 0)
+    {
+      varName += "_" + arrayDim + "D";
+    }
 
-	return getValidIdentifierName(varName);
+    return getValidIdentifierName(varName);
   }
   // Ensure that escape sequences are passed through properly.
   public static String cleanString(String str)
   {
-	if (str == null)
-	  return null;
-	else
-	{
-	  char[]       charArray = str.toCharArray();
-	  StringBuffer sBuf      = new StringBuffer();
-	  
-	  for (int i = 0; i < charArray.length; i++)
-		switch (charArray[i])
-		{
-		  case '\"' : sBuf.append("\\\"");
+    if (str == null)
+      return null;
+    else
+    {
+      char[]       charArray = str.toCharArray();
+      StringBuffer sBuf      = new StringBuffer();
+      
+      for (int i = 0; i < charArray.length; i++)
+        switch (charArray[i])
+        {
+          case '\"' : sBuf.append("\\\"");
 					  break;
 		  case '\\' : sBuf.append("\\\\");
 					  break;
@@ -242,172 +242,172 @@ public class StringUtils
 	after hunting 2 levels up in the contextURL's path.
   */
   private static URL getURL(URL contextURL, String spec, int recursiveDepth)
-												  throws MalformedURLException
+                                                  throws MalformedURLException
   {
-	URL url = null;
+    URL url = null;
 
-	try
-	{
-	  url = new URL(contextURL, spec);
+    try
+    {
+      url = new URL(contextURL, spec);
 
-	  try
-	  {
-		url.openStream();
-	  }
-	  catch (IOException ioe1)
-	  {
-		throw new MalformedURLException("This file was not found: " + url);
-	  }
-	}
-	catch (MalformedURLException e1)
-	{
-	  url = new URL("file", "", spec);
+      try
+      {
+        url.openStream();
+      }
+      catch (IOException ioe1)
+      {
+        throw new MalformedURLException("This file was not found: " + url);
+      }
+    }
+    catch (MalformedURLException e1)
+    {
+      url = new URL("file", "", spec);
 
-	  try
-	  {
-		url.openStream();
-	  }
-	  catch (IOException ioe2)
-	  {
-		if (contextURL != null)
-		{
-		  String contextFileName = contextURL.getFile();
-		  String parentName      = new File(contextFileName).getParent();
+      try
+      {
+        url.openStream();
+      }
+      catch (IOException ioe2)
+      {
+        if (contextURL != null)
+        {
+          String contextFileName = contextURL.getFile();
+          String parentName      = new File(contextFileName).getParent();
 
-		  if (parentName != null && recursiveDepth < 3)
-		  {
-			return getURL(new URL("file", "", parentName + '/'),
-						  spec,
-						  recursiveDepth + 1);
-		  }
-		}
+          if (parentName != null && recursiveDepth < 3)
+          {
+            return getURL(new URL("file", "", parentName + '/'),
+                          spec,
+                          recursiveDepth + 1);
+          }
+        }
 
-		throw new MalformedURLException("This file was not found: " + url);
-	  }
-	}
+        throw new MalformedURLException("This file was not found: " + url);
+      }
+    }
 
-	return url;
+    return url;
   }
   public static String getValidIdentifierName(String identifierName)
   {
-	if (identifierName == null || identifierName.length() == 0)
-	  return null;
+    if (identifierName == null || identifierName.length() == 0)
+      return null;
 
-	StringBuffer strBuf = new StringBuffer();
+    StringBuffer strBuf = new StringBuffer();
 
-	char[] chars = identifierName.toCharArray();
+    char[] chars = identifierName.toCharArray();
 
-	strBuf.append(Character.isJavaIdentifierStart(chars[0])
-				  ? chars[0]
-				  : '_'
-				 );
+    strBuf.append(Character.isJavaIdentifierStart(chars[0])
+                  ? chars[0]
+                  : '_'
+                 );
 
-	for (int i = 1; i < chars.length; i++)
-	{
-	  strBuf.append(Character.isJavaIdentifierPart(chars[i])
-					? chars[i]
-					: '_'
-				   );
-	}
+    for (int i = 1; i < chars.length; i++)
+    {
+      strBuf.append(Character.isJavaIdentifierPart(chars[i])
+                    ? chars[i]
+                    : '_'
+                   );
+    }
 
-	return strBuf.toString();
+    return strBuf.toString();
   }
   public static boolean isValidIdentifierName(String identifierName)
   {
-	if (identifierName == null || identifierName.length() == 0)
-	  return false;
+    if (identifierName == null || identifierName.length() == 0)
+      return false;
 
-	char[] chars = identifierName.toCharArray();
+    char[] chars = identifierName.toCharArray();
 
-	if (!Character.isJavaIdentifierStart(chars[0]))
-	  return false;
+    if (!Character.isJavaIdentifierStart(chars[0]))
+      return false;
 
-	for (int i = 1; i < chars.length; i++)
-	  if (!Character.isJavaIdentifierPart(chars[i]))
-		return false;
+    for (int i = 1; i < chars.length; i++)
+      if (!Character.isJavaIdentifierPart(chars[i]))
+        return false;
 
-	return true;
+    return true;
   }
   public static boolean isValidPackageName(String packageName)
   {
-	if (packageName == null)
-	  return false;
-	else if (packageName.length() == 0)
-	  // Empty is ok.
-	  return true;
+    if (packageName == null)
+      return false;
+    else if (packageName.length() == 0)
+      // Empty is ok.
+      return true;
 
-	StringTokenizer strTok = new StringTokenizer(packageName, ".", true);
+    StringTokenizer strTok = new StringTokenizer(packageName, ".", true);
 
-	// Should have an odd number of tokens (including '.' delimiters).
-	if (strTok.countTokens() % 2 != 1)
-	  return false;
+    // Should have an odd number of tokens (including '.' delimiters).
+    if (strTok.countTokens() % 2 != 1)
+      return false;
 
-	// Must start with a valid identifier name.
-	if (!isValidIdentifierName(strTok.nextToken()))
-	  return false;
+    // Must start with a valid identifier name.
+    if (!isValidIdentifierName(strTok.nextToken()))
+      return false;
 
-	// ... followed by 0 or more of ".ValidIdentifier".
-	while (strTok.hasMoreTokens())
-	{
-	  // Must be a '.'.
-	  if (!strTok.nextToken().equals("."))
-		return false;
+    // ... followed by 0 or more of ".ValidIdentifier".
+    while (strTok.hasMoreTokens())
+    {
+      // Must be a '.'.
+      if (!strTok.nextToken().equals("."))
+        return false;
 
-	  // Must be a valid identifier name.
-	  if (strTok.hasMoreTokens())
-	  {
-		if (!isValidIdentifierName(strTok.nextToken()))
-		  return false;
-	  }
-	  else
-		return false;
-	}
+      // Must be a valid identifier name.
+      if (strTok.hasMoreTokens())
+      {
+        if (!isValidIdentifierName(strTok.nextToken()))
+          return false;
+      }
+      else
+        return false;
+    }
 
-	return true;
+    return true;
   }
   /*
-	See the comment above for getClassName(targetClass)...
+    See the comment above for getClassName(targetClass)...
   */
   private static String parseDescriptor(String className)
   {
-	char[] classNameChars = className.toCharArray();
-	int    arrayDim       = 0;
-	int    i              = 0;
+    char[] classNameChars = className.toCharArray();
+    int    arrayDim       = 0;
+    int    i              = 0;
 
-	while (classNameChars[i] == '[')
-	{
-	  arrayDim++;
-	  i++;
-	}
+    while (classNameChars[i] == '[')
+    {
+      arrayDim++;
+      i++;
+    }
 
-	StringBuffer classNameBuf = new StringBuffer();
+    StringBuffer classNameBuf = new StringBuffer();
 
-	switch (classNameChars[i++])
-	{
-	  case 'B' : classNameBuf.append("byte");
-				 break;
-	  case 'C' : classNameBuf.append("char");
-				 break;
-	  case 'D' : classNameBuf.append("double");
-				 break;
-	  case 'F' : classNameBuf.append("float");
-				 break;
-	  case 'I' : classNameBuf.append("int");
-				 break;
-	  case 'J' : classNameBuf.append("long");
-				 break;
-	  case 'S' : classNameBuf.append("short");
-				 break;
-	  case 'Z' : classNameBuf.append("boolean");
-				 break;
-	  case 'L' : classNameBuf.append(classNameChars,
-									 i, classNameChars.length - i - 1);
-				 break;
-	}
+    switch (classNameChars[i++])
+    {
+      case 'B' : classNameBuf.append("byte");
+                 break;
+      case 'C' : classNameBuf.append("char");
+                 break;
+      case 'D' : classNameBuf.append("double");
+                 break;
+      case 'F' : classNameBuf.append("float");
+                 break;
+      case 'I' : classNameBuf.append("int");
+                 break;
+      case 'J' : classNameBuf.append("long");
+                 break;
+      case 'S' : classNameBuf.append("short");
+                 break;
+      case 'Z' : classNameBuf.append("boolean");
+                 break;
+      case 'L' : classNameBuf.append(classNameChars,
+                                     i, classNameChars.length - i - 1);
+                 break;
+    }
 
-	for (i = 0; i < arrayDim; i++)
-	  classNameBuf.append("[]");
+    for (i = 0; i < arrayDim; i++)
+      classNameBuf.append("[]");
 
-	return classNameBuf.toString();
+    return classNameBuf.toString();
   }
 }

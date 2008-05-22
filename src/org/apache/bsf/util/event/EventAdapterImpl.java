@@ -31,6 +31,6 @@ public class EventAdapterImpl implements EventAdapter {
   protected EventProcessor eventProcessor;
 
   public void setEventProcessor (EventProcessor eventProcessor) {
-	this.eventProcessor = eventProcessor;
+    this.eventProcessor = eventProcessor;
   }
 }

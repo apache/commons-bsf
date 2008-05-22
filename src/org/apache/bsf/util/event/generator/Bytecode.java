@@ -56,9 +56,9 @@ public class Bytecode
   { return addRef(C_FieldRef,array,value1,value2); }
   public static byte[] addInteger(byte[] array,int value)
   {
-	array = ByteUtility.addBytes(array,C_Integer);
-	array = ByteUtility.addBytes(array,value);
-	return array;
+    array = ByteUtility.addBytes(array,C_Integer);
+    array = ByteUtility.addBytes(array,value);
+    return array;
   }
   public static byte[] addInterfaceMethodRef(byte[] array,short value1,short value2)
   { return addRef(C_InterfaceMethodRef,array,value1,value2); }
@@ -71,9 +71,9 @@ public class Bytecode
 
   public static byte[] addLong(byte[] array,long value)
   {
-	array = ByteUtility.addBytes(array,C_Long);
-	array = ByteUtility.addBytes(array,value);
-	return array;
+    array = ByteUtility.addBytes(array,C_Long);
+    array = ByteUtility.addBytes(array,value);
+    return array;
   }
   public static byte[] addMethodRef(byte[] array,short value1,short value2)
   { return addRef(C_MethodRef,array,value1,value2); }
@@ -81,26 +81,26 @@ public class Bytecode
   { return addRef(C_NameAndType,array,value1,value2); }
   public static byte[] addRef(byte refType,byte[] array,short value)
   {
-	array = ByteUtility.addBytes(array,refType);
-	array = ByteUtility.addBytes(array,value);
-	return array;
+    array = ByteUtility.addBytes(array,refType);
+    array = ByteUtility.addBytes(array,value);
+    return array;
   }
   // Generic Bytecode Methods
   public static byte[] addRef(byte refType,byte[] array,short value1,short value2)
   {
-	array = ByteUtility.addBytes(array,refType);
-	array = ByteUtility.addBytes(array,value1);
-	array = ByteUtility.addBytes(array,value2);
-	return array;
+    array = ByteUtility.addBytes(array,refType);
+    array = ByteUtility.addBytes(array,value1);
+    array = ByteUtility.addBytes(array,value2);
+    return array;
   }
   public static byte[] addString(byte[] array,short value)
   { return addRef(C_String,array,value); }
   // Constant Pool Item Methods
   public static byte[] addUtf8(byte[] array,String value)
   {
-	array = ByteUtility.addBytes(array,C_Utf8);
-	array = ByteUtility.addBytes(array,(short)value.length());
-	array = ByteUtility.addBytes(array,value);
-	return array;
+    array = ByteUtility.addBytes(array,C_Utf8);
+    array = ByteUtility.addBytes(array,(short)value.length());
+    array = ByteUtility.addBytes(array,value);
+    return array;
   }
 }

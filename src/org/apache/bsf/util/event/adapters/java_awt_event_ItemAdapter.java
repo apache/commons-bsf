@@ -23,9 +23,9 @@ import java.awt.event.ItemListener;
 import org.apache.bsf.util.event.EventAdapterImpl;
 
 public class java_awt_event_ItemAdapter extends EventAdapterImpl
-										   implements ItemListener {
+                                           implements ItemListener {
 
   public void itemStateChanged (ItemEvent e) {
-	eventProcessor.processEvent ("itemStateChanged", new Object[]{e});
+    eventProcessor.processEvent ("itemStateChanged", new Object[]{e});
   }
 }

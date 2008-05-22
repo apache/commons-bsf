@@ -70,32 +70,32 @@ public class CodeFormatter
   private             boolean inCPP_Comment;
 
   private void addTok(StringBuffer targetBuf, StringBuffer tokBuf,
-					  IndentWriter out)
+                      IndentWriter out)
   {
-	int tokLength    = tokBuf.length(),
-		targetLength = targetBuf.length();
+    int tokLength    = tokBuf.length(),
+        targetLength = targetBuf.length();
 
-	if (indent + targetLength + tokLength > maxLineLength)
-	{
-	  if (targetLength == 0)
-	  {
-		out.println(indent, tokBuf.toString());
-		indent = hangingIndent;
-		targetBuf.setLength(0);
+    if (indent + targetLength + tokLength > maxLineLength)
+    {
+      if (targetLength == 0)
+      {
+        out.println(indent, tokBuf.toString());
+        indent = hangingIndent;
+        targetBuf.setLength(0);
 
-		return;
-	  }
-	  else
-	  {
-		out.println(indent, targetBuf.toString().trim());
-		indent = hangingIndent;
-		targetBuf.setLength(0);
-	  }
-	}
+        return;
+      }
+      else
+      {
+        out.println(indent, targetBuf.toString().trim());
+        indent = hangingIndent;
+        targetBuf.setLength(0);
+      }
+    }
 
-	targetBuf.append(tokBuf.toString());
+    targetBuf.append(tokBuf.toString());
 
-	return;
+    return;
   }
   /**
    * Formats the code read from <code>source</code>, and writes the formatted
@@ -106,33 +106,33 @@ public class CodeFormatter
    */
   public void formatCode(Reader source, Writer target)
   {
-	String         line;
-	BufferedReader in  = new BufferedReader(source);
-	IndentWriter   out = new IndentWriter(new BufferedWriter(target), true);
+    String         line;
+    BufferedReader in  = new BufferedReader(source);
+    IndentWriter   out = new IndentWriter(new BufferedWriter(target), true);
 
-	try
-	{
-	  origIndent    = 0;
-	  inCPP_Comment = false;
+    try
+    {
+      origIndent    = 0;
+      inCPP_Comment = false;
 
-	  while ((line = in.readLine()) != null)
-	  {
-		line = line.trim();
+      while ((line = in.readLine()) != null)
+      {
+        line = line.trim();
 
-		if (line.length() > 0)
-		{
-		  indent        = origIndent;
-		  hangingIndent = indent + indentationStep;
-		  printLine(line, out);
-		}
-		else
-		  out.println();
-	  }
-	}
-	catch (IOException e)
-	{
-	  e.printStackTrace();
-	}
+        if (line.length() > 0)
+        {
+          indent        = origIndent;
+          hangingIndent = indent + indentationStep;
+          printLine(line, out);
+        }
+        else
+          out.println();
+      }
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
+    }
   }
   /**
    * Gets the set of delimiters.
@@ -142,7 +142,7 @@ public class CodeFormatter
    */
   public String getDelimiters()
   {
-	return delimiters;
+    return delimiters;
   }
   /**
    * Gets the size of the indentation step.
@@ -152,7 +152,7 @@ public class CodeFormatter
    */
   public int getIndentationStep()
   {
-	return indentationStep;
+    return indentationStep;
   }
   /**
    * Gets the maximum line length.
@@ -162,7 +162,7 @@ public class CodeFormatter
    */
   public int getMaxLineLength()
   {
-	return maxLineLength;
+    return maxLineLength;
   }
   /**
    * Gets the set of sticky delimiters.
@@ -172,38 +172,38 @@ public class CodeFormatter
    */
   public String getStickyDelimiters()
   {
-	return stickyDelimiters;
+    return stickyDelimiters;
   }
   private void printLine(String line, IndentWriter out)
   {
-	char[]       source           = line.toCharArray();
-	char         ch;
-	char         quoteChar        = ' ';
-	boolean      inEscapeSequence = false;
-	boolean      inString         = false;
-	StringBuffer tokBuf           = new StringBuffer(),
-				 targetBuf        = new StringBuffer(hangingIndent + line.length());
+    char[]       source           = line.toCharArray();
+    char         ch;
+    char         quoteChar        = ' ';
+    boolean      inEscapeSequence = false;
+    boolean      inString         = false;
+    StringBuffer tokBuf           = new StringBuffer(),
+                 targetBuf        = new StringBuffer(hangingIndent + line.length());
 
-	for (int i = 0; i < source.length; i++)
-	{
-	  ch = source[i];
+    for (int i = 0; i < source.length; i++)
+    {
+      ch = source[i];
 
-	  if (inEscapeSequence)
-	  {
-		tokBuf.append(ch);
-		inEscapeSequence = false;
-	  }
-	  else
-	  {
-		if (inString)
-		{
-		  switch (ch)
-		  {
-			case '\\' :
-			  tokBuf.append('\\');
-			  inEscapeSequence = true;
-			  break;
-			case '\'' :
+      if (inEscapeSequence)
+      {
+        tokBuf.append(ch);
+        inEscapeSequence = false;
+      }
+      else
+      {
+        if (inString)
+        {
+          switch (ch)
+          {
+            case '\\' :
+              tokBuf.append('\\');
+              inEscapeSequence = true;
+              break;
+            case '\'' :
 			case '\"' :
 			  tokBuf.append(ch);
 
@@ -325,7 +325,7 @@ public class CodeFormatter
    */
   public void setDelimiters(String newDelimiters)
   {
-	delimiters = newDelimiters;
+    delimiters = newDelimiters;
   }
   /**
    * Sets the size of the indentation step; default size is <code>2</code>.
@@ -337,7 +337,7 @@ public class CodeFormatter
    */
   public void setIndentationStep(int newIndentationStep)
   {
-	indentationStep = (newIndentationStep < 0 ? 0 : newIndentationStep);
+    indentationStep = (newIndentationStep < 0 ? 0 : newIndentationStep);
   }
   /**
    * Sets the (desired) maximum line length; default length is
@@ -352,7 +352,7 @@ public class CodeFormatter
    */
   public void setMaxLineLength(int newMaxLineLength)
   {
-	maxLineLength = (newMaxLineLength < 0 ? 0 : newMaxLineLength);
+    maxLineLength = (newMaxLineLength < 0 ? 0 : newMaxLineLength);
   }
   /**
    * Sets the set of sticky delimiters; default set is <code>","</code>.

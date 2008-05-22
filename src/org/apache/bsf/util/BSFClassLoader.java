@@ -36,40 +36,40 @@ class BSFClassLoader extends ClassLoader {
   BSFClassLoader () {
   }
   public synchronized Class loadClass (String name, boolean resolve)
-											   throws ClassNotFoundException {
-	Class c = (Class) cache.get (name);
-	if (c == null) {
-	  // is it a system class
-	  try {
-	c = findSystemClass (name);
-	cache.put (name, c);
-	return c;
-	  } catch (ClassNotFoundException e) {
-	// nope
-	  }
-	  try {
-	byte[] data = loadClassData (name);
-	c = defineClass (name, data, 0, data.length);
-	cache.put (name, c); 
-	  } catch (Exception e) {
-	e.printStackTrace ();
-	throw new ClassNotFoundException ("unable to resolve class '" + 
-					  name + "'");
-	  }
-	}
-	if (resolve)
-	  resolveClass (c); 
-	return c;  
+                                               throws ClassNotFoundException {
+    Class c = (Class) cache.get (name);
+    if (c == null) {
+      // is it a system class
+      try {
+    c = findSystemClass (name);
+    cache.put (name, c);
+    return c;
+      } catch (ClassNotFoundException e) {
+    // nope
+      }
+      try {
+    byte[] data = loadClassData (name);
+    c = defineClass (name, data, 0, data.length);
+    cache.put (name, c); 
+      } catch (Exception e) {
+    e.printStackTrace ();
+    throw new ClassNotFoundException ("unable to resolve class '" + 
+                      name + "'");
+      }
+    }
+    if (resolve)
+      resolveClass (c); 
+    return c;  
   }
   private byte[] loadClassData (String name) throws Exception {
-	String fileName = tempDir + File.separatorChar + name + ".class";
-	FileInputStream fi = new FileInputStream (fileName);
-	byte[] data = new byte[fi.available ()];
-	fi.read (data);
-	fi.close();
-	return data;
+    String fileName = tempDir + File.separatorChar + name + ".class";
+    FileInputStream fi = new FileInputStream (fileName);
+    byte[] data = new byte[fi.available ()];
+    fi.read (data);
+    fi.close();
+    return data;
   }
   public void setTempDir (String tempDir) {
-	this.tempDir = tempDir;
+    this.tempDir = tempDir;
   }
 }

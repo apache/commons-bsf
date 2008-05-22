@@ -167,7 +167,7 @@ public class JavaEngine extends BSFEngineImpl {
         GeneratedFile gf = null;
 
         String basescript = oscript.toString();
-        String script = basescript;	// May be altered by $$CLASSNAME$$ expansion
+        String script = basescript; // May be altered by $$CLASSNAME$$ expansion
 
         try {
             // Do we already have a class exactly matching this code?
@@ -197,7 +197,7 @@ public class JavaEngine extends BSFEngineImpl {
                 if(startpoint >= 0) {
                     StringBuffer changed = new StringBuffer();
                     for(; startpoint >=0; startpoint = script.indexOf(placeholder,startpoint)) {
-                        changed.setLength(0);	// Reset for 2nd pass or later
+                        changed.setLength(0);   // Reset for 2nd pass or later
                         if(startpoint > 0) {
                             changed.append(script.substring(0,startpoint));
                         }
@@ -325,7 +325,7 @@ public class JavaEngine extends BSFEngineImpl {
     private GeneratedFile openUniqueFile(String directory,String prefix,String suffix) {
         File file = null;
         FileOutputStream fos = null;
-        int max = 1000;		// Don't try forever
+        int max = 1000;     // Don't try forever
         GeneratedFile gf = null;
         int i;
         String className = null;

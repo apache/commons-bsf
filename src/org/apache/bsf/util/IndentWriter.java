@@ -37,7 +37,7 @@ public class IndentWriter extends PrintWriter
    */
   public IndentWriter(OutputStream out)
   {
-	super(out);
+    super(out);
   }
   /**
    * Forwards its arguments to the <code>PrintWriter</code> constructor
@@ -45,7 +45,7 @@ public class IndentWriter extends PrintWriter
    */
   public IndentWriter(OutputStream out, boolean autoFlush)
   {
-	super(out, autoFlush);
+    super(out, autoFlush);
   }
   /**
    * Forwards its arguments to the <code>PrintWriter</code> constructor
@@ -53,7 +53,7 @@ public class IndentWriter extends PrintWriter
    */
   public IndentWriter(Writer out)
   {
-	super(out);
+    super(out);
   }
   /**
    * Forwards its arguments to the <code>PrintWriter</code> constructor
@@ -61,7 +61,7 @@ public class IndentWriter extends PrintWriter
    */
   public IndentWriter(Writer out, boolean autoFlush)
   {
-	super(out, autoFlush);
+    super(out, autoFlush);
   }
   /**
    * Print the text (indented the specified amount) without inserting a linefeed.
@@ -71,7 +71,7 @@ public class IndentWriter extends PrintWriter
    */
   public void print(int numberOfSpaces, String text)
   {
-	super.print(StringUtils.getChars(numberOfSpaces, ' ') + text);
+    super.print(StringUtils.getChars(numberOfSpaces, ' ') + text);
   }
   /**
    * Print the text (indented the specified amount) and insert a linefeed.
@@ -81,6 +81,6 @@ public class IndentWriter extends PrintWriter
    */
   public void println(int numberOfSpaces, String text)
   {
-	super.println(StringUtils.getChars(numberOfSpaces, ' ') + text);
+    super.println(StringUtils.getChars(numberOfSpaces, ' ') + text);
   }
 }
