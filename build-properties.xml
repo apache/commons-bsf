@@ -26,7 +26,6 @@
     <property name="project.deprecation" value="on"/>
 
     <property name="build.file" value="build.xml"/>
-    <property name="build.properties.file" value="build-properties.xml"/>
     <property name="build.dir" value="build"/>
     <property name="build.dest" value="build/classes"/>
     <property name="build.lib" value="build/lib"/>
