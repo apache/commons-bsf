@@ -1,0 +1,9 @@
+Apache BSF 3 Beta 2 Release Notes
+---------------------------------
+
+Apache BSF 3 is an implementation of JSR-223, the Scripting for the Java Platform APIs.
+Note that this software hasn't been tested with the JSR 223 TCK, and therefore is not a 
+compatible implementation of JSR-223.
+
+This Beta2 release is a maintenance release updating to support for the latest releases
+of various script language engines.
