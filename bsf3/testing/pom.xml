@@ -45,6 +45,8 @@
                 <module>python</module>
                 <module>jython-2.2</module>
                 <module>ruby</module>
+                <module>jruby-1.1.2</module>
+                <module>jruby-1.2.0</module>
             </modules>
         </profile>
 
