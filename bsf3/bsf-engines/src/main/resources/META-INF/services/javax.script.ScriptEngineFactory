@@ -17,7 +17,6 @@ com.sun.script.jython.JythonScriptEngineFactory
 com.sun.script.ognl.OgnlScriptEngineFactory
 org.pnuts.scriptapi.PnutsScriptEngineFactory
 com.sun.script.scheme.SchemeScriptEngineFactory
-com.sun.script.sleep.SleepScriptEngineFactory
 com.sun.script.velocity.VelocityScriptEngineFactory
 com.sun.script.xpath.XPathScriptEngineFactory
 com.sun.script.xslt.XSLTScriptEngineFactory

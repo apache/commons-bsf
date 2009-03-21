@@ -71,7 +71,6 @@
         <unzip src="${basedir}${download.dir}engines/ognl/build/ognl-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
         <unzip src="${basedir}${download.dir}engines/pnuts/build/pnuts-jsr223.jar" dest="${merged.engines.dir}" overwrite="true"/>
         <unzip src="${basedir}${download.dir}engines/scheme/build/scheme-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${basedir}${download.dir}engines/sleep/build/sleep-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
         <unzip src="${basedir}${download.dir}engines/velocity/build/velocity-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
         <unzip src="${basedir}${download.dir}engines/xpath/build/xpath-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
         <unzip src="${basedir}${download.dir}engines/xslt/build/xslt-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
