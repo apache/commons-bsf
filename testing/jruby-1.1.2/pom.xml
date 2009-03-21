@@ -27,9 +27,9 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
     <groupId>org.apache.bsf.testing</groupId>
-    <artifactId>bsf-testing-ruby</artifactId>
-    <name>Apache BSF testing for Ruby</name>
-    <description>Apache BSF testing for Ruby</description>
+    <artifactId>bsf-testing-jruby-1.1.2</artifactId>
+    <name>Apache BSF testing for JRuby 1.1.2</name>
+    <description>Apache BSF testing for JRuby 1.1.2</description>
 
     <dependencies>
         <dependency>
