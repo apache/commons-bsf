@@ -22,8 +22,7 @@ Other useful Maven commands are:
  - to setup Eclipse projects for the BSF modules
 
 
-BSF requires Java 5 to compile. The build uses Retroweaver to create 
-Java 1.4.2 compatible jars.
+BSF requires a minimum of Java 1.4.2 to build
 
 Note, currently there is a bug in the BSF 3 projects setup which causes
 the Eclipse projects to be created badly for the test projects when
