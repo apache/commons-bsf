@@ -26,7 +26,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
-import sun.misc.Service;
+import javax.imageio.spi.ServiceRegistry;
 
 /**
  * See Javadoc of <a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Java Scripting API</a>
@@ -65,7 +65,7 @@ public class ScriptEngineManager {
 	}
     
     public ScriptEngineManager(ClassLoader loader) {
-        Iterator iterator = Service.providers(ScriptEngineFactory.class, loader);
+        Iterator iterator = ServiceRegistry.lookupProviders(ScriptEngineFactory.class, loader);
         
         while (iterator.hasNext()) {
             ScriptEngineFactory factory;
