@@ -32,16 +32,6 @@
     <description>Apache BSF testing for JavaScript/E4X</description>
 
     <repositories>
-       <!-- This is for the WSO2 Rhino core build until Rhino cuts a new release -->
-       <repository>
-          <id>wso2-thilina</id>
-          <url>http://www-lk.wso2.com/~thilina/repository</url>
-          <snapshots>
-             <enabled>true</enabled>
-          </snapshots>
-          <layout>legacy</layout>
-       </repository>
-       
        <!-- This is for the WSO2 E4X impl -->
        <repository>
           <id>wso2</id>
