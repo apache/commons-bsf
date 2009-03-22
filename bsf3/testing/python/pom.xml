@@ -28,7 +28,7 @@
     <packaging>jar</packaging>
     <groupId>org.apache.bsf.testing</groupId>
     <artifactId>bsf-testing-python</artifactId>
-    <name>Apache BSF testing for Pythony</name>
+    <name>Apache BSF testing for Python</name>
     <description>Apache BSF testing for Python</description>
 
     <repositories>
