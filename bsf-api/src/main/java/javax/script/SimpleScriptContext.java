@@ -43,7 +43,7 @@ public class SimpleScriptContext implements ScriptContext {
 
 	private Writer errorWriter;
 
-	private static final List SCOPES = Arrays.asList(new Integer[] { Integer.valueOf(ENGINE_SCOPE), Integer.valueOf(GLOBAL_SCOPE) });
+	private static final List SCOPES = Arrays.asList(new Integer[] { Integer.valueOf(Integer.toString(ENGINE_SCOPE)), Integer.valueOf(Integer.toString(GLOBAL_SCOPE)) });
 	
 	public SimpleScriptContext() {
         reader = new InputStreamReader(System.in);
