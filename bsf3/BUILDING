@@ -21,6 +21,10 @@ Other useful Maven commands are:
 'mvn eclipse:eclipse'
  - to setup Eclipse projects for the BSF modules
 
+
+BSF requires Java 5 to compile. The build uses Retroweaver to create 
+Java 1.4.2 compatible jars.
+
 Note, currently there is a bug in the BSF 3 projects setup which causes
 the Eclipse projects to be created badly for the test projects when
 running 'mvn eclipse:eclipse' in the BSF top-level directory. A temporary
