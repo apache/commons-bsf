@@ -42,6 +42,7 @@
                 <include>BUILDING</include>
                 <include>LICENSE</include>
                 <include>NOTICE</include>
+                <include>RELEASE_NOTES</include>
                 <include>pom.xml</include>
                 <include>bsf-api/**/*</include>
                 <include>bsf-engines/**/*</include>
