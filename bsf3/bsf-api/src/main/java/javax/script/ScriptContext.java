@@ -42,7 +42,8 @@ public interface ScriptContext {
      * 
      * @param name the name of the attribute
      * @return the associated value with the specified name 
-     * @throws IllegalArgumentException if the name is null 
+     * @throws IllegalArgumentException if the name is empty 
+     * @throws NullPointerException if the name is null
      */
     public Object getAttribute(String name);
     
@@ -54,8 +55,9 @@ public interface ScriptContext {
      * @param name  the name of the attribute
      * @param scope the value of the scope
      * @return the associated value for the specified name
-     * @throws IllegalArgumentException if the name is null or the 
-     *         scope is invalid 
+     * @throws IllegalArgumentException if the name is empty or the 
+     *         scope is invalid
+     * @throws NullPointerException if the name is null 
      */
     public Object getAttribute(String name, int scope);
     
@@ -70,13 +72,14 @@ public interface ScriptContext {
     public int getAttributesScope(String name);
     
     /**
-     * Retrieves the Namespace instance associated with the gieve
+     * Retrieves the Bindings instance associated with the gieve
      * scope. Returns null if no namespace is assoicited with 
      * specified level of scope. 
      * 
      * @param scope the level of the scope
-     * @return the Namespace associated with the specified levle of
-     *         scope
+     * @return the Bindings associated with the specified scope
+     * @throws IllegalArgumentException
+     *         If no Bindings is defined for the specified scope value in ScriptContext of this type.
      */
     public Bindings getBindings(int scope);
     
@@ -88,14 +91,38 @@ public interface ScriptContext {
      */
     public Writer getWriter();
     
+    /**
+     * Returns the Writer to be used to display error output. 
+     * @return the error writer
+     */
     public Writer getErrorWriter();
 
+    /**
+     * Sets the Writer for scripts to use when displaying output.
+     * 
+     * @param writer the new writer.
+     */
     public void setWriter(Writer writer);
 
+    /**
+     * Sets the Writer for scripts to use when displaying error output.
+     * 
+     * @param writer the new writer.
+     */
     public void setErrorWriter(Writer writer);
 
+    /**
+     * Returns a Reader to be used by the script to read input.
+     * 
+     * @return the reader
+     */
     public Reader getReader();
 
+    /**
+     * Sets the Reader to be used by the script to read input.
+     * 
+     * @param reader the new reader
+     */
     public void setReader(Reader reader);
 
     /**
@@ -120,21 +147,27 @@ public interface ScriptContext {
 	 * @param scope the level of the scope
      * @throws IllegalArgumentException if the name is null or the
      *         scope is invalid
+     * @throws NullPointerException if the name is null.
 	 */
 	public void setAttribute(String key,Object value,int scope);
 	
 	/**
-	 * Associates the specified namespace with the specified scope. 
+	 * Associates the specified Bindings with the specified scope. 
      *  
-	 * @param bindings the namespace to be associated with the
+	 * @param bindings the Bindings to be associated with the
      *        specified level of scope
-	 * @param scope     the specified level of scope 
+	 * @param scope     the scope 
      * @throws IllegalArgumentException if the scope is invalid
      * @throws NullPointerException if the bindings is null and the 
      *          scope is ScriptEngine.ENGINE_SCOPE
 	 */
 	public void setBindings(Bindings bindings,int scope);
 	
+	/**
+	 * Returns immutable List of all the valid values for scope in the ScriptContext.
+	 *  
+	 * @return the list
+	 */
 	public List getScopes();
     
 }
