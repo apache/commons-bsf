@@ -33,7 +33,7 @@ public class SimpleBindings implements Bindings {
 	/**
      * In which the key-value pairs are stored.
 	 */
-    protected Map map;
+    private final Map map;
 	
     /**
      * Constructs a SimpleNamespace.
@@ -68,7 +68,7 @@ public class SimpleBindings implements Bindings {
      *            object
      * @param value the object to be stored.
      * @throws NullPointerException if the key is null
-     * @throws IllegalArgumentException if the key empty
+     * @throws IllegalArgumentException if the key is empty
      */
     public Object put(String key, Object value) {
       
