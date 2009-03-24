@@ -39,11 +39,11 @@ import javax.script.ScriptException;
  * @author   Sam Ruby
  */
 public class Main {
-	private static String ARG_IN = "-in";
-	private static String ARG_LANG = "-lang";
-	private static String ARG_OUT = "-out";
-	private static String DEFAULT_IN_FILE_NAME = "<STDIN>";
-	private static String DEFAULT_CLASS_NAME = "Test";
+	private static final String ARG_IN = "-in";
+	private static final String ARG_LANG = "-lang";
+	private static final String ARG_OUT = "-out";
+	private static final String DEFAULT_IN_FILE_NAME = "<STDIN>";
+	private static final String DEFAULT_CLASS_NAME = "Test";
 
 	/**
 	 * Static driver to be able to run BSF scripts from the command line.
