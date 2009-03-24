@@ -63,20 +63,26 @@ public class SimpleScriptContext implements ScriptContext {
         writer = new PrintWriter(System.out, true);
         errorWriter = new PrintWriter(System.err, true);
 	}
+	
+	/**
+	 * Check if name is null or empty string
+	 * @param name to be checked
+	 */
+	private void checkName(String name){
+	    if (name == null){
+	        throw new NullPointerException("name must not be null");
+	    }
+	    if (name.length() == 0){
+	        throw new IllegalArgumentException("name must not be an empty string");
+	    }
+	}
     
-    /**
-     * Retrieves the value for getAttribute(String, int) for the 
-     * lowest scope in which it returns a non-null value.
-     * 
-     * @param name the name of the attribute 
-     * @return the value of the attribute
-     */
-    public Object getAttribute(String name) {
+
+	/** {@inheritDoc} */
+	public Object getAttribute(String name) {
+
+	    checkName(name);
       
-        if (name == null) {
-            throw new IllegalArgumentException("name cannot be null");
-        }
-        
         if (engineScope.get(name) != null) {
             return engineScope.get(name);
         } else if (globalScope.get(name) != null) {
@@ -86,21 +92,10 @@ public class SimpleScriptContext implements ScriptContext {
         }
     }
     
-    /**
-     * Retrieves the value associated with specified name in the 
-     * specified level of scope. Returns null if no value is 
-     * associated with specified key in specified level of scope.
-     *  
-     * @param name   the name of the attribute
-     * @param scope the level of scope
-     * @return the value value associated with the specified name in
-     *         specified level of scope
-     */
+    /** {@inheritDoc} */
     public Object getAttribute(String name, int scope) {
     	
-        if (name == null) {
-            throw new IllegalArgumentException("name cannot be null");
-        }
+        checkName(name);
         
         switch (scope) {
         	case ENGINE_SCOPE:
@@ -112,17 +107,12 @@ public class SimpleScriptContext implements ScriptContext {
         }
     }
 
-    /**
-     * Retrieves the lowest value of scopes for which the attribute 
-     * is defined. If there is no associate scope with the given 
-     * attribute (-1) is returned.
-     * 
-     * @param  name the name of attribute
-     * @return the value of level of scope  
-     */
+    /** {@inheritDoc} */
     public int getAttributesScope(String name) {
      
-    	if (engineScope.containsKey(name)) {
+        checkName(name);
+
+        if (engineScope.containsKey(name)) {
             return ENGINE_SCOPE;
         } else if(globalScope.containsKey(name)) {
             return GLOBAL_SCOPE;
@@ -131,14 +121,7 @@ public class SimpleScriptContext implements ScriptContext {
         return -1;
     }
     
-    /**
-     * Retrieves the Namespace instance associated with the specified
-     * level of scope.
-     * 
-     * @param scope the level of the scope
-     * @return the namespace associated with the specified level of 
-     *         scope
-     */
+    /** {@inheritDoc} */
     public Bindings getBindings(int scope) {
         
     	switch (scope) {
@@ -147,24 +130,14 @@ public class SimpleScriptContext implements ScriptContext {
         	case GLOBAL_SCOPE:
         		return globalScope;
         	default:
-        		return null; // shouldn't I throw an IllegalArgumentException
+        		throw new IllegalArgumentException("invalid scope");
         }
     }
     
-    /**
-     * Removes the specified attribute form the specified level of 
-     * scope.
-     * 
-     * @param name the name of the attribute
-     * @param scope the level of scope 
-     * @return value which is removed
-     * @throws IllegalArgumentException
-     */
+    /** {@inheritDoc} */
     public Object removeAttribute(String name, int scope) { 
        
-    	if (name == null) {
-            throw new IllegalArgumentException("name is null");
-        }
+        checkName(name);
         
         switch (scope) {
         	case ENGINE_SCOPE:
@@ -176,21 +149,10 @@ public class SimpleScriptContext implements ScriptContext {
         }        
     }
     
-    /**
-     * Sets an attribute specified by the name in specified level of 
-     * scope.
-     *  
-     * @param name   the name of the attribute
-     * @param value the value of the attribute
-     * @param scope the level of the scope
-     * @throws IllegalArgumentException if the name is null scope is
-     *         invalid
-     */
+    /** {@inheritDoc} */
     public void setAttribute(String name, Object value, int scope) {
        
-    	if (name == null) {
-            throw new IllegalArgumentException("name is null");
-        }
+        checkName(name);
         
         switch (scope) {
         	case ENGINE_SCOPE:
@@ -200,18 +162,11 @@ public class SimpleScriptContext implements ScriptContext {
         		globalScope.put(name, value);
         		break;
         	default:
-        		throw new IllegalArgumentException("invaild scope");
+        		throw new IllegalArgumentException("invalid scope");
         }
     }
 	
-	/**
-	 * Associates the specified namespace with specified level of 
-     * scope.
-	 * 
-	 * @param namespace the namespace to be associated with specified
-     *                  level of scope
-     * @param scope     the level of scope 
-	 */	
+    /** {@inheritDoc} */
 	public void setBindings(Bindings namespace, int scope) {
 	
 		switch (scope) {
@@ -225,34 +180,41 @@ public class SimpleScriptContext implements ScriptContext {
 				globalScope = namespace;
 				break;
 			default:
-				throw new IllegalArgumentException("invaild scope");
+				throw new IllegalArgumentException("invalid scope");
 		}
     }
 
+    /** {@inheritDoc} */
 	public List getScopes() {
 		return SCOPES;
 	}
 
+    /** {@inheritDoc} */
 	public Reader getReader() {
 		return reader;
 	}
 
+    /** {@inheritDoc} */
 	public void setReader(Reader reader) {
 		this.reader = reader;
 	}
 
+    /** {@inheritDoc} */
 	public Writer getWriter() {
 		return writer;
 	}
 
+    /** {@inheritDoc} */
 	public void setWriter(Writer writer) {
 		this.writer = writer;
 	}
 
+    /** {@inheritDoc} */
 	public Writer getErrorWriter() {
 		return errorWriter;
 	}
 
+    /** {@inheritDoc} */
 	public void setErrorWriter(Writer writer) {
 		this.errorWriter = writer;
 	}
