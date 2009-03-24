@@ -36,10 +36,10 @@ public abstract class AbstractScriptEngine implements ScriptEngine {
 	}
 	
     /**
-     * Constructs a ScriptEngine using the specified namespace as its 
+     * Constructs a ScriptEngine using the specified Bindings as its 
      * ENGINE_SCOPE.
      * 
-     * @param bindings the namespace to be used as the ENGINE_SCOPE
+     * @param bindings the Bindings to be used as the ENGINE_SCOPE
      */
 	public AbstractScriptEngine(Bindings bindings){
         this();
@@ -174,9 +174,13 @@ public abstract class AbstractScriptEngine implements ScriptEngine {
 	public void put(String key, Object value) {
         
 		if (key == null) { 
-            throw new IllegalArgumentException("name is null");
+            throw new NullPointerException("name is null");
         }
 		
+        if (key.length() == 0) { 
+            throw new IllegalArgumentException("name is empty");
+        }
+        
 		getBindings(ScriptContext.ENGINE_SCOPE).put(key,value);
 	}
 
@@ -189,13 +193,12 @@ public abstract class AbstractScriptEngine implements ScriptEngine {
      * @throws NullPointerException if the bindings is null and the scope 
      *          is ScriptContext.ENGINE_SCOPE 
      */
-	public void setBindings(Bindings bindings, int scope)
-			throws UnsupportedOperationException {
+	public void setBindings(Bindings bindings, int scope) {
 		
         if (scope == ScriptContext.GLOBAL_SCOPE || scope == ScriptContext.ENGINE_SCOPE) {
              context.setBindings(bindings, scope);
         } else {
-            throw new IllegalArgumentException("invaild scope");
+            throw new IllegalArgumentException("invalid scope");
         }
     }
 
