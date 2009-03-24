@@ -49,83 +49,33 @@ public abstract class AbstractScriptEngine implements ScriptEngine {
         context.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
 	}
     
-    /**
-     * Evaluates a piece of script obtained using the specified 
-     * reader as the script source. Returns null for non-returning
-     * scripts.
-     * 
-     * @param reader the reader form which the script is obtained
-     * @return the value of the evaluated script
-     * @throws ScriptException if an error occurs
-     * @throws NullPointerException if parameter is null
-     */
+    /** {@inheritDoc} */
     public Object eval(Reader reader) throws ScriptException{
         return eval(reader, context);
     }
     
-    /**
-     * Evaluates a piece of scripts obtained using a reader as the 
-     * script source and using the specified namespace as the 
-     * SCRIPT_SCOPE. Returns null for non-returning scripts.
-     * 
-     * @param reader    the reader from which the script is obtained 
-     * @param bindings the bindings to use for the ENGINE_SCOPE
-     * @return the value of the evaluated script
-     * @throws ScriptException if an error occurs
-     * @throws NullPointerException if any parameter is null
-     */    
+    /** {@inheritDoc} */
     public Object eval(Reader reader, Bindings bindings) 
             throws ScriptException{
         return eval(reader,getScriptContext(bindings));
     }
     
-    /**
-     * Evaluates a piece of script and returns the resultant object.
-     * Returns null for non-returning scripts.
-     * 
-     * @param script the String representation of the script
-     * @return the value of the evaluated script 
-     * @throws ScriptException if an error occurs
-     * @throws NullPointerException if parameter is null
-     */
+    /** {@inheritDoc} */
     public Object eval(String script) throws ScriptException{
         return eval(script, context);
     }
        
-    /**
-     * Evaluates a piece of script using the specified namespace as 
-     * its SCRIPT_SCOPE. Returns null for non-returning scripts.
-     *  
-     * @param script    the String representation of the script
-     * @param bindings the bindings to use for the ENGINE_SCOPE
-     * @return the value of the evaluated script
-     * @throws ScriptException if an error occurs
-     * @throws NullPointerException if any parameter is null 
-     */    
+    /** {@inheritDoc} */
     public Object eval(String script, Bindings bindings) throws ScriptException{
         return eval(script,getScriptContext(bindings));
     }
         
-    /**
-     * Retrieves the associated value with the specified key 
-     * ScriptEngine namespace. Returns null if no such value exists.
-     * 
-     * @param key the associated key of the value
-     * @return the value associated with the specified key in 
-     *         ScriptEngine namespace
-     */
+    /** {@inheritDoc} */
 	public Object get(String key) {
 		return getBindings(ScriptContext.ENGINE_SCOPE).get(key);
 	}
     
-    /**
-     * Retrieves a reference to the associated namespace for the 
-     * specified level of scope.
-     *  
-     * @param scope the specified level of scope
-     * @return associated namespace for the specified level of scope
-     * @throws IllegalArgumentException if the scope is invalid
-     */    
+    /** {@inheritDoc} */
     public Bindings getBindings(int scope) {
         if (scope == ScriptContext.GLOBAL_SCOPE || scope == ScriptContext.ENGINE_SCOPE) {
             return context.getBindings(scope);
@@ -140,14 +90,15 @@ public abstract class AbstractScriptEngine implements ScriptEngine {
      * associated with all the level of scopes and the specified
      * namespace associated with SCRIPT_SCOPE.
      * 
-     * @param bindings the namespace to be associated with 
-     *        SCRIPT_SCOPE 
-     * @return an instance of ScriptContext with all namespaces of 
-     *         all scopes
+     * @param bindings the bindings to be associated with 
+     *        ENGINE_SCOPE 
+     * @return an instance of SimpleScriptContext
+     * 
+     * @throws NullPointerException if bindings is null
      */
     protected ScriptContext getScriptContext(Bindings bindings){
     	if (bindings == null) {
-    		throw new NullPointerException("bindings is null");
+    		throw new NullPointerException("ENGINE_SCOPE bindings cannot be null");
     	}
         
         ScriptContext scriptContext = new SimpleScriptContext();
@@ -162,15 +113,7 @@ public abstract class AbstractScriptEngine implements ScriptEngine {
         return scriptContext;
     }
 
-    /**
-     * Associates a key and a value in the ScriptEngine namespace.
-     * 
-     * @param key   String value which uniquely identifies the value
-     * @param value value which is to be associated with the 
-     *              specified key
-     * @throws IllegalArgumentException if the key is empty
-     * @throws NullPointerException if the key is null
-     */
+    /** {@inheritDoc} */
 	public void put(String key, Object value) {
         
 		if (key == null) { 
@@ -184,15 +127,7 @@ public abstract class AbstractScriptEngine implements ScriptEngine {
 		getBindings(ScriptContext.ENGINE_SCOPE).put(key,value);
 	}
 
-    /**
-     * Associates a namespace with a specified level of scope.
-     * 
-     * @param bindings the namespace to be associated with specified scope
-     * @param scope     the level of scope of the specified namespace
-     * @throws IllegalArgumentException if scope is invalid
-     * @throws NullPointerException if the bindings is null and the scope 
-     *          is ScriptContext.ENGINE_SCOPE 
-     */
+    /** {@inheritDoc} */
 	public void setBindings(Bindings bindings, int scope) {
 		
         if (scope == ScriptContext.GLOBAL_SCOPE || scope == ScriptContext.ENGINE_SCOPE) {
@@ -202,24 +137,12 @@ public abstract class AbstractScriptEngine implements ScriptEngine {
         }
     }
 
-    /**
-     * Returns the default ScriptContext of the ScriptEngine whose Bindings, Readers
-     * and Writers are used for script executions when no ScriptContext is specified.
-     *   
-     * @return The default ScriptContext of the ScriptEngine
-     */
+    /** {@inheritDoc} */
     public ScriptContext getContext() {
         return this.context;
     }
 
-    /**
-     * Sets the default ScriptContext of the ScriptEngine whose Bindings, Readers and
-     * Writers are used for script executions when no ScriptContext is specified.
-     * 
-     * @param context 
-     *    scriptContext that will replace the default ScriptContext in the ScriptEngine.
-     * @throws NullPointerException - if context is null.
-     */
+    /** {@inheritDoc} */
     public void setContext(ScriptContext context) {
         if (context == null) {
         	throw new NullPointerException("context is null");
