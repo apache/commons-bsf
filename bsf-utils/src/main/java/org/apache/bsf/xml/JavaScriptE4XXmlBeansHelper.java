@@ -36,7 +36,7 @@ import org.mozilla.javascript.xml.XMLObject;
  */
 public class JavaScriptE4XXmlBeansHelper extends DefaultXMLHelper {
 
-	private Scriptable scope;
+	private final Scriptable scope;
 
     JavaScriptE4XXmlBeansHelper(ScriptEngine engine) {
 	    Context cx = Context.enter();

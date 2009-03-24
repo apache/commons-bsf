@@ -33,7 +33,7 @@ import org.apache.axiom.om.impl.builder.StAXOMBuilder;
  */
 public class JRubyReXMLHelper extends DefaultXMLHelper {
 
-	private ScriptEngine scriptEngine;
+	private final ScriptEngine scriptEngine;
 
 	JRubyReXMLHelper(ScriptEngine scriptEngine) {
 		this.scriptEngine = scriptEngine;
