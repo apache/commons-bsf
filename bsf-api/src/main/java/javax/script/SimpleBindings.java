@@ -150,6 +150,7 @@ public class SimpleBindings implements Bindings {
 	
     /** {@inheritDoc} */
     public Object get(Object key) {
+        validateKey(key);
 		return map.get(key);
 	}
 
