@@ -32,7 +32,7 @@ import javax.servlet.http.HttpSession;
  */
 public class HttpScriptRequest extends HttpServletRequestWrapper {
     
-	private HttpScriptContext context;
+	private final HttpScriptContext context;
     
     public HttpScriptRequest(HttpScriptContext context, HttpServletRequest req){
         super(req);
