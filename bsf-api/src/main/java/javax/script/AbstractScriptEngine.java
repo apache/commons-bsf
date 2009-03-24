@@ -68,7 +68,7 @@ public abstract class AbstractScriptEngine implements ScriptEngine {
      * SCRIPT_SCOPE. Returns null for non-returning scripts.
      * 
      * @param reader    the reader from which the script is obtained 
-     * @param namespace the namespace to be used as SCRIPT_SCOPE
+     * @param bindings the bindings to use for the ENGINE_SCOPE
      * @return the value of the evaluated script
      * @throws ScriptException if an error occurs 
      */    
@@ -94,12 +94,12 @@ public abstract class AbstractScriptEngine implements ScriptEngine {
      * its SCRIPT_SCOPE. Returns null for non-returning scripts.
      *  
      * @param script    the String representation of the script
-     * @param namespace the namespace to be used as the SCRIPT_SCOPE
+     * @param bindings the bindings to use for the ENGINE_SCOPE
      * @return the value of the evaluated script
      * @throws ScriptException if an error occurs 
      */    
-    public Object eval(String script, Bindings nameSpace) throws ScriptException{
-        return eval(script,getScriptContext(nameSpace));
+    public Object eval(String script, Bindings bindings) throws ScriptException{
+        return eval(script,getScriptContext(bindings));
     }
         
     /**
@@ -208,7 +208,7 @@ public abstract class AbstractScriptEngine implements ScriptEngine {
      * Sets the default ScriptContext of the ScriptEngine whose Bindings, Readers and
      * Writers are used for script executions when no ScriptContext is specified.
      * 
-     * @param scriptcontext 
+     * @param context 
      *    scriptContext that will replace the default ScriptContext in the ScriptEngine.
      */
     public void setContext(ScriptContext context) {
