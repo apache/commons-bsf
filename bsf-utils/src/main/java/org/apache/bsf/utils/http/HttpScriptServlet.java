@@ -92,7 +92,7 @@ public class HttpScriptServlet extends GenericServlet {
      * 
      * @param req the current request
      * @param res the current response
-     * @throws IlleagalArguementException if the req is not an 
+     * @throws IllegalArgumentException if the req is not an 
      *         instance of HttpServletRequest or if the res is not an
      *         instance of HttpServletResponse
      * @throws IOException if an input, output error occurs
