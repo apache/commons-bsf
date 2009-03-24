@@ -69,11 +69,10 @@ public class ScriptEngineManager {
         
         while (iterator.hasNext()) {
             ScriptEngineFactory factory;
-            try {
-                factory = (ScriptEngineFactory) iterator.next();
-            } catch (Throwable e) {
-                // likely jars required by every script engine not on classpath
-                // TODO: log exception
+            final Object item = iterator.next();
+            if (item instanceof ScriptEngineFactory){
+                factory = (ScriptEngineFactory) item;
+            } else {
                 continue;
             }
             engineSpis.add(factory);
@@ -229,9 +228,18 @@ public class ScriptEngineManager {
      * 
      * @param key the associated key for specified value 
      * @param value the associated value for the specified key
+     * 
+     * @throws NullPointerException if key is null
+     * @throws IllegalArgumentException if key is the empty String
      */
-    public void put(String key,Object value){
-            globalscope.put(key,value);
+    public void put(String key, Object value){
+        if (key == null) {
+            throw new NullPointerException("key must not be null");
+        }
+        if (key.length() == 0) {
+            throw new IllegalArgumentException("key must not be the empty string");
+        }
+        globalscope.put(key, value);
     }
 	
     /**
@@ -276,9 +284,13 @@ public class ScriptEngineManager {
     /**
      * Sets the GLOBAL_SCOPE value to the specified namespace.
      * 
-     * @param bindings the namespace to be stored in GLOBAL_SCOPE 
+     * @param bindings the namespace to be stored in GLOBAL_SCOPE
+     * @throws IllegalArgumentException if bindings is null
      */
 	public void setBindings(Bindings bindings){
+	    if (bindings == null){
+	        throw new IllegalArgumentException("bindings must not be null");
+	    }
 		globalscope = bindings;
 	}
 } 
