@@ -207,7 +207,7 @@ public interface ScriptEngine {
      *                  level of scope 
      * @param scope     level of scope for which the namespace should
      *                  be associated with
-     * @throws if the scope is invalid
+     * @throws IllegalArgumentException if the scope is invalid
      */
 	public void setBindings(Bindings bindings, int scope);
 	
