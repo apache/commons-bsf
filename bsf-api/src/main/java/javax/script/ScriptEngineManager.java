@@ -37,25 +37,25 @@ public class ScriptEngineManager {
      * ScriptEngineFactory which are found in resources 
      * META-INF/services/javax.script.ScriptEngineFactory
      */
-    protected HashSet engineSpis = new HashSet();
+    private final HashSet engineSpis = new HashSet();
 	
     /**
      * Stores language names with an associated 
      * ScriptEngineFactory 
      */     
-	protected HashMap nameAssociations = new HashMap();
+    private final HashMap nameAssociations = new HashMap();
 	
     /** 
      * Stores file extensions with an associated 
      * ScriptEngineFactory 
      */
-	protected HashMap extensionAssocitions = new HashMap();
+    private final HashMap extensionAssocitions = new HashMap();
 	
     /** Stores MIME types with an associated ScriptEngineFactory */
-	protected HashMap mimeTypeAssociations = new HashMap();
+    private final HashMap mimeTypeAssociations = new HashMap();
 	
     /** Stores the namespace associated with GLOBAL_SCOPE */
-	protected Bindings globalscope = new SimpleBindings();
+    private Bindings globalscope = new SimpleBindings();
 	
     /**
      * Constructs ScriptEngineManager and initializes it.
