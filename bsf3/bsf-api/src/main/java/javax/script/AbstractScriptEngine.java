@@ -80,7 +80,7 @@ public abstract class AbstractScriptEngine implements ScriptEngine {
         if (scope == ScriptContext.GLOBAL_SCOPE || scope == ScriptContext.ENGINE_SCOPE) {
             return context.getBindings(scope);
         } else {
-            throw new IllegalArgumentException("invaild scope");
+            throw new IllegalArgumentException("invalid scope");
         }
     }
     
