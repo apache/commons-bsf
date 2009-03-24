@@ -55,7 +55,32 @@ public class SimpleBindings implements Bindings {
     
     
 
+	/**
+	 * Check the conditions which keys need to satisfy:
+	 * - String
+	 * - non-null
+	 * - non-Empty
+	 * @param key key to be checked
+	 * 
+	 * @throws NullPointerException if key is null 
+     * @throws ClassCastException if key is not String 
+     * @throws llegalArgumentException if key is empty String
+	 */
+	private void validateKey(Object key){
+	    if (key == null) {
+	        throw new NullPointerException("key must not be null");
+	    }
+        if (!(key instanceof String)) {
+            throw new ClassCastException("key must be a String");
+        }
+        if (((String)key).length() == 0) {
+            throw new IllegalArgumentException("key must not be the empty string");
+        }
+	}
+
+    /** {@inheritDoc} */
     public Object put(Object key, Object value) {
+        validateKey(key);
         return put((String) key, value);
     }
 
@@ -70,78 +95,72 @@ public class SimpleBindings implements Bindings {
      * @throws NullPointerException if the key is null
      * @throws IllegalArgumentException if the key is empty
      */
-    public Object put(String key, Object value) {
-      
-        if (key == null) {
-            throw new NullPointerException("key is null");
-        }
-        
-    	if (key.length() == 0) {
-            throw new IllegalArgumentException("key is empty");
-        }       
-		
+    public Object put(String key, Object value) {      
+        validateKey(key);
     	return map.put(key,value);
 	}
 	
-    /**
-     * Copies all of the mappings from the specified map to this map.
-     * These mappings will replace any mappings that this map had for
-     * any of the keys currently in the specified map.
-     * 
-     * @param toMerge mappings to be stored in the map.
-     * @throws IllegalArgumentException if a key is null or is not 
-     *         java.lang.String type in the specified map
-     */
+    /** {@inheritDoc} */
 	public void putAll(Map toMerge) {
         
         Set keySet= toMerge.keySet();
 		Iterator keys= keySet.iterator();
 		
         while (keys.hasNext()) {
-			if (keys.next() instanceof String) {
-				throw new IllegalArgumentException("a key is not a String");
-            }
+            validateKey(keys.next());
         }
             
 		map.putAll(toMerge);	
 	}
     
+    /** {@inheritDoc} */
     public int size() {
         return map.size();
     }
     
+    /** {@inheritDoc} */
     public void clear() {
         map.clear();    
     }
     
+    /** {@inheritDoc} */
     public boolean isEmpty() {
         return map.isEmpty();
     }
     
+    /** {@inheritDoc} */
 	public boolean containsKey(Object key) {
+	    validateKey(key);
 		return map.containsKey(key);
 	}
+    /** {@inheritDoc} */
 	public boolean containsValue(Object value) {
 		return map.containsValue(value);
 	}
     
+    /** {@inheritDoc} */
     public Collection values() {
         return map.values();
     }
     
+    /** {@inheritDoc} */
 	public Set entrySet() {
 		return map.entrySet();
 	}
 	
+    /** {@inheritDoc} */
     public Object get(Object key) {
 		return map.get(key);
 	}
 
+    /** {@inheritDoc} */
 	public Set keySet() {
 		return map.keySet();
 	}
 
+    /** {@inheritDoc} */
     public Object remove(Object key) {
+        validateKey(key);
 		return map.remove(key);
 	}
 
