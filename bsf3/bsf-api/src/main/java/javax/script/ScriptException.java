@@ -22,27 +22,28 @@ package javax.script;
 /**
  * See Javadoc of <a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Java Scripting API</a>
  */
+//@Immutable
 public class ScriptException extends Exception {
     
 	private static final long serialVersionUID = 1L;
 
-	/** Stroes the file name of the script */
-	protected String fileName = null;
+	/** Stores the file name of the script */
+	private final String fileName; // default null
     
     /** 
      * Stores the line number of the script in which the error has 
      * occured
      */ 
-   	protected int lineNumber = -1;
+	private final int lineNumber; // default = -1;
     
     /** 
      * Stores the column number of the script in which the error has 
      * occured
      */
-    protected int columnNumber = -1;
+	private final int columnNumber; // default = -1;
     
     /** Stores the message which describes the cause of error */
-    protected String message;
+	private final String message; // default null
      
     /**
      * Constructs a new exception with the specified cause.
@@ -51,6 +52,10 @@ public class ScriptException extends Exception {
      */
 	public ScriptException(Exception exception) {
       		super(exception);
+            this.message = null;
+            this.fileName = null;
+            this.lineNumber = -1;
+            this.columnNumber = -1;
 	}
     
     /**
@@ -61,8 +66,7 @@ public class ScriptException extends Exception {
      *        exception 
      */
     public ScriptException(String message) {
-        super(message);
-        this.message = message;
+        this(message, null, -1, -1);
     }
 
     /**
@@ -76,10 +80,7 @@ public class ScriptException extends Exception {
      *                   occured
      */
     public ScriptException(String message,String fileName,int lineNumber) {
-		super(message);
-        this.message = message;
-		this.fileName = fileName;
-		this.lineNumber = lineNumber;
+        this(message, fileName, lineNumber, -1);
 	}
     
     /**
@@ -96,7 +97,7 @@ public class ScriptException extends Exception {
      * @param columnNumber the column number of the script where the
      *                     error has occured
      */
-	public ScriptException(String message,String fileName,int lineNumber,int columnNumber) {
+	public ScriptException(String message, String fileName, int lineNumber, int columnNumber) {
 		super(message);
         this.message = message;
 		this.fileName = fileName;
