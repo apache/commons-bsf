@@ -24,6 +24,7 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -43,7 +44,10 @@ public class SimpleScriptContext implements ScriptContext {
 
 	private Writer errorWriter;
 
-	private static final List SCOPES = Arrays.asList(new Integer[] { new Integer(ENGINE_SCOPE), new Integer(GLOBAL_SCOPE) });
+	private static final List SCOPES = 
+	    Collections.unmodifiableList(
+	        Arrays.asList(new Integer[] { new Integer(ENGINE_SCOPE), new Integer(GLOBAL_SCOPE) })
+	     );
 	
 	public SimpleScriptContext() {
         reader = new InputStreamReader(System.in);
