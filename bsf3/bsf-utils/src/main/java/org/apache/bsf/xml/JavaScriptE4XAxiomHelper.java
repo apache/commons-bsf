@@ -35,7 +35,7 @@ import org.mozilla.javascript.xml.XMLObject;
  */
 public class JavaScriptE4XAxiomHelper extends DefaultXMLHelper {
 
-	private Scriptable scope;
+	private final Scriptable scope;
 
     JavaScriptE4XAxiomHelper(ScriptEngine engine) {
 
