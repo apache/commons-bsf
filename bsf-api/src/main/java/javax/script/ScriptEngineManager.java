@@ -69,10 +69,9 @@ public class ScriptEngineManager {
         
         while (iterator.hasNext()) {
             ScriptEngineFactory factory;
-            final Object item = iterator.next();
-            if (item instanceof ScriptEngineFactory){
-                factory = (ScriptEngineFactory) item;
-            } else {
+            try {
+                factory = (ScriptEngineFactory) iterator.next();
+            } catch (Error ignored) {
                 continue;
             }
             engineSpis.add(factory);
