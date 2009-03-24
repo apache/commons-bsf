@@ -56,7 +56,8 @@ public abstract class AbstractScriptEngine implements ScriptEngine {
      * 
      * @param reader the reader form which the script is obtained
      * @return the value of the evaluated script
-     * @throws ScriptException if an error occurs 
+     * @throws ScriptException if an error occurs
+     * @throws NullPointerException if parameter is null
      */
     public Object eval(Reader reader) throws ScriptException{
         return eval(reader, context);
@@ -70,7 +71,8 @@ public abstract class AbstractScriptEngine implements ScriptEngine {
      * @param reader    the reader from which the script is obtained 
      * @param bindings the bindings to use for the ENGINE_SCOPE
      * @return the value of the evaluated script
-     * @throws ScriptException if an error occurs 
+     * @throws ScriptException if an error occurs
+     * @throws NullPointerException if any parameter is null
      */    
     public Object eval(Reader reader, Bindings bindings) 
             throws ScriptException{
@@ -83,7 +85,8 @@ public abstract class AbstractScriptEngine implements ScriptEngine {
      * 
      * @param script the String representation of the script
      * @return the value of the evaluated script 
-     * @throws ScriptException if an error occurs 
+     * @throws ScriptException if an error occurs
+     * @throws NullPointerException if parameter is null
      */
     public Object eval(String script) throws ScriptException{
         return eval(script, context);
@@ -96,7 +99,8 @@ public abstract class AbstractScriptEngine implements ScriptEngine {
      * @param script    the String representation of the script
      * @param bindings the bindings to use for the ENGINE_SCOPE
      * @return the value of the evaluated script
-     * @throws ScriptException if an error occurs 
+     * @throws ScriptException if an error occurs
+     * @throws NullPointerException if any parameter is null 
      */    
     public Object eval(String script, Bindings bindings) throws ScriptException{
         return eval(script,getScriptContext(bindings));
@@ -143,7 +147,7 @@ public abstract class AbstractScriptEngine implements ScriptEngine {
      */
     protected ScriptContext getScriptContext(Bindings bindings){
     	if (bindings == null) {
-    		throw new NullPointerException("binidngs is null");
+    		throw new NullPointerException("bindings is null");
     	}
         
         ScriptContext scriptContext = new SimpleScriptContext();
@@ -164,7 +168,8 @@ public abstract class AbstractScriptEngine implements ScriptEngine {
      * @param key   String value which uniquely identifies the value
      * @param value value which is to be associated with the 
      *              specified key
-     * @throws IllegalArgumentException if the key is null
+     * @throws IllegalArgumentException if the key is empty
+     * @throws NullPointerException if the key is null
      */
 	public void put(String key, Object value) {
         
