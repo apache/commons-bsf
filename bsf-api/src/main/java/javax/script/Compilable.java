@@ -33,8 +33,9 @@ public interface Compilable {
      * @return an implementation of CompileScript which can be used 
      *         to re-execute intermediate code produced by the 
      *         compilation of script
-     * @throws ScriptException if the compilation fials due to any 
+     * @throws ScriptException if the compilation fails due to any 
      *         reason
+     * @throws NullPointerException if script is null
      */
     public CompiledScript compile(String script) throws ScriptException;
     
@@ -47,8 +48,9 @@ public interface Compilable {
      * @return an implementation of CompileScript which can be used 
      *         to re-execute intermediate code produced by the 
      *         compilation of script
-     * @throws ScriptException if the compilation fials due to any 
+     * @throws ScriptException if the compilation fails due to any 
      *         reason
+     * @throws NullPointerException if reader is null
      */
     public CompiledScript compile(Reader reader) throws ScriptException;
 }

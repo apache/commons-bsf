@@ -69,10 +69,10 @@ public interface ScriptEngine {
     public static final String NAME = "javax.script.name";
 	
     /**
-     * Retrieves an uninitailized namespace which can be used as the scope of 
+     * Retrieves an uninitailized Bindings which can be used as the scope of 
      * the ScriptEngine.
      *   
-     * @return an initialzed namespace which can be used to repalce the state 
+     * @return a Bindings which can be used to replace the state 
      *         of the ScriptEngine
      */
     public Bindings createBindings();
@@ -84,7 +84,8 @@ public interface ScriptEngine {
      * 
      * @param reader the source of the script
      * @return the value of the evaluated script 
-     * @throws ScriptException if an error occurs 
+     * @throws ScriptException if an error occurs
+     * @throws NullPointerException if argument is null 
      */
     public Object eval(Reader reader) throws ScriptException;
     
@@ -96,7 +97,8 @@ public interface ScriptEngine {
      * @param reader    the script source used to obtained the script 
      * @param bindings the namespace to be used as SCRIPT_SCOPE
      * @return the value of the evaluated script 
-     * @throws ScriptException if an error occurs 
+     * @throws ScriptException if an error occurs
+     * @throws NullPointerException if either argument is null 
      */
     public Object eval(Reader reader, Bindings bindings) 
             throws ScriptException;
@@ -111,6 +113,7 @@ public interface ScriptEngine {
      *                script evaluation
      * @return the value of the evaluated script 
      * @throws ScriptException if an error occurs
+     * @throws NullPointerException if either argument is null
      */
     public Object eval(Reader reader, ScriptContext context) 
             throws ScriptException;
@@ -121,7 +124,8 @@ public interface ScriptEngine {
      * 
 	 * @param script the String representation of the script
 	 * @return the value of the evaluated script
-	 * @throws ScriptException if an error occurs 
+	 * @throws ScriptException if an error occurs
+	 * @throws NullPointerException if argument is null 
 	 */
     public Object eval(String script) throws ScriptException;
 		
@@ -132,7 +136,8 @@ public interface ScriptEngine {
      * @param script    the String representation of the script
      * @param bindings the namespace to be used as the SCRIPT_SCOPE
      * @return the value of the evaluated script
-     * @throws ScriptException if an error occurs 
+     * @throws ScriptException if an error occurs
+     * @throws NullPointerException if either argument is null
      */
 	public Object eval(String script ,Bindings bindings) 
             throws ScriptException;
@@ -146,6 +151,7 @@ public interface ScriptEngine {
      *                script evaluation 
      * @return the value of the evaluated script
      * @throws ScriptException if an error occurs
+     * @throws NullPointerException if either argument is null
      */
 	public Object eval(String script, ScriptContext context) 
             throws ScriptException;
@@ -156,6 +162,8 @@ public interface ScriptEngine {
      * 
      * @param key the key associated with value.
      * @return an object value which is associated with the key
+     * @throws IllegalArgumentException if argument is empty
+     * @throws NullPointerException if argument is null
      */
     public Object get(String key);
     
@@ -169,7 +177,7 @@ public interface ScriptEngine {
     public ScriptEngineFactory getFactory();
     
     /**
-     * Retrieves a reference to the associated namespace for the 
+     * Retrieves a reference to the associated bindings for the 
      * specified level of scope.
      * 
      * Possible scopes are:
@@ -184,7 +192,7 @@ public interface ScriptEngine {
      * returned.
      * 
      * @param scope the specified level of scope
-     * @return associated namespace for the specified level of scope
+     * @return associated bindings for the specified level of scope
      * @throws IllegalArgumentException if the scope is invalid
      */
     public Bindings getBindings(int scope);
@@ -195,7 +203,8 @@ public interface ScriptEngine {
      * @param key   the specified key associated with the value
      * @param value value which is to be associated with the 
      *              specified key
-     * @throws IllegalArgumentException if the key is null
+     * @throws IllegalArgumentException if the key is empty
+     * @throws NullPointerException if key is null
 	 */
 	public void put(String key, Object value);
     	
@@ -207,7 +216,10 @@ public interface ScriptEngine {
      *                  level of scope 
      * @param scope     level of scope for which the namespace should
      *                  be associated with
-     * @throws IllegalArgumentException if the scope is invalid
+     * @throws IllegalArgumentException 
+     *         if the scope is invalid
+     * @throws NullPointerException 
+     *         if the bindings is null and the scope is ScriptContext.ENGINE_SCOPE
      */
 	public void setBindings(Bindings bindings, int scope);
 	
@@ -223,9 +235,10 @@ public interface ScriptEngine {
      * Sets the default ScriptContext of the ScriptEngine whose Bindings, Readers and
      * Writers are used for script executions when no ScriptContext is specified.
      * 
-     * @param scriptcontext 
+     * @param context 
      *    scriptContext that will replace the default ScriptContext in the ScriptEngine.
+     * @throws NullPointerException if the context is null
      */
-    public void setContext(ScriptContext scriptcontext);
+    public void setContext(ScriptContext context);
 
 }

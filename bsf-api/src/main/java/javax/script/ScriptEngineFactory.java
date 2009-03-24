@@ -64,28 +64,28 @@ public interface ScriptEngineFactory {
 	public String getLanguageVersion();
 	
 	/**
-     * Retrieves an array of Strings which are file extensions 
-     * tipically used for files containing scripts written in the
+     * Retrieves an immutable list of Strings which are file extensions 
+     * typically used for files containing scripts written in the
      * language supported by the ScriptEngine.
      *  
-	 * @return string array of supported file extensions
+	 * @return immutable list of supported file extensions
 	 */	
 	public List getExtensions();
 	
     /**
-     * Retrieves an array of Strings containing MIME types describing
+     * Retrieves an immutable list of Strings containing MIME types describing
      * the content which can be processed using the Script Engine.
      * 
-	 * @return string array of MIME types
+	 * @return immutable list of MIME types
 	 */
 	public List getMimeTypes();
 	
 	/**
-     * Retrieves an array of short descriptive names such as 
+     * Retrieves an immutable list of short descriptive names such as 
      * {"javascript", "rhino"} describing the language supported by 
      * the Script Engine.
      * 
-	 * @return an array of short descriptive names describing the 
+	 * @return immutable list of short descriptive names describing the 
      *         language supported by the ScriptEngine
 	 */
 	public List getNames();
