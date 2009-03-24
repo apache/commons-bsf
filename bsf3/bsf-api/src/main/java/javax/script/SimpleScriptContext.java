@@ -38,11 +38,14 @@ public class SimpleScriptContext implements ScriptContext {
 	/** namespace of the scope of level ENGINE_SCOPE */
 	protected Bindings engineScope = new SimpleBindings();
 
-	private Reader reader;
+	/** The reader to be used for input from scripts. */
+	protected Reader reader;
 
-	private Writer writer;
+	/** The writer to be used for displaying output from scripts */
+	protected Writer writer;
 
-	private Writer errorWriter;
+    /** The writer to be used for displaying error output from scripts */
+	protected Writer errorWriter;
 
 	private static final List SCOPES = 
 	    Collections.unmodifiableList(
