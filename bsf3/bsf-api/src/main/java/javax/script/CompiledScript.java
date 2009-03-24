@@ -74,6 +74,7 @@ public abstract class CompiledScript {
      * @return resultant object after the re-evaluation
      * @throws ScriptException if the re-evaluation fails due to any
      *         reason
+     * @throws NullPointerException if context is null
      */
     public abstract Object eval(ScriptContext context) throws ScriptException;
         
