@@ -60,7 +60,7 @@ public class JavaScriptE4XXmlBeansHelper extends DefaultXMLHelper {
         Scriptable jsXML =
             (Scriptable) ScriptableObject.callMethod((Scriptable) scriptXML, "copy", new Object[0]);
         Wrapper wrapper =
-            (Wrapper) ScriptableObject.callMethod((XMLObject)jsXML, "getXmlObject", new Object[0]);
+            (Wrapper) ScriptableObject.callMethod(jsXML, "getXmlObject", new Object[0]);
 
         XmlObject xmlObject = (XmlObject) wrapper.unwrap();
 
