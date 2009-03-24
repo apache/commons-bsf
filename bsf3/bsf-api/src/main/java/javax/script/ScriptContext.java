@@ -68,6 +68,8 @@ public interface ScriptContext {
      * @param  name the name of attribute
      * @return the value corresponding to lowest value of the scope 
      *         or -1 if no associated value exist in any scope  
+     * @throws NullPointerException if name is null. 
+     * @throws IllegalArgumentException if name is empty.
      */
     public int getAttributesScope(String name);
     
@@ -133,7 +135,9 @@ public interface ScriptContext {
      * @param  name  the name of the attribute
      * @param  scope the level of scope which inherit the attribute
      * @return previous value associated with specified name
-     * @throws IllegalArgumentException if the name is null or if the 
+     * 
+     * @throws NullPointerException if the name is null 
+     * @throws IllegalArgumentException if the name is empty or if the 
      *         scope is invalid
      */
     public Object removeAttribute(String name, int scope);
