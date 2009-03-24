@@ -32,10 +32,16 @@ import java.util.List;
  */
 public class SimpleScriptContext implements ScriptContext {
 	
-	/** namespace of the scope of level GLOBAL_SCOPE */
-    protected Bindings globalScope = new SimpleBindings();
+	/**
+	 * This is the scope bindings for GLOBAL_SCOPE. 
+	 * By default, a null value (which means no global scope) is used. 
+	 * */
+    protected Bindings globalScope = null;
     
-	/** namespace of the scope of level ENGINE_SCOPE */
+	/**
+	 * This is the scope bindings for ENGINE_SCOPE .
+	 * By default, a SimpleBindings is used.
+	 */
 	protected Bindings engineScope = new SimpleBindings();
 
 	/** The reader to be used for input from scripts. */
