@@ -78,7 +78,7 @@ public class SimpleScriptContext implements ScriptContext {
      * specified level of scope. Returns null if no value is 
      * associated with specified key in specified level of scope.
      *  
-     * @param key   the name of the attribute
+     * @param name   the name of the attribute
      * @param scope the level of scope
      * @return the value value associated with the specified name in
      *         specified level of scope
@@ -145,7 +145,7 @@ public class SimpleScriptContext implements ScriptContext {
      * @param name the name of the attribute
      * @param scope the level of scope 
      * @return value which is removed
-     * @throws
+     * @throws IllegalArgumentException
      */
     public Object removeAttribute(String name, int scope) { 
        
@@ -167,13 +167,11 @@ public class SimpleScriptContext implements ScriptContext {
      * Sets an attribute specified by the name in specified level of 
      * scope.
      *  
-     * @param key   the name of the attribute
+     * @param name   the name of the attribute
      * @param value the value of the attribute
      * @param scope the level of the scope
-     * @return value the value associated with the specified key in 
-     *         specified scope
-     * @throws IllegalArguementException if the name is null scope is
-     *         invlaid
+     * @throws IllegalArgumentException if the name is null scope is
+     *         invalid
      */
     public void setAttribute(String name, Object value, int scope) {
        
