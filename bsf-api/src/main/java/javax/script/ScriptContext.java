@@ -28,28 +28,28 @@ import java.util.List;
  */
 public interface ScriptContext {
 
-    /** defines an integer for the level of scope, ENGINE_SCOPE */
+    /** defines an integer for the scope, ENGINE_SCOPE */
     public static final int ENGINE_SCOPE = 100;
 
-    /** defines an integer for the level of scope, GLOBAL_SCOPE */
+    /** defines an integer for the scope, GLOBAL_SCOPE */
     public static final int GLOBAL_SCOPE = 200;
 
     /**
      * Retrieves the value of the getAttribute(String, int) for the 
      * lowest scope in which it returns a non-null value. Returns 
-     * null if there is no such value exists in any scope. 
+     * <tt>null</tt> if there is no such value exists in any scope. 
      * 
      * 
      * @param name the name of the attribute
      * @return the associated value with the specified name 
      * @throws IllegalArgumentException if the name is empty 
-     * @throws NullPointerException if the name is null
+     * @throws NullPointerException if the name is <tt>null</tt>
      */
     public Object getAttribute(String name);
 
     /**
      * Retrieves the value of an attribute in the specified scope. 
-     * Returns null if the no such value exists in the specified 
+     * Returns <tt>null</tt> if the no such value exists in the specified 
      * scope.
      * 
      * @param name  the name of the attribute
@@ -57,7 +57,7 @@ public interface ScriptContext {
      * @return the associated value for the specified name
      * @throws IllegalArgumentException if the name is empty or the 
      *         scope is invalid
-     * @throws NullPointerException if the name is null 
+     * @throws NullPointerException if the name is <tt>null</tt> 
      */
     public Object getAttribute(String name, int scope);
 
@@ -68,17 +68,17 @@ public interface ScriptContext {
      * @param  name the name of attribute
      * @return the value corresponding to lowest value of the scope 
      *         or -1 if no associated value exist in any scope  
-     * @throws NullPointerException if name is null. 
+     * @throws NullPointerException if name is <tt>null</tt>. 
      * @throws IllegalArgumentException if name is empty.
      */
     public int getAttributesScope(String name);
 
     /**
-     * Retrieves the Bindings instance associated with the gieve
-     * scope. Returns null if no namespace is assoicited with 
-     * specified level of scope. 
+     * Retrieves the Bindings instance associated with the given
+     * scope. Returns <tt>null</tt> if no Bindings is associated with 
+     * specified scope. 
      * 
-     * @param scope the level of the scope
+     * @param scope the scope
      * @return the Bindings associated with the specified scope
      * @throws IllegalArgumentException
      *         If no Bindings is defined for the specified scope value in ScriptContext of this type.
@@ -94,7 +94,8 @@ public interface ScriptContext {
     public Writer getWriter();
 
     /**
-     * Returns the Writer to be used to display error output. 
+     * Returns the Writer to be used to display error output.
+     * 
      * @return the error writer
      */
     public Writer getErrorWriter();
@@ -128,15 +129,15 @@ public interface ScriptContext {
     public void setReader(Reader reader);
 
     /**
-     * Removes the given attribute form the specified scope. Returns 
-     * the removed object or null if no value is associated with the 
-     * specified key in specified level of scope. 
+     * Removes the given attribute from the specified scope. Returns 
+     * the removed object or <tt>null</tt> if no value is associated with the 
+     * specified key in the specified scope. 
      * 
      * @param  name  the name of the attribute
-     * @param  scope the level of scope which inherit the attribute
+     * @param  scope the scope from which to remove the attribute
      * @return previous value associated with specified name
      * 
-     * @throws NullPointerException if the name is null 
+     * @throws NullPointerException if the name is <tt>null</tt> 
      * @throws IllegalArgumentException if the name is empty or if the 
      *         scope is invalid
      */
@@ -148,10 +149,10 @@ public interface ScriptContext {
      * 
      * @param key   the name of the attribute
      * @param value the value of the attribute
-     * @param scope the level of the scope
-     * @throws IllegalArgumentException if the name is null or the
+     * @param scope the scope
+     * @throws IllegalArgumentException if the name is <tt>null</tt> or the
      *         scope is invalid
-     * @throws NullPointerException if the name is null.
+     * @throws NullPointerException if the name is <tt>null</tt>.
      */
     public void setAttribute(String key,Object value,int scope);
 
@@ -159,16 +160,16 @@ public interface ScriptContext {
      * Associates the specified Bindings with the specified scope. 
      *  
      * @param bindings the Bindings to be associated with the
-     *        specified level of scope
+     *        specified scope
      * @param scope     the scope 
      * @throws IllegalArgumentException if the scope is invalid
-     * @throws NullPointerException if the bindings is null and the 
+     * @throws NullPointerException if the bindings is <tt>null</tt> and the 
      *          scope is ScriptEngine.ENGINE_SCOPE
      */
     public void setBindings(Bindings bindings,int scope);
 
     /**
-     * Returns immutable List of all the valid values for scope in the ScriptContext.
+     * Returns an immutable List of all the valid values for scope in the ScriptContext.
      *  
      * @return the list
      */

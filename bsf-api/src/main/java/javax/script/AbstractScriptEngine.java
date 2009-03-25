@@ -29,7 +29,7 @@ public abstract class AbstractScriptEngine implements ScriptEngine {
 
     /**
      * Constructs a ScriptEngine using an uninitialized 
-     * SimpleNamespace.
+     * SimpleScriptContext.
      */
     public AbstractScriptEngine() {
         this.context = new SimpleScriptContext();
@@ -40,6 +40,8 @@ public abstract class AbstractScriptEngine implements ScriptEngine {
      * ENGINE_SCOPE.
      * 
      * @param bindings the Bindings to be used as the ENGINE_SCOPE
+     * 
+     * @throws NullPointerException if the parameter is <tt>null</tt>
      */
     public AbstractScriptEngine(Bindings bindings){
         this();
@@ -86,15 +88,17 @@ public abstract class AbstractScriptEngine implements ScriptEngine {
 
 
     /**
-     * Retrieves an instance of ScriptContext with namespaces 
-     * associated with all the level of scopes and the specified
-     * namespace associated with SCRIPT_SCOPE.
+     * Returns a {@link SimpleScriptContext} which:
+     * <ul>
+     * <li>uses the specified {@link Bindings} as the {@link ENGINE_SCOPE}</li>
+     * <li>has the same GLOBAL_SCOPE Bindings as the current context</li>
+     * <li>uses the same Reader, Writer and Error Writer as the current context</li>
+     * </ul>
      * 
-     * @param bindings the bindings to be associated with 
-     *        ENGINE_SCOPE 
+     * @param bindings the bindings to be associated with ENGINE_SCOPE 
      * @return an instance of SimpleScriptContext
      * 
-     * @throws NullPointerException if bindings is null
+     * @throws NullPointerException if bindings is <tt>null</tt>
      */
     protected ScriptContext getScriptContext(Bindings bindings){
         if (bindings == null) {

@@ -69,7 +69,7 @@ public interface ScriptEngine {
     public static final String NAME = "javax.script.name";
 
     /**
-     * Retrieves an uninitailized Bindings which can be used as the scope of 
+     * Retrieves an uninitialized Bindings which can be used as the scope of 
      * the ScriptEngine.
      *   
      * @return a Bindings which can be used to replace the state 
@@ -78,80 +78,84 @@ public interface ScriptEngine {
     public Bindings createBindings();
 
     /**
-     * Evaluates a piece of script obtained using the specified 
-     * reader as the script source. Returns null for non-returning 
-     * scripts.
+     * Evaluates a script obtained using the specified 
+     * reader as the script source. 
+     * Returns <tt>null</tt> for scripts that don't return a value.
      * 
      * @param reader the source of the script
      * @return the value of the evaluated script 
      * @throws ScriptException if an error occurs
-     * @throws NullPointerException if argument is null 
+     * @throws NullPointerException if argument is <tt>null</tt> 
      */
     public Object eval(Reader reader) throws ScriptException;
 
     /**
-     * Evaluates a piece of scripts obtained using a reader as the 
+     * Evaluates a script obtained using a reader as the 
      * script source and using the specified namespace as the 
-     * SCRIPT_SCOPE. Returns null for non-returning scripts.
+     * ENGINE_SCOPE.
+     * Returns <tt>null</tt> for scripts that don't return a value.
      * 
      * @param reader    the script source used to obtained the script 
-     * @param bindings the namespace to be used as SCRIPT_SCOPE
+     * @param bindings the bindings to be used as ENGINE_SCOPE
      * @return the value of the evaluated script 
      * @throws ScriptException if an error occurs
-     * @throws NullPointerException if either argument is null 
+     * @throws NullPointerException if either argument is <tt>null</tt> 
      */
     public Object eval(Reader reader, Bindings bindings) 
             throws ScriptException;
 
     /**
      * Evaluates a script obtained using the specified reader as the
-     * script source and using the namespaces in the specifed 
-     * ScriptContext. Returns null for non-returning scripts 
+     * script source and using the bindings in the specifed 
+     * ScriptContext. 
+     * Returns <tt>null</tt> for scripts that don't return a value.
      * 
      * @param reader  the script source
-     * @param context the context contianing different namespace for
+     * @param context the context contianing different bindings for
      *                script evaluation
      * @return the value of the evaluated script 
      * @throws ScriptException if an error occurs
-     * @throws NullPointerException if either argument is null
+     * @throws NullPointerException if either argument is <tt>null</tt>
      */
     public Object eval(Reader reader, ScriptContext context) 
             throws ScriptException;
 
     /**
-     * Evaluates a piece of script and returns the resultant object. 
-     * Returns null for non-returning scripts.
+     * Evaluates a script contained in a String and returns the resultant object. 
+     * Returns <tt>null</tt> for scripts that don't return a value.
      * 
      * @param script the String representation of the script
      * @return the value of the evaluated script
      * @throws ScriptException if an error occurs
-     * @throws NullPointerException if argument is null 
+     * @throws NullPointerException if argument is <tt>null</tt> 
      */
     public Object eval(String script) throws ScriptException;
 
     /**
      * Evaluates a piece of script using the specified namespace as 
-     * the SCRIPT_SCOPE. Retruns null for non-returning scripts.
+     * the ENGINE_SCOPE.
+     * Returns <tt>null</tt> for scripts that don't return a value.
      *  
      * @param script    the String representation of the script
-     * @param bindings the namespace to be used as the SCRIPT_SCOPE
+     * @param bindings the bindings to be used as the ENGINE_SCOPE
      * @return the value of the evaluated script
      * @throws ScriptException if an error occurs
-     * @throws NullPointerException if either argument is null
+     * @throws NullPointerException if either argument is <tt>null</tt>
      */
     public Object eval(String script ,Bindings bindings) 
             throws ScriptException;
 
     /**
-     * Evaluates a script using the namespaces in the specifed 
-     * ScriptContext. Return null for non-returning scripts.
+     * Evaluates a script using the bindings in the specifed 
+     * ScriptContext.
+     * Returns <tt>null</tt> for scripts that don't return a value.
      *  
      * @param script  the String representation of the script
-     * @param context tbe ScriptContext containing namespaces for the
+     * @param context tbe ScriptContext containing bindings for the
      *                script evaluation 
      * @return the value of the evaluated script
      * @throws ScriptException if an error occurs
-     * @throws NullPointerException if either argument is null
+     * @throws NullPointerException if either argument is <tt>null</tt>
      */
     public Object eval(String script, ScriptContext context) 
             throws ScriptException;
@@ -163,7 +167,7 @@ public interface ScriptEngine {
      * @param key the key associated with value.
      * @return an object value which is associated with the key
      * @throws IllegalArgumentException if argument is empty
-     * @throws NullPointerException if argument is null
+     * @throws NullPointerException if argument is <tt>null</tt>
      */
     public Object get(String key);
 
@@ -176,48 +180,45 @@ public interface ScriptEngine {
 
     /**
      * Retrieves a reference to the associated bindings for the 
-     * specified level of scope.
+     * specified scope.
      * 
      * Possible scopes are:
      * 
      * GLOBAL_SCOPE :
      * if the ScriptEngine was created by ScriptingEngineManager 
-     * then GLOBAL_SCOPE of it is returned (or null if there is no
+     * then GLOBAL_SCOPE of it is returned (or <tt>null</tt> if there is no
      * GLOBAL_SCOPE stored in the ScriptEngine).
      * 
      * ENGINE_SCOPE : 
      * the set of key-value pairs stored in the ScriptEngine is 
      * returned.
      * 
-     * @param scope the specified level of scope
-     * @return associated bindings for the specified level of scope
+     * @param scope the specified scope
+     * @return associated bindings for the specified scope
      * @throws IllegalArgumentException if the scope is invalid
      */
     public Bindings getBindings(int scope);
 
     /**
-     * Associates a key and a value in the ScriptEngine namespace.
+     * Associates a key and a value in the ScriptEngine ENGINE_SCOPE bindings.
      * 
      * @param key   the specified key associated with the value
      * @param value value which is to be associated with the 
      *              specified key
      * @throws IllegalArgumentException if the key is empty
-     * @throws NullPointerException if key is null
+     * @throws NullPointerException if key is <tt>null</tt>
      */
     public void put(String key, Object value);
 
     /**
-     * Associates the specified namespace with the specified level of
-     * scope.
+     * Associates the specified bindings with the specified scope.
      * 
-     * @param bindings namespace to be associated with the specified
-     *                  level of scope 
-     * @param scope     level of scope for which the namespace should
-     *                  be associated with
+     * @param bindings bindings to be associated with the specified scope 
+     * @param scope scope which the bindings should be associated with
      * @throws IllegalArgumentException 
      *         if the scope is invalid
      * @throws NullPointerException 
-     *         if the bindings is null and the scope is ScriptContext.ENGINE_SCOPE
+     *         if the bindings is <tt>null</tt> and the scope is ScriptContext.ENGINE_SCOPE
      */
     public void setBindings(Bindings bindings, int scope);
 
@@ -235,7 +236,7 @@ public interface ScriptEngine {
      * 
      * @param context 
      *    scriptContext that will replace the default ScriptContext in the ScriptEngine.
-     * @throws NullPointerException if the context is null
+     * @throws NullPointerException if the context is <tt>null</tt>
      */
     public void setContext(ScriptContext context);
 

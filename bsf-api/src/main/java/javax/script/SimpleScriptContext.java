@@ -34,7 +34,7 @@ public class SimpleScriptContext implements ScriptContext {
 
     /**
      * This is the scope bindings for GLOBAL_SCOPE. 
-     * By default, a null value (which means no global scope) is used. 
+     * By default, a <tt>null</tt> value (which means no global scope) is used. 
      * */
     protected Bindings globalScope = null;
 
@@ -53,11 +53,16 @@ public class SimpleScriptContext implements ScriptContext {
     /** The writer to be used for displaying error output from scripts */
     protected Writer errorWriter;
 
+    /** Immutable list of scopes returned by {@link #getScopes()}*/
     private static final List SCOPES = 
         Collections.unmodifiableList(
             Arrays.asList(new Integer[] { new Integer(ENGINE_SCOPE), new Integer(GLOBAL_SCOPE) })
          );
 
+    /**
+     * Create a new instance, 
+     * setting the Reader and Writers from the corresponding System streams.
+     */
     public SimpleScriptContext() {
         reader = new InputStreamReader(System.in);
         writer = new PrintWriter(System.out, true);
@@ -65,8 +70,10 @@ public class SimpleScriptContext implements ScriptContext {
     }
 
     /**
-     * Check if name is null or empty string
+     * Check if name is <tt>null</tt> or empty string
      * @param name to be checked
+     * @throws NullPointerException if the name is <tt>null</tt>
+     * @throws IllegalArgumentException if the name is the empty string
      */
     private void checkName(String name){
         if (name == null){
@@ -171,17 +178,17 @@ public class SimpleScriptContext implements ScriptContext {
     }
 
     /** {@inheritDoc} */
-    public void setBindings(Bindings namespace, int scope) {
+    public void setBindings(Bindings bindings, int scope) {
 
         switch (scope) {
             case ENGINE_SCOPE:
-                if (namespace == null) {
+                if (bindings == null) {
                     throw new NullPointerException("binding is null for ENGINE_SCOPE scope");
                 }
-                engineScope = namespace;
+                engineScope = bindings;
                 break;
             case GLOBAL_SCOPE:
-                globalScope = namespace;
+                globalScope = bindings;
                 break;
             default:
                 throw new IllegalArgumentException("invalid scope");
