@@ -24,40 +24,40 @@ package javax.script;
  */
 //@Immutable
 public class ScriptException extends Exception {
-    
-	private static final long serialVersionUID = 1L;
 
-	/** Stores the file name of the script */
-	private final String fileName; // default null
-    
+    private static final long serialVersionUID = 1L;
+
+    /** Stores the file name of the script */
+    private final String fileName; // default null
+
     /** 
      * Stores the line number of the script in which the error has 
      * occured
      */ 
-	private final int lineNumber; // default = -1;
-    
+    private final int lineNumber; // default = -1;
+
     /** 
      * Stores the column number of the script in which the error has 
      * occured
      */
-	private final int columnNumber; // default = -1;
-    
+    private final int columnNumber; // default = -1;
+
     /** Stores the message which describes the cause of error */
-	private final String message; // default null
-     
+    private final String message; // default null
+
     /**
      * Constructs a new exception with the specified cause.
      * 
      * @param exception the cause of exception
      */
-	public ScriptException(Exception exception) {
-      		super(exception);
+    public ScriptException(Exception exception) {
+              super(exception);
             this.message = null;
             this.fileName = null;
             this.lineNumber = -1;
             this.columnNumber = -1;
-	}
-    
+    }
+
     /**
      * Constructs a new exception with the specified detailed 
      * message.
@@ -81,8 +81,8 @@ public class ScriptException extends Exception {
      */
     public ScriptException(String message,String fileName,int lineNumber) {
         this(message, fileName, lineNumber, -1);
-	}
-    
+    }
+
     /**
      * Constructs a new exception using the detailed message of 
      * cause, file name which contains the script, line number and
@@ -97,15 +97,15 @@ public class ScriptException extends Exception {
      * @param columnNumber the column number of the script where the
      *                     error has occured
      */
-	public ScriptException(String message, String fileName, int lineNumber, int columnNumber) {
-		super(message);
+    public ScriptException(String message, String fileName, int lineNumber, int columnNumber) {
+        super(message);
         this.message = message;
-		this.fileName = fileName;
-		this.lineNumber = lineNumber;
-		this.columnNumber = columnNumber;
-	}
-	
-	/**
+        this.fileName = fileName;
+        this.lineNumber = lineNumber;
+        this.columnNumber = columnNumber;
+    }
+
+    /**
      * Retrieves the file name in which the script is contained.
      * 
      * @return Returns the file name in which the script is contained
@@ -113,29 +113,29 @@ public class ScriptException extends Exception {
     public String getFileName() {
         return fileName;
     }
-    
-	/**
+
+    /**
      * Retrieves the column number of the script where the error has 
      * occured. If the information is not available, returns -1.
      * 
-	 * @return Returns the column number of the script where the 
+     * @return Returns the column number of the script where the 
      *         error has occured
-	 */
-	public int getColumnNumber() {        
-		return columnNumber;
-	}
-    
-	/**
+     */
+    public int getColumnNumber() {        
+        return columnNumber;
+    }
+
+    /**
      * Retrieves the line number of the script where the error has 
      * occured. If the information is not available, returns -1.
      * 
-	 * @return Returns the line number of the script where the error 
+     * @return Returns the line number of the script where the error 
      *         has occured
-	 */
-	public int getLineNumber() {
-		return lineNumber;
-	}
-    
+     */
+    public int getLineNumber() {
+        return lineNumber;
+    }
+
     /**
      * Retrieves a String describing the cause of error.
      * 

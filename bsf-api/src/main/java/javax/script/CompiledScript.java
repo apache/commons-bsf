@@ -21,10 +21,10 @@ package javax.script;
  * See Javadoc of <a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Java Scripting API</a>
  */
 public abstract class CompiledScript {
-    
+
     public CompiledScript(){
     }
-    
+
     /**
      * Re-evaluates the pre-compiled script stored using the 
      * ENGINE_SCOPE and the GLOBAL_SCOPE of the associated 
@@ -38,7 +38,7 @@ public abstract class CompiledScript {
     public Object eval() throws ScriptException {
         return eval(getEngine().getContext());
     }    
-    
+
     /**
      * Re-evaluates the pre-compiled script using the specified 
      * namespace as the SCRIPT_SCOPE and using ENGINE_SCOPE, 
@@ -50,21 +50,21 @@ public abstract class CompiledScript {
      *         reason
      */
     public Object eval(Bindings bindings) throws ScriptException{
-    	ScriptContext context;
-    	if (bindings == null) {
-        	context = getEngine().getContext();
-    	} else {
+        ScriptContext context;
+        if (bindings == null) {
+            context = getEngine().getContext();
+        } else {
             context = new SimpleScriptContext();
             context.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
-        	ScriptContext oldContext = getEngine().getContext();
+            ScriptContext oldContext = getEngine().getContext();
             context.setBindings(oldContext.getBindings(ScriptContext.GLOBAL_SCOPE), ScriptContext.GLOBAL_SCOPE);
             context.setReader(oldContext.getReader());
             context.setWriter(oldContext.getWriter());
             context.setErrorWriter(oldContext.getErrorWriter());
-    	}
-    	return eval(context);
+        }
+        return eval(context);
     }
-    
+
     /**
      * Re-evaluates the recompiled script using the specified 
      * ScriptContext. 
@@ -77,7 +77,7 @@ public abstract class CompiledScript {
      * @throws NullPointerException if context is null
      */
     public abstract Object eval(ScriptContext context) throws ScriptException;
-        
+
     /**
      * Retrieves a reference to the ScriptEngine whose methods 
      * created this CompiledScript object.
@@ -86,5 +86,5 @@ public abstract class CompiledScript {
      *         object
      */
     public abstract ScriptEngine getEngine();
-    
+
 }

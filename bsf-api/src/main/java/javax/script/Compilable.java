@@ -38,7 +38,7 @@ public interface Compilable {
      * @throws NullPointerException if script is null
      */
     public CompiledScript compile(String script) throws ScriptException;
-    
+
     /**
      * Retruns a CompileScript implementation for the script 
      * obtained using java.io.Reader as the script source.

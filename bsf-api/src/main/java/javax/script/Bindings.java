@@ -25,20 +25,20 @@ import java.util.Map;
  */
 public interface Bindings extends Map{
 
-	/**
+    /**
      * Associates the specified value with the specified key in a 
      * java.util.Map. If the map previously contained a mapping for 
      * this key, the old value is replaced.
      * 
-	 * @param key the String value which uniquely identifies the 
+     * @param key the String value which uniquely identifies the 
      *            object
-	 * @param value the object to be stored.
-	 * 
+     * @param value the object to be stored.
+     * 
      * @throws NullPointerException if key is null
-	 * @throws ClassCastException if the key is not a String
-	 * @throws IllegalArgumentException if the key is an empty string
+     * @throws ClassCastException if the key is not a String
+     * @throws IllegalArgumentException if the key is an empty string
      */
-	public Object put(Object key,Object value);
+    public Object put(Object key,Object value);
 
     /**
      * Copies all of the mappings from the specified map to this map.
@@ -66,7 +66,7 @@ public interface Bindings extends Map{
       * @throws IllegalArgumentException if key is empty String
       */
     public boolean containsKey(Object key);
-    
+
     /**
      * Returns the value to which this map maps the specified key.
      * Returns null if the map contains no mapping for this key. 
@@ -84,7 +84,7 @@ public interface Bindings extends Map{
      * @throws IllegalArgumentException if key is empty String
      */
     public Object get(Object key);
- 
+
     /**
      * Removes the mapping for this key from this map if it is 
      * present (optional operation). 
