@@ -33,6 +33,19 @@ import javax.script.SimpleBindings;
  */
 public class TestScriptEngine extends AbstractScriptEngine {
 
+    public TestScriptEngine() {
+        super();
+    }
+
+    public TestScriptEngine(Bindings n) {
+        super(n);
+    }
+
+    // Allow test access to protected method
+    public ScriptContext getScriptContext(Bindings bindings){
+        return super.getScriptContext(bindings);
+    }
+
     public Bindings createBindings() {
         return new SimpleBindings();
     }
