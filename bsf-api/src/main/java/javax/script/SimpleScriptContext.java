@@ -85,7 +85,7 @@ public class SimpleScriptContext implements ScriptContext {
       
         if (engineScope.get(name) != null) {
             return engineScope.get(name);
-        } else if (globalScope.get(name) != null) {
+        } else if (globalScope != null && globalScope.get(name) != null) {
             return globalScope.get(name);
         } else {
             return null;            
@@ -101,7 +101,7 @@ public class SimpleScriptContext implements ScriptContext {
         	case ENGINE_SCOPE:
         		return engineScope.get(name);
         	case GLOBAL_SCOPE:
-        		return globalScope.get(name);
+        		return globalScope != null ? globalScope.get(name) : null;
         	default:
         		throw new IllegalArgumentException("invalid scope");
         }
@@ -114,7 +114,7 @@ public class SimpleScriptContext implements ScriptContext {
 
         if (engineScope.containsKey(name)) {
             return ENGINE_SCOPE;
-        } else if(globalScope.containsKey(name)) {
+        } else if(globalScope != null && globalScope.containsKey(name)) {
             return GLOBAL_SCOPE;
         }
         
@@ -143,7 +143,7 @@ public class SimpleScriptContext implements ScriptContext {
         	case ENGINE_SCOPE:
         		return engineScope.remove(name);
         	case GLOBAL_SCOPE:
-        		return globalScope.remove(name);
+        		return globalScope != null ? globalScope.remove(name) : null;
         	default:
         		throw new IllegalArgumentException("invalid scope");
         }        
@@ -159,7 +159,11 @@ public class SimpleScriptContext implements ScriptContext {
         		engineScope.put(name, value);
         		break;
         	case GLOBAL_SCOPE:
-        		globalScope.put(name, value);
+        	    if (globalScope != null) {
+        	        globalScope.put(name, value);
+        	    } else {
+        	        throw new IllegalArgumentException("Global scope is null");// TODO is this correct?
+        	    }
         		break;
         	default:
         		throw new IllegalArgumentException("invalid scope");
