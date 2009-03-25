@@ -23,6 +23,9 @@ import java.io.Reader;
 
 import javax.script.AbstractScriptEngine;
 import javax.script.Bindings;
+import javax.script.Compilable;
+import javax.script.CompiledScript;
+import javax.script.Invocable;
 import javax.script.ScriptContext;
 import javax.script.ScriptEngineFactory;
 import javax.script.ScriptException;
@@ -31,7 +34,7 @@ import javax.script.SimpleBindings;
 /**
  * Minimal Script engine used for JUnit tests.
  */
-public class TestScriptEngine extends AbstractScriptEngine {
+public class TestScriptEngine extends AbstractScriptEngine implements Compilable, Invocable {
 
     public TestScriptEngine() {
         super();
@@ -52,6 +55,15 @@ public class TestScriptEngine extends AbstractScriptEngine {
 
     public Object eval(Reader reader, ScriptContext context)
             throws ScriptException {
+        return eval(readerToString(reader), context);
+    }
+
+    /**
+     * @param reader
+     * @return
+     * @throws ScriptException
+     */
+    private String readerToString(Reader reader) throws ScriptException {
         StringBuffer sb = new StringBuffer();
         char cbuf[] = new char[1024];
         try {
@@ -61,7 +73,7 @@ public class TestScriptEngine extends AbstractScriptEngine {
         } catch (IOException e) {
             throw new ScriptException(e);
         }
-        return eval(sb.toString(), context);
+        return sb.toString();
     }
 
     public Object eval(String script, ScriptContext context)
@@ -71,6 +83,41 @@ public class TestScriptEngine extends AbstractScriptEngine {
 
     public ScriptEngineFactory getFactory() {
         return new TestScriptEngineFactory();
+    }
+
+    // Compilable methods
+    
+    public CompiledScript compile(String script) throws ScriptException {
+        return new TestCompiledScript(this, script);
+    }
+
+    public CompiledScript compile(Reader reader) throws ScriptException {
+        String script = readerToString(reader);
+        return new TestCompiledScript(this, script);
+    }
+
+    // Invokable methods
+    
+    public Object getInterface(Class clasz) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public Object getInterface(Object thiz, Class clasz) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public Object invokeFunction(String name, Object[] args)
+            throws ScriptException, NoSuchMethodException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public Object invokeMethod(Object thiz, String name, Object[] args)
+            throws ScriptException, NoSuchMethodException {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }
