@@ -72,9 +72,11 @@ public class ScriptEngineManagerTest extends TestCase {
 		ScriptEngine engine;
 		
 		engine =  mgr.getEngineByExtension("tEst");
+        assertNotNull(engine);
 		assertTrue(engine instanceof TestScriptEngine);
 		
 		engine = mgr.getEngineByExtension("teSt");
+        assertNotNull(engine);
 		assertTrue(engine instanceof TestScriptEngine);
 	}
 
