@@ -33,11 +33,11 @@ public class ScriptEnginePool {
     private final int capacity;
     private final ScriptEngineFactory factory;
     private final boolean isMultithreaded;
-    
+
     public ScriptEnginePool(ScriptEngineFactory factory, int capacity){
-    	this.factory = factory;
+        this.factory = factory;
         this.capacity = capacity;
-        
+
         String param = (String)factory.getParameter("THREADING");
         if (param != null && param.equals("MULTITHREADED")) {
             this.isMultithreaded = true;
@@ -46,16 +46,16 @@ public class ScriptEnginePool {
             this.isMultithreaded = false;
         }
     }
-    
+
     public ScriptEnginePool(ScriptEngineFactory factory){
         this(factory,DEFAULT_SIZE);
      }
-       
+
     public synchronized void free(ScriptEngine eng){
         pool.add(eng); // should I clear the engine namespaces .. 
         notifyAll();
     }
-    
+
     public synchronized ScriptEngine get(){
         if (isMultithreadingSupported()) {
             return (ScriptEngine) pool.getFirst();
@@ -77,9 +77,9 @@ public class ScriptEnginePool {
             }
         }
     }
-    
+
     public boolean isMultithreadingSupported(){
         return this.isMultithreaded;
     }
-    
+
 }
