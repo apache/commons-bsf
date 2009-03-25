@@ -18,53 +18,18 @@
 
 package org.apache.bsf;
 
-import java.io.Reader;
-
-import javax.script.AbstractScriptEngine;
 import javax.script.Bindings;
 import javax.script.ScriptContext;
-import javax.script.ScriptEngineFactory;
-import javax.script.ScriptException;
 import javax.script.SimpleBindings;
 import javax.script.SimpleScriptContext;
 
 import junit.framework.TestCase;
 
+import org.apache.bsf.utils.TestScriptEngine;
+
 public class AbstractScriptEngineTest extends TestCase {
 
-    private class ScriptEngine extends AbstractScriptEngine{
-
-        public ScriptEngine() {
-            super();
-        }
-
-        public ScriptEngine(Bindings bindings){
-            super(bindings);
-        }
-
-        public ScriptContext getScriptContext(Bindings bindings){
-            return super.getScriptContext(bindings);
-        }
-
-        public Bindings createBindings() {
-            return null;
-        }
-
-        public Object eval(Reader reader, ScriptContext context) throws ScriptException {
-            return null;
-        }
-
-        public Object eval(String script, ScriptContext context) throws ScriptException {
-            return null;
-        }
-
-        public ScriptEngineFactory getFactory() {
-            return null;
-        }
-
-    }
-
-    private final ScriptEngine engine  = new ScriptEngine();
+    private final TestScriptEngine engine  = new TestScriptEngine();
 
     public void testCtor1(){
         ScriptContext b = engine.getContext();
@@ -73,12 +38,12 @@ public class AbstractScriptEngineTest extends TestCase {
 
     public void testCtor2(){
         try {
-            new ScriptEngine(null);
+            new TestScriptEngine(null);
             fail("Should have thrown NPE");
         } catch (NullPointerException expected) {
         }
         Bindings b = new SimpleBindings();
-        new ScriptEngine(b); // should be OK
+        new TestScriptEngine(b); // should be OK
     }
 
     public void testSetBindings(){
