@@ -130,7 +130,7 @@ public class ScriptEngineManager {
 
     /**
      * Retrieves a new instance of a ScriptingEngine for the 
-     * specified extension of a scirpt file. Returns <tt>null</tt> if no 
+     * specified extension of a script file. Returns <tt>null</tt> if no 
      * suitable ScriptingEngine is found.
      * 
      * @param extension the specified extension of a script file
@@ -180,7 +180,7 @@ public class ScriptEngineManager {
 
     /**
      * Retrieves a new instance of a ScriptEngine the specified 
-     * descriptieve name. Returns <tt>null</tt> if no suitable ScriptEngine is
+     * descriptive name. Returns <tt>null</tt> if no suitable ScriptEngine is
      * found.
      * 
      * @param name the descriptive name 
@@ -255,6 +255,8 @@ public class ScriptEngineManager {
      *        ScriptEngineFactory class
      * @param factory the ScriptEngineFactory associated with
      *        the specified extension
+     *
+     * @throws NullPointerException if any of the parameters is <tt>null</tt>
      */
     public void registerEngineExtension(String extension, ScriptEngineFactory factory){
         extensionAssociations.put(extension, factory);        
