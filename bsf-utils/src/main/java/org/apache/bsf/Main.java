@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Hashtable;
+import java.util.List;
 
 import javax.script.Bindings;
 import javax.script.ScriptContext;
@@ -79,6 +80,10 @@ public class Main {
         }
 
         ScriptEngineManager mgr = new ScriptEngineManager();
+        final List engineFactories = mgr.getEngineFactories();
+        if (engineFactories.isEmpty()){
+            throw new RuntimeException("Could not find any engine factories");
+        }
 
         Reader in;
 
@@ -91,6 +96,9 @@ public class Main {
 
         try {
             ScriptEngine engine = mgr.getEngineByExtension(language);
+            if (engine == null){
+                throw new IllegalArgumentException("unable to find engine using Extension: "+language);
+            }
             Bindings bindings = engine.getBindings(ScriptContext.ENGINE_SCOPE);
             bindings.put("args", args);
             Object obj = engine.eval(in);
