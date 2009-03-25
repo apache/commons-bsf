@@ -1,7 +1,8 @@
 Apache BSF 3 Beta3 Release Notes
 --------------------------------
 
-Apache BSF 3 is an implementation of JSR-223, "Scripting for the Java Platform".
+Apache BSF 3 is an open-source implementation of JSR-223, 
+         "Scripting for the Java Platform".
 
 *----------------------------------------------------------------------*
 * BSF3 was developed according to the JSR-223 specs, but has not yet   *
@@ -10,6 +11,15 @@ Apache BSF 3 is an implementation of JSR-223, "Scripting for the Java Platform".
 *----------------------------------------------------------------------*
 
 However, the implementation is believed to be complete.
+
+* BSF-3.0 is not compatible with BSF-2.4 - the API is completely different.
+* BSF-3.0 can be deployed and used Java 1.4+ - it does not require Java 1.6
+
+Incomplete packages
+-------------------
+The org.apache.bsf.utils.http and org.apache.bsf.xml packages contain several classes.
+These are not complete, and should not be relied on.
+They are not needed in order to use the javax.script API.
 
 Changes from previous releases
 ------------------------------
@@ -42,9 +52,11 @@ ScriptEngineManager - Javadoc, also protected fields made private:
 - globalscope
 - now uses javax.imageio.spi.ServiceRegistry.lookupProviders() 
   rather than the Sun-specfic method sun.misc.Service.providers()
-  - put() method checks that key is non-null (NullPointerException)
-    and non-empty (IllegalArgumentException)
-  - setBindings() throws IllegalArgumentException if the parameter is non-null
+- put() method checks that key is non-null (NullPointerException)
+  and non-empty (IllegalArgumentException)
+- setBindings() throws IllegalArgumentException if the parameter is non-null
+- the registerXXX() methods throw NullPointerException if any of their parameters is null
+- the getEngineByXXX() methods throw NullPointerException if their parameter is null
 
 ScriptException 
 - all fields made private and final
