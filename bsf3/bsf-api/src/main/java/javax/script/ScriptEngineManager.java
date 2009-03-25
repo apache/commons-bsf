@@ -33,37 +33,43 @@ import javax.imageio.spi.ServiceRegistry;
  */
 public class ScriptEngineManager {
 
-    /** Stores all instances of classes which implements 
+    /** 
+     * Stores all instances of classes which implement 
      * ScriptEngineFactory which are found in resources 
      * META-INF/services/javax.script.ScriptEngineFactory
      */
     private final HashSet engineSpis = new HashSet();
 
     /**
-     * Stores language names with an associated 
-     * ScriptEngineFactory 
+     * Maps language names to the associated ScriptEngineFactory 
      */     
     private final HashMap nameAssociations = new HashMap();
 
     /** 
-     * Stores file extensions with an associated 
-     * ScriptEngineFactory 
+     * Maps file extensions to the associated ScriptEngineFactory 
      */
-    private final HashMap extensionAssocitions = new HashMap();
+    private final HashMap extensionAssociations = new HashMap();
 
-    /** Stores MIME types with an associated ScriptEngineFactory */
+    /** Maps MIME types to the associated ScriptEngineFactory */
     private final HashMap mimeTypeAssociations = new HashMap();
 
-    /** Stores the namespace associated with GLOBAL_SCOPE */
+    /** Stores the bindings associated with GLOBAL_SCOPE */
     private Bindings globalscope = new SimpleBindings();
 
     /**
-     * Constructs ScriptEngineManager and initializes it.
+     * Constructs a ScriptEngineManager and 
+     * initializes it using the current context classloader.
      */
     public ScriptEngineManager() {
         this(Thread.currentThread().getContextClassLoader());
     }
 
+    /**
+     * Constructs a ScriptEngineManager and 
+     * initializes it using the specified classloader.
+     * 
+     * @param loader the classloader to use (may be <tt>null</tt>)
+     */
     public ScriptEngineManager(ClassLoader loader) {
         Iterator iterator = ServiceRegistry.lookupProviders(ScriptEngineFactory.class, loader);
 
@@ -77,14 +83,14 @@ public class ScriptEngineManager {
             engineSpis.add(factory);
 
             List data = factory.getNames();
-            // gets all descriptinve names for Scripting Engine
+            // gets all descriptive names for Scripting Engine
             for (int i=0; i<data.size(); i++) {
                 nameAssociations.put(data.get(i), factory);
             }
             // gets all supported extensions 
             data = factory.getExtensions();
             for (int i=0; i<data.size(); i++) {
-                extensionAssocitions.put(data.get(i), factory);
+                extensionAssociations.put(data.get(i), factory);
             }
             // gets all supported MIME types
             data = factory.getMimeTypes();
@@ -124,7 +130,7 @@ public class ScriptEngineManager {
 
     /**
      * Retrieves a new instance of a ScriptingEngine for the 
-     * specified extension of a scirpt file. Returns null if no 
+     * specified extension of a scirpt file. Returns <tt>null</tt> if no 
      * suitable ScriptingEngine is found.
      * 
      * @param extension the specified extension of a script file
@@ -136,7 +142,7 @@ public class ScriptEngineManager {
         ScriptEngine engine = null;
 
         ScriptEngineFactory factory = 
-                (ScriptEngineFactory) extensionAssocitions.get(extension);
+                (ScriptEngineFactory) extensionAssociations.get(extension);
 
         if (factory != null) {
             // gets a new instance of the Scripting Engine
@@ -150,7 +156,7 @@ public class ScriptEngineManager {
 
     /**
      * Retrieves new instance the ScriptingEngine for a specifed MIME
-     * type. Returns null if no suitable ScriptingEngine is found.
+     * type. Returns <tt>null</tt> if no suitable ScriptingEngine is found.
      * 
      * @param mimeType the specified MIME type
      * @return a new instance of a ScriptingEngine which supports the
@@ -174,7 +180,7 @@ public class ScriptEngineManager {
 
     /**
      * Retrieves a new instance of a ScriptEngine the specified 
-     * descriptieve name. Returns null if no suitable ScriptEngine is
+     * descriptieve name. Returns <tt>null</tt> if no suitable ScriptEngine is
      * found.
      * 
      * @param name the descriptive name 
@@ -251,7 +257,7 @@ public class ScriptEngineManager {
      *        the specified extension
      */
     public void registerEngineExtension(String extension, ScriptEngineFactory factory){
-        extensionAssocitions.put(extension, factory);        
+        extensionAssociations.put(extension, factory);        
     }
 
     /**
@@ -281,10 +287,10 @@ public class ScriptEngineManager {
     }
 
     /**
-     * Sets the GLOBAL_SCOPE value to the specified namespace.
+     * Sets the GLOBAL_SCOPE value to the specified bindings.
      * 
-     * @param bindings the namespace to be stored in GLOBAL_SCOPE
-     * @throws IllegalArgumentException if bindings is null
+     * @param bindings the bindings to be stored in GLOBAL_SCOPE
+     * @throws IllegalArgumentException if bindings is <tt>null</tt>
      */
     public void setBindings(Bindings bindings){
         if (bindings == null){

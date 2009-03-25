@@ -36,18 +36,18 @@ public class SimpleBindings implements Bindings {
     private final Map map;
 
     /**
-     * Constructs a SimpleNamespace.
+     * Constructs a SimpleBindings.
      */
     public SimpleBindings(){
         map = new HashMap();
     }
 
     /**
-     * Constructs a SimpleNamespace and initializes it using a 
+     * Constructs a SimpleBindings and initializes it using a 
      * specified map. 
      * 
      * @param map a map which is used to initialize the 
-     *            SimpleNamespace
+     *            SimpleBindings
      */
     public SimpleBindings(Map map){
         this.map = map;
@@ -57,12 +57,14 @@ public class SimpleBindings implements Bindings {
 
     /**
      * Check the conditions which keys need to satisfy:
-     * - String
-     * - non-null
-     * - non-Empty
+     * <br/>
+     * + String<br/>
+     * + non-null<br/>
+     * + non-empty<br/>
+     * 
      * @param key key to be checked
      * 
-     * @throws NullPointerException if key is null 
+     * @throws NullPointerException if key is <tt>null</tt> 
      * @throws ClassCastException if key is not String 
      * @throws llegalArgumentException if key is empty String
      */
@@ -92,7 +94,10 @@ public class SimpleBindings implements Bindings {
      * @param key the String value which uniquely identifies the 
      *            object
      * @param value the object to be stored.
-     * @throws NullPointerException if the key is null
+     * 
+     * @return the previous value for the mapping (may be <tt>null</tt>), or <tt>null</tt> if there was none.
+     * 
+     * @throws NullPointerException if the key is <tt>null</tt>
      * @throws IllegalArgumentException if the key is empty
      */
     public Object put(String key, Object value) {      

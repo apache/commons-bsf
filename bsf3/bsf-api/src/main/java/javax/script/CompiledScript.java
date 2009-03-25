@@ -26,34 +26,41 @@ public abstract class CompiledScript {
     }
 
     /**
-     * Re-evaluates the pre-compiled script stored using the 
-     * ENGINE_SCOPE and the GLOBAL_SCOPE of the associated 
-     * ScriptEngine and returns the resultant object.
+     * Executes the program stored in the CompiledScript object.
+     * The default ScriptContext of the associated ScriptEngine is used.
+     * The effect of calling this method is same as that of
+     * eval(getEngine().getContext()). 
      * 
-     * @return the resultant object after the re-evaluation of the 
-     *         script
-     * @throws ScriptException if re-evaluation fails due to any 
-     *         reason
+     * @return the resultant object after the evaluation of the 
+     *         script (may be <tt>null</tt>)
+     * @throws ScriptException if evaluation fails for any reason
      */ 
     public Object eval() throws ScriptException {
         return eval(getEngine().getContext());
     }    
 
     /**
-     * Re-evaluates the pre-compiled script using the specified 
-     * namespace as the SCRIPT_SCOPE and using ENGINE_SCOPE, 
-     * GLOBAL_SCOPE of the associated ScriptEngine.
+     * Executes the program stored in the CompiledScript object
+     * using the supplied Bindings of attributes as the ENGINE_SCOPE
+     * of the associated ScriptEngine during script execution.
+     *  
+     * If bindings is <tt>null</tt>, then the effect of calling this method is
+     * same as that of eval(getEngine().getContext()).
+     * <br/>
+     * The GLOBAL_SCOPE Bindings, Reader and Writer associated
+     * with the default ScriptContext of the associated ScriptEngine
+     * are used. 
      *   
-     * @param bindings the namespace to be used as the SCRIPT_SCOPE
-     * @return resultant object after the re-evaluation
-     * @throws ScriptException if the re-evaluation fails due to any
-     *         reason
+     * @param bindings the bindings to be used as the ENGINE_SCOPE
+     * @return resultant object after the re-evaluation (may be <tt>null</tt>)
+     * @throws ScriptException if the evaluation fails for any reason
      */
     public Object eval(Bindings bindings) throws ScriptException{
         ScriptContext context;
         if (bindings == null) {
             context = getEngine().getContext();
         } else {
+            // same code as ((AbstractScriptEngine) getEngine()).getScriptContext(bindings);
             context = new SimpleScriptContext();
             context.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
             ScriptContext oldContext = getEngine().getContext();
@@ -66,15 +73,14 @@ public abstract class CompiledScript {
     }
 
     /**
-     * Re-evaluates the recompiled script using the specified 
-     * ScriptContext. 
+     * Evaluates the compiled script using the specified 
+     * {@link ScriptContext}. 
      * 
-     * @param context A ScriptContext to be used in the re-evalution
+     * @param context A ScriptContext to be used in the evalution
      *        of the script
-     * @return resultant object after the re-evaluation
-     * @throws ScriptException if the re-evaluation fails due to any
-     *         reason
-     * @throws NullPointerException if context is null
+     * @return resultant object after the evaluation (may be <tt>null</tt>)
+     * @throws ScriptException if the evaluation fails for any reason
+     * @throws NullPointerException if context is <tt>null</tt>
      */
     public abstract Object eval(ScriptContext context) throws ScriptException;
 

@@ -92,7 +92,7 @@ public interface ScriptEngineFactory {
 
     /**
      * Retrieves an associated value for the specified key. Returns 
-     * null if the ScriptEngine does not have an associated value for
+     * <tt>null</tt> if the ScriptEngine does not have an associated value for
      * the key.
      *  
      * @return associated value for the specified key
@@ -108,7 +108,7 @@ public interface ScriptEngineFactory {
      *                                    String method, String[] args) {
      *       String ret = objectName;
      *       ret += "." + method + "(";
-     *       for (int i = 0; i < args.length; i++) {
+     *       for (int i = 0; i &lt; args.length; i++) {
      *           ret += args[i];
      *           if (i == args.length - 1) {
      *               ret += ")";
@@ -149,15 +149,17 @@ public interface ScriptEngineFactory {
      * engine might be:
      * <pre> 
      *  public String getProgram(String... statements) {
-     *       $retval = "<?\n";
+     *       $retval = "&lt;?\n";
      *       int len = statements.length;
-     *       for (int i = 0; i < len; i++) {
+     *       for (int i = 0; i &lt; len; i++) {
      *           $retval += statements[i] + ";\n";
      *       }
-     *       $retval += "?>";
+     *       $retval += "?&gt;";
      *  }
      * </pre>
-     * @param statements
+     * 
+     * @param statements the statements to be executed, 
+     * e.g. as returned by the {@link #getMethodCallSyntax} or {@link #getOutputStatement} methods
      * @return The Program
      */
     public String getProgram(String[] statements);

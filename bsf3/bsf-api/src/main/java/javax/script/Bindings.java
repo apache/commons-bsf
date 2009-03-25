@@ -21,6 +21,8 @@ package javax.script;
 import java.util.Map;
 
 /**
+ * A mapping of key/value pairs, all of whose keys are non-empty Strings.
+ * 
  * See Javadoc of <a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Java Scripting API</a>
  */
 public interface Bindings extends Map{
@@ -34,7 +36,9 @@ public interface Bindings extends Map{
      *            object
      * @param value the object to be stored.
      * 
-     * @throws NullPointerException if key is null
+     * @return the previous value for the mapping, or <tt>null</tt> if there was none.
+     * 
+     * @throws NullPointerException if key is <tt>null</tt>
      * @throws ClassCastException if the key is not a String
      * @throws IllegalArgumentException if the key is an empty string
      */
@@ -48,7 +52,7 @@ public interface Bindings extends Map{
      * @param toMerge mappings to be stored in the map.
      * 
      * @throws NullPointerException
-     *         if toMerge map is null or if some key in the map is null. 
+     *         if toMerge map is <tt>null</tt> or if some key in the map is <tt>null</tt>. 
      * @throws IllegalArgumentException
      *         if some key in the map is an empty String
      * @throws ClassCastException if some key in the map is not a String 
@@ -61,7 +65,7 @@ public interface Bindings extends Map{
       * @param key key whose presence in this map is to be tested.
       * @return <tt>true</tt> if this map contains a mapping for the specified key.
       * 
-      * @throws NullPointerException if key is null
+      * @throws NullPointerException if key is <tt>null</tt>
       * @throws ClassCastException if key is not a String 
       * @throws IllegalArgumentException if key is empty String
       */
@@ -69,9 +73,9 @@ public interface Bindings extends Map{
 
     /**
      * Returns the value to which this map maps the specified key.
-     * Returns null if the map contains no mapping for this key. 
-     * A return value of null does not necessarily indicate that the map contains no mapping for the key; 
-     * it's also possible that the map explicitly maps the key to null.
+     * Returns <tt>null</tt> if the map contains no mapping for this key. 
+     * A return value of <tt>null</tt> does not necessarily indicate that the map contains no mapping for the key; 
+     * it's also possible that the map explicitly maps the key to <tt>null</tt>.
      * The containsKey  operation may be used to distinguish these two cases.
      *  
      * @param key key whose presence in this map is to be tested.
@@ -79,7 +83,7 @@ public interface Bindings extends Map{
      * @return the value to which this map maps the specified key,
      * or <tt>null</tt> if the map contains no mapping for this key.
      *  
-     * @throws NullPointerException if key is null
+     * @throws NullPointerException if key is <tt>null</tt>
      * @throws ClassCastException if key is not a String 
      * @throws IllegalArgumentException if key is empty String
      */
@@ -90,10 +94,10 @@ public interface Bindings extends Map{
      * present (optional operation). 
      * 
      * Returns the value to which the map previously associated the
-     * key, or null if the map contained no mapping for this key. (A 
-     * null return can also indicate that the map previously 
-     * associated null with the specified key if the implementation 
-     * supports null values.) The map will not contain a mapping for 
+     * key, or <tt>null</tt> if the map contained no mapping for this key. (A 
+     * <tt>null</tt> return can also indicate that the map previously 
+     * associated <tt>null</tt> with the specified key if the implementation 
+     * supports <tt>null</tt> values.) The map will not contain a mapping for 
      * the specified key once the call returns.
      *  
      * @param key key of entry to be removed.
@@ -101,7 +105,7 @@ public interface Bindings extends Map{
      * @return the previous value associated with the key,
      * or <tt>null</tt> if the map contained no mapping for this key.
      *  
-     * @throws NullPointerException if key is null
+     * @throws NullPointerException if key is <tt>null</tt>
      * @throws ClassCastException if key is not a String 
      * @throws IllegalArgumentException if key is empty String
      */
