@@ -53,7 +53,7 @@ public class ScriptEngineManager {
     /** Maps MIME types to the associated ScriptEngineFactory */
     private final HashMap mimeTypeAssociations = new HashMap();
 
-    /** Stores the bindings associated with GLOBAL_SCOPE */
+    /** Stores the bindings associated with GLOBAL_SCOPE. Defaults to SimpleBindings. */
     private Bindings globalscope = new SimpleBindings();
 
     /**
@@ -136,8 +136,14 @@ public class ScriptEngineManager {
      * @param extension the specified extension of a script file
      * @return a new instance of a ScriptingEngine which supports the
      *         specified script file extension
+     *
+     * @throws NullPointerException if extension is null
      */
     public ScriptEngine getEngineByExtension(String extension){
+
+        if (extension == null) {
+            throw new NullPointerException("extension must not be null");
+        }
 
         ScriptEngine engine = null;
 
@@ -161,8 +167,14 @@ public class ScriptEngineManager {
      * @param mimeType the specified MIME type
      * @return a new instance of a ScriptingEngine which supports the
      *         specified MIME type  
+     *
+     * @throws NullPointerException if mimeType is null
      */
     public ScriptEngine getEngineByMimeType(String mimeType){
+
+        if (mimeType == null) {
+            throw new NullPointerException("mimeType must not be null");
+        }
 
         ScriptEngine engine = null;
         ScriptEngineFactory factory = 
@@ -183,15 +195,19 @@ public class ScriptEngineManager {
      * descriptive name. Returns <tt>null</tt> if no suitable ScriptEngine is
      * found.
      * 
-     * @param name the descriptive name 
+     * @param shortName the short name of the engine 
      * @return a new instance of a ScriptEngine which supports the 
-     *         specifed descriptive name
+     *         specifed name
+     * @throws NullPointerException - if shortName is null
      */
-    public ScriptEngine getEngineByName(String name){
+    public ScriptEngine getEngineByName(String shortName){
+        if (shortName == null) {
+            throw new NullPointerException("shortName must not be null");
+        }
 
         ScriptEngine engine = null;
         ScriptEngineFactory factory =
-                (ScriptEngineFactory) nameAssociations.get(name);
+                (ScriptEngineFactory) nameAssociations.get(shortName);
 
         if (factory != null) {
             engine = factory.getScriptEngine();
@@ -259,6 +275,9 @@ public class ScriptEngineManager {
      * @throws NullPointerException if any of the parameters is <tt>null</tt>
      */
     public void registerEngineExtension(String extension, ScriptEngineFactory factory){
+        if (extension == null || factory == null) {
+            throw new NullPointerException("parameters must be non-null");
+        }
         extensionAssociations.put(extension, factory);        
     }
 
@@ -270,8 +289,13 @@ public class ScriptEngineManager {
      *        ScriptEngineFactory class
      * @param factory the ScriptEngineFactory associated with
      *        the specified descriptive name
+     *
+     * @throws NullPointerException if any of the parameters is <tt>null</tt>
      */
     public void registerEngineName(String name, ScriptEngineFactory factory){
+        if (name == null || factory == null) {
+            throw new NullPointerException("parameters must be non-null");
+        }
         nameAssociations.put(name, factory);
     }
 
@@ -283,8 +307,13 @@ public class ScriptEngineManager {
      *        ScriptEngineFactory class 
      * @param factory the ScriptEngineFactory associated with the
      *        specified MIME type
+     *
+     * @throws NullPointerException if any of the parameters is <tt>null</tt>
      */
     public void registerEngineMimeType(String mimeType,ScriptEngineFactory factory){
+        if (mimeType == null || factory == null) {
+            throw new NullPointerException("parameters must be non-null");
+        }
         mimeTypeAssociations.put(mimeType,factory);
     }
 
