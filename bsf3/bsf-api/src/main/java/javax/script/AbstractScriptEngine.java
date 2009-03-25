@@ -24,7 +24,7 @@ import java.io.Reader;
  * See Javadoc of <a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Java Scripting API</a>
  */
 public abstract class AbstractScriptEngine implements ScriptEngine {
-		
+
     protected ScriptContext context;
 
     /**
@@ -33,48 +33,48 @@ public abstract class AbstractScriptEngine implements ScriptEngine {
      */
     public AbstractScriptEngine() {
         this.context = new SimpleScriptContext();
-	}
-	
+    }
+
     /**
      * Constructs a ScriptEngine using the specified Bindings as its 
      * ENGINE_SCOPE.
      * 
      * @param bindings the Bindings to be used as the ENGINE_SCOPE
      */
-	public AbstractScriptEngine(Bindings bindings){
+    public AbstractScriptEngine(Bindings bindings){
         this();
         if (bindings == null) {
-        	throw new NullPointerException("bindings is null");
+            throw new NullPointerException("bindings is null");
         }
         context.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
-	}
-    
+    }
+
     /** {@inheritDoc} */
     public Object eval(Reader reader) throws ScriptException{
         return eval(reader, context);
     }
-    
+
     /** {@inheritDoc} */
     public Object eval(Reader reader, Bindings bindings) 
             throws ScriptException{
         return eval(reader,getScriptContext(bindings));
     }
-    
+
     /** {@inheritDoc} */
     public Object eval(String script) throws ScriptException{
         return eval(script, context);
     }
-       
+
     /** {@inheritDoc} */
     public Object eval(String script, Bindings bindings) throws ScriptException{
         return eval(script,getScriptContext(bindings));
     }
-        
+
     /** {@inheritDoc} */
-	public Object get(String key) {
-		return getBindings(ScriptContext.ENGINE_SCOPE).get(key);
-	}
-    
+    public Object get(String key) {
+        return getBindings(ScriptContext.ENGINE_SCOPE).get(key);
+    }
+
     /** {@inheritDoc} */
     public Bindings getBindings(int scope) {
         if (scope == ScriptContext.GLOBAL_SCOPE || scope == ScriptContext.ENGINE_SCOPE) {
@@ -83,8 +83,8 @@ public abstract class AbstractScriptEngine implements ScriptEngine {
             throw new IllegalArgumentException("invalid scope");
         }
     }
-    
-    
+
+
     /**
      * Retrieves an instance of ScriptContext with namespaces 
      * associated with all the level of scopes and the specified
@@ -97,39 +97,39 @@ public abstract class AbstractScriptEngine implements ScriptEngine {
      * @throws NullPointerException if bindings is null
      */
     protected ScriptContext getScriptContext(Bindings bindings){
-    	if (bindings == null) {
-    		throw new NullPointerException("ENGINE_SCOPE bindings cannot be null");
-    	}
-        
+        if (bindings == null) {
+            throw new NullPointerException("ENGINE_SCOPE bindings cannot be null");
+        }
+
         ScriptContext scriptContext = new SimpleScriptContext();
 
         scriptContext.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
         scriptContext.setBindings(this.getBindings(ScriptContext.GLOBAL_SCOPE), ScriptContext.GLOBAL_SCOPE);
-        
+
         scriptContext.setReader(this.context.getReader());
         scriptContext.setWriter(this.context.getWriter());
         scriptContext.setErrorWriter(this.context.getErrorWriter());
-        
+
         return scriptContext;
     }
 
     /** {@inheritDoc} */
-	public void put(String key, Object value) {
-        
-		if (key == null) { 
+    public void put(String key, Object value) {
+
+        if (key == null) { 
             throw new NullPointerException("name is null");
         }
-		
+
         if (key.length() == 0) { 
             throw new IllegalArgumentException("name is empty");
         }
-        
-		getBindings(ScriptContext.ENGINE_SCOPE).put(key,value);
-	}
+
+        getBindings(ScriptContext.ENGINE_SCOPE).put(key,value);
+    }
 
     /** {@inheritDoc} */
-	public void setBindings(Bindings bindings, int scope) {
-		
+    public void setBindings(Bindings bindings, int scope) {
+
         if (scope == ScriptContext.GLOBAL_SCOPE || scope == ScriptContext.ENGINE_SCOPE) {
              context.setBindings(bindings, scope);
         } else {
@@ -145,7 +145,7 @@ public abstract class AbstractScriptEngine implements ScriptEngine {
     /** {@inheritDoc} */
     public void setContext(ScriptContext context) {
         if (context == null) {
-        	throw new NullPointerException("context is null");
+            throw new NullPointerException("context is null");
         }
         this.context = context;
     }
