@@ -25,15 +25,15 @@ import javax.script.ScriptEngine;
  */
 public class JavaScriptE4XHelper extends DefaultXMLHelper {
 
-	public static XMLHelper getXMLHelper(ScriptEngine engine) {
+    public static XMLHelper getXMLHelper(ScriptEngine engine) {
 
-		try {
-			Class.forName("org.wso2.javascript.xmlimpl.XMLLibImpl", true, JavaScriptE4XHelper.class.getClassLoader());
-			return new JavaScriptE4XAxiomHelper(engine);
-		} catch (ClassNotFoundException e) {
-			// TODO: also support Rhino 1.6R7 DOM based E4X impl 
-			return new JavaScriptE4XXmlBeansHelper(engine);
-		}
-	}
+        try {
+            Class.forName("org.wso2.javascript.xmlimpl.XMLLibImpl", true, JavaScriptE4XHelper.class.getClassLoader());
+            return new JavaScriptE4XAxiomHelper(engine);
+        } catch (ClassNotFoundException e) {
+            // TODO: also support Rhino 1.6R7 DOM based E4X impl 
+            return new JavaScriptE4XXmlBeansHelper(engine);
+        }
+    }
 
 }

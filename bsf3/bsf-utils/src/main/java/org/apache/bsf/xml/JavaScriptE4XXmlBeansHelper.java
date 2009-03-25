@@ -36,20 +36,20 @@ import org.mozilla.javascript.xml.XMLObject;
  */
 public class JavaScriptE4XXmlBeansHelper extends DefaultXMLHelper {
 
-	private final Scriptable scope;
+    private final Scriptable scope;
 
     JavaScriptE4XXmlBeansHelper(ScriptEngine engine) {
-	    Context cx = Context.enter();
-	    try {
-	        this.scope = cx.initStandardObjects();
-	    } finally {
-	        Context.exit();
-	    }
-	}
+        Context cx = Context.enter();
+        try {
+            this.scope = cx.initStandardObjects();
+        } finally {
+            Context.exit();
+        }
+    }
 
-	public OMElement toOMElement(Object scriptXML) throws ScriptException {
+    public OMElement toOMElement(Object scriptXML) throws ScriptException {
         if (scriptXML == null) {
-        	return null;
+            return null;
         }
 
         if (!(scriptXML instanceof XMLObject)) {
@@ -69,22 +69,22 @@ public class JavaScriptE4XXmlBeansHelper extends DefaultXMLHelper {
             return builder.getDocumentElement();
 
         } catch (XMLStreamException e) {
-        	throw new ScriptException(e);
+            throw new ScriptException(e);
         }
-	}
+    }
 
-	public Object toScriptXML(OMElement om) throws ScriptException {
+    public Object toScriptXML(OMElement om) throws ScriptException {
         if (om == null) {
-        	return null;
+            return null;
         }
         Context cx = Context.enter();
         try {
 
-    		XmlObject xml = null;
+            XmlObject xml = null;
             try {
                 xml = XmlObject.Factory.parse(om.getXMLStreamReader());
             } catch (Exception e) {
-            	throw new ScriptException(e);
+                throw new ScriptException(e);
             }
             Object wrappedXML = cx.getWrapFactory().wrap(cx, scope, xml, XmlObject.class);
             return cx.newObject(scope, "XML", new Object[]{wrappedXML});
@@ -92,6 +92,6 @@ public class JavaScriptE4XXmlBeansHelper extends DefaultXMLHelper {
         } finally {
             Context.exit();
         }
-	}
+    }
 
 }

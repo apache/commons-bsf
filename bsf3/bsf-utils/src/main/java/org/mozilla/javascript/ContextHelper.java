@@ -27,11 +27,11 @@ package org.mozilla.javascript;
  * does not require this.
  */
 public class ContextHelper {
-	
-	public static void setTopCallScope(Context cx, Scriptable scope) {
-		if (cx.topCallScope == null) {
-			cx.topCallScope = scope;
-		}
-	}
+
+    public static void setTopCallScope(Context cx, Scriptable scope) {
+        if (cx.topCallScope == null) {
+            cx.topCallScope = scope;
+        }
+    }
 
 }
