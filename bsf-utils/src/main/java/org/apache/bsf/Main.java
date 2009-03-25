@@ -39,93 +39,93 @@ import javax.script.ScriptException;
  * @author   Sam Ruby
  */
 public class Main {
-	private static final String ARG_IN = "-in";
-	private static final String ARG_LANG = "-lang";
-	private static final String ARG_OUT = "-out";
-	private static final String DEFAULT_IN_FILE_NAME = "<STDIN>";
-	private static final String DEFAULT_CLASS_NAME = "Test";
+    private static final String ARG_IN = "-in";
+    private static final String ARG_LANG = "-lang";
+    private static final String ARG_OUT = "-out";
+    private static final String DEFAULT_IN_FILE_NAME = "<STDIN>";
+    private static final String DEFAULT_CLASS_NAME = "Test";
 
-	/**
-	 * Static driver to be able to run BSF scripts from the command line.
-	 *
-	 * @param args command line arguments
-	 */
-	public static void main(String[] args) throws IOException {
-		if ((args.length == 0) || (args.length % 2 != 0)) {
-			printHelp();
-			System.exit(1);
-		}
+    /**
+     * Static driver to be able to run BSF scripts from the command line.
+     *
+     * @param args command line arguments
+     */
+    public static void main(String[] args) throws IOException {
+        if ((args.length == 0) || (args.length % 2 != 0)) {
+            printHelp();
+            System.exit(1);
+        }
 
-		Hashtable argsTable = new Hashtable();
+        Hashtable argsTable = new Hashtable();
 
-		argsTable.put(ARG_OUT, DEFAULT_CLASS_NAME);
+        argsTable.put(ARG_OUT, DEFAULT_CLASS_NAME);
 
-		for (int i = 0; i < args.length; i += 2) {
-			argsTable.put(args[i], args[i + 1]);
-		}
+        for (int i = 0; i < args.length; i += 2) {
+            argsTable.put(args[i], args[i + 1]);
+        }
 
-		String inFileName = (String) argsTable.get(ARG_IN);
-		String language = (String) argsTable.get(ARG_LANG);
+        String inFileName = (String) argsTable.get(ARG_IN);
+        String language = (String) argsTable.get(ARG_LANG);
 
-		
-		if (language == null && inFileName != null) {
-			int i = inFileName.lastIndexOf('.');
-			if (i > 0) {
-				language = inFileName.substring(i+1);
-			}
-			if (language == null) {
-				throw new IllegalArgumentException("unable to determine language");
-			}
-		}
 
-		ScriptEngineManager mgr = new ScriptEngineManager();
+        if (language == null && inFileName != null) {
+            int i = inFileName.lastIndexOf('.');
+            if (i > 0) {
+                language = inFileName.substring(i+1);
+            }
+            if (language == null) {
+                throw new IllegalArgumentException("unable to determine language");
+            }
+        }
 
-		Reader in;
+        ScriptEngineManager mgr = new ScriptEngineManager();
 
-		if (inFileName != null) {
-			in = new FileReader(inFileName);
-		} else {
-			in = new InputStreamReader(System.in);
-			inFileName = DEFAULT_IN_FILE_NAME;
-		}
+        Reader in;
 
-		try {
-			ScriptEngine engine = mgr.getEngineByExtension(language);
-			Bindings bindings = engine.getBindings(ScriptContext.ENGINE_SCOPE);
-			bindings.put("args", args);
-			Object obj = engine.eval(in);
-			System.err.println("Result: " + obj);
-		} catch (ScriptException e) {
-		    e.printStackTrace();
-		}
-	}
+        if (inFileName != null) {
+            in = new FileReader(inFileName);
+        } else {
+            in = new InputStreamReader(System.in);
+            inFileName = DEFAULT_IN_FILE_NAME;
+        }
 
-	private static void printHelp() {
-		System.err.println("Usage:");
-		System.err.println();
-		System.err.println("  java " + Main.class.getName() + " [args]");
-		System.err.println();
-		System.err.println("    args:");
-		System.err.println();
-		System.err.println(
-			"      [-in                fileName]   default: " + DEFAULT_IN_FILE_NAME);
-		System.err.println(
-			"      [-lang          languageName]   default: "
-				+ "<If -in is specified and -lang");
-		System.err.println(
-			"                                               "
-				+ " is not, attempt to determine");
-		System.err.println(
-			"                                               "
-				+ " language from file extension;");
-		System.err.println(
-			"                                               "
-				+ " otherwise, -lang is required.>");
-		System.err.println();
-		System.err.println(
-			"    Additional args used only if -mode is " + "set to \"compile\":");
-		System.err.println();
-		System.err.println(
-			"      [-out              className]   default: " + DEFAULT_CLASS_NAME);
-	}
+        try {
+            ScriptEngine engine = mgr.getEngineByExtension(language);
+            Bindings bindings = engine.getBindings(ScriptContext.ENGINE_SCOPE);
+            bindings.put("args", args);
+            Object obj = engine.eval(in);
+            System.err.println("Result: " + obj);
+        } catch (ScriptException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void printHelp() {
+        System.err.println("Usage:");
+        System.err.println();
+        System.err.println("  java " + Main.class.getName() + " [args]");
+        System.err.println();
+        System.err.println("    args:");
+        System.err.println();
+        System.err.println(
+            "      [-in                fileName]   default: " + DEFAULT_IN_FILE_NAME);
+        System.err.println(
+            "      [-lang          languageName]   default: "
+                + "<If -in is specified and -lang");
+        System.err.println(
+            "                                               "
+                + " is not, attempt to determine");
+        System.err.println(
+            "                                               "
+                + " language from file extension;");
+        System.err.println(
+            "                                               "
+                + " otherwise, -lang is required.>");
+        System.err.println();
+        System.err.println(
+            "    Additional args used only if -mode is " + "set to \"compile\":");
+        System.err.println();
+        System.err.println(
+            "      [-out              className]   default: " + DEFAULT_CLASS_NAME);
+    }
 }
