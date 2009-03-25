@@ -22,6 +22,7 @@ import java.util.List;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
+import javax.script.SimpleBindings;
 
 import org.apache.bsf.utils.TestScriptEngine;
 import org.apache.bsf.utils.TestScriptEngineFactory;
@@ -47,10 +48,24 @@ public class ScriptEngineManagerTest extends TestCase {
 		assertTrue(facs.size() > 0); // need at least one
 	}
 
-	public void testGet() {
+	public void testGetPut() {
 		mgr.put("x", new Integer(1));
 		Object retValue = mgr.get("x");
 		assertEquals(new Integer(1), retValue);
+		try {
+            mgr.get(null);
+            fail("Expected NullPointerException");
+        } catch (NullPointerException e) {
+        }
+		try {
+            mgr.get("");
+            fail("Expected IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+        }
+        assertNull(mgr.get("missing_Key"));
+        assertNull(mgr.get("null_Key"));
+        mgr.put("null_Key", null);
+        assertNull(mgr.get("null_Key"));
 	}
 
 	public void testGetEngineByExtension() {
@@ -64,12 +79,16 @@ public class ScriptEngineManagerTest extends TestCase {
 	}
 
 	public void testGetEngineByMimeType() {
+        ScriptEngine engine;
+        engine =  mgr.getEngineByMimeType("application/junit");
+        assertNotNull(engine);
+        assertTrue(engine instanceof TestScriptEngine);
 	}
 
 	public void testGetEngineByName() {
 		ScriptEngine engine;
 		
-		engine =  mgr.getEngineByName("TestScript");
+		engine =  mgr.getEngineByName("JUnit");
 		assertNotNull(engine);
 		assertTrue(engine instanceof TestScriptEngine);
 	}
@@ -91,24 +110,89 @@ public class ScriptEngineManagerTest extends TestCase {
 		}
 	}
 
-	public void testPut() {
-		//TODO Implement put().
-	}
-
 	public void testRegisterEngineExtension() {
-		//TODO Implement registerEngineExtension().
+        try {
+            mgr.registerEngineExtension(null, null);
+            fail("Expected NullPointerException");
+        } catch (NullPointerException e) {
+        }
+        try {
+            mgr.registerEngineExtension(null, new TestScriptEngineFactory());
+            fail("Expected NullPointerException");
+        } catch (NullPointerException e) {
+        }
+        try {
+            mgr.registerEngineExtension("", null);
+            fail("Expected NullPointerException");
+        } catch (NullPointerException e) {
+        }
+        assertNull(mgr.getEngineByExtension("")); // not yet defined
+        // Empty extensions are allowed
+        mgr.registerEngineExtension("", new TestScriptEngineFactory());
+        assertNotNull(mgr.getEngineByExtension("")); //now defined
+        assertNull(mgr.getEngineByExtension("junit2")); // not yet defined
+        mgr.registerEngineExtension("junit2", new TestScriptEngineFactory());
+        assertNotNull(mgr.getEngineByExtension("junit2")); //now defined
 	}
 
 	public void testRegisterEngineName() {
-		//TODO Implement registerEngineName().
+        try {
+            mgr.registerEngineName(null, null);
+            fail("Expected NullPointerException");
+        } catch (NullPointerException e) {
+        }
+        try {
+            mgr.registerEngineName(null, new TestScriptEngineFactory());
+            fail("Expected NullPointerException");
+        } catch (NullPointerException e) {
+        }
+        try {
+            mgr.registerEngineName("", null);
+            fail("Expected NullPointerException");
+        } catch (NullPointerException e) {
+        }
+        assertNull(mgr.getEngineByName("")); // not yet defined
+        // Empty extensions are allowed
+        mgr.registerEngineName("", new TestScriptEngineFactory());
+        assertNotNull(mgr.getEngineByName("")); //now defined
+        assertNull(mgr.getEngineByName("junit2")); // not yet defined
+        mgr.registerEngineName("junit2", new TestScriptEngineFactory());
+        assertNotNull(mgr.getEngineByName("junit2")); //now defined
 	}
 
 	public void testRegisterEngineMimeType() {
-		//TODO Implement registerEngineMimeType().
+        try {
+            mgr.registerEngineMimeType(null, null);
+            fail("Expected NullPointerException");
+        } catch (NullPointerException e) {
+        }
+        try {
+            mgr.registerEngineMimeType(null, new TestScriptEngineFactory());
+            fail("Expected NullPointerException");
+        } catch (NullPointerException e) {
+        }
+        try {
+            mgr.registerEngineMimeType("", null);
+            fail("Expected NullPointerException");
+        } catch (NullPointerException e) {
+        }
+        assertNull(mgr.getEngineByMimeType("")); // not yet defined
+        // Empty extensions are allowed
+        mgr.registerEngineMimeType("", new TestScriptEngineFactory());
+        assertNotNull(mgr.getEngineByMimeType("")); //now defined
+        assertNull(mgr.getEngineByMimeType("junit2")); // not yet defined
+        mgr.registerEngineMimeType("junit2", new TestScriptEngineFactory());
+        assertNotNull(mgr.getEngineByMimeType("junit2")); //now defined
 	}
 
-	public void testSetNamespace() {
-		//TODO Implement setNamespace().
+	public void testSetBindings() {
+	    mgr.getBindings();
+		try {
+            mgr.setBindings(null);
+            fail("Expected IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+        }
+        mgr.setBindings(new SimpleBindings());
 	}
 
 }

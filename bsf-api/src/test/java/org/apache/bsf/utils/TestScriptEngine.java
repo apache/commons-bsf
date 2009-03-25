@@ -18,32 +18,42 @@
 
 package org.apache.bsf.utils;
 
+import java.io.IOException;
 import java.io.Reader;
-import java.io.StringReader;
 
 import javax.script.AbstractScriptEngine;
 import javax.script.Bindings;
 import javax.script.ScriptContext;
 import javax.script.ScriptEngineFactory;
 import javax.script.ScriptException;
+import javax.script.SimpleBindings;
 
+/**
+ * Minimal Script engine used for JUnit tests.
+ */
 public class TestScriptEngine extends AbstractScriptEngine {
 
     public Bindings createBindings() {
-        // TODO Auto-generated method stub
-        return null;
+        return new SimpleBindings();
     }
 
     public Object eval(Reader reader, ScriptContext context)
             throws ScriptException {
-        // TODO Auto-generated method stub
-        return null;
+        StringBuffer sb = new StringBuffer();
+        char cbuf[] = new char[1024];
+        try {
+            while(reader.read(cbuf) != -1){
+                sb.append(cbuf);
+            }
+        } catch (IOException e) {
+            throw new ScriptException(e);
+        }
+        return eval(sb.toString(), context);
     }
-
 
     public Object eval(String script, ScriptContext context)
             throws ScriptException {
-        return eval(new StringReader(script), context);
+        return script;
     }
 
     public ScriptEngineFactory getFactory() {
