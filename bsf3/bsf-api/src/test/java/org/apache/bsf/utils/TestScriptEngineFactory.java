@@ -25,7 +25,9 @@ import java.util.List;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineFactory;
 
-
+/**
+ * Minimal ScriptEngineFactory for use in JUnit tests.
+ */
 public class TestScriptEngineFactory implements ScriptEngineFactory {
 	
 
@@ -49,7 +51,7 @@ public class TestScriptEngineFactory implements ScriptEngineFactory {
 		return "1.0";
 	}
 	public List getMimeTypes() {
-		return Collections.unmodifiableList(Arrays.asList(new String[]{}));
+		return Collections.unmodifiableList(Arrays.asList(new String[]{"application/junit"}));
 	}
 	
 	public Object getParameter(String key) {
@@ -58,7 +60,7 @@ public class TestScriptEngineFactory implements ScriptEngineFactory {
         } else if (key == ScriptEngine.ENGINE_VERSION) {
             return getEngineVersion();
         } else if (key == ScriptEngine.NAME) {
-            return "JUnit";
+            return getNames();
         } else if (key == ScriptEngine.LANGUAGE) {
             return getLanguageName();
         } else if(key == ScriptEngine.ENGINE_VERSION) {
@@ -71,20 +73,20 @@ public class TestScriptEngineFactory implements ScriptEngineFactory {
 
     public String getMethodCallSyntax(String obj, String method, String[] args) {
         // TODO Auto-generated method stub
-        return null;
+        return "callMethod";
     }
 
     public List getNames() {
-        return Collections.unmodifiableList(Arrays.asList(new String[]{getLanguageName()}));
+        return Collections.unmodifiableList(Arrays.asList(new String[]{"JUnit"}));
     }
 
     public String getOutputStatement(String toDisplay) {
         // TODO Auto-generated method stub
-        return null;
+        return "outputStatment";
     }
 
     public String getProgram(String[] statements) {
         // TODO Auto-generated method stub
-        return null;
+        return "program";
     }
 }
