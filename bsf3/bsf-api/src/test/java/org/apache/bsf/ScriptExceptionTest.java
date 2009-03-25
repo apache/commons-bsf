@@ -34,7 +34,7 @@ public class ScriptExceptionTest extends TestCase {
             assertNull(e.getFileName()); // this is not defined by the spec. or the Java 6 API
         }
     }
-    
+
     public void testException2(){
         ScriptException ex = new ScriptException(new Exception());
         try {
@@ -45,7 +45,7 @@ public class ScriptExceptionTest extends TestCase {
             assertNull(e.getFileName()); // this is not defined by the spec. or the Java 6 API
         }
     }
-    
+
     public void testException3(){
         final String fileName = "file";
         ScriptException ex = new ScriptException("test", fileName, 10);
@@ -61,7 +61,7 @@ public class ScriptExceptionTest extends TestCase {
             assertFalse(-1 == message.indexOf(""+10));
         }
     }
-    
+
     public void testException4(){
         final String fileName = "file";
         ScriptException ex = new ScriptException("test", fileName, 10, 30);
