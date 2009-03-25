@@ -48,8 +48,12 @@ public class SimpleBindings implements Bindings {
      * 
      * @param map a map which is used to initialize the 
      *            SimpleBindings
+     * @throws NullPointerException if the map is null
      */
     public SimpleBindings(Map map){
+        if (map == null){
+            throw new NullPointerException("parameter must not be null");
+        }
         this.map = map;
     }
 
