@@ -53,6 +53,8 @@ public class SimpleScriptContext implements ScriptContext {
     /** The writer to be used for displaying error output from scripts */
     protected Writer errorWriter;
 
+    // N.B. These fields are mandated as protected by the JSR-223 spec.
+    
     /** Immutable list of scopes returned by {@link #getScopes()}*/
     private static final List SCOPES = 
         Collections.unmodifiableList(
@@ -168,8 +170,6 @@ public class SimpleScriptContext implements ScriptContext {
             case GLOBAL_SCOPE:
                 if (globalScope != null) {
                     globalScope.put(name, value);
-                } else {
-                    throw new IllegalArgumentException("Global scope is null");// TODO is this correct?
                 }
                 break;
             default:
