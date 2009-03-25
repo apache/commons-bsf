@@ -90,29 +90,6 @@ public interface HttpScriptContext extends ScriptContext {
     public String[] getAllowedLanguages();
 
     /**
-     * Retrieves the value for the specified key in the lowest scope 
-     * in which the key is defined. Returns null if the specified key
-     * is not defiend in any scope.
-     * 
-     * @param name  the name of the value to be retrieved
-     * @return the value associated with the specified key
-     */
-    public Object getAttribute(String name);
-
-    /**
-     * Retrieves the value associated with the specified key in 
-     * specified level of scope. 
-     * 
-     * @param scope the integer value of level of scope
-     * @return the value associated with specified key in the 
-     *         specified level of scope
-     * @throws IllegalArgumentException if name is null or the scope 
-     *         is invalid 
-     */
-    public Object getAttribute(String name,int scope) throws 
-            IllegalArgumentException;
-
-    /**
      * Retrieves an array of string describing HTTP request methods 
      * which are handled by servlets executing in current context.
      *  
@@ -185,20 +162,6 @@ public interface HttpScriptContext extends ScriptContext {
      * that it can be reused to serve another request.
      */
     public void release();
-
-    /**
-     * Sets the value for the specified key in the specified level of
-     * scope.
-     * 
-     * @param name  the key associated with the specified value
-     * @param value the value associated with the specified key
-     * @param scope the level of scope
-     * @throws IllegalArgumentException if the level of scope is 
-     *         invalid
-     * @throws IllegalStateException if the session is either invalid
-     *         or diabled
-     */
-    public void setAttribute(String name,Object value,int scope);
 
     /**
      * Retrieves a boolean value which indicates whether the 
