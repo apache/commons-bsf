@@ -61,11 +61,11 @@ public class AbstractScriptEngineTest extends TestCase {
         public ScriptEngineFactory getFactory() {
             return null;
         }
-        
+
     }
-    
+
     private final ScriptEngine engine  = new ScriptEngine();
-    
+
     public void testCtor1(){
         ScriptContext b = engine.getContext();
         assertNotNull(b);
@@ -80,7 +80,7 @@ public class AbstractScriptEngineTest extends TestCase {
         Bindings b = new SimpleBindings();
         new ScriptEngine(b); // should be OK
     }
-    
+
     public void testSetBindings(){
         try {
             engine.setBindings(null, -123);
@@ -111,7 +111,7 @@ public class AbstractScriptEngineTest extends TestCase {
         engine.setBindings(new SimpleBindings(), ScriptContext.GLOBAL_SCOPE);
         assertNotNull(engine.getBindings(ScriptContext.GLOBAL_SCOPE));
     }
-    
+
     public void testContext(){
         final ScriptContext initial = engine.getContext();
         assertNotNull(initial);
@@ -122,7 +122,7 @@ public class AbstractScriptEngineTest extends TestCase {
         assertNotNull(updated);
         assertSame(updated, newContext);
     }
-    
+
     public void testgetScriptContext(){
         try {
             engine.getScriptContext(null);
