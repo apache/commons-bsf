@@ -168,11 +168,9 @@ public interface ScriptEngine {
     public Object get(String key);
 
     /**
-     * Retrieves a ScriptEngineFactory for the class to which 
-     * describes the underlying ScriptEngine.
+     * Returns a ScriptEngineFactory for the class to which this ScriptEngine belongs.
      * 
-     * @return an instance of ScriptEngineFactory which describes the
-     *         underlying ScriptEngine
+     * @return The ScriptEngineFactory
      */
     public ScriptEngineFactory getFactory();
 
