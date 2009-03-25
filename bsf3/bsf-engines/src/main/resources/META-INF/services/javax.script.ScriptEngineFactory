@@ -20,5 +20,5 @@ com.sun.script.scheme.SchemeScriptEngineFactory
 com.sun.script.velocity.VelocityScriptEngineFactory
 com.sun.script.xpath.XPathScriptEngineFactory
 com.sun.script.xslt.XSLTScriptEngineFactory
-
+org.apache.bsf.utils.TestScriptEngineFactory
 
