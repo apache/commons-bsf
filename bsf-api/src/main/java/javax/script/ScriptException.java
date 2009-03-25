@@ -25,7 +25,7 @@ package javax.script;
 //@Immutable
 public class ScriptException extends Exception {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     /** Stores the file name of the script */
     private final String fileName; // default null

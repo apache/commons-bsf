@@ -25,7 +25,9 @@ import java.io.Reader;
  */
 public abstract class AbstractScriptEngine implements ScriptEngine {
 
+    /** The default ScriptContext of this AbstractScriptEngine */
     protected ScriptContext context;
+    // This field is defined as protected in JSR-223
 
     /**
      * Constructs a ScriptEngine using an uninitialized 
