@@ -76,9 +76,10 @@ public class TestScriptEngine extends AbstractScriptEngine implements Compilable
         return sb.toString();
     }
 
+    // Very simple evaluator - just return the context value for the script
     public Object eval(String script, ScriptContext context)
             throws ScriptException {
-        return script;
+        return context.getAttribute(script);
     }
 
     public ScriptEngineFactory getFactory() {

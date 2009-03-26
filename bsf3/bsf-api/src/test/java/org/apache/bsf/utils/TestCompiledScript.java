@@ -37,7 +37,7 @@ public class TestCompiledScript extends CompiledScript {
     }
 
     public Object eval(ScriptContext context) throws ScriptException {
-        return compiled;
+        return context.getAttribute(compiled);
     }
 
     public ScriptEngine getEngine() {
