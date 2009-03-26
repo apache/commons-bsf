@@ -20,14 +20,17 @@ package org.apache.bsf;
 
 import java.util.List;
 
+import javax.script.Compilable;
+import javax.script.CompiledScript;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import javax.script.SimpleBindings;
+
+import junit.framework.TestCase;
 
 import org.apache.bsf.utils.TestScriptEngine;
 import org.apache.bsf.utils.TestScriptEngineFactory;
-
-import junit.framework.TestCase;
 
 public class ScriptEngineManagerTest extends TestCase {
 	private ScriptEngineManager mgr = null;
@@ -188,13 +191,32 @@ public class ScriptEngineManagerTest extends TestCase {
 	}
 
 	public void testSetBindings() {
-	    mgr.getBindings();
+	    assertNotNull(mgr.getBindings());
 		try {
             mgr.setBindings(null);
             fail("Expected IllegalArgumentException");
         } catch (IllegalArgumentException e) {
         }
-        mgr.setBindings(new SimpleBindings());
+        final SimpleBindings bindings = new SimpleBindings();
+        assertNotSame(bindings, mgr.getBindings());
+        mgr.setBindings(bindings);
+        assertSame(bindings, mgr.getBindings());
 	}
 
+	public void testEvalAndCompile() throws ScriptException{
+	    ScriptEngine se = mgr.getEngineByName("JUnit");
+	    assertNotNull(se);
+	    se.put("key", "value");
+	    assertEquals("value",se.eval("key"));
+	    if (se instanceof Compilable){
+	        Compilable co = (Compilable) se;
+	        CompiledScript cs = co.compile("key");
+	        assertNotNull(cs);
+	        assertEquals("value",cs.eval());
+            assertEquals("value",cs.eval());	        
+	    } else {
+	        fail("Expected engine to implement Compilable");
+	    }
+	}
+	
 }
