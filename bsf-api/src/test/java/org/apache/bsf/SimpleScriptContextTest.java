@@ -118,7 +118,7 @@ public class SimpleScriptContextTest extends TestCase {
     }
     
     public void testScopes(){
-        List l = (List) context.getScopes();
+        List l = context.getScopes();
         assertNotNull(l);
         assertTrue(l.size() >=2);
         try {
