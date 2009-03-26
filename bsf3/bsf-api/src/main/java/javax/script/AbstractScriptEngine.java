@@ -21,6 +21,13 @@ package javax.script;
 import java.io.Reader;
 
 /**
+ * Provides a standard implementation for various versions of the eval() methods.
+ * Stores the ScriptContext, and provides access to the Bindings stored in the context.
+ * 
+ * The class is not synchronized.
+ * The default context - {@link SimpleScriptContext} - is not synchronized either. 
+ * Sub-classes must provide synchronization if necessary.
+ * 
  * See Javadoc of <a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Java Scripting API</a>
  */
 public abstract class AbstractScriptEngine implements ScriptEngine {

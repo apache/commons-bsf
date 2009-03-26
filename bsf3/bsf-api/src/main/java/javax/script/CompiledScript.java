@@ -18,6 +18,10 @@
 package javax.script;
 
 /**
+ * Base for classes that store the results of compilations.
+ * 
+ * This class is immutable.
+ * 
  * See Javadoc of <a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Java Scripting API</a>
  */
 public abstract class CompiledScript {
