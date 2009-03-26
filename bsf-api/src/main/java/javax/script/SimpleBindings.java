@@ -26,6 +26,9 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * A simple implementation of Bindings, backed by a HashMap (or other Map).
+ * This class is not synchronized (nor is HashMap).
+ * 
  * See Javadoc of <a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Java Scripting API</a>
  */
 public class SimpleBindings implements Bindings {

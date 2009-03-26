@@ -28,6 +28,10 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * A simple implementation of {@link ScriptContext}.
+ * 
+ * This class is not synchronized.
+ * 
  * See Javadoc of <a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Java Scripting API</a>
  */
 public class SimpleScriptContext implements ScriptContext {

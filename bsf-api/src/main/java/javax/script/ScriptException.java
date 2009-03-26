@@ -20,9 +20,10 @@
 package javax.script;
 
 /**
+ * Generic Exception class for the Scripting APIs.
+ *
  * See Javadoc of <a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Java Scripting API</a>
  */
-//@Immutable
 public class ScriptException extends Exception {
 
     private static final long serialVersionUID = 2L;
