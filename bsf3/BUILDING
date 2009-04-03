@@ -22,7 +22,7 @@ Other useful Maven commands are:
  - to setup Eclipse projects for the BSF modules
 
 
-BSF requires a minimum of Java 1.4.2 to build
+BSF requires a minimum of Java 1.4 to build
 
 Note, currently there is a bug in the BSF 3 projects setup which causes
 the Eclipse projects to be created badly for the test projects when
