@@ -13,7 +13,7 @@ Apache BSF 3 is an open-source implementation of JSR-223,
 However, the implementation is believed to be complete.
 
 * BSF-3.0 is not compatible with BSF-2.4 - the API is completely different.
-* BSF-3.0 can be deployed and used Java 1.4+ - it does not require Java 1.6
+* BSF-3.0 can be deployed and used on Java 1.4+ - it does not require Java 1.6
 
 Incomplete packages
 -------------------
