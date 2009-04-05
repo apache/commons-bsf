@@ -26,36 +26,70 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * A simple implementation of Bindings, backed by a HashMap (or other Map).
+ * This class is not synchronized (nor is HashMap).
+ * 
  * See Javadoc of <a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Java Scripting API</a>
  */
 public class SimpleBindings implements Bindings {
-	
-	/**
+
+    /**
      * In which the key-value pairs are stored.
-	 */
-    protected Map map;
-	
-    /**
-     * Constructs a SimpleNamespace.
      */
-	public SimpleBindings(){
-        map = new HashMap();
-	}
-    
+    private final Map map;
+
     /**
-     * Constructs a SimpleNamespace and initializes it using a 
+     * Constructs a SimpleBindings.
+     */
+    public SimpleBindings(){
+        map = new HashMap();
+    }
+
+    /**
+     * Constructs a SimpleBindings and initializes it using a 
      * specified map. 
      * 
      * @param map a map which is used to initialize the 
-     *            SimpleNamespace
+     *            SimpleBindings
+     * @throws NullPointerException if the map is null
      */
-	public SimpleBindings(Map map){
-		this.map = map;
-	}
-    
-    
+    public SimpleBindings(Map map){
+        if (map == null){
+            throw new NullPointerException("parameter must not be null");
+        }
+        this.map = map;
+    }
 
+
+
+    /**
+     * Check the conditions which keys need to satisfy:
+     * <br/>
+     * + String<br/>
+     * + non-null<br/>
+     * + non-empty<br/>
+     * 
+     * @param key key to be checked
+     * 
+     * @throws NullPointerException if key is <tt>null</tt> 
+     * @throws ClassCastException if key is not String 
+     * @throws llegalArgumentException if key is empty String
+     */
+    private void validateKey(Object key){
+        if (key == null) {
+            throw new NullPointerException("key must not be null");
+        }
+        if (!(key instanceof String)) {
+            throw new ClassCastException("key must be a String");
+        }
+        if (((String)key).length() == 0) {
+            throw new IllegalArgumentException("key must not be the empty string");
+        }
+    }
+
+    /** {@inheritDoc} */
     public Object put(Object key, Object value) {
+        validateKey(key);
         return put((String) key, value);
     }
 
@@ -67,82 +101,80 @@ public class SimpleBindings implements Bindings {
      * @param key the String value which uniquely identifies the 
      *            object
      * @param value the object to be stored.
-     * @throws NullPointerException if the key is null
-     * @throws IllegalArgumentException if the key empty
-     */
-    public Object put(String key, Object value) {
-      
-        if (key == null) {
-            throw new NullPointerException("key is null");
-        }
-        
-    	if (key.length() == 0) {
-            throw new IllegalArgumentException("key is empty");
-        }       
-		
-    	return map.put(key,value);
-	}
-	
-    /**
-     * Copies all of the mappings from the specified map to this map.
-     * These mappings will replace any mappings that this map had for
-     * any of the keys currently in the specified map.
      * 
-     * @param toMerge mappings to be stored in the map.
-     * @throws IllegalArgumentException if a key is null or is not 
-     *         java.lang.String type in the specified map
+     * @return the previous value for the mapping (may be <tt>null</tt>), or <tt>null</tt> if there was none.
+     * 
+     * @throws NullPointerException if the key is <tt>null</tt>
+     * @throws IllegalArgumentException if the key is empty
      */
-	public void putAll(Map toMerge) {
-        
+    public Object put(String key, Object value) {      
+        validateKey(key);
+        return map.put(key,value);
+    }
+
+    /** {@inheritDoc} */
+    public void putAll(Map toMerge) {
+
         Set keySet= toMerge.keySet();
-		Iterator keys= keySet.iterator();
-		
+        Iterator keys= keySet.iterator();
+
         while (keys.hasNext()) {
-			if (keys.next() instanceof String) {
-				throw new IllegalArgumentException("a key is not a String");
-            }
+            validateKey(keys.next());
         }
-            
-		map.putAll(toMerge);	
-	}
-    
+
+        map.putAll(toMerge);    
+    }
+
+    /** {@inheritDoc} */
     public int size() {
         return map.size();
     }
-    
+
+    /** {@inheritDoc} */
     public void clear() {
         map.clear();    
     }
-    
+
+    /** {@inheritDoc} */
     public boolean isEmpty() {
         return map.isEmpty();
     }
-    
-	public boolean containsKey(Object key) {
-		return map.containsKey(key);
-	}
-	public boolean containsValue(Object value) {
-		return map.containsValue(value);
-	}
-    
+
+    /** {@inheritDoc} */
+    public boolean containsKey(Object key) {
+        validateKey(key);
+        return map.containsKey(key);
+    }
+    /** {@inheritDoc} */
+    public boolean containsValue(Object value) {
+        return map.containsValue(value);
+    }
+
+    /** {@inheritDoc} */
     public Collection values() {
         return map.values();
     }
-    
-	public Set entrySet() {
-		return map.entrySet();
-	}
-	
+
+    /** {@inheritDoc} */
+    public Set entrySet() {
+        return map.entrySet();
+    }
+
+    /** {@inheritDoc} */
     public Object get(Object key) {
-		return map.get(key);
-	}
+        validateKey(key);
+        return map.get(key);
+    }
 
-	public Set keySet() {
-		return map.keySet();
-	}
+    /** {@inheritDoc} */
+    public Set keySet() {
+        return map.keySet();
+    }
 
+    /** {@inheritDoc} */
     public Object remove(Object key) {
-		return map.remove(key);
-	}
+        validateKey(key);
+        return map.remove(key);
+    }
 
 }

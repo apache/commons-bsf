@@ -20,35 +20,34 @@ package javax.script;
 import java.io.Reader;
 
 /**
+ * Optional interface implemented by script engines which
+ * can compile scripts to a form that can be executed repeatedly.
+ * <p> 
  * See Javadoc of <a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Java Scripting API</a>
  */
 public interface Compilable {
 
     /**
-     * Returns a CompileScript implementation for the given piece
-     * of script which is a abstraction for the intermediate code 
-     * produced by the compilation.
+     * Compiles the script (sourced from the String) for later execution.
      * 
      * @param script the source of the script represented as String
-     * @return an implementation of CompileScript which can be used 
-     *         to re-execute intermediate code produced by the 
-     *         compilation of script
-     * @throws ScriptException if the compilation fials due to any 
-     *         reason
+     * @return an implementation of {@link CompiledScript} to be executed later
+     *         using one of its eval() methods.
+     *
+     * @throws ScriptException if the compilation fails for any reason
+     * @throws NullPointerException if script is <tt>null</tt>
      */
     public CompiledScript compile(String script) throws ScriptException;
-    
+
     /**
-     * Retruns a CompileScript implementation for the script 
-     * obtained using java.io.Reader as the script source.
+     * Compiles the script (source is read from the Reader) for later execution.
      * 
-     * @param reader the reader form which the script source is 
-     *        obtained
-     * @return an implementation of CompileScript which can be used 
-     *         to re-execute intermediate code produced by the 
-     *         compilation of script
-     * @throws ScriptException if the compilation fials due to any 
-     *         reason
+     * @param reader the reader from which the script source is obtained
+     * @return an implementation of {@link CompiledScript} to be executed later
+     *         using one of its eval() methods.
+     *
+     * @throws ScriptException if the compilation fails for any reason
+     * @throws NullPointerException if reader is <tt>null</tt>
      */
     public CompiledScript compile(Reader reader) throws ScriptException;
 }

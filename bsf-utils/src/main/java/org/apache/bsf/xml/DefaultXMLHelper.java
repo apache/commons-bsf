@@ -34,36 +34,36 @@ import org.w3c.dom.Node;
  */
 public class DefaultXMLHelper extends XMLHelper {
 
-	public OMElement toOMElement(Object scriptXML) throws ScriptException {
+    public OMElement toOMElement(Object scriptXML) throws ScriptException {
         try {
 
-        	StAXOMBuilder builder = new StAXOMBuilder(
+            StAXOMBuilder builder = new StAXOMBuilder(
                 new ByteArrayInputStream(scriptXML.toString().getBytes()));
             return builder.getDocumentElement();
 
         } catch (XMLStreamException e) {
-        	throw new ScriptException(e);
+            throw new ScriptException(e);
         }
-	}
+    }
 
-	public Object toScriptXML(OMElement om) throws ScriptException {
+    public Object toScriptXML(OMElement om) throws ScriptException {
         return om.toString();
-	}
+    }
 
-	public Node toDOMNode(Object scriptXML) throws ScriptException {
-		throw new UnsupportedOperationException("not implemented yet");
-	}
+    public Node toDOMNode(Object scriptXML) throws ScriptException {
+        throw new UnsupportedOperationException("not implemented yet");
+    }
 
-	public Object toScriptXML(XMLStreamReader reader) throws ScriptException {
-		throw new UnsupportedOperationException("not implemented yet");
-	}
+    public Object toScriptXML(XMLStreamReader reader) throws ScriptException {
+        throw new UnsupportedOperationException("not implemented yet");
+    }
 
-	public Object toScriptXML(Node node) throws ScriptException {
-		throw new UnsupportedOperationException("not implemented yet");
-	}
+    public Object toScriptXML(Node node) throws ScriptException {
+        throw new UnsupportedOperationException("not implemented yet");
+    }
 
-	public XMLStreamReader toXMLStreamReader(Object scriptXML) throws ScriptException {
-		throw new UnsupportedOperationException("not implemented yet");
-	}
+    public XMLStreamReader toXMLStreamReader(Object scriptXML) throws ScriptException {
+        throw new UnsupportedOperationException("not implemented yet");
+    }
 
 }

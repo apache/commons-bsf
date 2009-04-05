@@ -30,13 +30,19 @@
 
     <fileSets>
         <fileSet>
+            <directory>.</directory>
+            <outputDirectory>bsf-${bsf.version}</outputDirectory>
+            <includes>
+                <include>RELEASE_NOTES</include>
+            </includes>
+        </fileSet>
+        <fileSet>
             <directory>distribution/src/bin/</directory>
             <outputDirectory>bsf-${bsf.version}</outputDirectory>
             <includes>
                 <include>LICENSE</include>
                 <include>NOTICE</include>
                 <include>README</include>
-                <include>RELEASE_NOTES</include>
             </includes>
         </fileSet>
         <fileSet>

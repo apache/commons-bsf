@@ -31,18 +31,18 @@ import javax.servlet.http.HttpSession;
  * @author Sanka Samaranayake <sanka@opensource.lk>
  */
 public class HttpScriptRequest extends HttpServletRequestWrapper {
-    
-	private HttpScriptContext context;
-    
+
+    private final HttpScriptContext context;
+
     public HttpScriptRequest(HttpScriptContext context, HttpServletRequest req){
         super(req);
         this.context = context;
     }
-    
+
     public RequestDispatcher getRequestDispatcher(String path) {
         return null;
     }
-    
+
     public HttpSession getSession() {
         return (context.useSession()) ? super.getSession() : null;
     }

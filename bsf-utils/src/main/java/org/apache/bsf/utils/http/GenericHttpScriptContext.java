@@ -32,8 +32,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class GenericHttpScriptContext extends SimpleScriptContext implements 	HttpScriptContext {
-    
+public class GenericHttpScriptContext extends SimpleScriptContext implements     HttpScriptContext {
+
     public static final String[] defaultMethods = {"GET", "POST"};
     protected boolean disableScript = false;
     protected boolean displayResults = false;
@@ -44,109 +44,109 @@ public class GenericHttpScriptContext extends SimpleScriptContext implements 	Ht
     protected HttpServletResponse response;
     protected Servlet servlet;
     protected boolean useSession = true;
-    
+
     public GenericHttpScriptContext() {
         super();
     }
-    
+
     public boolean disableScript() {
         return disableScript;
-        
+
     }
-    
+
     public boolean displayResults() {
         return displayResults;
-        
+
     }
-       
+
     public String[] getAllowedLanguages() {
         return languages;
     }
-    
+
     public Object getAttribute(String key, Object value, int scope){
-       
-    	switch (scope) {
-    		case HttpScriptContext.ENGINE_SCOPE:
-    			return request.getAttribute(key);
-    		case HttpScriptContext.SESSION_SCOPE:
-    			if (useSession()) {
-    				return request.getSession().getAttribute(key);
-    			} else {
-    				return null;
-    			}
-    		case HttpScriptContext.APPLICATION_SCOPE:
-    			return servlet.getServletConfig().getServletContext().getAttribute(key);
-    		default:
-    			return null;
-    	}
+
+        switch (scope) {
+            case HttpScriptContext.ENGINE_SCOPE:
+                return request.getAttribute(key);
+            case HttpScriptContext.SESSION_SCOPE:
+                if (useSession()) {
+                    return request.getSession().getAttribute(key);
+                } else {
+                    return null;
+                }
+            case HttpScriptContext.APPLICATION_SCOPE:
+                return servlet.getServletConfig().getServletContext().getAttribute(key);
+            default:
+                return null;
+        }
     }
 
-    
+
     public void setAttribute(String key, Object value, int scope)
             throws IllegalArgumentException {
-    	
-    	switch (scope) {
-    		case HttpScriptContext.REQUEST_SCOPE:
-    			request.setAttribute(key, value);
-    			break;
-    		case HttpScriptContext.SESSION_SCOPE:
-    			if (useSession()) {
+
+        switch (scope) {
+            case HttpScriptContext.REQUEST_SCOPE:
+                request.setAttribute(key, value);
+                break;
+            case HttpScriptContext.SESSION_SCOPE:
+                if (useSession()) {
                     request.getSession().setAttribute(key, value);
                 } else {
                     throw new IllegalArgumentException("Session is disabled");
                 }
-    			break;
-    		case HttpScriptContext.APPLICATION_SCOPE:
-    			servlet.getServletConfig().getServletContext().setAttribute(
-    		        key, value);
-    			break;
-    		default:
-    			throw new IllegalArgumentException("Invalid scope");
-    	}
+                break;
+            case HttpScriptContext.APPLICATION_SCOPE:
+                servlet.getServletConfig().getServletContext().setAttribute(
+                    key, value);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid scope");
+        }
     }
-    
-	public void forward(String relativePath) throws ServletException, IOException {
-        
-		ServletContext context =  servlet.getServletConfig().getServletContext();
+
+    public void forward(String relativePath) throws ServletException, IOException {
+
+        ServletContext context =  servlet.getServletConfig().getServletContext();
 
         String baseURI;
         String requestURI = request.getRequestURI();
-        
+
         if(relativePath.startsWith("/")){
             baseURI = requestURI.substring(0, request.getContextPath().length());
-            
+
         }else{
             baseURI = requestURI.substring(0, requestURI.lastIndexOf("/"));
         }
-        
+
         context.getRequestDispatcher(baseURI+relativePath).forward(request, response);
-	}
-	
+    }
 
-	public String[] getMethods() {
-		return methods;
-	}
 
-	public HttpServletRequest getRequest() {
+    public String[] getMethods() {
+        return methods;
+    }
+
+    public HttpServletRequest getRequest() {
         return new HttpScriptRequest(this, request);        
-	}
-	
-	public HttpServletResponse getResponse() {
-		return new HttpScriptResponse(this, response);
-	}
-	
+    }
+
+    public HttpServletResponse getResponse() {
+        return new HttpScriptResponse(this, response);
+    }
+
     public Reader getScriptSource() {
-        
-    	String requestURI = request.getRequestURI();
+
+        String requestURI = request.getRequestURI();
         String resourcePath =
             requestURI.substring(request.getContextPath().length());
-        
+
         if(scriptDir == null){
         // should I construct a reader by combing contextRoot+ resourcePath
         }else{
             String fullPath;
             if(scriptDir.endsWith("/") || resourcePath.startsWith("/")){
-            	fullPath = scriptDir + resourcePath;
+                fullPath = scriptDir + resourcePath;
             }else{
                 fullPath = scriptDir+"/"+resourcePath;
             }
@@ -155,94 +155,94 @@ public class GenericHttpScriptContext extends SimpleScriptContext implements 	Ht
             }catch(IOException ioe){
             }
         }
-        
+
         return null;
-	}
-	
-	public Servlet getServlet() {
-		return servlet;
-	}
-	
+    }
+
+    public Servlet getServlet() {
+        return servlet;
+    }
+
     public void include(String relativePath) throws ServletException, IOException {
         ServletContext context =  servlet.getServletConfig().getServletContext();
 
         String baseURI;
         String requestURI = request.getRequestURI();
-        
+
         if(relativePath.startsWith("/")){
             baseURI = requestURI.substring(0, request.getContextPath().length());
-            
+
         }else{
             baseURI = requestURI.substring(0, requestURI.lastIndexOf("/"));
         }
-        
+
         context.getRequestDispatcher(baseURI+relativePath).include(request, response);       
-	}
-	
+    }
+
     public void initialize(Servlet servlet, HttpServletRequest request,
             HttpServletResponse response) throws ServletException {
-		
+
         this.request = request;
-		this.response = response;
+        this.response = response;
         this.servlet = servlet;
-        
+
         ServletContext context = servlet.getServletConfig().getServletContext();
-        
+
         scriptDir = context.getInitParameter("script-directory");
-        
+
         if(scriptDir == null || !(new File(scriptDir).isDirectory())){
             throw new ServletException("Specifed script directory either does " +
                     "not exist or not a directory");
         }
-       
+
         String disable = context.getInitParameter("script-disable");
         if(disable != null && disable.equals("true")){
             disableScript = true;
             return;
         }
-        
+
         String session = context.getInitParameter("script-use-session");
         if(session != null && session.equals("false")){
             useSession = false;
         }
-        
+
         String display = context.getInitParameter("script-display-results");
         if(display != null && display.equals("true")){
             displayResults = true;
         }
-        
+
         String methodNames = context.getInitParameter("script-methods");
         if(methodNames != null){
             methods = methodNames.split(",");
         }else{
             methods = defaultMethods;
         }
-        
+
         String languageNames = context.getInitParameter("allowed-languages");
         if(languageNames != null){
             languages = languageNames.split(",");
         }       
     }
-	
-	public void release() {
+
+    public void release() {
         disableScript = false;
         displayResults = false;
         useSession = true;
-		servlet = null;
-		request = null;
-		response = null;
-	}
-	
-	
-	public boolean useSession() {
-		return useSession;
-	}
+        servlet = null;
+        request = null;
+        response = null;
+    }
+
+
+    public boolean useSession() {
+        return useSession;
+    }
 
     public Writer getWriter() {
         try{
             return response.getWriter();
        }catch(IOException ioe){
-       		return null;
+               return null;
        }
     }
 }

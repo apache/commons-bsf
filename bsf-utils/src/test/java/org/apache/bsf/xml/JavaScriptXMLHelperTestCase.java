@@ -33,33 +33,33 @@ import org.mozilla.javascript.xml.XMLObject;
  */
 public class JavaScriptXMLHelperTestCase extends TestCase {
 
-	private ScriptEngine engine;
+    private ScriptEngine engine;
 
-	private XMLHelper xmlHelper;
+    private XMLHelper xmlHelper;
 
-	public void testToOmElement() throws ScriptException {
-		Object scriptXML = engine.eval("<a><b>petra</b></a>");
-		assertTrue(scriptXML instanceof XMLObject);
+    public void testToOmElement() throws ScriptException {
+        Object scriptXML = engine.eval("<a><b>petra</b></a>");
+        assertTrue(scriptXML instanceof XMLObject);
 
-		OMElement om = xmlHelper.toOMElement(scriptXML);
-		assertNotNull(om);
-		assertEquals("<a><b>petra</b></a>", om.toString());
-	}
+        OMElement om = xmlHelper.toOMElement(scriptXML);
+        assertNotNull(om);
+        assertEquals("<a><b>petra</b></a>", om.toString());
+    }
 
-	public void testToScriptXML() throws ScriptException {
-		OMElement om = xmlHelper.toOMElement(engine.eval("<a><b>petra</b></a>"));
+    public void testToScriptXML() throws ScriptException {
+        OMElement om = xmlHelper.toOMElement(engine.eval("<a><b>petra</b></a>"));
 
-		Bindings bindings = engine.createBindings();
-		bindings.put("xml", xmlHelper.toScriptXML(om));
+        Bindings bindings = engine.createBindings();
+        bindings.put("xml", xmlHelper.toScriptXML(om));
 
-		assertEquals("xml", engine.eval("typeof xml", bindings));
-		assertEquals("petra", engine.eval("xml.b.toString()", bindings));
-	}
+        assertEquals("xml", engine.eval("typeof xml", bindings));
+        assertEquals("petra", engine.eval("xml.b.toString()", bindings));
+    }
 
-	public void setUp() {
-		ScriptEngineManager manager = new ScriptEngineManager();
-		engine = manager.getEngineByExtension("js");
-		xmlHelper = XMLHelper.getArgHelper(engine);
-	}
+    public void setUp() {
+        ScriptEngineManager manager = new ScriptEngineManager();
+        engine = manager.getEngineByExtension("js");
+        xmlHelper = XMLHelper.getArgHelper(engine);
+    }
 
 }

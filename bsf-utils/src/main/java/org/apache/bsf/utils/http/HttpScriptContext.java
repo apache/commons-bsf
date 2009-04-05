@@ -37,18 +37,18 @@ import javax.servlet.http.HttpServletResponse;
  * @author Sanka Samaranayake  <sanka@opensource.lk>
  */
 public interface HttpScriptContext extends ScriptContext {
-	
-	// TODO: Workout what these scope values need to be
-	
+
+    // TODO: Workout what these scope values need to be
+
     /** Integer value for the level of SCRIPT_SCOPE */
-	public static final int REQUEST_SCOPE = 0;
-    
-	/** Integer value for the level of SESSION_SCOPE */   
-	public static final int SESSION_SCOPE = 300;
-    
-	/** Integer value for the level of APPLICATION_SCOPE */
-	public static final int APPLICATION_SCOPE = 400;
-    
+    public static final int REQUEST_SCOPE = 0;
+
+    /** Integer value for the level of SESSION_SCOPE */   
+    public static final int SESSION_SCOPE = 300;
+
+    /** Integer value for the level of APPLICATION_SCOPE */
+    public static final int APPLICATION_SCOPE = 400;
+
     /**
      * Retrieves a boolean value which indicates whether the script 
      * execution has been disabled in the Web Application.
@@ -57,7 +57,7 @@ public interface HttpScriptContext extends ScriptContext {
      *         allowed
      */
     public boolean disableScript();
-    
+
     /**
      * Retrieves a boolean value which indicates whether the
      * HttpScriptServlet executing in this context should display the
@@ -67,7 +67,7 @@ public interface HttpScriptContext extends ScriptContext {
      *         eveluations should be displayed
      */
     public boolean displayResults();
-    
+
     /**
      * Forwards the request to the resource identified by the 
      * specified relative path.
@@ -79,7 +79,7 @@ public interface HttpScriptContext extends ScriptContext {
      */
     public void forward(String relativePath) 
             throws ServletException, IOException;
-    
+
     /**
      * Retrieves an array of Strings describing the languages that may
      * be used by scripts which is running in the associated 
@@ -88,30 +88,7 @@ public interface HttpScriptContext extends ScriptContext {
      * @return a String array of permitted languages 
      */
     public String[] getAllowedLanguages();
-    
-    /**
-     * Retrieves the value for the specified key in the lowest scope 
-     * in which the key is defined. Returns null if the specified key
-     * is not defiend in any scope.
-     * 
-     * @param name  the name of the value to be retrieved
-     * @return the value associated with the specified key
-     */
-    public Object getAttribute(String name);
-    
-    /**
-     * Retrieves the value associated with the specified key in 
-     * specified level of scope. 
-     * 
-     * @param scope the integer value of level of scope
-     * @return the value associated with specified key in the 
-     *         specified level of scope
-     * @throws IllegalArgumentException if name is null or the scope 
-     *         is invalid 
-     */
-    public Object getAttribute(String name,int scope) throws 
-            IllegalArgumentException;
-    
+
     /**
      * Retrieves an array of string describing HTTP request methods 
      * which are handled by servlets executing in current context.
@@ -120,7 +97,7 @@ public interface HttpScriptContext extends ScriptContext {
      *         servelts in the current context
      */
     public String[] getMethods();
-    
+
     /**
      * Retrieves a HttpScriptRequest for the current request. If the
      * session state is disabled, an adapter whose getSession() 
@@ -129,14 +106,14 @@ public interface HttpScriptContext extends ScriptContext {
      * @return the current request
      */
     public HttpServletRequest getRequest();
-    
+
     /**
      * Retrieves a HttpScriptResponse for the current request.
      * 
      * @return the current response
      */
     public HttpServletResponse getResponse();
-    
+
     /**
      * Retrieves a reader form which the executing script can be 
      * read.
@@ -144,14 +121,14 @@ public interface HttpScriptContext extends ScriptContext {
      * @return a reader from which the script can be read.
      */
     public Reader getScriptSource();
-    
+
     /**
      * Retrieves the associated HttpScriptServlet.
      * 
      * @return a reader form which the script source can be read
      */
     public Servlet getServlet();
-    
+
     /**
      * Includes the resource in the sepcified relative path.
      *  
@@ -163,7 +140,7 @@ public interface HttpScriptContext extends ScriptContext {
      */
     public void include(String relativePath) throws IOException, 
             ServletException;
-    
+
     /**
      * Initialize the current HttpScriptContext for processing of 
      * single request. Implementation must initialize request, 
@@ -176,30 +153,16 @@ public interface HttpScriptContext extends ScriptContext {
      * @throws ServletException if the servlet cannot handle the HTTP
      *         request
      */
-	public void initialize(Servlet servlet,
-			HttpServletRequest req,HttpServletResponse res) throws 
+    public void initialize(Servlet servlet,
+            HttpServletRequest req,HttpServletResponse res) throws 
             ServletException;
 
-	/**
+    /**
      * Clears any state stored in the current HttpScriptContext such 
      * that it can be reused to serve another request.
      */
     public void release();
-       
-    /**
-     * Sets the value for the specified key in the specified level of
-     * scope.
-     * 
-     * @param name  the key associated with the specified value
-     * @param value the value associated with the specified key
-     * @param scope the level of scope
-     * @throws IllegalArgumentException if the level of scope is 
-     *         invalid
-     * @throws IllegalStateException if the session is either invalid
-     *         or diabled
-     */
-    public void setAttribute(String name,Object value,int scope);
-    
+
     /**
      * Retrieves a boolean value which indicates whether the 
      * HttpSession associated with the current request is exposed in 
@@ -208,5 +171,5 @@ public interface HttpScriptContext extends ScriptContext {
      * @return a boolean value which indicates whether the session is
      *         vaild 
      */
-	public boolean useSession();
+    public boolean useSession();
 }

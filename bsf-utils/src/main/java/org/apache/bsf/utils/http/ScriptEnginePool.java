@@ -27,32 +27,35 @@ import javax.script.ScriptEngineFactory;
 public class ScriptEnginePool {
 
     static private final int DEFAULT_SIZE = 10;
-    private LinkedList pool = new LinkedList();
+    private final LinkedList pool = new LinkedList();
+    //GuardedBy("this")
     private int engines = 0;
-    private int capacity = 0;
-    private ScriptEngineFactory factory;
-    private boolean isMultithreaded = false;
-    
+    private final int capacity;
+    private final ScriptEngineFactory factory;
+    private final boolean isMultithreaded;
+
     public ScriptEnginePool(ScriptEngineFactory factory, int capacity){
-    	this.factory = factory;
+        this.factory = factory;
         this.capacity = capacity;
-        
+
         String param = (String)factory.getParameter("THREADING");
         if (param != null && param.equals("MULTITHREADED")) {
             this.isMultithreaded = true;
             pool.add(factory.getScriptEngine());
-        }              	
+        } else {
+            this.isMultithreaded = false;
+        }
     }
-    
+
     public ScriptEnginePool(ScriptEngineFactory factory){
         this(factory,DEFAULT_SIZE);
      }
-       
+
     public synchronized void free(ScriptEngine eng){
         pool.add(eng); // should I clear the engine namespaces .. 
         notifyAll();
     }
-    
+
     public synchronized ScriptEngine get(){
         if (isMultithreadingSupported()) {
             return (ScriptEngine) pool.getFirst();
@@ -65,22 +68,18 @@ public class ScriptEnginePool {
                     return factory.getScriptEngine();
                 }
                 while (!pool.isEmpty()) {
-                    waiting();
+                    try{
+                        wait();            
+                    }catch(InterruptedException ie){
+                    }
                 }
                 return (ScriptEngine) pool.removeFirst();
             }
         }
     }
-    
+
     public boolean isMultithreadingSupported(){
         return this.isMultithreaded;
     }
-    
-    public void waiting(){
-        try{
-            wait();            
-        }catch(InterruptedException ie){
-        }
-    }
-    
+
 }

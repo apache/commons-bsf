@@ -35,28 +35,28 @@ import org.mozilla.javascript.xml.XMLObject;
  */
 public class JavaScriptE4XAxiomHelper extends DefaultXMLHelper {
 
-	private Scriptable scope;
+    private final Scriptable scope;
 
     JavaScriptE4XAxiomHelper(ScriptEngine engine) {
 
-    	// tell Rhino to use Axiom E4X impl
+        // tell Rhino to use Axiom E4X impl
         if (!ContextFactory.hasExplicitGlobal()) {
-	     	ContextFactory.initGlobal(new AxiomE4XContextFactory());
+             ContextFactory.initGlobal(new AxiomE4XContextFactory());
         }
 
-    	Context cx = Context.enter();
-	    try {
+        Context cx = Context.enter();
+        try {
 
-	    	this.scope = cx.initStandardObjects();
+            this.scope = cx.initStandardObjects();
 
-	    } finally {
-	        Context.exit();
-	    }
-	}
+        } finally {
+            Context.exit();
+        }
+    }
 
-	public OMElement toOMElement(Object scriptXML) throws ScriptException {
+    public OMElement toOMElement(Object scriptXML) throws ScriptException {
         if (scriptXML == null) {
-        	return null;
+            return null;
         }
 
         if (!(scriptXML instanceof XMLObject)) {
@@ -66,28 +66,28 @@ public class JavaScriptE4XAxiomHelper extends DefaultXMLHelper {
         Object o = ScriptableObject.callMethod( (Scriptable) scriptXML, "getXmlObject", new Object[0]);
         return (OMElement) o;
 //        return (OMElement) ScriptableObject.callMethod( (Scriptable) scriptXML, "getXmlObject", new Object[0]);
-	}
+    }
 
-	public Object toScriptXML(OMElement om) throws ScriptException {
+    public Object toScriptXML(OMElement om) throws ScriptException {
         if (om == null) {
-        	return null;
+            return null;
         }
         Context cx = Context.enter();
         try {
 
-        	// TODO: why is this needed? A bug in axiom-e4x?
-	      	ContextHelper.setTopCallScope(cx, scope);
+            // TODO: why is this needed? A bug in axiom-e4x?
+              ContextHelper.setTopCallScope(cx, scope);
 
            return cx.newObject(scope, "XML", new Object[]{om});
 
         } finally {
             Context.exit();
         }
-	}
+    }
 
-	public static void init() {
-	    ContextFactory.initGlobal(new AxiomE4XContextFactory());
-	}
+    public static void init() {
+        ContextFactory.initGlobal(new AxiomE4XContextFactory());
+    }
 }
 
 class AxiomE4XContextFactory extends ContextFactory {

@@ -33,36 +33,36 @@ import org.apache.axiom.om.impl.builder.StAXOMBuilder;
  */
 public class JRubyReXMLHelper extends DefaultXMLHelper {
 
-	private ScriptEngine scriptEngine;
+    private final ScriptEngine scriptEngine;
 
-	JRubyReXMLHelper(ScriptEngine scriptEngine) {
-		this.scriptEngine = scriptEngine;
-	}
+    JRubyReXMLHelper(ScriptEngine scriptEngine) {
+        this.scriptEngine = scriptEngine;
+    }
 
-	public OMElement toOMElement(Object scriptXML) throws ScriptException {
-		if (scriptXML == null) {
-			return null;
-		}
-		try {
+    public OMElement toOMElement(Object scriptXML) throws ScriptException {
+        if (scriptXML == null) {
+            return null;
+        }
+        try {
 
-			byte[] xmlBytes = scriptXML.toString().getBytes();
-			StAXOMBuilder builder = new StAXOMBuilder(new ByteArrayInputStream(xmlBytes));
-			return builder.getDocumentElement();
+            byte[] xmlBytes = scriptXML.toString().getBytes();
+            StAXOMBuilder builder = new StAXOMBuilder(new ByteArrayInputStream(xmlBytes));
+            return builder.getDocumentElement();
 
-		} catch (Exception e) {
-			throw new ScriptException(e);
-		}
-	}
+        } catch (Exception e) {
+            throw new ScriptException(e);
+        }
+    }
 
-	public Object toScriptXML(OMElement om) throws ScriptException {
-		if (om == null) {
-			return null;
-		}
-		StringBuffer srcFragment = new StringBuffer("Document.new(<<EOF\n");
-		srcFragment.append(om.toString());
-		srcFragment.append("\nEOF\n");
-		srcFragment.append(")");
-		return scriptEngine.eval(srcFragment.toString());
-	}
+    public Object toScriptXML(OMElement om) throws ScriptException {
+        if (om == null) {
+            return null;
+        }
+        StringBuffer srcFragment = new StringBuffer("Document.new(<<EOF\n");
+        srcFragment.append(om.toString());
+        srcFragment.append("\nEOF\n");
+        srcFragment.append(")");
+        return scriptEngine.eval(srcFragment.toString());
+    }
 
 }
