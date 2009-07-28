@@ -84,6 +84,9 @@
         <!-- Now zip all that up into a single jar -->
 
         <zip destfile="${basedir}/target/bsf-engines.tmp.jar" basedir="${merged.engines.dir}" />
+    	
+    	<!-- Delete work directory -->
+        <delete dir="${merged.engines.dir}" />
 
         <!-- Use Retroweaver to convert all the classes to JDK 1.4 -->
 
