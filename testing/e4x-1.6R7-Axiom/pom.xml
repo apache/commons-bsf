@@ -35,7 +35,7 @@
        <!-- This is for the WSO2 E4X impl -->
        <repository>
           <id>wso2</id>
-          <url>http://dist.wso2.org/maven2/</url>
+          <url>http://dist.wso2.org/maven2</url>
           <snapshots>
              <enabled>true</enabled>
           </snapshots>
