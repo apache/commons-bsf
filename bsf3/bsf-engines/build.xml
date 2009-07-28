@@ -27,7 +27,7 @@
     <target name="check-merged">
         <condition property="already.merged" >
            <and>
-              <available file="${basedir}/target/bsf-engines.jar"/>
+              <available file="${basedir}/target/bsf-engines-${bsf.version}.jar"/>
            </and>
         </condition>
 
