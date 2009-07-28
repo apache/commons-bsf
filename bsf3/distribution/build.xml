@@ -35,6 +35,9 @@
         <copy file="${basedir}/src/bin/NOTICE" tofile="${basedir}/target/bsf-all/NOTICE" overwrite="true" />
 
         <zip destfile="${basedir}/target/bsf-all-${bsf.version}.jar" basedir="${basedir}/target/bsf-all" />
+    	
+    	<!-- Remove work directory -->
+    	<delete dir="${basedir}/target/bsf-all"/>
 
         <!-- these are required for the mvn install command to work correctly -->
         <condition property="maven.suffix" value="">
