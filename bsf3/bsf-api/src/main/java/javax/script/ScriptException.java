@@ -149,10 +149,10 @@ public class ScriptException extends Exception {
             buffer.append("in: " + fileName);
         }
         if (lineNumber != -1) {
-            buffer.append("at line no: " + lineNumber);
+            buffer.append(" at line no: " + lineNumber);
         }
         if (columnNumber != -1) {
-            buffer.append("at column number: " + columnNumber);
+            buffer.append(" at column number: " + columnNumber);
         }
         return buffer.toString();        
     }
