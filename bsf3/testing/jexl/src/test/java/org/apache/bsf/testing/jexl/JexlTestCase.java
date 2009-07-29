@@ -26,7 +26,7 @@ import javax.script.ScriptException;
 import junit.framework.TestCase;
 
 /**
- * Simple hello testcase to verify basic Jython functionality
+ * Simple testcase to verify basic Jexl functionality
  */
 public class JexlTestCase extends TestCase {
 
