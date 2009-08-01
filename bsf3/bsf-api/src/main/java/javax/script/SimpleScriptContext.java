@@ -96,9 +96,10 @@ public class SimpleScriptContext implements ScriptContext {
 
         checkName(name);
 
-        if (engineScope.get(name) != null) {
-            return engineScope.get(name);
-        } else if (globalScope != null && globalScope.get(name) != null) {
+        final Object engineObject = engineScope.get(name);
+        if (engineObject != null) {
+            return engineObject;
+        } else if (globalScope != null) {
             return globalScope.get(name);
         } else {
             return null;            
