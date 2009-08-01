@@ -147,14 +147,14 @@ public interface ScriptContext {
      * Associates a specified value with the specifed name in the
      * specified scope. 
      * 
-     * @param key   the name of the attribute
+     * @param name  the name of the attribute
      * @param value the value of the attribute
      * @param scope the scope
      * @throws IllegalArgumentException if the name is <tt>null</tt> or the
      *         scope is invalid
      * @throws NullPointerException if the name is <tt>null</tt>.
      */
-    public void setAttribute(String key,Object value,int scope);
+    public void setAttribute(String name, Object value, int scope);
 
     /**
      * Associates the specified Bindings with the specified scope. 
