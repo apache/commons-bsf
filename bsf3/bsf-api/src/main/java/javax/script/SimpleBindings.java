@@ -87,12 +87,6 @@ public class SimpleBindings implements Bindings {
         }
     }
 
-    /** {@inheritDoc} */
-    public Object put(Object key, Object value) {
-        validateKey(key);
-        return put((String) key, value);
-    }
-
     /**
      * Associates the specified value with the specified key in a 
      * java.util.Map. If the map previously contained a mapping for 
@@ -113,7 +107,7 @@ public class SimpleBindings implements Bindings {
     }
 
     /** {@inheritDoc} */
-    public void putAll(Map toMerge) {
+    public void putAll(Map/*<? extends String,? extends Object>*/ toMerge) {
 
         Set keySet= toMerge.keySet();
         Iterator keys= keySet.iterator();
@@ -156,7 +150,7 @@ public class SimpleBindings implements Bindings {
     }
 
     /** {@inheritDoc} */
-    public Set entrySet() {
+    public Set/*<Map.Entry<String,Object>>*/ entrySet() {
         return map.entrySet();
     }
 
@@ -167,7 +161,7 @@ public class SimpleBindings implements Bindings {
     }
 
     /** {@inheritDoc} */
-    public Set keySet() {
+    public Set/*<String*/ keySet() {
         return map.keySet();
     }
 

@@ -42,7 +42,7 @@ public interface Bindings extends Map{
      * @throws ClassCastException if the key is not a String
      * @throws IllegalArgumentException if the key is an empty string
      */
-    public Object put(Object key,Object value);
+    public Object put(String key, Object value);
 
     /**
      * Copies all of the mappings from the specified map to this map.
@@ -57,7 +57,7 @@ public interface Bindings extends Map{
      *         if some key in the map is an empty String
      * @throws ClassCastException if some key in the map is not a String 
      */
-    public void putAll(Map toMerge);
+    public void putAll(Map/*<? extends String,? extends Object>*/ toMerge);
 
      /**
       * Returns true if this map contains a mapping for the specified key.
