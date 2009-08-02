@@ -25,7 +25,7 @@ import java.util.Map;
  * 
  * See Javadoc of <a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Java Scripting API</a>
  */
-public interface Bindings extends Map{
+public interface Bindings extends Map/*<String,Object>*/ {
 
     /**
      * Associates the specified value with the specified key in a 
