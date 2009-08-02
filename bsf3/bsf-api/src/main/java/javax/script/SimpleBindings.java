@@ -36,13 +36,13 @@ public class SimpleBindings implements Bindings {
     /**
      * In which the key-value pairs are stored.
      */
-    private final Map map;
+    private final Map/*<String,Object>*/ map;
 
     /**
      * Constructs a SimpleBindings.
      */
     public SimpleBindings(){
-        map = new HashMap();
+        map = new HashMap/*<String,Object>*/();
     }
 
     /**
@@ -53,7 +53,7 @@ public class SimpleBindings implements Bindings {
      *            SimpleBindings
      * @throws NullPointerException if the map is null
      */
-    public SimpleBindings(Map map){
+    public SimpleBindings(Map/*<String,Object>*/ map){
         if (map == null){
             throw new NullPointerException("parameter must not be null");
         }
@@ -102,6 +102,16 @@ public class SimpleBindings implements Bindings {
      * @throws IllegalArgumentException if the key is empty
      */
     public Object put(String key, Object value) {      
+        validateKey(key);
+        return map.put(key,value);
+    }
+
+    /**
+     * This method is only needed for Java 1.4 compatibility.
+     * 
+     * @deprecated use put(String, Object) instead
+     */
+    public Object put(Object key, Object value) {
         validateKey(key);
         return map.put(key,value);
     }
@@ -161,7 +171,7 @@ public class SimpleBindings implements Bindings {
     }
 
     /** {@inheritDoc} */
-    public Set/*<String*/ keySet() {
+    public Set/*<String>*/ keySet() {
         return map.keySet();
     }
 
@@ -170,5 +180,6 @@ public class SimpleBindings implements Bindings {
         validateKey(key);
         return map.remove(key);
     }
+
 
 }
