@@ -1,3 +1,0 @@
-#list of ScriptEngineFactory's in this package
-org.apache.bsf.engines.javascript.RhinoScriptEngineFactory  #javascript
-
