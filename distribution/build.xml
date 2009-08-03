@@ -27,9 +27,9 @@
     <target name="create-bsf-all">
 
         <mkdir dir="${basedir}/target/bsf-all"/>
-        <unzip src="${localRepository}/org/apache/bsf/bsf-api/${bsf.version}/bsf-api-${bsf.version}.jar" dest="${basedir}/target/bsf-all" overwrite="false"/>
-        <unzip src="${localRepository}/org/apache/bsf/bsf-engines/${bsf.version}/bsf-engines-${bsf.version}.jar" dest="${basedir}/target/bsf-all" overwrite="false"/>
-        <unzip src="${localRepository}/org/apache/bsf/bsf-utils/${bsf.version}/bsf-utils-${bsf.version}.jar" dest="${basedir}/target/bsf-all" overwrite="false"/>
+        <unzip src="${basedir}/../bsf-api/target/bsf-api-${bsf.version}.jar" dest="${basedir}/target/bsf-all" overwrite="false"/>
+        <unzip src="${basedir}/../bsf-engines/target/bsf-engines-${bsf.version}.jar" dest="${basedir}/target/bsf-all" overwrite="false"/>
+        <unzip src="${basedir}/../bsf-utils/target/bsf-utils-${bsf.version}.jar" dest="${basedir}/target/bsf-all" overwrite="false"/>
 
         <copy file="${basedir}/src/bin/LICENSE" tofile="${basedir}/target/bsf-all/LICENSE" overwrite="true" />
         <copy file="${basedir}/src/bin/NOTICE" tofile="${basedir}/target/bsf-all/NOTICE" overwrite="true" />
