@@ -38,6 +38,7 @@ public class RubyTestcase extends TestCase {
 	public void testInvokeFunction() throws ScriptException, NoSuchMethodException {
 		ScriptEngineManager manager = new ScriptEngineManager();
 		ScriptEngine engine = manager.getEngineByExtension("rb");
+		assertNotNull("Engine should not be null",engine);
 		engine.eval("def hello(s)\n   return \"Hello \" + s\nend" );
 		assertTrue(engine instanceof Invocable);
 		Invocable invocableScript = (Invocable) engine;
