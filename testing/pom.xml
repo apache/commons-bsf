@@ -31,26 +31,30 @@
     <packaging>pom</packaging>
     <name>Apache BSF Tests</name>
 
+    <modules>
+        <module>e4x</module>
+        <module>e4x-1.6R7-Axiom</module>
+        <module>groovy</module>
+        <module>groovy-1.1</module>
+        <module>javascript</module>
+        <module>python</module>
+        <module>jython-2.2</module>
+        <module>jruby-1.1.2</module>
+        <module>jruby-1.2.0</module>
+    </modules>
+
     <profiles>
         <profile>
-            <id>default</id>
+            <id>JDK15</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
+                <jdk>1.5</jdk>
             </activation>
             <modules>
-                <module>e4x</module>
-                <module>e4x-1.6R7-Axiom</module>
-                <module>groovy</module>
-                <module>groovy-1.1</module>
-                <module>javascript</module>
-                <module>python</module>
-                <module>jython-2.2</module>
+                <!-- Requires Java 1.5+ to run -->
                 <module>ruby</module>
-                <module>jruby-1.1.2</module>
-                <module>jruby-1.2.0</module>
             </modules>
         </profile>
-
     </profiles>
     
 </project>
