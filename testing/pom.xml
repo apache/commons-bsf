@@ -39,8 +39,6 @@
         <module>javascript</module>
         <module>python</module>
         <module>jython-2.2</module>
-        <module>jruby-1.1.2</module>
-        <module>jruby-1.2.0</module>
     </modules>
 
     <profiles>
@@ -52,6 +50,8 @@
             </activation>
             <modules>
                 <!-- Requires Java 1.5+ to run -->
+                <module>jruby-1.1.2</module>
+                <module>jruby-1.2.0</module>
                 <module>ruby</module>
             </modules>
         </profile>
