@@ -15,7 +15,7 @@ Other useful Maven commands are:
 'mvn clean install'
   - to remove old artifacts and rebuild from scratch
 
-'mvn assembly:assembly -Drelease'
+'mvn assembly:assembly'
   - to build the src and bin distros
 
 'mvn eclipse:eclipse'
