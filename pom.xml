@@ -34,7 +34,7 @@
     <url>http://jakarta.apache.org/bsf/</url>
 
     <properties>
-        <bsf.version>3.0-SNAPSHOT</bsf.version>
+        <bsf.version>${project.version}</bsf.version>
         <junit.version>3.8.2</junit.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
