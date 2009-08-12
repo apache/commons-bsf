@@ -48,6 +48,7 @@
                             <tasks>
                                 <ant target="create-bsf-all">
                                     <property name="localRepository" value="${settings.localRepository}"/>
+                                    <property name="bsf.version" value="${project.version}"/>
                                 </ant>
                             </tasks>
                         </configuration>

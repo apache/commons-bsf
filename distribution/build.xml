@@ -22,8 +22,6 @@
 
 <project name="Create-bsf-all">
 
-    <property name="bsf.version" value="3.0-SNAPSHOT"/>
-
     <target name="create-bsf-all">
 
         <mkdir dir="${basedir}/target/bsf-all"/>
