@@ -24,8 +24,15 @@ They are not needed in order to use the javax.script API.
 Changes from previous releases
 ------------------------------
 
-This 3.0-beta3 release is a maintenance release update to support the latest releases
+This 3.0 release is a maintenance release update to support the latest releases
 of various script language engines.
+
+Compared with 3.0-beta3, the 3.0 release fixes the following:
+* updated test application.
+* BSF-35 Wrong parameter type for [Simple]Bindings.put - key must be a String, not an Object
+* Test run detects Java version and skips tests that don't apply to Java 1.4
+* Added JEXL test.
+* Tidied build process to delete temporary directories
 
 The classes in the javax.script package have been overhauled to align the API, Javadoc and 
 the behaviour with the JSR-223 spec, and several unit tests have been added. 
