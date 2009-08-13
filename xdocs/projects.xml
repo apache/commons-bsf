@@ -157,7 +157,7 @@
         <table>
           <tr>
             <th>Compatibility:</th>
-            <td>Commons JEXL 1.1, with BSF version TBD (Not yet released)</td>
+            <td>Commons JEXL 1.1, with BSF version 2.4</td>
           </tr>
           <tr>
             <th>URL:</th>
