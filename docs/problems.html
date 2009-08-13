@@ -1,5 +1,23 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
+<!--
+
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+
 <!-- Content Stylesheet for Site -->
 
         
@@ -154,55 +172,19 @@
                                   <table border="0" cellspacing="0" cellpadding="2" width="100%">
     <tr><td bgcolor="#828DA6">
       <font color="#ffffff" face="arial,helvetica,sanserif">
-        <a name="Has It Been Fixed?"><strong>Has It Been Fixed?</strong></a>
-      </font>
-    </td></tr>
-    <tr><td>
-      <blockquote>
-                        <p>
-            After examining the debug output, if you still believe that the
-            problem you are having is caused by BSF, chances are that someone
-            else may have already encountered this problem, and perhaps it has
-            been fixed. The next step, therefore, may be to try a nightly build
-            of BSF to see if the problem has been fixed. Nightly builds for BSF
-            are available from the
-            <a href="http://www.apache.org/dist/jakarta/jakarta-bsf/nightly/">
-            Jakarta web site</a>. While BSF nightly builds are typically quite
-            stable and are used by
-            <a href="http://www.apache.org/dist/jakarta/gump/latest/">Gump</a>
-            to build many other Jakarta projects, these builds should
-            nonetheless be treated as experimental. Note that nightly builds
-            do not build many of the optional tasks the come with BSF.
-            A snapshot of these optional tasks is occasionally uploaded to
-            the nightly download
-            <a href="http://www.apache.org/dist/jakarta/jakarta-bsf/nightly/optional/">
-            area</a>. However, even this snapshot does not contain every
-            optional task.
-        </p>
-                    </blockquote>
-    </td></tr>
-  </table>
-                                  <table border="0" cellspacing="0" cellpadding="2" width="100%">
-    <tr><td bgcolor="#828DA6">
-      <font color="#ffffff" face="arial,helvetica,sanserif">
         <a name="Has It Been Reported?"><strong>Has It Been Reported?</strong></a>
       </font>
     </td></tr>
     <tr><td>
       <blockquote>
                         <p>
-            If the current nightly build doesn't resolve your problem, it is
+            It is
             possible that someone else has reported the issue. It is time to
 	    look at the 
-
-	    <!-- (old: http://issues.apache.org/bugzilla/) -->
-
 	    <a href="http://issues.apache.org/jira/browse/BSF">
-            Apache Bug Database (jira)</a>.  This system is easy to use, and it will 
-            let you search the <a href="https://issues.apache.org/jira/secure/IssueNavigator.jspa?mode=hide&amp;requestId=12312131">
-    
-            <!--    <a href="http://issues.apache.org/bugzilla/buglist.cgi?bug_status=UNCONFIRMED&amp;bug_status=NEW&amp;bug_status=ASSIGNED&amp;bug_status=REOPENED&amp;email1=&amp;emailtype1=substring&amp;emailassigned_to1=1&amp;email2=&amp;emailtype2=substring&amp;emailreporter2=1&amp;bugidtype=include&amp;bug_id=&amp;changedin=&amp;votes=&amp;chfieldfrom=&amp;chfieldto=Now&amp;chfieldvalue=&amp;product=BSF&amp;short_desc=&amp;short_desc_type=substring&amp;long_desc=&amp;long_desc_type=substring&amp;bug_file_loc=&amp;bug_file_loc_type=substring&amp;keywords=&amp;keywords_type=anywords&amp;field0-0-0=noop&amp;type0-0-0=noop&amp;value0-0-0=&amp;order=bugs.bug_id"> -->
-
+            Apache Bug Database (JIRA)</a>.  This system is easy to use, and it will 
+            let you search the 
+            <a href="https://issues.apache.org/jira/secure/IssueNavigator.jspa?mode=hide&amp;requestId=12312131">
             currently open</a> and resolved bugs to see if your problem has
             already been reported. If your problem has been reported, you can
             see whether any of the developers have commented, suggesting
@@ -300,10 +282,9 @@
                         <p>
             If you aren't satisfied with just filing a bug report, you can
             try to find the cause of the problem and provide a fix yourself.
-            The best way to do that is by working with the latest code from CVS.
+            The best way to do that is by working with the latest code from SVN.
             Alternatively, you can work with the source code available from the
-            <a href="http://jakarta.apache.org/builds/jakarta-bsf/release/v2.4/src/">
-            source distributions</a>. If you
+            source distributions. If you
             are going to tackle the problem at this level, you may want to
             discuss some details first on the <nobr><code>bsf-dev</code></nobr>
             mailing list. Once you have a fix for the problem, you may submit
@@ -325,9 +306,9 @@
             <font face="verdana" size="-1">
             diff -u Javac.java.orig Javac.java &gt; javac.diffs<br /><br />
             </font>
-            or, if you have source from CVS:<br /><br />
+            or, if you have source from SVN:<br /><br />
             <font face="verdana" size="-1">
-            cvs diff -u Javac.java &gt; javac.diffs<br /><br />
+            svn diff Javac.java &gt; javac.diffs<br /><br />
             </font>
 
            Note: You should give your patch files meaningful names.
@@ -349,7 +330,7 @@
         </td></tr>
         <tr><td colspan="2">
           <div align="center"><font color="#525D76" size="-1"><em>
-          Copyright &#169; 2002-2006, Apache Software Foundation
+          Copyright &#169; 2002-2009, Apache Software Foundation
           </em></font></div>
         </td></tr>
       </table>

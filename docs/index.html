@@ -1,5 +1,23 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
+<!--
+
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+
 <!-- Content Stylesheet for Site -->
 
         
@@ -114,19 +132,32 @@
                 language engines from within Java, as well as an object registry that exposes
                 Java objects to these scripting language engines.
         </p>
+                                <p>
+There are now two different versions of Apache BSF. These have different APIs. 
+The original version of BSF is represented by the BSF 2.x releases (current version 2.4), 
+and uses an API which was originally developed at IBM.
+The new version of Apache BSF is represent by the 3.x release (current version 3.0)
+The 3.x version uses the API defined as part of JSR-223 (javax.script),
+which is included in Java 1.6 onwards.
+However BSF 3.0 will run on Java 1.4+, allowing access to JSR-223 scripting
+for Java 1.4 and Java 1.5. 
+Apache BSF 3.0 is also useful for Java 1.6 as it contains a command-line utility for
+testing JSR-223 scripts, and it also contains a set of factory implementations for many
+languages.
+</p>
                     </blockquote>
     </td></tr>
   </table>
         <table border="0" cellspacing="0" cellpadding="2" width="100%">
     <tr><td bgcolor="#525D76">
       <font color="#ffffff" face="arial,helvetica,sanserif">
-        <a name="Supported Languages"><strong>Supported Languages</strong></a>
+        <a name="Supported Languages - 2.x"><strong>Supported Languages - 2.x</strong></a>
       </font>
     </td></tr>
     <tr><td>
       <blockquote>
                         <p>
-BSF supports several scripting languages currently:
+BSF 2.x supports several scripting languages currently:
 
 <ul>
    <li>
@@ -202,14 +233,36 @@ available on the <a href="projects.html">Related Projects</a> page.
         <table border="0" cellspacing="0" cellpadding="2" width="100%">
     <tr><td bgcolor="#525D76">
       <font color="#ffffff" face="arial,helvetica,sanserif">
-        <a name="Documentation"><strong>Documentation</strong></a>
+        <a name="Documentation (2.x)"><strong>Documentation (2.x)</strong></a>
       </font>
     </td></tr>
     <tr><td>
       <blockquote>
                         <p>
-You can view the documentation for the current release (Jakarta BSF 2.4)
-<a href="manual.html">online</a>
+You can view the <a href="manual.html">documentation for BSF 2.4</a>.
+</p>
+                                <p>
+Documentation and examples are included in the source and binary distributions.
+</p>
+                    </blockquote>
+    </td></tr>
+  </table>
+        <table border="0" cellspacing="0" cellpadding="2" width="100%">
+    <tr><td bgcolor="#525D76">
+      <font color="#ffffff" face="arial,helvetica,sanserif">
+        <a name="Documentation (3.x)"><strong>Documentation (3.x)</strong></a>
+      </font>
+    </td></tr>
+    <tr><td>
+      <blockquote>
+                        <p>
+The following references describe the standard API (javax.script) which is implemented by BSF 3.0:
+<ul>
+<li><a href="http://jcp.org/aboutJava/communityprocess/final/jsr223/index.html">JSR-000223 Scripting for the Java Platform</a> - specification (PDF)</li>
+<li><a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Javadoc for javax.script classes</a> in Java 1.6</li>
+<li><a href="http://java.sun.com/developer/technicalArticles/J2SE/Desktop/scripting/">Scripting for the Java platform (Sun technical article)</a></li>
+</ul>
+Documentation on BSF 3.0 utilities and engines TBA.
 </p>
                                 <p>
 Documentation and examples are included in the source and binary distributions.
@@ -230,61 +283,17 @@ Documentation and examples are included in the source and binary distributions.
     </p>
                                 <ul>
         <li>
-<!--
-<a href="http://www.apache.org/dist/jakarta/jakarta-bsf/release/v2.3/bin/"></a>
--->
             <a href="http://jakarta.apache.org/site/downloads/downloads_bsf.cgi">
                         Download the binary release
              </a>
        </li>
 
         <li>
-<!--
-<a href="http://www.apache.org/dist/jakarta/jakarta-bsf/release/v2.3/src/"></a>
--->
             <a href="http://jakarta.apache.org/site/downloads/downloads_bsf.cgi">
                          Download the source release
             </a>
         </li>
-
-
-<!--
-        <li>
-<a href="http://www.apache.org/dist/jakarta/jakarta-bsf/release/v2.3/rpms/"></a>
-            Download source or binary RPMs</li>
--->
-
     </ul>
-                    </blockquote>
-    </td></tr>
-  </table>
-        <table border="0" cellspacing="0" cellpadding="2" width="100%">
-    <tr><td bgcolor="#525D76">
-      <font color="#ffffff" face="arial,helvetica,sanserif">
-        <a name="Nightly Builds"><strong>Nightly Builds</strong></a>
-      </font>
-    </td></tr>
-    <tr><td>
-      <blockquote>
-                        <p>
-    If you wish to use the latest BSF features, you can try downloading a nightly
-    build from <a href="http://jakarta.apache.org/builds/jakarta-bsf/nightly/">here</a>
-    </p>
-                    </blockquote>
-    </td></tr>
-  </table>
-        <table border="0" cellspacing="0" cellpadding="2" width="100%">
-    <tr><td bgcolor="#525D76">
-      <font color="#ffffff" face="arial,helvetica,sanserif">
-        <a name="Towards BSF 3.0"><strong>Towards BSF 3.0</strong></a>
-      </font>
-    </td></tr>
-    <tr><td>
-      <blockquote>
-                        <p>
-    We are beginning to discuss design details for BSF 3.0. Please
-    read the latest <a href="bsfnews.html">BSF news</a> for more details.
-    </p>
                     </blockquote>
     </td></tr>
   </table>
@@ -316,7 +325,7 @@ Documentation and examples are included in the source and binary distributions.
         </td></tr>
         <tr><td colspan="2">
           <div align="center"><font color="#525D76" size="-1"><em>
-          Copyright &#169; 2002-2006, Apache Software Foundation
+          Copyright &#169; 2002-2009, Apache Software Foundation
           </em></font></div>
         </td></tr>
       </table>
