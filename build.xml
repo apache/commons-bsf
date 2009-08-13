@@ -299,6 +299,7 @@ Copyright:
 
 		<anakia basedir="${site.src}" destdir="${site.dest}/" extension=".html" style="./faq.vsl" projectFile="${site.projectFile}" includes="faq.xml" lastModifiedCheck="true" templatePath="${templ.path}" velocityPropertiesFile="${velocity.props}"/>
 
+		<fixcrlf srcdir="${site.dest}/" includes="**/*.html" fixlast="false"/>
 
 		<copy todir="${site.dest}/images" filtering="no">
 			<fileset dir="${site.src}/images">
