@@ -62,6 +62,7 @@
            </p>
       </subsection>
 
+<!-- 
       <subsection name="Has It Been Fixed?">
          <p>
             After examining the debug output, if you still believe that the
@@ -84,21 +85,16 @@
             optional task.
         </p>
       </subsection>
-
+ -->
       <subsection name="Has It Been Reported?">
          <p>
-            If the current nightly build doesn't resolve your problem, it is
+            It is
             possible that someone else has reported the issue. It is time to
 	    look at the 
-
-	    <!-- (old: http://issues.apache.org/bugzilla/) -->
-
 	    <a href="http://issues.apache.org/jira/browse/BSF">
-            Apache Bug Database (jira)</a>.  This system is easy to use, and it will 
-            let you search the <a href="https://issues.apache.org/jira/secure/IssueNavigator.jspa?mode=hide&amp;requestId=12312131">
-    
-            <!--    <a href="http://issues.apache.org/bugzilla/buglist.cgi?bug_status=UNCONFIRMED&amp;bug_status=NEW&amp;bug_status=ASSIGNED&amp;bug_status=REOPENED&amp;email1=&amp;emailtype1=substring&amp;emailassigned_to1=1&amp;email2=&amp;emailtype2=substring&amp;emailreporter2=1&amp;bugidtype=include&amp;bug_id=&amp;changedin=&amp;votes=&amp;chfieldfrom=&amp;chfieldto=Now&amp;chfieldvalue=&amp;product=BSF&amp;short_desc=&amp;short_desc_type=substring&amp;long_desc=&amp;long_desc_type=substring&amp;bug_file_loc=&amp;bug_file_loc_type=substring&amp;keywords=&amp;keywords_type=anywords&amp;field0-0-0=noop&amp;type0-0-0=noop&amp;value0-0-0=&amp;order=bugs.bug_id"> -->
-
+            Apache Bug Database (JIRA)</a>.  This system is easy to use, and it will 
+            let you search the 
+            <a href="https://issues.apache.org/jira/secure/IssueNavigator.jspa?mode=hide&amp;requestId=12312131">
             currently open</a> and resolved bugs to see if your problem has
             already been reported. If your problem has been reported, you can
             see whether any of the developers have commented, suggesting
@@ -172,10 +168,9 @@
          <p>
             If you aren't satisfied with just filing a bug report, you can
             try to find the cause of the problem and provide a fix yourself.
-            The best way to do that is by working with the latest code from CVS.
+            The best way to do that is by working with the latest code from SVN.
             Alternatively, you can work with the source code available from the
-            <a href="http://jakarta.apache.org/builds/jakarta-bsf/release/v2.4/src/">
-            source distributions</a>. If you
+            source distributions. If you
             are going to tackle the problem at this level, you may want to
             discuss some details first on the <nobr><code>bsf-dev</code></nobr>
             mailing list. Once you have a fix for the problem, you may submit
@@ -197,9 +192,9 @@
             <font face="verdana" size="-1">
             diff -u Javac.java.orig Javac.java &gt; javac.diffs<br></br><br></br>
             </font>
-            or, if you have source from CVS:<br></br><br></br>
+            or, if you have source from SVN:<br></br><br></br>
             <font face="verdana" size="-1">
-            cvs diff -u Javac.java &gt; javac.diffs<br></br><br></br>
+            svn diff Javac.java &gt; javac.diffs<br></br><br></br>
             </font>
 
            Note: You should give your patch files meaningful names.
