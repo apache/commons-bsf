@@ -43,12 +43,25 @@
                 Java objects to these scripting language engines.
         </p>
 
+<p>
+There are now two different versions of Apache BSF. These have different APIs. 
+The original version of BSF is represented by the BSF 2.x releases (current version 2.4), 
+and uses an API which was originally developed at IBM.
+The new version of Apache BSF is represent by the 3.x release (current version 3.0)
+The 3.x version uses the API defined as part of JSR-223 (javax.script),
+which is included in Java 1.6 onwards.
+However BSF 3.0 will run on Java 1.4+, allowing access to JSR-223 scripting
+for Java 1.4 and Java 1.5. 
+Apache BSF 3.0 is also useful for Java 1.6 as it contains a command-line utility for
+testing JSR-223 scripts, and it also contains a set of factory implementations for many
+languages.
+</p>
   </section>
 
-  <section name="Supported Languages">
+  <section name="Supported Languages - 2.x">
 
 <p>
-BSF supports several scripting languages currently:
+BSF 2.x supports several scripting languages currently:
 
 <ul>
    <li>
@@ -123,11 +136,28 @@ available on the <a href="projects.html">Related Projects</a> page.
 
   </section>
 
-  <section name="Documentation">
+  <section name="Documentation (2.x)">
 
 <p>
-You can view the documentation for the current release (Jakarta BSF 2.4)
-<a href="manual.html">online</a>
+You can view the <a href="manual.html">documentation for BSF 2.4</a>.
+</p>
+
+<p>
+Documentation and examples are included in the source and binary distributions.
+</p>
+
+  </section>
+
+  <section name="Documentation (3.x)">
+
+<p>
+The following references describe the standard API (javax.script) which is implemented by BSF 3.0:
+<ul>
+<li><a href="http://jcp.org/aboutJava/communityprocess/final/jsr223/index.html">JSR-000223 Scripting for the Java Platform</a> - specification (PDF)</li>
+<li><a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Javadoc for javax.script classes</a> in Java 1.6</li>
+<li><a href="http://java.sun.com/developer/technicalArticles/J2SE/Desktop/scripting/">Scripting for the Java platform (Sun technical article)</a></li>
+</ul>
+Documentation on BSF 3.0 utilities and engines TBA.
 </p>
 
 <p>
@@ -142,71 +172,18 @@ Documentation and examples are included in the source and binary distributions.
     </p>
     <ul>
         <li>
-<!--
-<a href="http://www.apache.org/dist/jakarta/jakarta-bsf/release/v2.3/bin/"></a>
--->
             <a href="http://jakarta.apache.org/site/downloads/downloads_bsf.cgi">
                         Download the binary release
              </a>
        </li>
 
         <li>
-<!--
-<a href="http://www.apache.org/dist/jakarta/jakarta-bsf/release/v2.3/src/"></a>
--->
             <a href="http://jakarta.apache.org/site/downloads/downloads_bsf.cgi">
                          Download the source release
             </a>
         </li>
-
-
-<!--
-        <li>
-<a href="http://www.apache.org/dist/jakarta/jakarta-bsf/release/v2.3/rpms/"></a>
-            Download source or binary RPMs</li>
--->
-
     </ul>
   </section>
-<!--
-  <section name="Development Release">
-    <p>
-    You can download the latest development release:
-    </p>
-    <ul>
-        <li>
-<a href="http://www.apache.org/dist/jakarta/jakarta-bsf/dev/v2.4.0/bin/">
-            Download the development binary release</a>
-        </li>
-        <li>
-<a href="http://www.apache.org/dist/jakarta/jakarta-bsf/dev/v2.4.0/src/">
-            Download the development source release</a>
-        </li>
-
-
-        <li>
-<a href="http://www.apache.org/dist/jakarta/jakarta-bsf/dev/v2.3.0/rpms/"></a>
-            Download development source or binary RPMs
-        </li>
-
-    </ul>
-  </section>
--->
-  <section name="Nightly Builds">
-    <p>
-    If you wish to use the latest BSF features, you can try downloading a nightly
-    build from <a href="http://jakarta.apache.org/builds/jakarta-bsf/nightly/">here</a>
-    </p>
-
-  </section>
-
-  <section name="Towards BSF 3.0">
-    <p>
-    We are beginning to discuss design details for BSF 3.0. Please
-    read the latest <a href="bsfnews.html">BSF news</a> for more details.
-    </p>
-  </section>
-
   <section name="Get Involved">
 <ul>
 <li><a href="http://jakarta.apache.org/getinvolved/getinvolvedindex.html">Get Involved</a></li>
