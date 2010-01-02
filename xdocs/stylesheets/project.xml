@@ -60,8 +60,8 @@
         <item name="Netiquette"            href="http://www.faqs.org/rfcs/rfc1855.html"/>
         <item name="Mailing Lists"         href="/site/mail.html"/>
         <item name="Reference Library"     href="/site/library.html"/>
-        <item name="Bug Database"          href="http://issues.apache.org/bugzilla/enter_bug.cgi?product=BSF"/>
-        <item name="Enhancement Requests"  href="http://issues.apache.org/bugzilla/enter_bug.cgi?product=BSF&amp;bug_severity=Enhancement"/>
-        <item name="Patch Queue"           href="http://issues.apache.org/bugzilla/buglist.cgi?bug_status=NEW&amp;bug_status=ASSIGNED&amp;bug_status=REOPENED&amp;email1=&amp;emailtype1=substring&amp;emailassigned_to1=1&amp;email2=&amp;emailtype2=substring&amp;emailreporter2=1&amp;bugidtype=include&amp;bug_id=&amp;changedin=&amp;votes=&amp;chfieldfrom=&amp;chfieldto=Now&amp;chfieldvalue=&amp;product=BSF&amp;short_desc=%5BPATCH%5D&amp;short_desc_type=allwordssubstr&amp;long_desc=&amp;long_desc_type=allwordssubstr&amp;bug_file_loc=&amp;bug_file_loc_type=allwordssubstr&amp;keywords=&amp;keywords_type=anywords&amp;field0-0-0=noop&amp;type0-0-0=noop&amp;value0-0-0=&amp;cmdtype=doit&amp;order=Reuse+same+sort+as+last+time"/>    </menu>
+        <item name="Bug Database"          href="http://issues.apache.org/jira/browse/BSF"/>
+        <item name="Enhancement Requests"  href="http://issues.apache.org/jira/secure/IssueNavigator.jspa?reset=true&amp;type=4&amp;pid=12310621&amp;resolution=-1&amp;sorter/field=issuekey&amp;sorter/order=ASC"/>
+    </menu>
     </body>
 </project>
