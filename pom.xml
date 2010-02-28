@@ -72,9 +72,9 @@
     </licenses>
 
     <scm>
-                  <connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/bsf/branches/bsf3.x</connection>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/bsf/branches/bsf3.x</connection>
         <developerConnection>scm:svn:https://svn.apache.org/repos/asf/jakarta/bsf/branches/bsf3.x</developerConnection>
-        <url>http://svn.apache.org/viewvc/jakarta/bsf/trunk/bsf3/</url>
+        <url>http://svn.apache.org/viewvc/jakarta/bsf/branches/bsf3.x/</url>
     </scm>
 
     <organization>
