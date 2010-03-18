@@ -78,4 +78,11 @@ public class ScriptExceptionTest extends TestCase {
             assertFalse(-1 == message.indexOf(""+30));
         }
     }
+
+    public void testBSF29(){
+        final Exception exception = new Exception("exception message");
+        final String expectedMessage =exception.toString();
+        final Exception scriptException = new ScriptException(exception);
+        assertEquals(expectedMessage, scriptException.getMessage());
+    }
 }

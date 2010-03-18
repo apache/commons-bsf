@@ -43,20 +43,16 @@ public class ScriptException extends Exception {
      */
     private final int columnNumber; // default = -1;
 
-    /** Stores the message which describes the cause of error */
-    private final String message; // default null
-
     /**
      * Constructs a new exception with the specified cause.
      * 
      * @param exception the cause of exception
      */
     public ScriptException(Exception exception) {
-              super(exception);
-            this.message = null;
-            this.fileName = null;
-            this.lineNumber = -1;
-            this.columnNumber = -1;
+        super(exception);
+        this.fileName = null;
+        this.lineNumber = -1;
+        this.columnNumber = -1;
     }
 
     /**
@@ -100,7 +96,6 @@ public class ScriptException extends Exception {
      */
     public ScriptException(String message, String fileName, int lineNumber, int columnNumber) {
         super(message);
-        this.message = message;
         this.fileName = fileName;
         this.lineNumber = lineNumber;
         this.columnNumber = columnNumber;
@@ -144,7 +139,7 @@ public class ScriptException extends Exception {
      */
     public String getMessage(){
         StringBuffer buffer = new StringBuffer();
-        buffer.append(message);
+        buffer.append(super.getMessage());
         if (fileName != null) {
             buffer.append("in: " + fileName);
         }
