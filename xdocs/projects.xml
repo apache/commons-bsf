@@ -116,7 +116,7 @@
             <th>URL:</th>
             <td><a href="http://groovy.codehaus.org/Groovy+Monkey">http://groovy.codehaus.org/Groovy+Monkey</a></td>
           </tr>
-    
+
         </table>
       </subsection>
 
@@ -360,7 +360,7 @@
         received the source code from IBM at the end of 2004 and released an opensource version
         to the community in the spring of 2005.
 
-        <br></br><a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">The BSF engine for Rexx (BSF4Rexx) </a> comes with an ooRexx wrapper
+        <br></br><a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4oorexx/current/">The BSF engine for ooRexx (BSF4ooRexx) </a> comes with an ooRexx wrapper
         program (BSF.CLS) which camouflages Java as ooRexx, easying programming
         considerably (e.g. no need for type information/casting).&quot;
         </p>
@@ -396,7 +396,7 @@
 
                   <tr>
                           <th>Relates to:</th>
-                          <td><em>BSF4Rexx</em></td>
+                          <td><em>BSF4ooRexx</em></td>
                   </tr>
 
                   <tr>
@@ -406,12 +406,12 @@
 
                   <tr>
                     <th>URL:</th>
-                     <td><a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/</a> (temporary home)</td>
+                     <td><a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4oorexx/current/">http://wi.wu-wien.ac.at/rgf/rexx/bsf4oorexx/current/</a> (temporary home)</td>
                   </tr>
 
                   <tr>
-                    <th>URL:</th>
-                     <td><a href="http://bsf4rexx.sourceforge.net/">http://bsf4rexx.sourceforge.net (starting at the end of April 2006)</a>  (planned home)</td>
+                    <th>(future) URL:</th>
+                     <td><a href="http://bsf4rexx.sourceforge.net/">http://bsf4rexx.sourceforge.net</a>  (planned home)</td>
                   </tr>
 
                   <tr>

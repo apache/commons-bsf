@@ -217,7 +217,8 @@
 
       <subsection name="The Augsburg Version of BSF4Rexx">
         <p>
-          <a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">&quot;BSF4Rexx&quot;, the Bean Scripting Framework for Rexx</a>, allows one to use the Rexx
+          <a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4oorexx/current/">&quot;BSF4ooRexx&quot;,
+        the Bean Scripting Framework for Rexx</a>, allows one to use the Rexx
          and Object Rexx programming languages with the open source Bean Scripting
          Framework (BSF) which enables Java programs to easily invoke scripts and
          programs written in another language than Java. This article introduces the
@@ -254,8 +255,12 @@
             technology thereby making bleeding edge software concepts available to Java
             programmers. For that reason the JRE has been an attractive target for making its
             functionality available to Rexx programs in the form of external Rexx functions, notably
-            with the <a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">&quot;BSF4Rexx&quot; (Bean Scripting Framework for Rexx)</a> technology introduced at
-            past International Rexx Symposiae. BSF4Rexx supplies a procedural interface to Java,
+            with the
+            <a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4oorexx/current/">&quot;BSF4ooRexx&quot; (Bean Scripting Framework for ooRexx)</a>
+            (old: <a
+            href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">&quot;BSF4Rexx&quot;
+(Bean Scripting Framework for Rexx)</a>) technology introduced at
+            past International Rexx Symposiae. BSF4[oo]Rexx supplies a procedural interface to Java,
             such that Rexx programs need to simply use CALL-statements or function-calls to
             bridge into Java.
         </p>
@@ -264,7 +269,7 @@
             as this may reduce the complexity to refer to Java. This article introduces and
             discusses the architecture and the implementation of Object Rexx wrapper classes that
             hide the procedural interfaces from Object Rexx programmers by embedding the
-            procedural interfaces of BSF4Rexx in Object Rexx methods, allowing e.g. the
+            procedural interfaces of BSF4ooRexx in Object Rexx methods, allowing e.g. the
             invocation of Java methods transparently via Object Rexx messages.
       </p>
         <p>
@@ -309,7 +314,7 @@
       <p>
                 For the programming language Java, OpenOffice supplies a Java interface to
                 UNO, which can also be exploited in rather innovative ways, e.g.  using
-                <a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx (Bean Scripting Framework for Rexx)</a> to bridge between OpenOffice
+                <a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4oorexx/current/">BSF4ooRexx (Bean Scripting Framework for ooRexx)</a> to bridge between OpenOffice
                 and ooRexx.  Such a solution would allow for the driving/scripting of
                 OpenOffice in a platform independent way, allowing customers to eventually
                 break out of possibly undesired lock-ins (e.g.  Windows operating system
@@ -358,7 +363,7 @@
         <p>
                 This work explores and implements scripts which allow driving the source
                 code version control system &quot;subversion&quot; from <a href="http://www.ooRexx.org">ooRexx</a>.  As there are Java
-                implementations for subversion it is possible to employ <a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a> to drive
+                implementations for subversion it is possible to employ <a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4oorexx/current/">BSF4ooRexx</a> to drive
                 the application.
         </p>
 
@@ -385,7 +390,7 @@
           <p>
             This work explores and demonstrates how <a href="http://www.OpenOffice.org">OpenOffice.org</a> can be automated
             via Object REXX by using the Java programming interfaces of OpenOffice.org
-            and <a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a>.
+            and <a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4oorexx/current/">BSF4ooRexx</a>.
           </p>
 
           <p>
@@ -417,7 +422,7 @@
         <p>
                 This work builds on the work of Mr.  Ahammer (above).  It explores and
                 demonstrates how <a href="http://www.OpenOffice.org">OpenOffice.org</a> can be automated via Object REXX by using
-                the Java programming interfaces of OpenOffice.org and <a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a>.
+                the Java programming interfaces of OpenOffice.org and <a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4oorexx/current/">BSF4ooRexx</a>.
         </p>
 
         <p>
@@ -447,7 +452,7 @@
       <subsection name="BSF4Rexx and OpenOffice.org Nutshell-Examples">
         <p>
                 This seminar paper introduces the easy to learn syntax of <a href="http://www.ooRexx.org">Open Object Rexx
-                (ooRexx)</a> and the <a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a> external Rexx function package, which allows the
+                (ooRexx)</a> and the <a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4oorexx/current/">BSF4ooRexx</a> external Rexx function package, which allows the
                 weakly typed language ooRexx to interface with (strictly typed) Java.
         </p>
 
@@ -589,7 +594,7 @@
 
           <subsection name='The Vienna Version of "BSF4Rexx"'>
             <p>
-                    This presentation introduces the &quot;The Vienna Version of <a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a>&quot;,
+                    This presentation introduces the &quot;The Vienna Version of <a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4orexx/current/">BSF4ooRexx</a>&quot;,
                     International Rexx Symposium 2006, Austin, Texas.
             </p>
 
@@ -608,7 +613,7 @@
 
           <subsection name='UNO.CLS: An (Open) Object Rexx Module for Universal Network Objects'>
             <p>
-                    &quot;The Vienna Version of <a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a>&quot;, allows open-platform scripting of
+                    &quot;The Vienna Version of <a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4oorexx/current/">BSF4ooRexx</a>&quot;, allows open-platform scripting of
                     <a href="http://www.OpenOffice.org">OpenOffice.org (OOo)</a> with the help of BSF. This is done by using the Java APIs of OOo via BSF to
                     address the OOo &quot;Universal Network Objects (UNO)&quot; components, which are used to assemble OOo.
                     <br></br>
@@ -644,6 +649,36 @@
               </tr>
             </table>
           </subsection>
+
+
+
+          <subsection name='The 2009 Edition of BSF4Rexx'>
+            <p>
+                    With the advent of the ooRexx 4.0 in the summer of 2009 a new, fully object-oriented kernel has been made available, which allows
+                    to close an important gap between ooRexx and Java, namely synchroneous callbacks from Java into ooRexx and allowing Java
+                    methods to be implemented in Rexx.
+            </p>
+
+             <p>
+                    The article <a href="http://wi.wu.ac.at/rgf/rexx/orx20/2009_orx20_BSF4Rexx-20091031-article.pdf">&quot;The 2009 Edition of BSF4Rexx&quot;</a>
+                    gives an overview of the new features made available in the
+                    BSF4<em>oo</em>Rexx package (note the change in the name of the package from
+                    &quot;BSF4Rexx&quot; to &quot;BSF4<em>oo</em>Rexx&quot;).  Self-explanatory
+                    nutshell examples are used to stress the discussed features.
+            </p>
+
+            <table>
+              <tr>
+                <th>Author:</th>
+                <td><a href="mailto:rony@apache.org">Rony G. Flatscher</a></td>
+              </tr>
+              <tr>
+                <th>URL:</th>
+                <td><a href="http://wi.wu-wien.ac.at/rgf/rexx/orx17/2006_orx17_BSF_ViennaEd.pdf">http://wi.wu-wien.ac.at/rgf/rexx/orx17/2006_orx17_BSF_ViennaEd.pdf</a></td>
+              </tr>
+            </table>
+          </subsection>
+
 
     </section>
   </body>

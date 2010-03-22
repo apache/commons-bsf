@@ -44,14 +44,14 @@
         </p>
 
 <p>
-There are now two different versions of Apache BSF. These have different APIs. 
-The original version of BSF is represented by the BSF 2.x releases (current version 2.4), 
+There are now two different versions of Apache BSF. These have different APIs.
+The original version of BSF is represented by the BSF 2.x releases (current version 2.4),
 and uses an API which was originally developed at IBM.
 The new version of Apache BSF is represent by the 3.x release (current version 3.0)
 The 3.x version uses the API defined as part of JSR-223 (javax.script),
 which is included in Java 1.6 onwards.
 However BSF 3.0 will run on Java 1.4+, allowing access to JSR-223 scripting
-for Java 1.4 and Java 1.5. 
+for Java 1.4 and Java 1.5.
 Apache BSF 3.0 is also useful for Java 1.6 as it contains a command-line utility for
 testing JSR-223 scripts, and it also contains a set of factory implementations for many
 languages.
@@ -123,7 +123,7 @@ BSF 2.x supports several scripting languages currently:
 
    <li>
        	<a href="http://www.oorexx.org/">ooRexx (Open Object Rexx)</a>, using
-    	<a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a>.
+    	<a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4oorexx/current/">BSF4ooRexx</a>.
    </li>
 
 </ul>
