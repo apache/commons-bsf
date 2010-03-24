@@ -45,7 +45,8 @@
             <os family="windows"/>
         </condition>
 
-        <exec executable="mvn${maven.suffix}" dir="${basedir}" failonerror="true">
+        <property name="mvn.path" value="" description="Allows override in case mvn is not on the default path"/>
+        <exec executable="${mvn.path}mvn${maven.suffix}" dir="${basedir}" failonerror="true">
             <arg line="install:install-file -DgroupId=org.apache.bsf -DartifactId=bsf-all -Dversion=${bsf.version} -Dpackaging=jar -DgeneratePom=false -Dfile=${basedir}/target/bsf-all-${bsf.version}.jar"/>
         </exec>
 
