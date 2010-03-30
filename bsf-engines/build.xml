@@ -32,22 +32,6 @@
 
     </target>
 
-    <!-- Install the bsf.engines jar into the local maven repo -->
-    <target name="install-engines" depends="merge-engines">
-        <property name="mvn.path" value="" description="Allows override in case mvn is not on the default path"/>
-        <exec executable="${mvn.path}mvn${maven.suffix}" dir="${basedir}" failonerror="true">
-            <arg value="install:install-file"/>
-            <arg value="-DlocalRepositoryPath=${localRepository}"/>
-            <arg value="-DgroupId=org.apache.bsf"/>
-            <arg value="-DartifactId=bsf-engines"/>
-            <arg value="-Dversion=${bsf.version}"/>
-            <arg value="-Dpackaging=jar"/>
-            <arg value="-DgeneratePom=true"/>
-            <arg value="-Dfile=${basedir}/target/bsf-engines-${bsf.version}.jar"/>
-        </exec>
-
-    </target>
-
     <target name="merge-engines" depends="check-merged, download-engines" unless="already.merged">
 
         <mkdir dir="${basedir}${download.dir}"/>
