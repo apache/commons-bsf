@@ -121,8 +121,8 @@
                             <Implementation-Vendor-Id>org.apache</Implementation-Vendor-Id>
                             <Implementation-Vendor>Apache Software Foundation</Implementation-Vendor>
                             <Implementation-Version>${pom.version}</Implementation-Version>
-                            <X-Compile-Source-JDK>1.4</X-Compile-Source-JDK>
-                            <X-Compile-Target-JDK>1.4</X-Compile-Target-JDK>
+                            <X-Compile-Source-JDK>${maven.compiler.source}</X-Compile-Source-JDK>
+                            <X-Compile-Target-JDK>${maven.compiler.target}</X-Compile-Target-JDK>
                         </manifestEntries>
                     </archive>
                 </configuration>
