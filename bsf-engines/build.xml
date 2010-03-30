@@ -36,7 +36,14 @@
     <target name="install-engines" depends="merge-engines">
         <property name="mvn.path" value="" description="Allows override in case mvn is not on the default path"/>
         <exec executable="${mvn.path}mvn${maven.suffix}" dir="${basedir}" failonerror="true">
-            <arg line="install:install-file -DgroupId=org.apache.bsf -DartifactId=bsf-engines -Dversion=${bsf.version} -Dpackaging=jar -DgeneratePom=true -Dfile=${basedir}/target/bsf-engines-${bsf.version}.jar"/>
+            <arg value="install:install-file"/>
+            <arg value="-DlocalRepositoryPath=${localRepository}"/>
+            <arg value="-DgroupId=org.apache.bsf"/>
+            <arg value="-DartifactId=bsf-engines"/>
+            <arg value="-Dversion=${bsf.version}"/>
+            <arg value="-Dpackaging=jar"/>
+            <arg value="-DgeneratePom=true"/>
+            <arg value="-Dfile=${basedir}/target/bsf-engines-${bsf.version}.jar"/>
         </exec>
 
     </target>
