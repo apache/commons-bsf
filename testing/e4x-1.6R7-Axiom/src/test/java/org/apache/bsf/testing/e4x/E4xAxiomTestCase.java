@@ -88,6 +88,7 @@ public class E4xAxiomTestCase extends TestCase {
 
     protected void setUp() {
         engine = new ScriptEngineManager().getEngineByExtension("js");
+        assertNotNull("Could not load js engine",engine);
         xmlHelper = XMLHelper.getArgHelper(engine);
     }
 
