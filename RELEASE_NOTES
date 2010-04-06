@@ -27,8 +27,11 @@ Changes from previous releases
 This 3.1 release is a maintenance release update to fix a few bugs.
 
 Compared with 3.0, the 3.1 release fixes the following:
+* BSF-30 ScriptEngineManager no longer catches ThreadDeath
 * BSF-29 ScriptException constructed via chained constructor 
   ScriptException(Exception) always returns String "null" for getMessage()
+* Test suite changes: renamed duplicate classes, better support for testing on Java 1.6
+* Prevent Maven deploy from uploading test modules
 
 ----
 
