@@ -32,6 +32,11 @@
     <packaging>pom</packaging>
     <name>Apache BSF Tests</name>
 
+    <!-- We don't want to deploy any of the test modules -->
+    <properties>
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
+
     <modules>
         <module>e4x</module>
         <module>e4x-1.6R7-Axiom</module>

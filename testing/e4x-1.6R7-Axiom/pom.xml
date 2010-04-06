@@ -32,6 +32,11 @@
     <name>Apache BSF testing for JavaScript/E4X 1.6R7 Axiom</name>
     <description>Apache BSF testing for JavaScript/E4X with Rhino 1.6R7 uing Axiom E4X impl</description>
 
+    <!-- We don't want to deploy any of the test modules -->
+    <properties>
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
+
     <repositories>
        <!-- This is for the WSO2 E4X impl -->
        <repository>

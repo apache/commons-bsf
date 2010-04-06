@@ -32,6 +32,11 @@
     <name>Apache BSF testing for Ruby</name>
     <description>Apache BSF testing for Ruby</description>
 
+    <!-- We don't want to deploy any of the test modules -->
+    <properties>
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.bsf</groupId>

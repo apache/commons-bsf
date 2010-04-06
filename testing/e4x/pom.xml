@@ -32,6 +32,11 @@
     <name>Apache BSF testing for JavaScript/E4X</name>
     <description>Apache BSF testing for JavaScript/E4X</description>
 
+    <!-- We don't want to deploy any of the test modules -->
+    <properties>
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
+
     <repositories>
        <!-- This is for the WSO2 E4X impl -->
        <repository>
