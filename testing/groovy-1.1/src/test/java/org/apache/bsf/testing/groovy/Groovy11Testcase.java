@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.    
  */
-package org.apache.bsf.testing.python;
+package org.apache.bsf.testing.groovy;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
@@ -26,17 +26,17 @@ import javax.script.ScriptException;
 import junit.framework.TestCase;
 
 /**
- * Simple hello testcase to verify basic Jython functionality
+ * Simple hello testcase to verify basic Groovy functionality
  */
-public class HelloTestCase extends TestCase {
-
+public class Groovy11Testcase extends TestCase {
+	
 	public void testInvokeFunction() throws ScriptException, NoSuchMethodException {
 		ScriptEngineManager manager = new ScriptEngineManager();
-		ScriptEngine engine = manager.getEngineByExtension("py");
-		engine.eval("def hello(name):\n return 'Hello ' + name");
+		ScriptEngine engine = manager.getEngineByExtension("groovy");
+		engine.eval("def hello(name) { return 'Hello ' + name }" );
 		assertTrue(engine instanceof Invocable);
 		Invocable invocableScript = (Invocable) engine;
-		assertEquals("Hello Monty", invocableScript.invokeFunction("hello", new Object[] { "Monty" }));
+		assertEquals("Hello petra", invocableScript.invokeFunction("hello", new Object[]{"petra"}));
 	}
 
 }

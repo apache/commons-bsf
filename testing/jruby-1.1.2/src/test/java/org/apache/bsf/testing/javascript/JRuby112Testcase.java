@@ -26,7 +26,7 @@ import javax.script.ScriptException;
 import junit.framework.TestCase;
 
 
-public class RubyTestcase extends TestCase {
+public class JRuby112Testcase extends TestCase {
 	
 //	public void testEval() throws ScriptException {
 //		ScriptEngineManager manager = new ScriptEngineManager();

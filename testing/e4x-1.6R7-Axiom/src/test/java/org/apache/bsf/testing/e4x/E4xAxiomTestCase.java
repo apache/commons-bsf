@@ -39,7 +39,7 @@ import org.apache.bsf.xml.XMLHelper;
 /**
  * Tests a basic JavaScrip/E4X invocation
  */
-public class HelloTestCase extends TestCase {
+public class E4xAxiomTestCase extends TestCase {
 
 	private XMLHelper xmlHelper;
 	private ScriptEngine engine;
