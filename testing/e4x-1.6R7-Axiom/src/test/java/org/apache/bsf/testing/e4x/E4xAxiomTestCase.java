@@ -45,6 +45,10 @@ public class E4xAxiomTestCase extends TestCase {
 	private ScriptEngine engine;
 	
 	public void testInvokeFunctionInXML() throws ScriptException, XMLStreamException, FactoryConfigurationError, NoSuchMethodException {
+        if (!engineSupportsE4X(engine, "testInvokeFunctionInXML()")){
+            return;
+        }
+
 		engine.eval("function isXML(xml) { return typeof xml == 'xml'; }" );
 		assertTrue(engine instanceof Invocable);
 		Invocable invocableScript = (Invocable) engine;
@@ -57,6 +61,9 @@ public class E4xAxiomTestCase extends TestCase {
 	}
 	
 	public void testInvokeFunctionOutXML() throws ScriptException, XMLStreamException, FactoryConfigurationError, NoSuchMethodException {
+        if (!engineSupportsE4X(engine, "testInvokeFunctionOutXML()")){
+            return;
+        }
 		engine.eval("function hello(xml) { return <foo>{xml.b}</foo>; }" );
 		assertTrue(engine instanceof Invocable);
 		Invocable invocableScript = (Invocable) engine;
@@ -76,6 +83,9 @@ public class E4xAxiomTestCase extends TestCase {
         Bindings bindings = engine.createBindings();
         bindings.put("o", o);
         Object x = engine.eval("typeof o", bindings);
+        if (!engineSupportsE4X(engine, "the rest of testE4X()")){
+            return;
+        }
         assertEquals("xml", x);
 	}
 	
@@ -92,4 +102,13 @@ public class E4xAxiomTestCase extends TestCase {
         xmlHelper = XMLHelper.getArgHelper(engine);
     }
 
+    private static boolean engineSupportsE4X(ScriptEngine engine, String message){
+        final String name = engine.getClass().getName();
+        // This engine does not support E4X
+        if (name.equals("com.sun.script.javascript.RhinoScriptEngine")){
+            System.out.println("*** "+name + " does not support E4X, skipping "+message);
+            return false;
+        }
+        return true;
+    }
 }

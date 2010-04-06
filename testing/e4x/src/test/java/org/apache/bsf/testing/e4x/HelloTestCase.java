@@ -38,7 +38,7 @@ import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ContextHelper;
 
 /**
- * Tests a basic JavaScrip/E4X invocation
+ * Tests a basic JavaScript/E4X invocation
  */
 public class HelloTestCase extends TestCase {
 	
@@ -70,6 +70,10 @@ public class HelloTestCase extends TestCase {
         OMElement om = convertor.toOMElement(o);
         assertEquals("<a><b>petra</b></a>", om.toString());
         
+        if (!engineSupportsE4X(engine, "rest of testE4X()")){
+            return;
+        }
+
         Bindings bindings = engine.createBindings();
         bindings.put("o", o);
         Object x = engine.eval("typeof o", bindings);
@@ -93,5 +97,15 @@ public class HelloTestCase extends TestCase {
         } finally {
             Context.exit();
         }
+    }
+
+    private static boolean engineSupportsE4X(ScriptEngine engine, String message){
+        final String name = engine.getClass().getName();
+        // This engine does not support E4X
+        if (name.equals("com.sun.script.javascript.RhinoScriptEngine")){
+            System.out.println("*** "+name + " does not support E4X, skipping "+message);
+            return false;
+        }
+        return true;
     }
 }
