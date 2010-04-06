@@ -42,7 +42,8 @@
         <dependency>
             <groupId>org.python</groupId>
             <artifactId>jython</artifactId>
-            <version>2.5.0</version>
+            <!-- 2.5.0 is broken. Upgrade to 2.5.1 when that is published to Maven -->
+            <version>2.2.1</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -52,5 +53,19 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <!-- The python 2.5.1 jar requires Java 1.5 or later, so skip tests when running on Java 1.4 -->
+<!-- DISABLED until 2.5.1 is available:
+    <profiles>
+        <profile>
+            <activation>
+                <jdk>1.4</jdk>
+            </activation>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
+        </profile>
+    </profiles>
+-->
 
 </project>
