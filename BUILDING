@@ -8,7 +8,7 @@ To build BSF 3, in the top-level BSF 3 directory use the command 'mvn'.
 
 This will automatically download any dependency jars from remote Maven 
 repositories. Remote repositories may sometimes be unreliable, if you 
-get intermitent repository errors just try running 'mvn' again.
+get intermittent repository errors just try running 'mvn' again.
 
 Other useful Maven commands are:
 
