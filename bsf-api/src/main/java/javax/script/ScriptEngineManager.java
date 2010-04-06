@@ -77,6 +77,9 @@ public class ScriptEngineManager {
             ScriptEngineFactory factory;
             try {
                 factory = (ScriptEngineFactory) iterator.next();
+            } catch (ThreadDeath td) { // must not ignore this
+                throw td;
+            // See BSF-30 - iterator may throw Error
             } catch (Error ignored) {
                 continue;
             }
