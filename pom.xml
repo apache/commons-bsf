@@ -173,4 +173,24 @@
         <module>testing</module>
     </modules>
 
+ <profiles>
+    <!--
+     | Stop the JDK1.6 ScriptManager failing when it cannot find 
+     | the class org/mozilla/javascript/ContextFactory.
+     -->
+        <profile>
+            <id>JDK16</id>
+            <activation>
+                <jdk>1.6</jdk>
+            </activation>
+            <dependencies>
+                 <dependency>
+                     <groupId>rhino</groupId>
+                     <artifactId>js</artifactId>
+                     <version>1.6R5</version>
+                     <scope>runtime</scope>
+                 </dependency>
+            </dependencies>
+        </profile>
+ </profiles>
 </project>
