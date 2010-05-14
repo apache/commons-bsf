@@ -54,11 +54,11 @@
 
     <mailingLists>
         <mailingList>
-            <name>Apache BSF Developer List</name>
-            <subscribe>bsf-dev-subscribe@jakarta.apache.org</subscribe>
-            <unsubscribe>bsf-dev-unsubscribe@jakarta.apache.org</unsubscribe>
-            <post>bsf-dev@jakarta.apache.org</post>
-            <archive>http://mail-archives.apache.org/mod_mbox/jakarta-bsf-dev/</archive>
+            <name>Apache Jakarta Developer List</name>
+            <subscribe>dev-subscribe@jakarta.apache.org</subscribe>
+            <unsubscribe>dev-unsubscribe@jakarta.apache.org</unsubscribe>
+            <post>dev@jakarta.apache.org</post>
+            <archive>http://mail-archives.apache.org/mod_mbox/jakarta-dev/</archive>
         </mailingList>
         <mailingList>
             <name>Apache BSF User List</name>
@@ -66,6 +66,10 @@
             <unsubscribe>bsf-user-unsubscribe@jakarta.apache.org</unsubscribe>
             <post>bsf-user@jakarta.apache.org</post>
             <archive>http://mail-archives.apache.org/mod_mbox/jakarta-bsf-user/</archive>
+        </mailingList>
+        <mailingList>
+            <name>Apache BSF Developer List (archive only, now part of Jakarta dev)</name>
+            <archive>http://mail-archives.apache.org/mod_mbox/jakarta-bsf-dev/</archive>
         </mailingList>
     </mailingLists>
 
@@ -92,6 +96,24 @@
 
     <build>
         <defaultGoal>install</defaultGoal>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-clean-plugin</artifactId>
+              <version>2.4</version>
+            </plugin>
+            <plugin>
+              <artifactId>maven-site-plugin</artifactId>
+              <version>2.1</version>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-resources-plugin</artifactId>
+              <version>2.4.2</version>
+            </plugin>
+          </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -106,7 +128,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.4.3</version>
+                <version>2.5</version>
                 <configuration>
                   <includes>
                     <include>**/*Test*.java</include>
@@ -117,7 +139,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.2</version>
+                <version>2.3</version>
                 <configuration>
                     <archive>
                         <manifestEntries>
@@ -139,7 +161,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.1</version>
+                <version>2.2-beta-5</version>
                 <configuration>
                     <descriptors>
                         <descriptor>distribution/bin.xml</descriptor>
@@ -158,14 +180,14 @@
             <plugin>
                 <inherited>false</inherited>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.6</version>
+                <version>2.6.1</version>
                 <configuration>
                     <aggregate>true</aggregate>
                 </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>2.0.1</version>
+                <version>2.1</version>
                 <inherited>false</inherited>
             </plugin>
         </plugins>
