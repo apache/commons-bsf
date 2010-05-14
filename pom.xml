@@ -46,6 +46,11 @@
         <maven.compile.target>1.4</maven.compile.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- compiler and surefire plugin settings for "java" profiles -->
+        <jakarta.compiler.fork>false</jakarta.compiler.fork>
+        <jakarta.compiler.compilerVersion />
+        <jakarta.compiler.javac />
+        <jakarta.surefire.java />
     </properties>
 
     <issueManagement>
@@ -122,6 +127,9 @@
                 <configuration>
                     <source>${maven.compile.source}</source>
                     <target>${maven.compile.target}</target>
+                    <fork>${jakarta.compiler.fork}</fork>
+                    <compilerVersion>${jakarta.compiler.compilerVersion}</compilerVersion>
+                    <executable>${jakarta.compiler.javac}</executable>
                 </configuration>
             </plugin>
 
@@ -133,6 +141,7 @@
                   <includes>
                     <include>**/*Test*.java</include>
                   </includes>
+                  <jvm>${jakarta.surefire.java}</jvm>
                 </configuration>
             </plugin>
 
@@ -220,5 +229,58 @@
                  </dependency>
             </dependencies>
         </profile>
+    <!--
+       Profile for running the build using JDK 1.4
+       (JAVA_1_4_HOME needs to be defined, e.g. in settings.xml or an environment variable)
+      -->
+    <profile>
+      <id>java-1.4</id>
+      <properties>
+        <jakarta.compiler.fork>true</jakarta.compiler.fork>
+        <jakarta.compiler.compilerVersion>1.4</jakarta.compiler.compilerVersion>
+        <jakarta.compiler.javac>${JAVA_1_4_HOME}/bin/javac</jakarta.compiler.javac>
+        <jakarta.surefire.java>${JAVA_1_4_HOME}/bin/java</jakarta.surefire.java>
+      </properties>
+    </profile>
+
+    <!--
+       Profile for running the build using JDK 1.5
+       (JAVA_1_5_HOME needs to be defined, e.g. in settings.xml or an environment variable)
+      -->
+    <profile>
+      <id>java-1.5</id>
+      <properties>
+        <jakarta.compiler.fork>true</jakarta.compiler.fork>
+        <jakarta.compiler.compilerVersion>1.5</jakarta.compiler.compilerVersion>
+        <jakarta.compiler.javac>${JAVA_1_5_HOME}/bin/javac</jakarta.compiler.javac>
+        <jakarta.surefire.java>${JAVA_1_5_HOME}/bin/java</jakarta.surefire.java>
+      </properties>
+    </profile>
+
+    <!--
+       Profile for running the build using JDK 1.6
+       (JAVA_1_6_HOME needs to be defined, e.g. in settings.xml or an environment variable)
+      -->
+    <profile>
+        <id>java-1.6</id>
+        <properties>
+          <jakarta.compiler.fork>true</jakarta.compiler.fork>
+          <jakarta.compiler.compilerVersion>1.6</jakarta.compiler.compilerVersion>
+          <jakarta.compiler.javac>${JAVA_1_6_HOME}/bin/javac</jakarta.compiler.javac>
+          <jakarta.surefire.java>${JAVA_1_6_HOME}/bin/java</jakarta.surefire.java>
+        </properties>
+    <!--
+     | Stop the JDK1.6 ScriptManager failing when it cannot find 
+     | the class org/mozilla/javascript/ContextFactory.
+     -->
+            <dependencies>
+                 <dependency>
+                     <groupId>rhino</groupId>
+                     <artifactId>js</artifactId>
+                     <version>1.6R5</version>
+                     <scope>runtime</scope>
+                 </dependency>
+            </dependencies>
+      </profile>
  </profiles>
 </project>
