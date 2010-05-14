@@ -51,6 +51,8 @@
         <jakarta.compiler.compilerVersion />
         <jakarta.compiler.javac />
         <jakarta.surefire.java />
+        <!-- default to same version as Apache Parent V7 -->
+        <jakarta.remote-resources.version>1.1</jakarta.remote-resources.version>
     </properties>
 
     <issueManagement>
@@ -116,6 +118,11 @@
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-resources-plugin</artifactId>
               <version>2.4.2</version>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-remote-resources-plugin</artifactId>
+              <version>${jakarta.remote-resources.version}</version>
             </plugin>
           </plugins>
         </pluginManagement>
@@ -211,6 +218,18 @@
     </modules>
 
  <profiles>
+     <!--
+      | Remote resources 1.1 (defined in Apache Parent V7) requires Java 1.5+ 
+      -->
+     <profile>
+       <id>JDK14</id>
+       <activation>
+         <jdk>1.4</jdk>
+       </activation>
+       <properties>
+           <jakarta.remote-resources.version>1.0</jakarta.remote-resources.version>
+       </properties>
+     </profile>
     <!--
      | Stop the JDK1.6 ScriptManager failing when it cannot find 
      | the class org/mozilla/javascript/ContextFactory.
