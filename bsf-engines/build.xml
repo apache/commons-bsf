@@ -71,9 +71,10 @@
            <fileset dir="${basedir}/src/main/resources"/>
         </copy>
 
-        <!-- Now zip all that up into a single jar -->
+        <!-- Now package all that up into a single jar -->
 
-        <zip destfile="${basedir}/target/bsf-engines.tmp.jar" basedir="${merged.engines.dir}" />
+        <jar destfile="${basedir}/target/bsf-engines.tmp.jar" basedir="${merged.engines.dir}">
+        </jar>
     	
     	<!-- Delete work directory -->
         <delete dir="${merged.engines.dir}" />
