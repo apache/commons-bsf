@@ -31,6 +31,11 @@
     <name>Apache BSF project to create the bsf-all jar</name>
     <description>Apache BSF project to create the bsf-all jar</description>
 
+    <!-- We don't want to deploy this to Maven -->
+    <properties>
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
+
     <build>
         <defaultGoal>package</defaultGoal>
         <plugins>
