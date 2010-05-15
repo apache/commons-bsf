@@ -19,8 +19,9 @@
 -->
 <project name="Engine-Installer">
 
-    <property name="download.dir" value="/target/engines-download/"/>
-    <property name="download.file" value="${basedir}${download.dir}engines.zip"/>
+    <property name="download.dir" value="${basedir}/engines-download"/>
+    <property name="download.engines" value="${download.dir}/engines"/>
+    <property name="download.file" value="${download.dir}/engines.zip"/>
     <property name="merged.engines.dir" value="${basedir}/target/merged-engines"/>
 
     <target name="check-merged">
@@ -34,36 +35,36 @@
 
     <target name="merge-engines" depends="check-merged, download-engines" unless="already.merged">
 
-        <mkdir dir="${basedir}${download.dir}"/>
-        <unzip src="${download.file}" dest="${basedir}${download.dir}engines" overwrite="true"/>
+        <mkdir dir="${download.dir}"/>
+        <unzip src="${download.file}" dest="${download.engines}" overwrite="true"/>
 
         <!-- now unzip all the engine jars into a single directory -->
 
         <mkdir dir="${merged.engines.dir}"/>
-        <unzip src="${basedir}${download.dir}engines/beanshell/build/bsh-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <!-- unzip src="${basedir}${download.dir}engines/browserjs/build/browserjs-engine.jar" dest="${merged.engines.dir}" overwrite="true"/ -->
-        <!-- unzip src="${basedir}${download.dir}engines/ejs/build/js-engine.jar" dest="${merged.engines.dir}" overwrite="true"/ -->
-        <unzip src="${basedir}${download.dir}engines/freemarker/build/freemarker-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${basedir}${download.dir}engines/groovy/build/groovy-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${basedir}${download.dir}engines/jacl/build/jacl-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${basedir}${download.dir}engines/jaskell/build/jaskell-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${basedir}${download.dir}engines/java/build/java-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${basedir}${download.dir}engines/javascript/build/js-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${basedir}${download.dir}engines/jawk/build/jawk-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${basedir}${download.dir}engines/jelly/build/jelly-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${basedir}${download.dir}engines/jep/build/jep-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${basedir}${download.dir}engines/jexl/build/jexl-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${basedir}${download.dir}engines/jruby/build/jruby-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <!-- unzip src="${basedir}${download.dir}engines/jst/build/jst-engine.jar" dest="${merged.engines.dir}" overwrite="true"/ -->
-        <unzip src="${basedir}${download.dir}engines/judo/build/judo-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${basedir}${download.dir}engines/juel/build/juel-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${basedir}${download.dir}engines/jython/build/jython-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${basedir}${download.dir}engines/ognl/build/ognl-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${basedir}${download.dir}engines/pnuts/build/pnuts-jsr223.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${basedir}${download.dir}engines/scheme/build/scheme-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${basedir}${download.dir}engines/velocity/build/velocity-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${basedir}${download.dir}engines/xpath/build/xpath-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${basedir}${download.dir}engines/xslt/build/xslt-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
+        <unzip src="${download.engines}/beanshell/build/bsh-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
+        <!-- unzip src="${download.engines}/browserjs/build/browserjs-engine.jar" dest="${merged.engines.dir}" overwrite="true"/ -->
+        <!-- unzip src="${download.engines}/ejs/build/js-engine.jar" dest="${merged.engines.dir}" overwrite="true"/ -->
+        <unzip src="${download.engines}/freemarker/build/freemarker-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
+        <unzip src="${download.engines}/groovy/build/groovy-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
+        <unzip src="${download.engines}/jacl/build/jacl-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
+        <unzip src="${download.engines}/jaskell/build/jaskell-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
+        <unzip src="${download.engines}/java/build/java-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
+        <unzip src="${download.engines}/javascript/build/js-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
+        <unzip src="${download.engines}/jawk/build/jawk-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
+        <unzip src="${download.engines}/jelly/build/jelly-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
+        <unzip src="${download.engines}/jep/build/jep-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
+        <unzip src="${download.engines}/jexl/build/jexl-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
+        <unzip src="${download.engines}/jruby/build/jruby-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
+        <!-- unzip src="${download.engines}/jst/build/jst-engine.jar" dest="${merged.engines.dir}" overwrite="true"/ -->
+        <unzip src="${download.engines}/judo/build/judo-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
+        <unzip src="${download.engines}/juel/build/juel-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
+        <unzip src="${download.engines}/jython/build/jython-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
+        <unzip src="${download.engines}/ognl/build/ognl-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
+        <unzip src="${download.engines}/pnuts/build/pnuts-jsr223.jar" dest="${merged.engines.dir}" overwrite="true"/>
+        <unzip src="${download.engines}/scheme/build/scheme-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
+        <unzip src="${download.engines}/velocity/build/velocity-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
+        <unzip src="${download.engines}/xpath/build/xpath-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
+        <unzip src="${download.engines}/xslt/build/xslt-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
 
         <!-- Copy in the META-INF files for services, LICENSE and NOTICE -->
 
@@ -102,7 +103,7 @@
     <target name="check-downloaded">
         <condition property="already.downloaded" >
            <and>
-              <available file="${basedir}${download.dir}engines.zip"/>
+              <available file="${download.file}"/>
            </and>
         </condition>
 
@@ -116,13 +117,13 @@
     </target>
 
     <target name="download-engines" depends="check-downloaded" unless="already.downloaded">
-        <mkdir dir="${basedir}${download.dir}"/>
+        <mkdir dir="${download.dir}"/>
         <get src="https://scripting.dev.java.net/files/documents/4957/37593/jsr223-engines.zip"
             dest="${download.file}"
             verbose="true"
             usetimestamp="false"/>
         <unzip src="${download.file}"
-            dest="${basedir}${download.dir}engines"
+            dest="${download.engines}"
             overwrite="false"/>
     </target>
 
