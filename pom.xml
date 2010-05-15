@@ -124,6 +124,40 @@
               <artifactId>maven-remote-resources-plugin</artifactId>
               <version>${jakarta.remote-resources.version}</version>
             </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-javadoc-plugin</artifactId>
+               <configuration>
+                <!-- keep only errors and warnings -->
+                <quiet>true</quiet>
+                <encoding>${project.build.sourceEncoding}</encoding>
+                <docEncoding>${project.reporting.outputEncoding}</docEncoding>
+                <archive>
+                  <manifest>
+                    <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                    <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                  </manifest>
+                  <manifestEntries>
+                    <Implementation-Vendor-Id>org.apache</Implementation-Vendor-Id>
+                  </manifestEntries>
+                </archive>
+              </configuration>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-source-plugin</artifactId>
+              <configuration>
+                <archive>
+                  <manifest>
+                    <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                    <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                  </manifest>
+                  <manifestEntries>
+                    <Implementation-Vendor-Id>org.apache</Implementation-Vendor-Id>
+                  </manifestEntries>
+                </archive>
+              </configuration>
+            </plugin>
           </plugins>
         </pluginManagement>
         <plugins>
