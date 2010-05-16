@@ -99,7 +99,7 @@ public abstract class AbstractScriptEngine implements ScriptEngine {
     /**
      * Returns a {@link SimpleScriptContext} which:
      * <ul>
-     * <li>uses the specified {@link Bindings} as the {@link ENGINE_SCOPE}</li>
+     * <li>uses the specified {@link Bindings} as the {@link ScriptEngine.ENGINE_SCOPE}</li>
      * <li>has the same GLOBAL_SCOPE Bindings as the current context</li>
      * <li>uses the same Reader, Writer and Error Writer as the current context</li>
      * </ul>
