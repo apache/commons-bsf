@@ -37,18 +37,6 @@
         <maven.deploy.skip>true</maven.deploy.skip>
     </properties>
 
-    <repositories>
-       <!-- This is for the WSO2 E4X impl -->
-       <repository>
-          <id>wso2</id>
-          <url>http://dist.wso2.org/maven</url>
-          <snapshots>
-             <enabled>true</enabled>
-          </snapshots>
-          <layout>legacy</layout>
-       </repository>
-    </repositories>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.bsf</groupId>
@@ -60,34 +48,34 @@
             <groupId>rhino</groupId>
             <artifactId>js</artifactId>
             <version>1.6R5</version>
-            <scope>runtime</scope>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>xmlbeans</groupId>
             <artifactId>xbean</artifactId>
             <version>2.2.0</version>
-            <scope>runtime</scope>
+            <scope>test</scope>
         </dependency>
 <!-- 
         <dependency>
             <groupId>org.mozilla.javascript</groupId>
             <artifactId>js-core</artifactId>
             <version>SNAPSHOT</version>
-            <scope>runtime</scope>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
            <groupId>org.wso2.javascript.rhino</groupId>
            <artifactId>js-axiom</artifactId>
            <version>SNAPSHOT</version>
-           <scope>runtime</scope>
+           <scope>test</scope>
         </dependency>
 -->
         <dependency>
             <groupId>org.apache.ws.commons.axiom</groupId>
             <artifactId>axiom-impl</artifactId>
             <version>1.2.2</version>
-            <scope>runtime</scope>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -101,7 +89,7 @@
            <groupId>org.codehaus.woodstox</groupId>
            <artifactId>wstx-asl</artifactId>
            <version>3.2.0</version>
-           <scope>runtime</scope>
+           <scope>test</scope>
         </dependency>
 
         <dependency>

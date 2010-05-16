@@ -37,17 +37,6 @@
         <maven.deploy.skip>true</maven.deploy.skip>
     </properties>
 
-    <repositories>
-       <!-- This is for the WSO2 E4X impl -->
-       <repository>
-          <id>wso2</id>
-          <url>http://dist.wso2.org/maven2</url>
-          <snapshots>
-             <enabled>true</enabled>
-          </snapshots>
-       </repository>
-    </repositories>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.bsf</groupId>
@@ -59,6 +48,7 @@
             <groupId>rhino</groupId>
             <artifactId>js</artifactId>
             <version>1.6R7</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -76,7 +66,7 @@
             <groupId>org.wso2.wsf.javascript</groupId>
             <artifactId>axiom-e4x</artifactId>
             <version>0.29</version>
-            <scope>runtime</scope>
+            <scope>test</scope>
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.ws.commons.axiom</groupId>
