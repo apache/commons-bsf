@@ -17,10 +17,13 @@ Other useful Maven commands are:
 
 'mvn assembly:assembly'
   - to build the src and bin distros
+This requires a previous Maven 'install' or 'package'
 
 'mvn eclipse:eclipse'
  - to setup Eclipse projects for the BSF modules
 
+'mvn deploy -Ptest-deploy -Prelease -Dgpg.skip [-DskipTests]'
+- deploy artifacts to target/deploy; useful for checking that the contents are correct.
 
 BSF requires a minimum of Java 1.4 to build
 
