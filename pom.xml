@@ -278,7 +278,7 @@
                      <groupId>rhino</groupId>
                      <artifactId>js</artifactId>
                      <version>1.6R5</version>
-                     <scope>runtime</scope>
+                     <scope>test</scope>
                  </dependency>
             </dependencies>
         </profile>
@@ -331,9 +331,85 @@
                      <groupId>rhino</groupId>
                      <artifactId>js</artifactId>
                      <version>1.6R5</version>
-                     <scope>runtime</scope>
+                     <scope>test</scope>
                  </dependency>
             </dependencies>
       </profile>
+    <!-- The apache-release profile is not suitable (it creates extra artifacts) so provide our own -->
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <!-- We want to sign the artifact, the POM, and all attached artifacts -->
+          <plugin>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <configuration>
+              <passphrase>${gpg.passphrase}</passphrase>
+            </configuration>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-install-plugin</artifactId>
+            <configuration>
+              <createChecksum>true</createChecksum>
+            </configuration>
+          </plugin>
+          <plugin>
+            <artifactId>maven-source-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>create-source-jar</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+                <phase>package</phase>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-release-plugin</artifactId>
+            <configuration>
+              <!-- Pass these arguments to the deploy plugin. -->
+              <arguments>-Prelease</arguments>
+            </configuration>
+          </plugin>
+          <plugin>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>create-javadoc-jar</id>
+                <goals>
+                  <goal>javadoc</goal>
+                  <goal>jar</goal>
+                </goals>
+                <phase>package</phase>
+              </execution>
+            </executions>
+            <configuration>
+              <source>${maven.compile.source}</source>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <!-- 
+     | Profile to allow testing of deploy phase
+     | e.g.
+     | mvn deploy -Ptest-deploy -Prelease -Dgpg.skip
+     -->
+    <profile>
+      <id>test-deploy</id>
+      <properties>
+        <altDeploymentRepository>id::default::file:target/deploy</altDeploymentRepository>
+      </properties>
+    </profile>
  </profiles>
 </project>
