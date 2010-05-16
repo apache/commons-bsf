@@ -51,17 +51,12 @@
                 <include>testing/**/*</include>
             </includes>
             <excludes>
-                <exclude>**/target</exclude>
-                <exclude>**/target/**/*</exclude>
-                <exclude>**/build</exclude>
-                <exclude>**/build/**/*</exclude>
-                <exclude>**/.settings</exclude>
+                <exclude>bsf-engines/engines-download/**</exclude>
+                <exclude>**/target/**</exclude>
+                <exclude>**/build/**</exclude>
+                <exclude>**/.settings/**</exclude>
                 <exclude>**/.classpath</exclude>
                 <exclude>**/.project</exclude>
-                <exclude>**/.wtpmodules</exclude>
-                <exclude>**/*.iml</exclude>
-                <exclude>**/.settings</exclude>
-                <exclude>**/.settings/**/*</exclude>
             </excludes>
         </fileSet>
     </fileSets>
