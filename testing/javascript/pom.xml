@@ -48,7 +48,7 @@
             <groupId>rhino</groupId>
             <artifactId>js</artifactId>
             <version>1.6R5</version>
-            <scope>runtime</scope>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

@@ -49,7 +49,7 @@
             <artifactId>jython</artifactId>
             <!-- 2.5.0 is broken. Upgrade to 2.5.1 when that is published to Maven -->
             <version>2.2.1</version>
-            <scope>runtime</scope>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
