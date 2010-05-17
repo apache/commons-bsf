@@ -105,6 +105,12 @@
         <defaultGoal>install</defaultGoal>
         <pluginManagement>
           <plugins>
+            <!-- Need at least 1.0 to support gpg.homedir property -->
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-gpg-plugin</artifactId>
+              <version>1.0</version>
+            </plugin>
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-clean-plugin</artifactId>
