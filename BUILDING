@@ -27,6 +27,22 @@ This requires a previous Maven 'install' or 'package'
 
 BSF requires a minimum of Java 1.4 to build
 
+If you want to run Maven using a later version of Java 
+(e.g. you want to run Maven 2.2.1 or later, which requires Java 1.5)
+some profiles have been set up in the top-level pom.xml.
+
+These profiles allow the compile and test operations to run
+under a different version of Java. The profiles are:
+
+java-1.4, java-1.5, java-1.6
+
+For example:
+
+'mvn test -Pjava-1.4' ! test using Java 1.4
+
+These profiles require some properties or environment variables to be set up.
+See the pom.xml for details on how to do this.
+
 Note, currently there is a bug in the BSF 3 projects setup which causes
 the Eclipse projects to be created badly for the test projects when
 running 'mvn eclipse:eclipse' in the BSF top-level directory. A temporary
