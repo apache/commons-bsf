@@ -37,6 +37,17 @@
         <maven.deploy.skip>true</maven.deploy.skip>
     </properties>
 
+    <repositories>
+       <!-- This is for the WSO2 E4X impl -->
+       <repository>
+          <id>wso2</id>
+          <url>http://dist.wso2.org/maven2</url>
+          <snapshots>
+             <enabled>true</enabled>
+          </snapshots>
+       </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.bsf</groupId>
