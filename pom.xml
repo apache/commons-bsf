@@ -271,13 +271,13 @@
        </properties>
      </profile>
     <!--
-     | Stop the JDK1.6 ScriptManager failing when it cannot find 
+     | Stop the JDK1.6+ ScriptManager failing when it cannot find 
      | the class org/mozilla/javascript/ContextFactory.
      -->
         <profile>
-            <id>JDK16</id>
+            <id>JDK16minimum</id>
             <activation>
-                <jdk>1.6</jdk>
+                <jdk>[1.6,)</jdk>
             </activation>
             <dependencies>
                  <dependency>
@@ -341,6 +341,33 @@
                  </dependency>
             </dependencies>
       </profile>
+
+    <!--
+       Profile for running the build using JDK 1.7
+       (JAVA_1_7_HOME needs to be defined, e.g. in settings.xml or an environment variable)
+      -->
+    <profile>
+        <id>java-1.7</id>
+        <properties>
+          <jakarta.compiler.fork>true</jakarta.compiler.fork>
+          <jakarta.compiler.compilerVersion>1.7</jakarta.compiler.compilerVersion>
+          <jakarta.compiler.javac>${JAVA_1_7_HOME}/bin/javac</jakarta.compiler.javac>
+          <jakarta.surefire.java>${JAVA_1_7_HOME}/bin/java</jakarta.surefire.java>
+        </properties>
+    <!--
+     | Stop the JDK1.7 ScriptManager failing when it cannot find 
+     | the class org/mozilla/javascript/ContextFactory.
+     -->
+            <dependencies>
+                 <dependency>
+                     <groupId>rhino</groupId>
+                     <artifactId>js</artifactId>
+                     <version>1.6R5</version>
+                     <scope>test</scope>
+                 </dependency>
+            </dependencies>
+      </profile>
+
     <!-- The apache-release profile is not suitable (it creates extra artifacts) so provide our own -->
     <profile>
       <id>release</id>
