@@ -31,6 +31,23 @@
     <name>Apache BSF Utils</name>
     <description>BSF API Utility classes</description>
 
+    <build>
+      <plugins>
+        <!-- Allow bsf-utils to be used as executable jar -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <configuration>
+            <archive>
+              <manifestEntries>
+                <Main-Class>org.apache.bsf.Main</Main-Class>
+              </manifestEntries>
+            </archive>
+          </configuration>
+        </plugin>
+      </plugins>
+    </build>
+    
     <dependencies>
 
       <dependency>
