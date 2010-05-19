@@ -54,6 +54,9 @@
                                 <ant target="create-bsf-all">
                                     <property name="localRepository" value="${settings.localRepository}"/>
                                     <property name="bsf.version" value="${project.version}"/>
+                                    <!-- Compilation details for manifest -->
+                                    <property name="maven.compile.source" value="${maven.compile.source}"/>
+                                    <property name="maven.compile.target" value="${maven.compile.target}"/>
                                 </ant>
                             </tasks>
                         </configuration>
