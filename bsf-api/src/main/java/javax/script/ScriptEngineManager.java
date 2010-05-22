@@ -114,6 +114,8 @@ public class ScriptEngineManager {
             Class xmlHelperClass = Class.forName("org.apache.bsf.xml.XMLHelper", true, loader);
             Method initMethod = xmlHelperClass.getMethod("init", new Class[]{});
             initMethod.invoke(null, new Object[]{});
+        } catch (ThreadDeath e) {
+            throw e;
         } catch (Throwable e) {
             // ignore
         }
