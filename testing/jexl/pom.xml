@@ -29,8 +29,8 @@
     <packaging>jar</packaging>
     <groupId>org.apache.bsf.testing</groupId>
     <artifactId>bsf-testing-jexl</artifactId>
-    <name>Apache BSF testing for Jexl</name>
-    <description>Apache BSF testing for Jexl</description>
+    <name>Apache BSF testing using Jexl2</name>
+    <description>Apache BSF testing using Jexl2</description>
 
     <!-- We don't want to deploy any of the test modules -->
     <properties>
@@ -40,14 +40,14 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.bsf</groupId>
-            <artifactId>bsf-all</artifactId>
+            <artifactId>bsf-api</artifactId>
             <version>${bsf.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>commons-jexl</groupId>
+            <groupId>org.apache.commons</groupId>
             <artifactId>commons-jexl</artifactId>
-            <version>1.1</version>
+            <version>2.0.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>

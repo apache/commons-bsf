@@ -26,7 +26,7 @@ import javax.script.ScriptException;
 import junit.framework.TestCase;
 
 /**
- * Simple testcase to verify basic Jexl functionality
+ * Simple testcase to verify basic Jexl2 functionality
  */
 public class JexlTestCase extends TestCase {
 
@@ -35,8 +35,7 @@ public class JexlTestCase extends TestCase {
 		ScriptEngine engine = manager.getEngineByName("jexl");
 		assertNotNull("Should find an engine",engine);
         assertTrue("engine should be compilable",engine instanceof Compilable);
-		assertEquals("Should be 579",new Long(579),engine.eval("123+456;"));
-        //assertEquals("Should still be 579",new Long(579),engine.eval("999;123+456"));
+		assertEquals("Should be 579",new Integer(579),engine.eval("123+456;"));
 	}
 
 }
