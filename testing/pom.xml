@@ -44,7 +44,6 @@
         <module>groovy-1.1</module>
         <module>javascript</module>
         <module>python</module>
-        <module>jython-2.2</module>
     </modules>
 
     <profiles>
