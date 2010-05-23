@@ -33,14 +33,15 @@ import org.w3c.dom.Node;
 public abstract class XMLHelper {
 
     /**
-     * Register axiom-e4x if its available
-     * @deprecated temp approach for beta2 release
+     * Register axiom-e4x if it is available.
      */
-    public static void init() {
+    static {
         try {
             Class.forName("org.wso2.javascript.xmlimpl.XMLLibImpl", true, JavaScriptE4XHelper.class.getClassLoader());
             JavaScriptE4XAxiomHelper.init();
-        } catch (ClassNotFoundException e) {
+        } catch (ThreadDeath td){
+            throw td;
+        } catch (Throwable ignored) {
         }
     }
 
