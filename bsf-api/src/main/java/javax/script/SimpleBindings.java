@@ -96,10 +96,10 @@ public class SimpleBindings implements Bindings {
      *            object
      * @param value the object to be stored.
      * 
-     * @return the previous value for the mapping (may be <tt>null</tt>), or <tt>null</tt> if there was none.
+     * @return the previous value for the mapping or <tt>null</tt> if there was none.
      * 
      * @throws NullPointerException if the key is <tt>null</tt>
-     * @throws IllegalArgumentException if the key is empty
+     * @throws IllegalArgumentException if the key is the empty String
      */
     public Object put(String key, Object value) {      
         validateKey(key);
