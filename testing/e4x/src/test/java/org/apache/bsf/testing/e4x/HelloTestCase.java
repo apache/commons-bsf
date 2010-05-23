@@ -64,16 +64,14 @@ public class HelloTestCase extends TestCase {
 //	}
 	
 	public void testE4X() throws ScriptException, XMLStreamException, FactoryConfigurationError {
-        ScriptEngine engine = new ScriptEngineManager().getEngineByExtension("js");
+        // The default Rhino implementation provided by Java 1.6 does not support E4X,
+        // so use the unique name supported by the 1.6R7 version factory.
+        ScriptEngine engine = new ScriptEngineManager().getEngineByName("rhino-nonjdk");
         XMLHelper convertor = XMLHelper.getArgHelper(engine);
         Object o = convertor.toScriptXML(createOMElement("<a><b>petra</b></a>"));
         OMElement om = convertor.toOMElement(o);
         assertEquals("<a><b>petra</b></a>", om.toString());
         
-        if (!engineSupportsE4X(engine, "rest of testE4X()")){
-            return;
-        }
-
         Bindings bindings = engine.createBindings();
         bindings.put("o", o);
         Object x = engine.eval("typeof o", bindings);
@@ -97,15 +95,5 @@ public class HelloTestCase extends TestCase {
         } finally {
             Context.exit();
         }
-    }
-
-    private static boolean engineSupportsE4X(ScriptEngine engine, String message){
-        final String name = engine.getClass().getName();
-        // This engine does not support E4X
-        if (name.equals("com.sun.script.javascript.RhinoScriptEngine")){
-            System.out.println("*** "+name + " does not support E4X, skipping "+message);
-            return false;
-        }
-        return true;
     }
 }

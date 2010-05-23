@@ -45,10 +45,6 @@ public class E4xAxiomTestCase extends TestCase {
 	private ScriptEngine engine;
 	
 	public void testInvokeFunctionInXML() throws ScriptException, XMLStreamException, FactoryConfigurationError, NoSuchMethodException {
-        if (!engineSupportsE4X(engine, "testInvokeFunctionInXML()")){
-            return;
-        }
-
 		engine.eval("function isXML(xml) { return typeof xml == 'xml'; }" );
 		assertTrue(engine instanceof Invocable);
 		Invocable invocableScript = (Invocable) engine;
@@ -61,9 +57,6 @@ public class E4xAxiomTestCase extends TestCase {
 	}
 	
 	public void testInvokeFunctionOutXML() throws ScriptException, XMLStreamException, FactoryConfigurationError, NoSuchMethodException {
-        if (!engineSupportsE4X(engine, "testInvokeFunctionOutXML()")){
-            return;
-        }
 		engine.eval("function hello(xml) { return <foo>{xml.b}</foo>; }" );
 		assertTrue(engine instanceof Invocable);
 		Invocable invocableScript = (Invocable) engine;
@@ -83,9 +76,6 @@ public class E4xAxiomTestCase extends TestCase {
         Bindings bindings = engine.createBindings();
         bindings.put("o", o);
         Object x = engine.eval("typeof o", bindings);
-        if (!engineSupportsE4X(engine, "the rest of testE4X()")){
-            return;
-        }
         assertEquals("xml", x);
 	}
 	
@@ -97,18 +87,10 @@ public class E4xAxiomTestCase extends TestCase {
 	}
 
     protected void setUp() {
-        engine = new ScriptEngineManager().getEngineByExtension("js");
+        // The default Rhino implementation provided by Java 1.6 does not support E4X,
+        // so use the unique name supported by the 1.6R7 version factory.
+        engine = new ScriptEngineManager().getEngineByName("rhino-nonjdk");
         assertNotNull("Could not load js engine",engine);
         xmlHelper = XMLHelper.getArgHelper(engine);
-    }
-
-    private static boolean engineSupportsE4X(ScriptEngine engine, String message){
-        final String name = engine.getClass().getName();
-        // This engine does not support E4X
-        if (name.equals("com.sun.script.javascript.RhinoScriptEngine")){
-            System.out.println("*** "+name + " does not support E4X, skipping "+message);
-            return false;
-        }
-        return true;
     }
 }

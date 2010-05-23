@@ -38,13 +38,7 @@ public class JavaScriptXMLHelperTestCase extends TestCase {
     private XMLHelper xmlHelper;
 
     public void testToOmElement() throws ScriptException {
-        Object scriptXML;
-        try {
-            scriptXML = engine.eval("<a><b>petra</b></a>");
-        } catch (ScriptException e) {
-            System.out.println("*** Skipping testToOmElement() because engine does not support E4X: "+engine.getClass().getName());
-            return;
-        }
+        Object scriptXML = engine.eval("<a><b>petra</b></a>");
         assertTrue(scriptXML instanceof XMLObject);
 
         OMElement om = xmlHelper.toOMElement(scriptXML);
@@ -53,13 +47,7 @@ public class JavaScriptXMLHelperTestCase extends TestCase {
     }
 
     public void testToScriptXML() throws ScriptException {
-        Object scriptXML;
-        try {
-            scriptXML = engine.eval("<a><b>petra</b></a>");
-        } catch (ScriptException e) {
-            System.out.println("*** Skipping testToScriptXML() because engine does not support E4X: "+engine.getClass().getName());
-            return;
-        }
+        Object scriptXML = engine.eval("<a><b>petra</b></a>");
         assertTrue(scriptXML instanceof XMLObject);
 
         OMElement om = xmlHelper.toOMElement(scriptXML);
@@ -73,7 +61,9 @@ public class JavaScriptXMLHelperTestCase extends TestCase {
 
     public void setUp() {
         ScriptEngineManager manager = new ScriptEngineManager();
-        engine = manager.getEngineByExtension("js");
+        // The default Rhino implementation provided by Java 1.6 does not support E4X,
+        // so use the unique name supported by the 1.6R7 version factory.
+        engine = manager.getEngineByName("rhino-nonjdk");
         xmlHelper = XMLHelper.getArgHelper(engine);
     }
 
