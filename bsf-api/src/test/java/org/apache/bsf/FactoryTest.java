@@ -46,7 +46,7 @@ public class FactoryTest extends TestCase {
         Boolean isBSFClass = null;
         try {
             // Check for a method that's unlikely to be in any but the BSF implementation
-            sem.getClass().getDeclaredMethod("initXMLHelper", new Class[]{ClassLoader.class});
+            sem.getBindings().getClass().getDeclaredMethod("validateKey", new Class[]{Object.class});
             isBSFClass = Boolean.TRUE;
         } catch (SecurityException e) {
             // Leave as null - we don't know the answer
