@@ -6,15 +6,15 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
- * under the License.    
+ * under the License.
  */
 package org.apache.bsf.testing.e4x;
 
@@ -41,50 +41,50 @@ import org.apache.bsf.xml.XMLHelper;
  */
 public class E4xAxiomTestCase extends TestCase {
 
-	private XMLHelper xmlHelper;
-	private ScriptEngine engine;
-	
-	public void testInvokeFunctionInXML() throws ScriptException, XMLStreamException, FactoryConfigurationError, NoSuchMethodException {
-		engine.eval("function isXML(xml) { return typeof xml == 'xml'; }" );
-		assertTrue(engine instanceof Invocable);
-		Invocable invocableScript = (Invocable) engine;
+    private XMLHelper xmlHelper;
+    private ScriptEngine engine;
 
-		Object xmlIn = xmlHelper.toScriptXML(createOMElement("<a><b>petra</b></a>"));
+    public void testInvokeFunctionInXML() throws ScriptException, XMLStreamException, FactoryConfigurationError, NoSuchMethodException {
+        engine.eval("function isXML(xml) { return typeof xml == 'xml'; }" );
+        assertTrue(engine instanceof Invocable);
+        Invocable invocableScript = (Invocable) engine;
 
-		Object o = invocableScript.invokeFunction("isXML", new Object[]{xmlIn});
-		assertTrue(o instanceof Boolean);
-		assertTrue(((Boolean)o).booleanValue());
-	}
-	
-	public void testInvokeFunctionOutXML() throws ScriptException, XMLStreamException, FactoryConfigurationError, NoSuchMethodException {
-		engine.eval("function hello(xml) { return <foo>{xml.b}</foo>; }" );
-		assertTrue(engine instanceof Invocable);
-		Invocable invocableScript = (Invocable) engine;
+        Object xmlIn = xmlHelper.toScriptXML(createOMElement("<a><b>petra</b></a>"));
 
-		Object xmlIn = xmlHelper.toScriptXML(createOMElement("<a><b>petra</b></a>"));
+        Object o = invocableScript.invokeFunction("isXML", new Object[]{xmlIn});
+        assertTrue(o instanceof Boolean);
+        assertTrue(((Boolean)o).booleanValue());
+    }
 
-		Object xmlOut = invocableScript.invokeFunction("hello", new Object[]{xmlIn});
-		OMElement omOut = xmlHelper.toOMElement(xmlOut);
-		assertEquals("<foo><b>petra</b></foo>", omOut.toString());
-	}
+    public void testInvokeFunctionOutXML() throws ScriptException, XMLStreamException, FactoryConfigurationError, NoSuchMethodException {
+        engine.eval("function hello(xml) { return <foo>{xml.b}</foo>; }" );
+        assertTrue(engine instanceof Invocable);
+        Invocable invocableScript = (Invocable) engine;
 
-	public void testE4X() throws ScriptException, XMLStreamException, FactoryConfigurationError {
+        Object xmlIn = xmlHelper.toScriptXML(createOMElement("<a><b>petra</b></a>"));
+
+        Object xmlOut = invocableScript.invokeFunction("hello", new Object[]{xmlIn});
+        OMElement omOut = xmlHelper.toOMElement(xmlOut);
+        assertEquals("<foo><b>petra</b></foo>", omOut.toString());
+    }
+
+    public void testE4X() throws ScriptException, XMLStreamException, FactoryConfigurationError {
         Object o = xmlHelper.toScriptXML(createOMElement("<a><b>petra</b></a>"));
         OMElement om = xmlHelper.toOMElement(o);
         assertEquals("<a><b>petra</b></a>", om.toString());
-        
+
         Bindings bindings = engine.createBindings();
         bindings.put("o", o);
         Object x = engine.eval("typeof o", bindings);
         assertEquals("xml", x);
-	}
-	
-	protected OMElement createOMElement(String s) throws XMLStreamException, FactoryConfigurationError {
-		XMLStreamReader parser = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(s));
-		StAXOMBuilder builder = new StAXOMBuilder(parser);
-		OMElement om = builder.getDocumentElement();
-		return om;
-	}
+    }
+
+    protected OMElement createOMElement(String s) throws XMLStreamException, FactoryConfigurationError {
+        XMLStreamReader parser = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(s));
+        StAXOMBuilder builder = new StAXOMBuilder(parser);
+        OMElement om = builder.getDocumentElement();
+        return om;
+    }
 
     protected void setUp() {
         // The default Rhino implementation provided by Java 1.6 does not support E4X,

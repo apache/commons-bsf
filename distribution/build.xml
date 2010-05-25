@@ -30,7 +30,7 @@
         <unzip src="${basedir}/../bsf-utils/target/bsf-utils-${bsf.version}.jar" dest="${basedir}/target/bsf-all" overwrite="false"/>
 
         <!-- Proper versions will be created in the META-INF directory -->
-    	<delete file="${basedir}/target/bsf-all/LICENSE"/>
+        <delete file="${basedir}/target/bsf-all/LICENSE"/>
         <delete file="${basedir}/target/bsf-all/NOTICE"/>
 
         <copy file="${basedir}/src/bin/LICENSE" tofile="${basedir}/target/bsf-all/META-INF/LICENSE" overwrite="true" />
@@ -40,18 +40,18 @@
         <jar destfile="${basedir}/target/bsf-all-${bsf.version}.jar" basedir="${basedir}/target/bsf-all">
             <manifest>
                 <attribute name="Main-Class" value="org.apache.bsf.Main"/>
-            	<attribute name="Extension-Name" value="org.apache.bsf"/>
-            	<attribute name="Implementation-Title" value="Apache BSF"/>
-            	<attribute name="Implementation-Vendor" value="Apache Software Foundation"/>
-            	<attribute name="Implementation-Vendor-Id" value="org.apache"/>
-            	<attribute name="Implementation-Version" value="${bsf.version}"/>
-            	<attribute name="X-Compile-Source-JDK" value="${maven.compile.source}"/>
-            	<attribute name="X-Compile-Target-JDK" value="${maven.compile.target}"/>
+                <attribute name="Extension-Name" value="org.apache.bsf"/>
+                <attribute name="Implementation-Title" value="Apache BSF"/>
+                <attribute name="Implementation-Vendor" value="Apache Software Foundation"/>
+                <attribute name="Implementation-Vendor-Id" value="org.apache"/>
+                <attribute name="Implementation-Version" value="${bsf.version}"/>
+                <attribute name="X-Compile-Source-JDK" value="${maven.compile.source}"/>
+                <attribute name="X-Compile-Target-JDK" value="${maven.compile.target}"/>
             </manifest>
-    	</jar>
-        
-    	<!-- Remove work directory -->
-    	<delete dir="${basedir}/target/bsf-all"/>
+        </jar>
+
+        <!-- Remove work directory -->
+        <delete dir="${basedir}/target/bsf-all"/>
 
         <!-- these are required for the mvn install command to work correctly -->
         <condition property="maven.suffix" value="">

@@ -13,7 +13,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 
 package org.apache.bsf;
@@ -29,8 +29,8 @@ import junit.framework.TestCase;
  * also reports runtime details
  */
 public class FactoryTest extends TestCase {
-	
-	
+
+
     private void show(String key){
         System.out.println(key+"="+System.getProperty(key));
     }
@@ -56,9 +56,9 @@ public class FactoryTest extends TestCase {
         if (isBSFClass == null) {
             System.out.println("ScriptEngineManager class - implementation unknown");
         } else if (isBSFClass.booleanValue()) {
-            System.out.println("ScriptEngineManager class is from Apache BSF");            
+            System.out.println("ScriptEngineManager class is from Apache BSF");
         } else {
-            System.out.println("ScriptEngineManager class is not Apache BSF");            
+            System.out.println("ScriptEngineManager class is not Apache BSF");
         }
         final int count = sem.getEngineFactories().size();
         assertTrue("Must find some factories",count>0);

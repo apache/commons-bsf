@@ -13,7 +13,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 
 package org.apache.bsf;
@@ -33,34 +33,34 @@ import org.apache.bsf.utils.TestScriptEngine;
 import org.apache.bsf.utils.TestScriptEngineFactory;
 
 public class ScriptEngineManagerTest extends TestCase {
-	private ScriptEngineManager mgr = null;
-	
-	public ScriptEngineManagerTest() {
-		super("ScriptEngineManagerTest");
-	}
-	
-	protected void setUp() throws Exception {
-		super.setUp();
-		mgr = new ScriptEngineManager();
-	}
+    private ScriptEngineManager mgr = null;
 
-	public void testScriptEngineManager() {
-		assertNotNull(mgr);
-		List facs = mgr.getEngineFactories();
-		assertNotNull(facs);
-		assertTrue(facs.size() > 0); // need at least one
-	}
+    public ScriptEngineManagerTest() {
+        super("ScriptEngineManagerTest");
+    }
 
-	public void testGetPut() {
-		mgr.put("x", new Integer(1));
-		Object retValue = mgr.get("x");
-		assertEquals(new Integer(1), retValue);
-		try {
+    protected void setUp() throws Exception {
+        super.setUp();
+        mgr = new ScriptEngineManager();
+    }
+
+    public void testScriptEngineManager() {
+        assertNotNull(mgr);
+        List facs = mgr.getEngineFactories();
+        assertNotNull(facs);
+        assertTrue(facs.size() > 0); // need at least one
+    }
+
+    public void testGetPut() {
+        mgr.put("x", new Integer(1));
+        Object retValue = mgr.get("x");
+        assertEquals(new Integer(1), retValue);
+        try {
             mgr.get(null);
             fail("Expected NullPointerException");
         } catch (NullPointerException e) {
         }
-		try {
+        try {
             mgr.get("");
             fail("Expected IllegalArgumentException");
         } catch (IllegalArgumentException e) {
@@ -69,53 +69,53 @@ public class ScriptEngineManagerTest extends TestCase {
         assertNull(mgr.get("null_Key"));
         mgr.put("null_Key", null);
         assertNull(mgr.get("null_Key"));
-	}
+    }
 
-	public void testGetEngineByExtension() {
-		ScriptEngine engine;
-		
-		engine =  mgr.getEngineByExtension("tEst");
-        assertNotNull(engine);
-		assertTrue(engine instanceof TestScriptEngine);
-		
-		engine = mgr.getEngineByExtension("teSt");
-        assertNotNull(engine);
-		assertTrue(engine instanceof TestScriptEngine);
-	}
+    public void testGetEngineByExtension() {
+        ScriptEngine engine;
 
-	public void testGetEngineByMimeType() {
+        engine =  mgr.getEngineByExtension("tEst");
+        assertNotNull(engine);
+        assertTrue(engine instanceof TestScriptEngine);
+
+        engine = mgr.getEngineByExtension("teSt");
+        assertNotNull(engine);
+        assertTrue(engine instanceof TestScriptEngine);
+    }
+
+    public void testGetEngineByMimeType() {
         ScriptEngine engine;
         engine =  mgr.getEngineByMimeType("application/junit");
         assertNotNull(engine);
         assertTrue(engine instanceof TestScriptEngine);
-	}
+    }
 
-	public void testGetEngineByName() {
-		ScriptEngine engine;
-		
-		engine =  mgr.getEngineByName("JUnit");
-		assertNotNull(engine);
-		assertTrue(engine instanceof TestScriptEngine);
-	}
+    public void testGetEngineByName() {
+        ScriptEngine engine;
 
-	public void testGetEngineFactories() {
-		boolean found = false;
-		List factories = mgr.getEngineFactories();
-		
-		for(int i = 0; i < factories.size(); i++) {
-			if (factories.get(i) instanceof TestScriptEngineFactory) {
-				found = true;
-				break;
-			}
-		}
-		
-		if (!found) {
-			fail("ScriptEngineManager.getEngineFactories(): " +
-					"TestScriptEngineFactory is not present ..");
-		}
-	}
+        engine =  mgr.getEngineByName("JUnit");
+        assertNotNull(engine);
+        assertTrue(engine instanceof TestScriptEngine);
+    }
 
-	public void testRegisterEngineExtension() {
+    public void testGetEngineFactories() {
+        boolean found = false;
+        List factories = mgr.getEngineFactories();
+
+        for(int i = 0; i < factories.size(); i++) {
+            if (factories.get(i) instanceof TestScriptEngineFactory) {
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            fail("ScriptEngineManager.getEngineFactories(): " +
+                    "TestScriptEngineFactory is not present ..");
+        }
+    }
+
+    public void testRegisterEngineExtension() {
         try {
             mgr.registerEngineExtension(null, null);
             fail("Expected NullPointerException");
@@ -138,9 +138,9 @@ public class ScriptEngineManagerTest extends TestCase {
         assertNull(mgr.getEngineByExtension("junit2")); // not yet defined
         mgr.registerEngineExtension("junit2", new TestScriptEngineFactory());
         assertNotNull(mgr.getEngineByExtension("junit2")); //now defined
-	}
+    }
 
-	public void testRegisterEngineName() {
+    public void testRegisterEngineName() {
         try {
             mgr.registerEngineName(null, null);
             fail("Expected NullPointerException");
@@ -163,9 +163,9 @@ public class ScriptEngineManagerTest extends TestCase {
         assertNull(mgr.getEngineByName("junit2")); // not yet defined
         mgr.registerEngineName("junit2", new TestScriptEngineFactory());
         assertNotNull(mgr.getEngineByName("junit2")); //now defined
-	}
+    }
 
-	public void testRegisterEngineMimeType() {
+    public void testRegisterEngineMimeType() {
         try {
             mgr.registerEngineMimeType(null, null);
             fail("Expected NullPointerException");
@@ -188,11 +188,11 @@ public class ScriptEngineManagerTest extends TestCase {
         assertNull(mgr.getEngineByMimeType("junit2")); // not yet defined
         mgr.registerEngineMimeType("junit2", new TestScriptEngineFactory());
         assertNotNull(mgr.getEngineByMimeType("junit2")); //now defined
-	}
+    }
 
-	public void testSetBindings() {
-	    assertNotNull(mgr.getBindings());
-		try {
+    public void testSetBindings() {
+        assertNotNull(mgr.getBindings());
+        try {
             mgr.setBindings(null);
             fail("Expected IllegalArgumentException");
         } catch (IllegalArgumentException e) {
@@ -201,22 +201,22 @@ public class ScriptEngineManagerTest extends TestCase {
         assertNotSame(bindings, mgr.getBindings());
         mgr.setBindings(bindings);
         assertSame(bindings, mgr.getBindings());
-	}
+    }
 
-	public void testEvalAndCompile() throws ScriptException{
-	    ScriptEngine se = mgr.getEngineByName("JUnit");
-	    assertNotNull(se);
-	    se.put("key", "value");
-	    assertEquals("value",se.eval("key"));
-	    if (se instanceof Compilable){
-	        Compilable co = (Compilable) se;
-	        CompiledScript cs = co.compile("key");
-	        assertNotNull(cs);
-	        assertEquals("value",cs.eval());
-            assertEquals("value",cs.eval());	        
-	    } else {
-	        fail("Expected engine to implement Compilable");
-	    }
-	}
-	
+    public void testEvalAndCompile() throws ScriptException{
+        ScriptEngine se = mgr.getEngineByName("JUnit");
+        assertNotNull(se);
+        se.put("key", "value");
+        assertEquals("value",se.eval("key"));
+        if (se instanceof Compilable){
+            Compilable co = (Compilable) se;
+            CompiledScript cs = co.compile("key");
+            assertNotNull(cs);
+            assertEquals("value",cs.eval());
+            assertEquals("value",cs.eval());
+        } else {
+            fail("Expected engine to implement Compilable");
+        }
+    }
+
 }

@@ -13,7 +13,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 
 package org.apache.bsf.utils;
@@ -30,7 +30,7 @@ public class TestCompiledScript extends CompiledScript {
 
     private final ScriptEngine engine;
     private final String compiled;
-    
+
     public TestCompiledScript(TestScriptEngine testScriptEngine, String script) {
         engine = testScriptEngine;
         compiled = script;

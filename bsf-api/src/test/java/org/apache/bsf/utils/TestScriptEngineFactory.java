@@ -13,7 +13,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 
 package org.apache.bsf.utils;
@@ -29,32 +29,32 @@ import javax.script.ScriptEngineFactory;
  * Minimal ScriptEngineFactory for use in JUnit tests.
  */
 public class TestScriptEngineFactory implements ScriptEngineFactory {
-	
 
-	public ScriptEngine getScriptEngine() {
-		return new TestScriptEngine();
-	}
-	
-	public String getEngineName() {
-		return "TestScriptEngine";
-	}
-	public String getEngineVersion() {
-		return "1.0";
-	}
-	public List getExtensions() {
-		return Collections.unmodifiableList(Arrays.asList(new String[]{"tEst","teSt"}));
-	}
-	public String getLanguageName() {
-		return "TestScript";
-	}
-	public String getLanguageVersion() {
-		return "1.0";
-	}
-	public List getMimeTypes() {
-		return Collections.unmodifiableList(Arrays.asList(new String[]{"application/junit"}));
-	}
-	
-	public Object getParameter(String key) {
+
+    public ScriptEngine getScriptEngine() {
+        return new TestScriptEngine();
+    }
+
+    public String getEngineName() {
+        return "TestScriptEngine";
+    }
+    public String getEngineVersion() {
+        return "1.0";
+    }
+    public List getExtensions() {
+        return Collections.unmodifiableList(Arrays.asList(new String[]{"tEst","teSt"}));
+    }
+    public String getLanguageName() {
+        return "TestScript";
+    }
+    public String getLanguageVersion() {
+        return "1.0";
+    }
+    public List getMimeTypes() {
+        return Collections.unmodifiableList(Arrays.asList(new String[]{"application/junit"}));
+    }
+
+    public Object getParameter(String key) {
         if (key == ScriptEngine.ENGINE) {
             return getEngineName();
         } else if (key == ScriptEngine.ENGINE_VERSION) {
@@ -66,10 +66,10 @@ public class TestScriptEngineFactory implements ScriptEngineFactory {
         } else if(key == ScriptEngine.ENGINE_VERSION) {
             return getLanguageVersion();
         } else if (key == "THREADING") {
-        	return "MULTITHREADED"; 
-        } 
+            return "MULTITHREADED";
+        }
         return null;
-	}
+    }
 
     public String getMethodCallSyntax(String obj, String method, String[] args) {
         // TODO Auto-generated method stub

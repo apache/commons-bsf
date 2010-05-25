@@ -76,16 +76,16 @@
 
         <jar destfile="${basedir}/target/bsf-engines.tmp.jar" basedir="${merged.engines.dir}">
         </jar>
-    	
-    	<!-- Delete work directory -->
+
+        <!-- Delete work directory -->
         <delete dir="${merged.engines.dir}" />
 
         <!-- Use Retroweaver to convert all the classes to JDK 1.4 -->
 
         <retroweaver inputjar="${basedir}/target/bsf-engines.tmp.jar" outputjar="${basedir}/target/bsf-engines-${bsf.version}.jar"/>
-    	
-    	<!-- Delete the temporary work file -->
-    	<delete file="${basedir}/target/bsf-engines.tmp.jar"/>
+
+        <!-- Delete the temporary work file -->
+        <delete file="${basedir}/target/bsf-engines.tmp.jar"/>
 
     </target>
 
