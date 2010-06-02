@@ -31,6 +31,7 @@ public class JavaScriptTestcase extends TestCase {
     public void testEval() throws ScriptException {
         ScriptEngineManager manager = new ScriptEngineManager();
         ScriptEngine engine = manager.getEngineByExtension("js");
+        assertNotNull("engine should not be null", engine);
         assertTrue(((Boolean)engine.eval("true;")).booleanValue());
         assertFalse(((Boolean)engine.eval("false;")).booleanValue());
     }
@@ -38,6 +39,7 @@ public class JavaScriptTestcase extends TestCase {
     public void testInvokeFunction() throws ScriptException, NoSuchMethodException {
         ScriptEngineManager manager = new ScriptEngineManager();
         ScriptEngine engine = manager.getEngineByExtension("js");
+        assertNotNull("engine should not be null", engine);
         engine.eval("function hello(s) { return 'Hello ' + s; }" );
         assertTrue(engine instanceof Invocable);
         Invocable invocableScript = (Invocable) engine;
@@ -47,6 +49,7 @@ public class JavaScriptTestcase extends TestCase {
     public void testInvokeMethod() throws ScriptException, NoSuchMethodException {
         ScriptEngineManager manager = new ScriptEngineManager();
         ScriptEngine engine = manager.getEngineByExtension("js");
+        assertNotNull("engine should not be null", engine);
         engine.eval("function hello(s) { return 'Hello ' + s; }" );
         assertTrue(engine instanceof Invocable);
         Invocable invocableScript = (Invocable) engine;

@@ -67,6 +67,7 @@ public class HelloTestCase extends TestCase {
         // The default Rhino implementation provided by Java 1.6 does not support E4X,
         // so use the unique name supported by the 1.6R7 version factory.
         ScriptEngine engine = new ScriptEngineManager().getEngineByName("rhino-nonjdk");
+        assertNotNull("engine should not be null",engine);
         XMLHelper convertor = XMLHelper.getArgHelper(engine);
         Object o = convertor.toScriptXML(createOMElement("<a><b>petra</b></a>"));
         OMElement om = convertor.toOMElement(o);

@@ -33,8 +33,9 @@ public class HelloTestCase extends TestCase {
     public void testInvokeFunction() throws ScriptException, NoSuchMethodException {
         ScriptEngineManager manager = new ScriptEngineManager();
         ScriptEngine engine = manager.getEngineByExtension("py");
+        assertNotNull("engine should not be null", engine);
         engine.eval("def hello(name):\n return 'Hello ' + name");
-        assertTrue(engine instanceof Invocable);
+        assertTrue("engine should be invocable",engine instanceof Invocable);
         Invocable invocableScript = (Invocable) engine;
         assertEquals("Hello Monty", invocableScript.invokeFunction("hello", new Object[] { "Monty" }));
     }
