@@ -35,9 +35,9 @@ This is because:
 Many engines contain their own factories now; for those that don't the factory can
 still be downloaded from https://scripting.dev.java.net/.
 
-Incomplete packages
--------------------
-The org.apache.bsf.utils.http and org.apache.bsf.xml packages in bsf-utils.jar contain several classes.
+Incomplete package
+------------------
+The org.apache.bsf.utils.http package in bsf-utils.jar contains several classes.
 These are not complete, and should not be relied on.
 They are not needed in order to use the javax.script API.
 
@@ -56,8 +56,7 @@ There are also a few improvements:
 
 * Test suite changes: renamed duplicate classes, better support for testing on Java 1.6/1.7
 * Added java-1.4/5/6/7 Maven profiles to allow cross-compilation and testing
-* Use Jexl2 rather than Jexl-1 for testing
-* removed duplicated test cases (jython-2.2)
+* removed duplicated and unnecessary test modules
 
 ----
 
