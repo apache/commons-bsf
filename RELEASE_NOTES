@@ -19,8 +19,21 @@ What the jars contain
 ---------------------
 bsf-api.jar     - javax.script package which implements JSR-223 for Java 1.4+
 bsf-utils.jar   - additional utilities for use with all JSR-223 implementations.
-bsf-engines.jar - collection of 3rd party JSR-223 factory implementations
-bsf-all.jar     - all the above
+bsf-all.jar     - both the above
+
+IMPORTANT
+=========
+Note that BSF 3.1 does not contain bsf-engines.jar, which was a repackaging
+of the JSR-223 factories from https://scripting.dev.java.net/.
+
+This is because:
+- the jar contained all the engine factories as a single bundle. It was not
+  possible to select individual factories, and this could lead to clashes with
+  other factories on the classpath.
+- the jar did not contain any implementations, so it was still necessary to download
+  the engine.
+Many engines contain their own factories now; for those that don't the factory can
+still be downloaded from https://scripting.dev.java.net/.
 
 Incomplete packages
 -------------------

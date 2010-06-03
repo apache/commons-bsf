@@ -45,6 +45,12 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>org.apache.bsf</groupId>
+            <artifactId>bsf-engines</artifactId>
+            <version>${bsf.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.python</groupId>
             <artifactId>jython</artifactId>
             <!-- 2.5.0 is broken. Upgrade to 2.5.1 when that is published to Maven -->

@@ -45,6 +45,12 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>org.apache.bsf</groupId>
+            <artifactId>bsf-engines</artifactId>
+            <version>${bsf.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>rhino</groupId>
             <artifactId>js</artifactId>
             <version>1.6R5</version>

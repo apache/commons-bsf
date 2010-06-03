@@ -37,7 +37,7 @@
             </includes>
         </fileSet>
         <fileSet>
-            <directory>distribution/src/bin/</directory>
+            <directory>.</directory>
             <outputDirectory>bsf-${bsf.version}</outputDirectory>
             <includes>
                 <include>LICENSE</include>
@@ -50,13 +50,6 @@
             <outputDirectory>bsf-${bsf.version}/lib</outputDirectory>
             <includes>
                 <include>bsf-api-${bsf.version}.jar</include>
-            </includes>
-        </fileSet>
-        <fileSet>
-            <directory>bsf-engines/target</directory>
-            <outputDirectory>bsf-${bsf.version}/lib</outputDirectory>
-            <includes>
-                <include>bsf-engines-${bsf.version}.jar</include>
             </includes>
         </fileSet>
         <fileSet>
@@ -74,19 +67,4 @@
             </includes>
         </fileSet>
     </fileSets>
-    <dependencySets>
-        <!-- dependencySet>
-            <outputDirectory>synapse-${synapse.version}/lib</outputDirectory>
-            <includes>
-                <include>org.apache.axis2:addressing:mar</include>
-                <include>org.apache.rampart:rampart:mar</include>
-                <include>org.apache.sandesha2:sandesha2:mar</include>
-            </includes>
-            <excludes>
-                <exclude>org.apache.axis2:addressing:mar</exclude>
-                <exclude>org.apache.rampart:rampart:mar</exclude>
-                <exclude>org.apache.sandesha2:sandesha2:mar</exclude>
-            </excludes>
-        </dependencySet -->
-    </dependencySets>
 </assembly>

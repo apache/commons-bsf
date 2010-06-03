@@ -54,6 +54,12 @@
             <artifactId>bsf-all</artifactId>
             <version>${bsf.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.bsf</groupId>
+            <artifactId>bsf-engines</artifactId>
+            <version>${bsf.version}</version>
+            <scope>test</scope>
+        </dependency>
 
         <dependency>
             <groupId>rhino</groupId>

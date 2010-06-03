@@ -28,30 +28,21 @@
 
     <fileSets>
         <fileSet>
-            <!-- directory>src/main/release</directory -->
-            <outputDirectory>bsf-${bsf.version}-src</outputDirectory>
-            <includes>
-                <include>LICENSE</include>
-                <include>NOTICE</include>
-            </includes>
-        </fileSet>
-        <fileSet>
             <directory>.</directory>
             <outputDirectory>bsf-${bsf.version}-src</outputDirectory>
             <includes>
                 <include>BUILDING</include>
                 <include>LICENSE</include>
                 <include>NOTICE</include>
+                <include>README</include>
                 <include>RELEASE_NOTES</include>
                 <include>pom.xml</include>
                 <include>bsf-api/**/*</include>
-                <include>bsf-engines/**/*</include>
                 <include>bsf-utils/**/*</include>
                 <include>distribution/**/*</include>
                 <include>testing/**/*</include>
             </includes>
             <excludes>
-                <exclude>bsf-engines/engines-download/**</exclude>
                 <exclude>**/target/**</exclude>
                 <exclude>**/build/**</exclude>
                 <exclude>**/.settings/**</exclude>
