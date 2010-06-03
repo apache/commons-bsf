@@ -40,26 +40,9 @@
     <modules>
         <module>e4x</module>
         <module>e4x-1.6R7-Axiom</module>
-        <module>groovy</module>
-        <module>groovy-1.1</module>
         <module>javascript</module>
+        <module>jexl</module>
         <module>python</module>
     </modules>
 
-    <profiles>
-        <profile>
-            <id>JDK15</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-                <jdk>[1.5,]</jdk>
-            </activation>
-            <modules>
-                <!-- Requires Java 1.5+ to run -->
-                <module>jruby-1.1.2</module>
-                <module>jruby-1.2.0</module>
-                <module>ruby</module>
-            </modules>
-        </profile>
-    </profiles>
-    
 </project>
