@@ -41,7 +41,6 @@
         <module>e4x</module>
         <module>e4x-1.6R7-Axiom</module>
         <module>javascript</module>
-        <module>jexl</module>
         <module>python</module>
     </modules>
 
