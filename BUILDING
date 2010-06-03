@@ -1,8 +1,8 @@
 Building BSF 3
 --------------
 
-BSF 3 is built with Apache Maven. Download and install Apache Maven 
-(version 2.0.4 or newer) from: http://maven.apache.org/download.html.
+BSF 3 is built with Apache Maven. 
+Download and install Apache Maven from http://maven.apache.org/download.html.
 
 To build BSF 3, in the top-level BSF 3 directory use the command 'mvn'.
 
