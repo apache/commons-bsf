@@ -1,0 +1,35 @@
+BSF 3.1
+-------
+
+The BSF 3.1 binary release contains 3 jars:
+
+bsf-api-3.1.jar
+- this contains all the javax.script classes as defined in the
+  JSR-223 specification. This jar may be used as an application 
+  dependency when the application is using javax.script classes
+  in a version of Java prior to 1.6 (which includes the classes)
+
+bsf-utils-3.1.jar
+- this contains various BSF specific utilities which aid using
+  script languages from Java applications. 
+
+bsf-all-3.1.jar
+- this contains both the other BSF jars merged into a single jar for 
+  ease of use. If you're not sure which jar to use then use this one.
+
+BSF 3.1 is compatible with Java 1.4.2 and above. Specific script 
+languages may have further requirements on the Java version.  
+
+IMPORTANT
+=========
+Note that BSF 3.1 does not contain bsf-engines.jar, which was a repackaging
+of the JSR-223 factories from https://scripting.dev.java.net/.
+
+This is because:
+- the jar contained all the engine factories as a single bundle. It was not
+  possible to select individual factories, and this could lead to clashes with
+  other factories on the classpath.
+- the jar did not contain any implementations, so it was still necessary to download
+  the engine.
+Many engines contain their own factories now; for those that don't the factory can
+still be downloaded from https://scripting.dev.java.net/.
