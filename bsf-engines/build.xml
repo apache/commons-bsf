@@ -23,6 +23,7 @@
     <property name="download.engines" value="${download.dir}/engines"/>
     <property name="download.file" value="${download.dir}/engines.zip"/>
     <property name="merged.engines.dir" value="${basedir}/target/merged-engines"/>
+    <property name="temp.services.dir" value="${basedir}/target/services-temp"/>
 
     <target name="check-merged">
         <condition property="already.merged" >
@@ -33,6 +34,30 @@
 
     </target>
 
+    <macrodef name="unpack_factory">
+	<attribute name="dir" />
+        <attribute name="jar" />
+        <sequential>
+            <echo level="info" message="** Extracting factory for @{dir} **"/>
+            <!-- Unpack factory into shared dir (except services) -->
+            <unzip src="${download.engines}/@{dir}/build/@{jar}.jar" dest="${merged.engines.dir}" overwrite="true">
+                <patternset>
+                    <exclude name="**/javax.script.*"/>
+                </patternset>
+            </unzip>
+            <!-- Unpack services into work directory, replacing previous file -->
+            <unzip src="${download.engines}/@{dir}/build/@{jar}.jar" dest="${temp.services.dir}" overwrite="true">
+                <patternset>
+                    <include name="**/javax.script.*"/>
+                </patternset>
+            </unzip>
+            <!-- Append the services file to the common services file -->
+            <concat destfile="${merged.engines.dir}/META-INF/services/javax.script.ScriptEngineFactory" append="true">
+                <fileset dir="${temp.services.dir}"/>
+            </concat>
+        </sequential>
+		</macrodef>
+
     <target name="merge-engines" depends="check-merged, download-engines" unless="already.merged">
 
         <mkdir dir="${download.dir}"/>
@@ -40,31 +65,37 @@
 
         <!-- now unzip all the engine jars into a single directory -->
 
+        <delete dir="${merged.engines.dir}" quiet="true"/>
         <mkdir dir="${merged.engines.dir}"/>
-        <unzip src="${download.engines}/beanshell/build/bsh-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <!-- unzip src="${download.engines}/browserjs/build/browserjs-engine.jar" dest="${merged.engines.dir}" overwrite="true"/ -->
-        <!-- unzip src="${download.engines}/ejs/build/js-engine.jar" dest="${merged.engines.dir}" overwrite="true"/ -->
-        <unzip src="${download.engines}/freemarker/build/freemarker-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${download.engines}/groovy/build/groovy-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${download.engines}/jacl/build/jacl-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${download.engines}/jaskell/build/jaskell-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${download.engines}/java/build/java-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${download.engines}/javascript/build/js-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${download.engines}/jawk/build/jawk-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${download.engines}/jelly/build/jelly-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${download.engines}/jep/build/jep-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${download.engines}/jexl/build/jexl-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${download.engines}/jruby/build/jruby-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <!-- unzip src="${download.engines}/jst/build/jst-engine.jar" dest="${merged.engines.dir}" overwrite="true"/ -->
-        <unzip src="${download.engines}/judo/build/judo-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${download.engines}/juel/build/juel-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${download.engines}/jython/build/jython-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${download.engines}/ognl/build/ognl-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${download.engines}/pnuts/build/pnuts-jsr223.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${download.engines}/scheme/build/scheme-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${download.engines}/velocity/build/velocity-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${download.engines}/xpath/build/xpath-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
-        <unzip src="${download.engines}/xslt/build/xslt-engine.jar" dest="${merged.engines.dir}" overwrite="true"/>
+
+        <delete dir="${temp.services.dir}" quiet="true"/>
+        <mkdir dir="${temp.services.dir}"/>
+
+        <!-- unpack_factory dir="beanshell" jar="bsh-engine"/ -->
+        <!-- unpack_factory dir="browserjs" jar="browserjs-engine"/ -->
+        <!-- unpack_factory dir="ejs" jar="js-engine"/ -->
+        <!-- unpack_factory dir="freemarker" jar="freemarker-engine"/ -->
+        <!-- unpack_factory dir="groovy" jar="groovy-engine"/ -->
+        <!-- unpack_factory dir="jacl" jar="jacl-engine"/ -->
+        <!-- unpack_factory dir="jaskell" jar="jaskell-engine"/ -->
+        <!-- unpack_factory dir="java" jar="java-engine"/ -->
+        <!-- unpack_factory dir="javascript" jar="js-engine"/ -->
+        <unpack_factory dir="javascript" jar="js-engine"/>
+        <!-- unpack_factory dir="jawk" jar="jawk-engine"/ -->
+        <!-- unpack_factory dir="jelly" jar="jelly-engine"/ -->
+        <!-- unpack_factory dir="jep" jar="jep-engine"/ -->
+        <!-- unpack_factory dir="jexl" jar="jexl-engine"/ -->
+        <!-- unpack_factory dir="jruby" jar="jruby-engine"/ -->
+        <!-- unpack_factory dir="jst" jar="jst-engine"/ -->
+        <!-- unpack_factory dir="judo" jar="judo-engine"/ -->
+        <!-- unpack_factory dir="juel" jar="juel-engine"/ -->
+        <unpack_factory dir="jython" jar="jython-engine"/>
+        <!-- unpack_factory dir="ognl" jar="ognl-engine"/ -->
+        <!-- unpack_factory dir="pnuts" jar="pnuts-jsr223"/ -->
+        <!-- unpack_factory dir="scheme" jar="scheme-engine"/ -->
+        <!-- unpack_factory dir="velocity" jar="velocity-engine"/ -->
+        <!-- unpack_factory dir="xpath" jar="xpath-engine"/ -->
+        <!-- unpack_factory dir="xslt" jar="xslt-engine"/ -->
 
         <!-- Copy in the META-INF files for services, LICENSE and NOTICE -->
 
@@ -79,6 +110,7 @@
 
         <!-- Delete work directory -->
         <delete dir="${merged.engines.dir}" />
+        <delete dir="${temp.services.dir}" />
 
         <!-- Use Retroweaver to convert all the classes to JDK 1.4 -->
 
