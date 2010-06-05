@@ -93,9 +93,10 @@
     </licenses>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/bsf/branches/bsf3.x</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/jakarta/bsf/branches/bsf3.x</developerConnection>
-        <url>http://svn.apache.org/viewvc/jakarta/bsf/branches/bsf3.x/</url>
+          <!-- N.B. Odd indentation is so the SVN locations align properly-->
+          <connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/bsf/branches/bsf3.x</connection>
+<developerConnection>scm:svn:https://svn.apache.org/repos/asf/jakarta/bsf/branches/bsf3.x</developerConnection>
+                            <url>http://svn.apache.org/viewvc/jakarta/bsf/branches/bsf3.x/</url>
     </scm>
 
     <organization>
