@@ -52,7 +52,7 @@
                         <configuration>
                             <tasks>
                                 <ant target="create-bsf-all">
-                                    <property name="localRepository" value="${settings.localRepository}"/>
+                                    <!-- version is needed for names of jar files -->
                                     <property name="bsf.version" value="${project.version}"/>
                                     <!-- Compilation details for manifest -->
                                     <property name="maven.compile.source" value="${maven.compile.source}"/>
