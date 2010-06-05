@@ -52,11 +52,27 @@
                 <include>bsf-api-${bsf.version}.jar</include>
             </includes>
         </fileSet>
+        <!-- Include the Javadoc too -->
+        <fileSet>
+            <directory>bsf-api/target</directory>
+            <outputDirectory>bsf-${bsf.version}/doc</outputDirectory>
+            <includes>
+                <include>bsf-api-${bsf.version}-javadoc.jar</include>
+            </includes>
+        </fileSet>
         <fileSet>
             <directory>bsf-utils/target</directory>
             <outputDirectory>bsf-${bsf.version}/lib</outputDirectory>
             <includes>
                 <include>bsf-utils-${bsf.version}.jar</include>
+            </includes>
+        </fileSet>
+        <!-- Include the Javadoc too -->
+        <fileSet>
+            <directory>bsf-utils/target</directory>
+            <outputDirectory>bsf-${bsf.version}/doc</outputDirectory>
+            <includes>
+                <include>bsf-utils-${bsf.version}-javadoc.jar</include>
             </includes>
         </fileSet>
         <fileSet>
