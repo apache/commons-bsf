@@ -38,11 +38,13 @@
                 <include>RELEASE_NOTES</include>
                 <include>pom.xml</include>
                 <include>bsf-api/**/*</include>
+                <include>bsf-engines/**/*</include>
                 <include>bsf-utils/**/*</include>
                 <include>distribution/**/*</include>
                 <include>testing/**/*</include>
             </includes>
             <excludes>
+                <exclude>**/engines-download/**</exclude>
                 <exclude>**/target/**</exclude>
                 <exclude>**/build/**</exclude>
                 <exclude>**/.settings/**</exclude>
