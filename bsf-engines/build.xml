@@ -97,12 +97,6 @@
         <!-- unpack_factory dir="xpath" jar="xpath-engine"/ -->
         <!-- unpack_factory dir="xslt" jar="xslt-engine"/ -->
 
-        <!-- Copy in the META-INF files for services, LICENSE and NOTICE -->
-
-        <copy todir="${merged.engines.dir}" overwrite="true">
-           <fileset dir="${basedir}/src/main/resources"/>
-        </copy>
-
         <!-- Now package all that up into a single jar -->
 
         <jar destfile="${basedir}/target/bsf-engines.tmp.jar" basedir="${merged.engines.dir}">
