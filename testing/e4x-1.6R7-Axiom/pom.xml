@@ -51,8 +51,14 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.bsf</groupId>
-            <artifactId>bsf-all</artifactId>
+            <artifactId>bsf-api</artifactId>
             <version>${bsf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.bsf</groupId>
+            <artifactId>bsf-utils</artifactId>
+            <version>${bsf.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.bsf</groupId>
