@@ -294,10 +294,10 @@ Copyright:
 			<classpath refid="anakia.classpath" />
 		</taskdef>
 
-		<anakia basedir="${site.src}" destdir="${site.dest}/" extension=".html" style="./site.vsl" projectFile="${site.projectFile}" excludes="**/stylesheets/** faq.xml" includes="**/*.xml" lastModifiedCheck="true" templatePath="${templ.path}" velocityPropertiesFile="${velocity.props}"/>
+		<anakia basedir="${site.src}" destdir="${site.dest}/" extension=".html" style="./site.vsl" projectFile="${site.projectFile}" excludes="**/stylesheets/** faq.xml" includes="**/*.xml" lastModifiedCheck="false" templatePath="${templ.path}" velocityPropertiesFile="${velocity.props}"/>
 
 
-		<anakia basedir="${site.src}" destdir="${site.dest}/" extension=".html" style="./faq.vsl" projectFile="${site.projectFile}" includes="faq.xml" lastModifiedCheck="true" templatePath="${templ.path}" velocityPropertiesFile="${velocity.props}"/>
+		<anakia basedir="${site.src}" destdir="${site.dest}/" extension=".html" style="./faq.vsl" projectFile="${site.projectFile}" includes="faq.xml" lastModifiedCheck="false" templatePath="${templ.path}" velocityPropertiesFile="${velocity.props}"/>
 
 		<fixcrlf srcdir="${site.dest}/" includes="**/*.html" fixlast="false"/>
 
