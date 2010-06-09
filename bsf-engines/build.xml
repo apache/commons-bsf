@@ -108,23 +108,24 @@
 
         <!-- Use Retroweaver to convert all the classes to JDK 1.4 -->
 
+    	<echo level="info">localRepository='${localRepository}'</echo>
+        <taskdef name="retroweaver" classname="net.sourceforge.retroweaver.ant.RetroWeaverTask">
+           <classpath>
+              <pathelement location="${localRepository}/net/sourceforge/retroweaver/retroweaver/2.0.7/retroweaver-2.0.7.jar"/>
+              <pathelement location="${localRepository}/net/sourceforge/retroweaver/retroweaver-rt/2.0.7/retroweaver-rt-2.0.7.jar"/>
+              <pathelement location="${localRepository}/asm/asm/3.1/asm-3.1.jar"/>
+              <pathelement location="${localRepository}/asm/asm-commons/3.1/asm-commons-3.1.jar"/>
+              <pathelement location="${localRepository}/asm/asm-util/3.1/asm-util-3.1.jar"/>
+              <pathelement location="${localRepository}/backport-util-concurrent/backport-util-concurrent/2.2/backport-util-concurrent-2.2.jar"/>
+           </classpath>
+        </taskdef>
+
         <retroweaver inputjar="${basedir}/target/bsf-engines.tmp.jar" outputjar="${basedir}/target/bsf-engines-${bsf.version}.jar"/>
 
         <!-- Delete the temporary work file -->
         <delete file="${basedir}/target/bsf-engines.tmp.jar"/>
 
     </target>
-
-    <taskdef name="retroweaver" classname="net.sourceforge.retroweaver.ant.RetroWeaverTask">
-       <classpath>
-          <pathelement location="${localRepository}/net/sourceforge/retroweaver/retroweaver/2.0.7/retroweaver-2.0.7.jar"/>
-          <pathelement location="${localRepository}/net/sourceforge/retroweaver/retroweaver-rt/2.0.7/retroweaver-rt-2.0.7.jar"/>
-          <pathelement location="${localRepository}/asm/asm/3.1/asm-3.1.jar"/>
-          <pathelement location="${localRepository}/asm/asm-commons/3.1/asm-commons-3.1.jar"/>
-          <pathelement location="${localRepository}/asm/asm-util/3.1/asm-util-3.1.jar"/>
-          <pathelement location="${localRepository}/backport-util-concurrent/backport-util-concurrent/2.2/backport-util-concurrent-2.2.jar"/>
-       </classpath>
-    </taskdef>
 
     <target name="check-downloaded">
         <condition property="already.downloaded" >
