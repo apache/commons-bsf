@@ -108,30 +108,16 @@
         <defaultGoal>install</defaultGoal>
         <pluginManagement>
           <plugins>
-            <!-- Need at least 1.0 to support gpg.homedir property -->
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-gpg-plugin</artifactId>
-              <version>1.1</version>
-            </plugin>
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-clean-plugin</artifactId>
               <version>2.4.1</version>
             </plugin>
-            <plugin>
-              <artifactId>maven-site-plugin</artifactId>
-              <version>2.1</version>
-            </plugin>
+            <!-- Need at least 1.0 to support gpg.homedir property -->
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-resources-plugin</artifactId>
-              <version>2.4.3</version>
-            </plugin>
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-remote-resources-plugin</artifactId>
-              <version>${jakarta.remote-resources.version}</version>
+              <artifactId>maven-gpg-plugin</artifactId>
+              <version>1.1</version>
             </plugin>
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
@@ -151,6 +137,21 @@
                   </manifestEntries>
                 </archive>
               </configuration>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-remote-resources-plugin</artifactId>
+              <version>${jakarta.remote-resources.version}</version>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-resources-plugin</artifactId>
+              <version>2.4.3</version>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-site-plugin</artifactId>
+              <version>2.1</version>
             </plugin>
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
@@ -175,14 +176,17 @@
                 <version>${jakarta.compiler.version}</version>
             </plugin>
             <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-install-plugin</artifactId>
               <version>2.3.1</version>
             </plugin>
             <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-jar-plugin</artifactId>
               <version>2.3.1</version>
             </plugin>
             <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-release-plugin</artifactId>
               <version>2.0</version>
             </plugin>
