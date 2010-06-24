@@ -131,17 +131,18 @@
                 Java objects to these scripting language engines.
         </p>
                                 <p>
-There are now two different versions of Apache BSF. These have different APIs. 
-The original version of BSF is represented by the BSF 2.x releases (current version 2.4), 
+There are now two different versions of Apache BSF. These have different APIs.
+<br />
+The original version of BSF is represented by the BSF 2.x releases (current version 2.4),
 and uses an API which was originally developed at IBM.
-The new version of Apache BSF is represent by the 3.x release (current version 3.0)
+<br />
+The new version of Apache BSF is represent by the 3.x releases.
 The 3.x version uses the API defined as part of JSR-223 (javax.script),
 which is included in Java 1.6 onwards.
-However BSF 3.0 will run on Java 1.4+, allowing access to JSR-223 scripting
-for Java 1.4 and Java 1.5. 
-Apache BSF 3.0 is also useful for Java 1.6 as it contains a command-line utility for
-testing JSR-223 scripts, and it also contains a set of factory implementations for many
-languages.
+However BSF 3.x will run on Java 1.4+, allowing access to JSR-223 scripting
+for Java 1.4 and Java 1.5.
+Apache BSF 3.x is also useful for Java 1.6 as it contains a command-line utility for
+testing JSR-223 scripts as well as some utility classes for working with XML.
 </p>
                     </blockquote>
     </td></tr>
@@ -207,7 +208,7 @@ BSF 2.x supports several scripting languages currently:
    </li>
 
    <li>
-       <a href="http://www.judoscript.com">JudoScript</a>
+       <a href="http://www.judoscript.org">JudoScript</a>
    </li>
 
    <li>
@@ -216,7 +217,7 @@ BSF 2.x supports several scripting languages currently:
 
    <li>
        	<a href="http://www.oorexx.org/">ooRexx (Open Object Rexx)</a>, using
-    	<a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/">BSF4Rexx</a>.
+    	<a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4oorexx/current/">BSF4ooRexx</a>.
    </li>
 
 </ul>
@@ -254,16 +255,50 @@ Documentation and examples are included in the source and binary distributions.
     <tr><td>
       <blockquote>
                         <p>
-The following references describe the standard API (javax.script) which is implemented by BSF 3.0:
+The following references describe the standard API (javax.script) which is implemented by BSF 3.x:
 <ul>
-<li><a href="http://jcp.org/aboutJava/communityprocess/final/jsr223/index.html">JSR-000223 Scripting for the Java Platform</a> - specification (PDF)</li>
+<li><a href="http://jcp.org/aboutJava/communityprocess/final/jsr223/index.html">JSR-223 Scripting for the Java Platform</a> - specification (PDF)</li>
 <li><a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Javadoc for javax.script classes</a> in Java 1.6</li>
 <li><a href="http://java.sun.com/developer/technicalArticles/J2SE/Desktop/scripting/">Scripting for the Java platform (Sun technical article)</a></li>
 </ul>
-Documentation on BSF 3.0 utilities and engines TBA.
 </p>
                                 <p>
-Documentation and examples are included in the source and binary distributions.
+Apache BSF 3.x includes an implementation of JSR-223 (javax.script) and runs on Java 1.4 and Java 1.5.
+(Java 1.6 includes javax.script as standard.)
+Note that although the implementation follows the JSR-223 specification, it has not been tested against
+the JSR-223 TCK. 
+Apache BSF 3.x can therefore not strictly be described as a compatible implementation of JSR-223,
+however it is believed to be complete.
+</p>
+                                <p>
+Apache BSF 3.x also includes some utility classes for working with XML.
+These can be used with any used with any implementation of the javax.scripting package, including the one in Java 1.6+.
+</p>
+                                <p>
+There is also a command-line utility which can be used to run scripts in any language engine which supports JSR-223.
+</p>
+                                <p>
+Note that Apache BSF does not contain any language engines; these have to be downloaded separately.
+Version 3.0 was shipped with a set of engine factories, however this is no longer present in later versions of BSF.
+This is because many languages are now provided with their own factories.
+<br />
+Also, having all the factories in a single jar can cause problems at run-time.
+If other jars contain factories that implement a different version of the same language 
+it may be difficult or impossible to choose which version is loaded. 
+<br />
+If the language implementation is not present, the factory class may fail to load;
+with some implementations of javax.script (e.g. Sun Java 1.6) this may prevent any factories from loading.
+</p>
+                                <p>
+An example language which includes the necessary engine factory is:
+<a href="http://commons.apache.org/jexl/">Apache Jexl 2.0</a> (requires Java 1.5).
+Some other scripting languages also come with their own factories already included.
+For example <a href="http://groovy.codehaus.org/">Groovy</a> and <a href="http://jruby.org/">JRuby</a>.  
+</p>
+                                <p>
+Many other languages are supported by the 3rd party engine factories available at 
+<a href="https://scripting.dev.java.net/">https://scripting.dev.java.net/</a>.
+This provides a combined archive from which the appropriate jar for the language can be extracted. 
 </p>
                     </blockquote>
     </td></tr>
@@ -323,7 +358,7 @@ Documentation and examples are included in the source and binary distributions.
         </td></tr>
         <tr><td colspan="2">
           <div align="center"><font color="#525D76" size="-1"><em>
-          Copyright &#169; 2002-2009, Apache Software Foundation
+          Copyright &#169; 2002-2010, Apache Software Foundation
           </em></font></div>
         </td></tr>
       </table>
