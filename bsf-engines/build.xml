@@ -109,6 +109,7 @@
         <!-- Use Retroweaver to convert all the classes to JDK 1.4 -->
 
     	<echo level="info">localRepository='${localRepository}'</echo>
+        <echo level="info">settings.localRepository='${settings.localRepository}'</echo>
         <taskdef name="retroweaver" classname="net.sourceforge.retroweaver.ant.RetroWeaverTask">
            <classpath>
               <pathelement location="${localRepository}/net/sourceforge/retroweaver/retroweaver/2.0.7/retroweaver-2.0.7.jar"/>
