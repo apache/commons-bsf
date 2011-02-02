@@ -84,12 +84,12 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
-                            <tasks>
+                            <target>
                                 <ant target="merge-engines">
                                     <property name="localRepository" value="${settings.localRepository}"/>
                                     <property name="bsf.version" value="${project.version}"/>
                                 </ant>
-                            </tasks>
+                            </target>
                         </configuration>
                     </execution>
                 </executions>
