@@ -1,3 +1,11 @@
+For 2011-08-17 (a test whether commiting has become possible as well):
+
+	- incorporate all RFEs for BSF 2.4
+
+	- possibly create a JSR-223-adapter for BSF 2.4 (there are engines for BSF 2.4 for which no JSR-223 engines exist; in addition it may buy time for deployments that have a mix of BSF 2.4 and JSR-223)
+
+
+-------------------------- cut here (from 2006) ------------------------------
 For 2006-09-25 the TODO list would consist at least from the following items:
 
         - add new BSF engines for BSF 2.4
