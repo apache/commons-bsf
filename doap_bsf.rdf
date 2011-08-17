@@ -59,8 +59,8 @@
     </release>
     <repository>
       <SVNRepository>
-        <location rdf:resource="http://svn.apache.org/repos/asf/jakarta/bsf/trunk/"/>
-        <browse rdf:resource="http://http://svn.apache.org/viewcvs.cgi/jakarta/bsf/"/>
+        <location rdf:resource="http://svn.apache.org/repos/asf/commons/proper/bsf/trunk/"/>
+        <browse rdf:resource="http://http://svn.apache.org/viewcvs.cgi/commons/proper/bsf/"/>
       </SVNRepository>
     </repository>
   </Project>
