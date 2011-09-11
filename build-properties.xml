@@ -46,7 +46,8 @@
 
     <property name="samples.dir" value="samples"/>
 
-    <property name="site.src" location="xdocs"/>
+    <property name="site.src" location="src/site/xdoc"/>
+    <property name="site.images" location="src/site/resources/images"/>
     <property name="site.dest" location="docs"/>
     <property name="site.projectFile" value="stylesheets/project.xml"/>
 
@@ -54,7 +55,7 @@
 
     <property name="src.dir" value="src"/>
 
-    <property name="templ.path" location="xdocs/stylesheets"/>
+    <property name="templ.path" location="src/site/xdoc/stylesheets"/>
 
     <property name="tests.dir" value="test"/>
 

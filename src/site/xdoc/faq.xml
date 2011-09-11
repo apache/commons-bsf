@@ -27,17 +27,19 @@
     <title>Frequently Asked Questions</title>
   </properties>
 
-  <faqsection title="About this FAQ">
-    <faq id="latest-version">
+ <body>
+
+  <section name="About this FAQ">
+    <subsection name="latest-version">
       <question>Where do I find the latest version of this
         document?</question>
       <answer>
         <p>The latest version can always be found at BSF&apos;s homepage 
-          <a href="http://jakarta.apache.org/bsf/faq.html">http://jakarta.apache.org/bsf/faq.html</a>.</p>
+          <a href="http://commons.apache.org/bsf/faq.html">http://commons.apache.org/bsf/faq.html</a>.</p>
       </answer>
-    </faq>
+    </subsection>
 
-    <faq id="adding-faqs">
+    <subsection name="adding-faqs">
       <question>How can I contribute to this FAQ?</question>
       <answer>
         <p>The page you are looking it is generated from 
@@ -50,9 +52,9 @@
           section of <a href="http://jakarta.apache.org/site/source.html">this
           page</a>.</p>
       </answer>
-    </faq>
+    </subsection>
 
-    <faq id="creating-faq">
+    <subsection name="creating-faq">
       <question>How do you create the HTML version of this
         FAQ?</question>
 
@@ -70,12 +72,12 @@
         homepage, you should get it to work without that.  Just make
         sure all required jars are in the task&apos;s classpath.</p>
       </answer>
-    </faq>
+    </subsection>
 
-  </faqsection>
+  </section>
 
-  <faqsection title="General">
-    <faq id="what-is-bsf">
+  <section name="General">
+    <subsection name="what-is-bsf">
       <question>What is Bean Scripting Framework?</question>
       <answer>
         <p>
@@ -91,9 +93,9 @@
         objects to these scripting language engines.
         </p>
       </answer>
-    </faq>
+    </subsection>
 
-    <faq id="bsf-name">
+    <subsection name="bsf-name">
       <question>Why do you call it BSF?</question>
       <answer>
 
@@ -103,9 +105,9 @@
         </p>
         
       </answer>
-    </faq>
+    </subsection>
 
-    <faq id="history">
+    <subsection name="history">
       <question>Tell us a little bit about BSF&apos;s history.</question>
       <answer>
 
@@ -140,12 +142,12 @@
         </p>
 
       </answer>
-    </faq>
+    </subsection>
 
-  </faqsection>
+  </section>
 
-  <faqsection title="Installation">
-    <faq id="no-gnu-tar">
+  <section name="Installation">
+    <subsection name="no-gnu-tar">
       <question>I get checksum errors when I try to extract the
       <code>tar.gz</code> distribution file. Why?</question>
       <answer>
@@ -166,11 +168,11 @@
         or use the zip archive instead (you can extract it using
         <code>jar xf</code>).</p>
       </answer>
-    </faq>
-  </faqsection>
+    </subsection>
+  </section>
 
-  <faqsection title="How do I ...">
-    <faq id="doh">
+  <section name="How do I ...">
+    <subsection name="doh">
       <question>How do I install BSF?</question>
       <answer>
 
@@ -179,14 +181,14 @@
         application server. In order to be used as a class library or as
         a standalone system, one simply downloads a copy of the bsf.jar
         file from the
-        <a href="http://jakarta.apache.org/bsf/index.html">BSF web site</a>
+        <a href="http://commons.apache.org/bsf/index.html">BSF web site</a>
         and includes it in their classpath, along with any required classes
         or jar files for the desired languages.    
         </p>
         
         <p>
         In order to use BSF as part of the
-        <a href="http://jakarta.apache.org/tomcat/">Tomcat</a>
+        <a href="http://tomcat.apache.org/tomcat/">Tomcat</a>
         servlet engine, one must currently download patches from the BSF
         web site that permit Jasper to call BSF. Instructions for this will be
         posted on the website, and will be accompanied by prebuilt binaries.
@@ -195,13 +197,13 @@
         </p>
 
       </answer>
-    </faq>
+    </subsection>
 
-  </faqsection>
+  </section>
 
-  <faqsection title="It doesn&apos;t work (as expected)">
+  <section name="It doesn&apos;t work (as expected)">
 
-    <faq id="winzip-lies">
+    <subsection name="winzip-lies">
       <question>BSF creates JAR files with a lower-case
         <code>meta-inf</code> directory.</question>
         
@@ -217,11 +219,11 @@
         <p>If you extract (or just check) the archive with jar, you
         will see that the names have the correct case.</p>
       </answer>
-    </faq>
-  </faqsection>
+    </subsection>
+  </section>
 
-  <faqsection title="Advanced Issues">
-    <faq id="TBD2">
+  <section name="Advanced Issues">
+    <subsection name="TBD2">
       <question>
       To be added
       </question>
@@ -233,11 +235,11 @@
         </p>
 
       </answer>
-    </faq>
-  </faqsection>
+    </subsection>
+  </section>
 
-  <faqsection title="Known Problems">
-    <faq id="javadoc-cannot-execute">
+  <section name="Known Problems">
+    <subsection name="javadoc-cannot-execute">
       <question>JavaDoc failed: java.io.IOException: javadoc: cannot execute</question>
       <answer>
         <p>There is a bug in the Solaris reference implementation of
@@ -245,8 +247,8 @@
         This also appears to be true under Linux. Moving the JDK to
         the front of the PATH fixes the problem.</p>
       </answer>
-    </faq>
+    </subsection>
 
-  </faqsection>
-
+  </section>
+ </body>
 </document>

@@ -294,15 +294,15 @@ Copyright:
 			<classpath refid="anakia.classpath" />
 		</taskdef>
 
-		<anakia basedir="${site.src}" destdir="${site.dest}/" extension=".html" style="./site.vsl" projectFile="${site.projectFile}" excludes="**/stylesheets/** faq.xml" includes="**/*.xml" lastModifiedCheck="false" templatePath="${templ.path}" velocityPropertiesFile="${velocity.props}"/>
+		<anakia basedir="${site.src}" destdir="${site.dest}/" extension=".html" style="./site.vsl" projectFile="${site.projectFile}" excludes="**/stylesheets/**" includes="**/*.xml" lastModifiedCheck="false" templatePath="${templ.path}" velocityPropertiesFile="${velocity.props}"/>
 
 
-		<anakia basedir="${site.src}" destdir="${site.dest}/" extension=".html" style="./faq.vsl" projectFile="${site.projectFile}" includes="faq.xml" lastModifiedCheck="false" templatePath="${templ.path}" velocityPropertiesFile="${velocity.props}"/>
+		<!--anakia basedir="${site.src}" destdir="${site.dest}/" extension=".html" style="./faq.vsl" projectFile="${site.projectFile}" includes="faq.xml" lastModifiedCheck="false" templatePath="${templ.path}" velocityPropertiesFile="${velocity.props}"/-->
 
 		<fixcrlf srcdir="${site.dest}/" includes="**/*.html" fixlast="false"/>
 
 		<copy todir="${site.dest}/images" filtering="no">
-			<fileset dir="${site.src}/images">
+			<fileset dir="${site.images}">
 				<include name="**/*.gif" />
 				<include name="**/*.jpeg" />
 				<include name="**/*.jpg" />
