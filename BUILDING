@@ -57,3 +57,4 @@ on a SNAPSHOT release. If this is the case the -U parameter
 may sometimes be required to update to the latest SNAPSHOT 
 build of that dependency, eg. 'mvn -U'   
 
+The BSF3 site is currently included in the BSF2.x site 
