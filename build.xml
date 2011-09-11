@@ -387,7 +387,14 @@ Copyright:
 	<!-- =================================================================== -->
 	<target name="compile-test" if="junit.present" depends="compile">
 		<mkdir dir="${build.tests}" />
-		<javac srcdir="${tests.dir}" destdir="${build.tests}" classpath="${build.dest}" source="${source.level}" />
+		<javac srcdir="${tests.dir}" destdir="${build.tests}" source="${source.level}">
+            <classpath>
+                <fileset dir="lib">
+                    <include name="junit*.jar"/>
+                </fileset>
+                <pathelement location="${build.dest}" />
+            </classpath>
+	    </javac>
 	</target>
 
 	<!-- =================================================================== -->
