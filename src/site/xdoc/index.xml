@@ -200,24 +200,6 @@ This provides a combined archive from which the appropriate jar for the language
 
   </section>
 
-  <section name="Latest Release">
-    <p>
-    You can download the latest release:
-    </p>
-    <ul>
-        <li>
-            <a href="http://jakarta.apache.org/site/downloads/downloads_bsf.cgi">
-                        Download the binary release
-             </a>
-       </li>
-
-        <li>
-            <a href="http://jakarta.apache.org/site/downloads/downloads_bsf.cgi">
-                         Download the source release
-            </a>
-        </li>
-    </ul>
-  </section>
 </body>
 </document>
 
