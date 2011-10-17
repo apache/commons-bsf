@@ -150,6 +150,17 @@
     <build>
           <plugins>
             <plugin>
+               <!-- Temporary hack to allow compilation; remove when engine dependencies have been sorted -->
+               <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <!-- engine dependencies have not yet been sorted -->
+                    <excludes>
+                        <exclude>org/apache/bsf/engines/**</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-jar-plugin</artifactId>
               <executions>
@@ -161,6 +172,7 @@
               </executions>
             </plugin>
             <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <includes>
