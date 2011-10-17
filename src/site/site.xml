@@ -32,7 +32,7 @@
     <menu name="BSF">
       <item name="About" href="index.html"/>
       <item name="News" href="bsfnews.html"/>
-      <item name="Download" href=download_bsf.cgi"/>
+      <item name="Download" href="download_bsf.cgi"/>
       <item name="Documentation" href="manual.html"/>
       <item name="FAQ" href="faq.html"/>
       <item name="Related projects" href="projects.html"/>
