@@ -59,6 +59,9 @@ import org.apache.bsf.util.type.TypeConvertorRegistry;
 
      2011-10-29: Rony G. Flatscher, in case an event is not found, create a
           user-friendly error message that lists all available event names
+
+     2011-10-29: Rony G. Flatscher, make sure that the context class loader
+          is used only, if not null
  */
 public class ReflectionUtils {
     // rgf, 20070921: class loaders that we might need to load classes
@@ -205,6 +208,7 @@ public class ReflectionUtils {
   //////////////////////////////////////////////////////////////////////////
 
 
+
   /**
    * Create a bean using given class loader and using the appropriate
    * constructor for the given args of the given arg types.
@@ -256,21 +260,23 @@ public class ReflectionUtils {
           }
 
           if (cl==null) {
-              try {         // CTXCL
-                  cl=Thread.currentThread().getContextClassLoader().loadClass(className);
-              }
-              catch (ClassNotFoundException e01)  {
+              // load context class loader, only use it, if not null
+              ClassLoader tccl=Thread.currentThread().getContextClassLoader();
+              if (tccl!=null) {
+                  try {         // CTXCL
+                          cl=tccl.loadClass(className);
+                      }
+                  catch (ClassNotFoundException e01) {}
               }
           }
-
 
           if (cl==null) {   // class not loaded yet
                     // defined CL
               if (cld != bsfManagerDefinedCL) {   // if not used already, attempt to load
                   cl=bsfManagerDefinedCL.loadClass(className);
               }
-              else {    // already , throw exception
-                  throw exCTX;        // re-throw very first exception
+              else {    // classloader was already used, hence re-throw exception
+                  throw exCTX;      // re-throw very first exception
               }
           }
 // -----------------------------
