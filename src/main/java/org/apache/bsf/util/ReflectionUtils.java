@@ -33,6 +33,10 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import java.util.TreeSet;
+import java.util.Comparator;
+import java.util.Iterator;
+
 import org.apache.bsf.util.event.EventAdapter;
 import org.apache.bsf.util.event.EventAdapterRegistry;
 import org.apache.bsf.util.event.EventProcessor;
@@ -52,6 +56,9 @@ import org.apache.bsf.util.type.TypeConvertorRegistry;
         - supplied class loader (given as an argument)
         - Thread's context class loader
         - BSFManager's defining class loader
+
+     2011-10-29: Rony G. Flatscher, in case an event is not found, create a
+          user-friendly error message that lists all available event names
  */
 public class ReflectionUtils {
     // rgf, 20070921: class loaders that we might need to load classes
@@ -85,13 +92,77 @@ public class ReflectionUtils {
               InvocationTargetException {
     // find the event set descriptor for this event
     BeanInfo bi = Introspector.getBeanInfo (source.getClass ());
-    EventSetDescriptor esd = (EventSetDescriptor)
-      findFeatureByName ("event", eventSetName, bi.getEventSetDescriptors ());
+
+    EventSetDescriptor arrESD[]=bi.getEventSetDescriptors ();
+    EventSetDescriptor esd=(EventSetDescriptor) findFeatureByName ("event", eventSetName, arrESD);
 
     if (esd == null)        // no events found, maybe a proxy from OpenOffice.org?
         {
-          throw new IllegalArgumentException ("event set '" + eventSetName +
-                                              "' unknown for source type '" + source.getClass () + "'");
+          String errMsg="event set '" + eventSetName +"' unknown for source type '" + source.getClass () + "': ";
+          if (arrESD.length==0)     // no event sets found in class!
+          {
+              errMsg=errMsg+"class does not implement any event methods following Java's event pattern!";
+          }
+          else
+          {
+              // errMsg=errMsg+"class defines the following event set(s): {";
+              errMsg=errMsg+"class defines the following event set(s): ";
+
+              // sort ESD by Name
+              TreeSet ts=new TreeSet(new Comparator () {
+                          public int    compare(Object o1, Object o2) {return ((EventSetDescriptor)o1).getName().compareToIgnoreCase(((EventSetDescriptor)o2).getName());}
+                          public boolean equals(Object o1, Object o2) {return ((EventSetDescriptor)o1).getName().equalsIgnoreCase   (((EventSetDescriptor)o2).getName());}
+                         });
+
+              for (int i=0;i<arrESD.length;i++)
+              {
+                  ts.add(arrESD[i]);
+              }
+              Iterator it=ts.iterator();    // get iterator
+
+              int i=0;
+              while (it.hasNext())          // iterate in sorted order
+              {
+                  EventSetDescriptor tmpESD=(EventSetDescriptor) it.next();
+
+                  if (i>0)
+                  {
+                      errMsg=errMsg+", ";
+                  }
+                  errMsg=errMsg+"\n\t"+'\''+tmpESD.getName()+"'={";  // event set name
+
+
+                    // iterate over listener methods and display their names in sorted order
+                  Method m[]=tmpESD.getListenerMethods();
+                  TreeSet tsM=new TreeSet(new Comparator () {
+                          public int    compare(Object o1, Object o2) {return ((Method)o1).getName().compareToIgnoreCase(((Method)o2).getName());}
+                          public boolean equals(Object o1, Object o2) {return ((Method)o1).getName().equalsIgnoreCase   (((Method)o2).getName());}
+                         });
+
+                  for (int j=0;j<m.length;j++)
+                  {
+                      tsM.add(m[j]);
+                  }
+                  Iterator itM=tsM.iterator();
+
+                  int j=0;
+                  while (itM.hasNext())
+                  {
+                      if (j>0)
+                      {
+                          errMsg=errMsg+',';
+                      }
+                      errMsg=errMsg+'\''+((Method) itM.next()).getName()+'\'';
+                      j++;
+                  }
+                  errMsg=errMsg+'}';    // close event method set
+                  i++;
+              }
+
+              // errMsg=errMsg+"}.";       // close set of event sets
+              errMsg=errMsg+".";       // close set of event sets
+          }
+          throw new IllegalArgumentException (errMsg);
     }
 
     // get the class object for the event
@@ -285,6 +356,8 @@ public class ReflectionUtils {
     }
     return null;
   }
+
+
   public static Bean getField (Object target, String fieldName)
       throws IllegalArgumentException, IllegalAccessException {
     // This is to handle how we do static fields.
@@ -491,3 +564,5 @@ public class ReflectionUtils {
     }
   }
 }
+
+
