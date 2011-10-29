@@ -162,7 +162,6 @@ public class ReflectionUtils {
                   i++;
               }
 
-              // errMsg=errMsg+"}.";       // close set of event sets
               errMsg=errMsg+".";       // close set of event sets
           }
           throw new IllegalArgumentException (errMsg);
@@ -236,16 +235,9 @@ public class ReflectionUtils {
               IOException {
     if (argTypes != null) {
 
-/* original (remarked 20070917, rgf)
-      // find the right constructor and use that to create bean
-      Class cl = (cld != null) ? cld.loadClass (className)
-                   : Thread.currentThread().getContextClassLoader().loadClass (className); // rgf, 2006-01-05
-                                   // : Class.forName (className);
-*/
-            // TODO: final decision about class loading strategy
-            // rgf, 20070917: if class loader given, use that one, else try
-            //                the Thread's context class loader and then
-            //                the BSFMananger defining class loader
+            // if class loader given, use that one, else try
+            // the Thread's context class loader (if set) and then
+            // the BSFMananger defining class loader
           Class cl=null;
           ClassNotFoundException exCTX=null;
 
@@ -280,28 +272,6 @@ public class ReflectionUtils {
               }
           }
 // -----------------------------
-
-/*
-          try {     // try supplied class loader
-              if (cld !=null)
-                  cl=cld.loadClass(className);
-          }
-          catch (ClassNotFoundException e01) {
-              try {
-                  cl=Thread.currentThread().getContextClassLoader().loadClass(className);
-              }
-              catch (ClassNotFoundException e02)  {
-                  ClassLoader defCL=BSFManager.getDefinedClassLoader();
-                  if (cld != defCL) {
-                      cl=defCL.loadClass(className);
-                  }
-                  else
-                  {
-                      throw e01;        // re-throw original class not found exception
-                  }
-              }
-          }
-*/
 
       Constructor c = MethodUtils.getConstructor (cl, argTypes);
       return new Bean (cl, c.newInstance (args));
