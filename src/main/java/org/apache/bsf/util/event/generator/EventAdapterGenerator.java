@@ -17,12 +17,14 @@
 
 
  /*
- 2007-01-29: Rony G. Flatscher: added BSF_Log[Factory] to allow BSF to run without org.apache.commons.logging present
+     2015-01-15, rgf: take into account that a context thread class loader may be null (not set)
 
- 2007-09-21: Rony G. Flatscher, new class loading sequence:
+     2007-09-21: Rony G. Flatscher, new class loading sequence:
 
-        - Thread's context class loader
-        - BSFManager's defining class loader
+            - Thread's context class loader
+            - BSFManager's defining class loader
+
+     2007-01-29: Rony G. Flatscher: added BSF_Log[Factory] to allow BSF to run without org.apache.commons.logging present
  */
 
 package org.apache.bsf.util.event.generator;
@@ -93,10 +95,19 @@ public class EventAdapterGenerator
             // EVENTLISTENER = Thread.currentThread().getContextClassLoader().loadClass ("java.util.EventListener"); // rgf, 2006-01-05
 
             // rgf, 20070917: first try context class loader, then BSFManager's defining class loader
-            try {
-                 EVENTLISTENER = Thread.currentThread().getContextClassLoader().loadClass ("java.util.EventListener");
+            EVENTLISTENER=null;
+            ClassLoader tccl=Thread.currentThread().getContextClassLoader();
+
+            if (tccl!=null)
+            {
+                try {
+                     EVENTLISTENER = tccl.loadClass ("java.util.EventListener");
+                }
+                catch(ClassNotFoundException ex01)
+                {}
             }
-            catch(ClassNotFoundException ex01)
+
+            if (EVENTLISTENER==null)    // did not work, try to load it via the definedClassLoader
             {
                 EVENTLISTENER = BSFManager.getDefinedClassLoader().loadClass ("java.util.EventListener");
             }
@@ -583,11 +594,12 @@ public class EventAdapterGenerator
                                        " dynamically generated");
         return ret;
       }
-      catch(Exception ex)
+
+      catch(Throwable ex)           // rgf, 2012-01-15
       {
-              System.err.println(ex.getMessage());
-              ex.printStackTrace();
-          }
+        System.err.println(ex.getMessage());
+        ex.printStackTrace();
+      }
     }
     return null;
   }
