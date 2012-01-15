@@ -34,7 +34,13 @@ import org.apache.bsf.BSFManager;
  * @author   Rony G. Flatscher (added addEventListenerReturningEventInfos)
  */
 
- /*  2007-09-21: Rony G. Flatscher, new class loading sequence:
+ /*
+    2012-01-15: Rony G. Flatscher
+        - take into account that the context thread class loader is not set, hence
+          raise an exception in loadClass(mgr,name) instead of returning null
+        - corrected some indentations
+
+    2007-09-21: Rony G. Flatscher, new class loading sequence:
 
         - Thread's context class loader
         - settable class loader stored with BSF manager
@@ -196,18 +202,18 @@ public class EngineUtils {
                                                     bean.getClass ();
 
         // now try to call method with the right signature
-    try {
-      Method m;
-      try {
-    m = MethodUtils.getMethod (beanClass, methodName, argTypes,
-                       isStaticOnly);
-      } catch (NoSuchMethodException e) {
-    // ok, so that didn't work - now try converting any primitive
-    // wrapper types to their primitive counterparts
-    try {
-      // if args is null the NullPointerException will get caught
-      // below and the right thing'll happen .. ugly but works
-      for (int i = 0; i < args.length; i++) {
+  	try {
+  	  Method m;
+  	  try {
+  	m = MethodUtils.getMethod (beanClass, methodName, argTypes,
+  				       isStaticOnly);
+  	  } catch (NoSuchMethodException e) {
+  	// ok, so that didn't work - now try converting any primitive
+  	// wrapper types to their primitive counterparts
+  	try {
+  	  // if args is null the NullPointerException will get caught
+  	  // below and the right thing'll happen .. ugly but works
+  	  for (int i = 0; i < args.length; i++) {
              if (args[i] instanceof Number)
              {
                  if      (args[i] instanceof Byte)    argTypes[i] = byte.class;
@@ -219,17 +225,17 @@ public class EngineUtils {
              }
              else if (args[i] instanceof Boolean)   argTypes[i] = boolean.class;
              else if (args[i] instanceof Character) argTypes[i] = char.class;
-      }
+  	  }
 
-      m = MethodUtils.getMethod (beanClass, methodName, argTypes,
-                     isStaticOnly);
-    } catch (Exception e2) {
-      // throw the original
-      throw e;
-    }
-      }
+  	  m = MethodUtils.getMethod (beanClass, methodName, argTypes,
+  					 isStaticOnly);
+  	} catch (Exception e2) {
+  	  // throw the original
+  	  throw e;
+  	}
+  	  }
 
-      // call it, and return the result
+  	  // call it, and return the result
         try {
             return m.invoke (bean, args);
         }
@@ -240,10 +246,10 @@ public class EngineUtils {
                 Modifier.isPublic(m.getModifiers())   )   // if a public method allow access to it
             {
                 m.setAccessible(true);        // allow unconditional access to method
-            return m.invoke (bean, args);
+  	        return m.invoke (bean, args);
             }
-      // re-throw the exception
-      throw e;
+  	  // re-throw the exception
+  	  throw e;
         }
 
         } catch (Exception e) {
@@ -356,9 +362,11 @@ public class EngineUtils {
 
     /**
      * Loads a class using the following sequence of class loaders:
-     * Thread's context class loader, settable class loader stored with BSFManager,
-     * BSFManager's defining class loader, BSF customized class loader (from the
-     * BSFManager's temporary directory).
+     * <ul>
+     * <li>  Thread's context class loader,
+     * <li>  settable class loader stored with BSFManager,
+     * <li>  BSFManager's defining class loader,
+     * <li>  BSF customized class loader (from the BSFManager's temporary directory).
      *
      * @param mgr  BSFManager who's classLoader and tempDir props are
      *        consulted
@@ -374,18 +382,15 @@ public class EngineUtils {
         ClassLoader mgrCL = null;
 
         try {
-            // -------------------
-            // TODO: final decision about the sequence of class loaders !
-            //
-            // rgf, 20070917: class loader sequence:
-            //                - Thread's context class loader
-            //                - settable class loader stored with BSF manager
-            //                - BSFManager's defining class loader
-            //                - BSF-custom class loader (loads from temp dir)
-            try {   // try the Thread's context loader first
-                    return Thread.currentThread().getContextClassLoader().loadClass(name);
-            }
-            catch (ClassNotFoundException e01) {
+            // TCCL may not be set, adapt logic!
+            ClassLoader cl=Thread.currentThread().getContextClassLoader();
+            if (cl!=null)
+            {
+                try {   // try the Thread's context loader first
+                        return Thread.currentThread().getContextClassLoader().loadClass(name);
+                }
+                catch (ClassNotFoundException e01) {
+                }
             }
 
             try {   // try the class loader of the supplied BSFManager ("mgr")
@@ -403,12 +408,6 @@ public class EngineUtils {
                 return bsfManagerDefinedCL.loadClass(name);
             }
 
-/*
-            return (classLoader == null) ?
-                       // Class.forName (name)
-                       Thread.currentThread().getContextClassLoader().loadClass (name)
-                : classLoader.loadClass (name);
-*/
         } catch (ClassNotFoundException e) {
             // try to load it from the temp dir using my own class loader
             try {
@@ -421,6 +420,8 @@ public class EngineUtils {
                         "[EngineUtils.loadClass()] unable to load class '" + name + "':" + e, e);
             }
         }
-        return null;
+
+        throw new BSFException (BSFException.REASON_OTHER_ERROR,
+                "[EngineUtils.loadClass()] unable to load class '" + name + "'");
     }
 }
