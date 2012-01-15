@@ -4,6 +4,9 @@
  * Sanjiva Weerawarana and others at International Business Machines
  * Corporation. For more information on the Apache Software Foundation,
  * please see <http://www.apache.org/>.
+ *
+ * 2012-01-15, Rony G. Flatscher
+ *     - make event name comparisons case independent, Jira issue [BSF-19]
  */
 
 package org.apache.bsf.util;
@@ -17,28 +20,28 @@ import org.apache.bsf.util.event.EventProcessor;
 
 /*
  * Copyright (C) 2001-2006 Rony G. Flatscher
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * <a
  * href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
  * License for the specific language governing permissions and limitations under
  * the License.
- * 
+ *
  */
 
 /**
- * 
+ *
  * This is used to support binding scripts to be run when an event occurs,
  * forwarding the arguments supplied to the event listener. It is an adapted
  * version of org.apache.bsf.util.BSFEventProcessor.
- * 
+ *
  * @author Rony G. Flatscher, but most of the code copied from
  *         org.apache.bsf.util.BSFEventProcessor by Sanjiva Weerawarana
  */
@@ -65,7 +68,7 @@ public class BSFEventProcessorReturningEventInfos implements EventProcessor {
     /**
      * Package-protected constructor makes this class unavailable for public
      * use.
-     * 
+     *
      * @param dataFromScriptingEngine
      *            this contains any object supplied by the scripting engine and
      *            gets sent back with the supplied script. This could be used
@@ -119,7 +122,7 @@ public class BSFEventProcessorReturningEventInfos implements EventProcessor {
 
         // System.err.println(this+": inFilter=["+inFilter+"],
         // filter=["+filter+"]");
-        if ((filter != null) && !filter.equals(inFilter)) {
+            if ((filter != null) && !isFilteredEvent(filter, inFilter)) {
             // ignore this event
             return;
         }
@@ -160,5 +163,28 @@ public class BSFEventProcessorReturningEventInfos implements EventProcessor {
 
         engine.apply(source, lineNo, columnNo, this.script, paramNames,
                 paramValues);
+// System.err.println("returned from engine.exec.");
+
+    }
+
+
+    private static boolean isFilteredEvent(final String filter, String inFilter)
+    {
+        boolean bRes=filter.equalsIgnoreCase(inFilter);
+        if (bRes)
+        {
+            return bRes;
+        }
+
+        String chunks[]=filter.replace('+',' ').split(" ");
+        for (int i=0;i<chunks.length;i++)
+        {
+            bRes=chunks[i].equalsIgnoreCase(inFilter);
+            if (bRes)
+            {
+                return bRes;
+            }
+        }
+        return bRes;
     }
 }

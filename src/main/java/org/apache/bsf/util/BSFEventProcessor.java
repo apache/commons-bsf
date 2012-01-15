@@ -5,14 +5,17 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * 2012-01-15, Rony G. Flatscher
+ *     - make event name comparisons case independent, Jira issue [BSF-19]
  */
 
 package org.apache.bsf.util;
@@ -82,12 +85,34 @@ public class BSFEventProcessor implements EventProcessor {
 
   public void processExceptionableEvent (String inFilter, Object[] evtInfo) throws Exception
   {
-    if ((filter != null) && !filter.equals (inFilter)) {
+      if ((filter != null) && !isFilteredEvent(filter, inFilter)) {
       // ignore this event
       return;
     }
 
     // run the script
     engine.exec (source, lineNo, columnNo, script);
+// System.err.println("returned from engine.exec.");
+  }
+
+
+  private static boolean isFilteredEvent(final String filter, String inFilter)
+  {
+      boolean bRes=filter.equalsIgnoreCase(inFilter);
+      if (bRes)
+      {
+          return bRes;
+      }
+
+      String chunks[]=filter.replace('+',' ').split(" ");
+      for (int i=0;i<chunks.length;i++)
+      {
+          bRes=chunks[i].equalsIgnoreCase(inFilter);
+          if (bRes)
+          {
+              return bRes;
+          }
+      }
+      return bRes;
   }
 }
