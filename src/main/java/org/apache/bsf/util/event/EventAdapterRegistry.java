@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,6 +20,8 @@ package org.apache.bsf.util.event;
 import java.util.Hashtable;
 
 import org.apache.bsf.util.event.generator.EventAdapterGenerator;
+import org.apache.bsf.BSFManager;
+
 
 /**
  * The <em>EventAdapterRegistry</em> is the registry of event adapters.
@@ -42,6 +44,18 @@ import org.apache.bsf.util.event.generator.EventAdapterGenerator;
  * @author   Matthew J. Duftler
  * @see      EventAdapter
  */
+
+
+ /* changed:
+    2012-01-29: Rony G. Flatscher, cf. [https://issues.apache.org/jira/browse/BSF-21]:
+        - take into account that a context class loader may not be set
+
+        - new class loading sequence:
+            - Thread's context class loader
+            - settable class loader stored with EventAdapterRegistry
+            - BSFManager's defining class loader
+ */
+
 public class EventAdapterRegistry {
   private static Hashtable reg = new Hashtable ();
   private static ClassLoader cl = null;
@@ -54,30 +68,51 @@ public class EventAdapterRegistry {
 	Class adapterClass = (Class) reg.get (key);
 
 	if (adapterClass == null) {
-	  String en = key.substring (0, key.lastIndexOf ("Listener"));
-	  String cn = adapterPackage + "." + en + adapterSuffix;
+            String en = key.substring (0, key.lastIndexOf ("Listener"));
+            String cn = adapterPackage + "." + en + adapterSuffix;
 
-	  try {
-		// Try to resolve one.
-		// adapterClass = (cl != null) ? cl.loadClass (cn) : Class.forName (cn);
-		adapterClass = (cl != null) ? cl.loadClass (cn)
-                                            : Thread.currentThread().getContextClassLoader().loadClass (cn); // rgf, 2006-01-05
+            if (adapterClass==null) {     // get Thread's context class loader
+                ClassLoader tccl=Thread.currentThread().getContextClassLoader();
+                if (tccl!=null)
+                {
+                    try {     // try supplied class loader
+                        adapterClass=Thread.currentThread().getContextClassLoader().loadClass(cn);
+                    }
+                    catch (ClassNotFoundException e02) {}
+                }
+            }
 
-	  } catch (ClassNotFoundException e) {
-		if (dynamic) {
-		  // Unable to resolve one, try to generate one.
-		  adapterClass = // if second argument is set to 'true', then the class file will be stored in the filesystem
-			EventAdapterGenerator.makeEventAdapterClass (listenerType, false);
-		}
-	  }
+            try {     // try ClassLoader set in this object (cf. this.setClassLoader())
+                if (cl !=null) {
+                    adapterClass=cl.loadClass(cn);
+                }
+            }
+            catch (ClassNotFoundException e01) {}
 
-	  if (adapterClass != null) {
-		reg.put (key, adapterClass);
-	  }
+            if (adapterClass==null) {     // Defined CL
+                try {     // try supplied class loader
+                    ClassLoader defCL=BSFManager.getDefinedClassLoader();
+                    if (cl != defCL) {
+                        adapterClass=defCL.loadClass(cn);
+                    }
+                }
+                catch (ClassNotFoundException e03) {}
+            }
+
+            if (adapterClass==null && dynamic) {
+              // Unable to resolve one, try to generate one.
+              adapterClass =  // if second argument is set to 'true', then the class file will be stored in the filesystem:
+                    EventAdapterGenerator.makeEventAdapterClass (listenerType, false);
+            }
+
+            if (adapterClass != null) {
+                reg.put (key, adapterClass);
+            }
 	}
 
 	return adapterClass;
   }
+
   public static void register (Class listenerType, Class eventAdapterClass) {
 	String key = listenerType.getName().replace('.', '_');
 	reg.put (key, eventAdapterClass);
