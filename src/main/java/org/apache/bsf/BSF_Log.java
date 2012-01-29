@@ -36,6 +36,9 @@ import  java.lang.reflect.*;
 
 /* ---rgf, 2007-01-29, loading and invoking all methods via reflection
    ---rgf, 2007-09-17, adjusted for using default class loader, if system class loader fails
+   ---rgf, 2011-01-08, cf. [https://issues.apache.org/jira/browse/BSF-37]
+                       - context class loader may not be set, account for it (2009-09-10)
+                       - fix logic error if context class loader is not set (e.g. observed on MacOSX, 2011-01-08)
 */
 
 //@Immutable
@@ -72,7 +75,7 @@ public class BSF_Log // implements org.apache.commons.logging.Log
         Class oac_LogFactory_ = null;
         //NOTUSED Method oac_LogFactoryGetLog_Clazz_ = null;
         Method oac_LogFactoryGetLog_String_ = null;
-        
+
         try     // rgf, 20070917: o.k., if not found, try definedClassLoader instead
         {
             ClassLoader cl= Thread.currentThread().getContextClassLoader();
@@ -80,17 +83,23 @@ public class BSF_Log // implements org.apache.commons.logging.Log
             String str4Log="org.apache.commons.logging.Log";
 
             Class logClass = null;
-            try {
-                logClass        = cl.loadClass(str4Log);
+
+            if (cl!=null)   // use current Thread's context class loader, if set
+            {
+                try {
+                    logClass        = cl.loadClass(str4Log);
+                }
+                catch (ClassNotFoundException e1) // not found by contextClassLoader
+                {}
             }
-            catch (ClassNotFoundException e1) // not found by contextClassLoader
-            {                                 // try defined class loader instead
+
+            if (logClass==null)   // not found, try defined class loader instead
+            {
                 ClassLoader defCL=BSFManager.getDefinedClassLoader();
                 logClass = defCL.loadClass(str4Log);
                 cl=defCL;       // class found, hence we use the definedClassLoader here
             }
 
-            
             oac_LogFactory_ = cl.loadClass("org.apache.commons.logging.LogFactory");
 
                 // get method with Class object argument
@@ -122,14 +131,16 @@ public class BSF_Log // implements org.apache.commons.logging.Log
         catch (ClassNotFoundException e)// o.k., so we do not use org.apache.commons.logging in this run
         {
             if (iDebug>1) e.printStackTrace();
-            //TODO - should we set oac_LogFactory=null here?
+            oac_LogFactory_=null;              // make sure it does not get used
+            oac_LogFactoryGetLog_String_=null; // make sure it does not get used
         }
         catch (NoSuchMethodException  e)// o.k., so we do not use org.apache.commons.logging in this run
         {
             if (iDebug>1) e.printStackTrace();
-            //TODO - should we set oac_LogFactory=null here?
+            oac_LogFactory_=null;              // make sure it does not get used
+            oac_LogFactoryGetLog_String_=null; // make sure it does not get used
         }
-        
+
         // Set up final fields
         oac_LogFactory = oac_LogFactory_;
         //NOTUSED oac_LogFactoryGetLog_Clazz = oac_LogFactoryGetLog_Clazz_;
