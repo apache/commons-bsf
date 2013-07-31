@@ -125,7 +125,7 @@ limitations under the License.
         </table>
       </subsection>
     </section>
-    <section name="Apache Commons BSF (Bean Scripting Framework) 3.1 (Requires Java 1.5 or later)">
+    <section name="Apache Commons BSF (Bean Scripting Framework) 3.1 (Requires Java 5 or later)">
       <subsection name="Binaries">
         <table>
           <tr>

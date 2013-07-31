@@ -4,15 +4,15 @@
    purpose:    demonstrate how to use the xsl-BSF-engine from ooRexx, modelled after
                "TableFiller.java"
 
-   needs:      Java 4.x *or*
+   needs:      Java 1.4.x *or*
 
-               Note on using Java 1.5, Java 1.6 or higher:
+               Note on using Java 5, Java 6 or higher:
 
                - if the sample does not work in these environments then, copy the Xalan-jars from
                  "http://xml.apache.org/xalan-j/downloads.html" distribution into the "endorsed"
                  directory of these Java versions (e.g. "JAVA_JRE_HOME /jre/lib/endorsed/"); make
                  sure that the archive "xalan.jar" (from the xalan-tool jar) is available as well;
-                 tested with Xalan 2.7 and 2.8 on Java 1.5 and beta-version of Java 1.6
+                 tested with Xalan 2.7 and 2.8 on Java 5 and beta-version of Java 6
 
    usage:      rexxj TableFiller.rex style1.xsl table-data.xml
                rexxj TableFiller.rex style2.xsl table-data.xml

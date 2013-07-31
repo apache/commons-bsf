@@ -10,7 +10,7 @@ For 2006-09-25 the TODO list would consist at least from the following items:
 
         - add new BSF engines for BSF 2.4
 
-        - create a new BSF 3.0 which complies to JSR-223 (which is part of Java 1.6),
+        - create a new BSF 3.0 which complies to JSR-223 (which is part of Java 6),
           some features being
 
           - BSF 3.0 will be available as FOSS for earlier version of Java

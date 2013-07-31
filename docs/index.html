@@ -138,10 +138,10 @@ and uses an API which was originally developed at IBM.
 <br />
 The new version of Apache BSF is represent by the 3.x releases.
 The 3.x version uses the API defined as part of JSR-223 (javax.script),
-which is included in Java 1.6 onwards.
+which is included in Java 6 onwards.
 However BSF 3.x will run on Java 1.4+, allowing access to JSR-223 scripting
-for Java 1.4 and Java 1.5.
-Apache BSF 3.x is also useful for Java 1.6 as it contains a command-line utility for
+for Java 1.4 and Java 5.
+Apache BSF 3.x is also useful for Java 6 as it contains a command-line utility for
 testing JSR-223 scripts as well as some utility classes for working with XML.
 </p>
                     </blockquote>
@@ -258,13 +258,13 @@ Documentation and examples are included in the source and binary distributions.
 The following references describe the standard API (javax.script) which is implemented by BSF 3.x:
 <ul>
 <li><a href="http://jcp.org/aboutJava/communityprocess/final/jsr223/index.html">JSR-223 Scripting for the Java Platform</a> - specification (PDF)</li>
-<li><a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Javadoc for javax.script classes</a> in Java 1.6</li>
+<li><a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Javadoc for javax.script classes</a> in Java 6</li>
 <li><a href="http://java.sun.com/developer/technicalArticles/J2SE/Desktop/scripting/">Scripting for the Java platform (Sun technical article)</a></li>
 </ul>
 </p>
                                 <p>
-Apache BSF 3.x includes an implementation of JSR-223 (javax.script) and runs on Java 1.4 and Java 1.5.
-(Java 1.6 includes javax.script as standard.)
+Apache BSF 3.x includes an implementation of JSR-223 (javax.script) and runs on Java 1.4 and Java 5.
+(Java 6 includes javax.script as standard.)
 Note that although the implementation follows the JSR-223 specification, it has not been tested against
 the JSR-223 TCK. 
 Apache BSF 3.x can therefore not strictly be described as a compatible implementation of JSR-223,
@@ -272,7 +272,7 @@ however it is believed to be complete.
 </p>
                                 <p>
 Apache BSF 3.x also includes some utility classes for working with XML.
-These can be used with any used with any implementation of the javax.scripting package, including the one in Java 1.6+.
+These can be used with any used with any implementation of the javax.scripting package, including the one in Java 6+.
 </p>
                                 <p>
 There is also a command-line utility which can be used to run scripts in any language engine which supports JSR-223.
@@ -287,11 +287,11 @@ If other jars contain factories that implement a different version of the same l
 it may be difficult or impossible to choose which version is loaded. 
 <br />
 If the language implementation is not present, the factory class may fail to load;
-with some implementations of javax.script (e.g. Sun Java 1.6) this may prevent any factories from loading.
+with some implementations of javax.script (e.g. Sun Java 6) this may prevent any factories from loading.
 </p>
                                 <p>
 An example language which includes the necessary engine factory is:
-<a href="http://commons.apache.org/jexl/">Apache Jexl 2.0</a> (requires Java 1.5).
+<a href="http://commons.apache.org/jexl/">Apache Jexl 2.0</a> (requires Java 5).
 Some other scripting languages also come with their own factories already included.
 For example <a href="http://groovy.codehaus.org/">Groovy</a> and <a href="http://jruby.org/">JRuby</a>.  
 </p>
