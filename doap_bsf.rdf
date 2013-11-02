@@ -56,6 +56,11 @@
         <created>2009-10-1</created>
         <version>3.0</version>
       </revision>
+      <revision>
+        <name>bsf</name>
+        <created>2010-24-06</created>
+        <version>3.1</version>
+      </revision>
     </release>
     <repository>
       <SVNRepository>
