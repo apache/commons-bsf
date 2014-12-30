@@ -71,6 +71,7 @@ import org.apache.bsf.util.ObjectRegistry;
 
            2012-01-29, ---rgf, - context class loader may not be set, account for it (2009-09-10)
                                - static constructor: fixed logic error in fallback code for getResources() (2011-01-08)
+           2014-12-30, ---rgf, - remove memory leak when terminating engines, cf. issue [BSF-41]
 */
 
 public class BSFManager {
@@ -79,7 +80,7 @@ public class BSFManager {
     // and "yyyy" a four digit year, "mm" a two digit month, "dd" a two digit day.
     //
     // Example: "250.20120129" stands for: BSF version "2.5.0" as of "2012-01-29"
-    protected static String version="250.20120129";
+    protected static String version="250.20141230";
 
     // table of registered scripting engines
     protected static Hashtable registeredEngines = new Hashtable();
@@ -958,6 +959,7 @@ public class BSFManager {
         BSFEngine engine;
         while (enginesEnum.hasMoreElements()) {
             engine = (BSFEngine) enginesEnum.nextElement();
+            pcs.removePropertyChangeListener(engine);   // rgf, 2014-12-30: removing memory leak
             engine.terminate();
         }
 
