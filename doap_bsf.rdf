@@ -39,35 +39,35 @@
       <Version>
         <name>bsf</name>
         <created>2002-11-12</created>
-        <version>2.3.0-rc1</version>
+        <revision>2.3.0-rc1</revision>
       </Version>
     </release>
     <release>
       <Version>
         <name>bsf</name>
         <created>2006-10-6</created>
-        <version>2.4</version>
+        <revision>2.4</revision>
       </Version>
     </release>
     <release>
       <Version>
         <name>bsf</name>
         <created>2009-04-05</created>
-        <version>3.0-beta3</version>
+        <revision>3.0-beta3</revision>
       </Version>
     </release>
     <release>
       <Version>
         <name>bsf</name>
         <created>2009-10-1</created>
-        <version>3.0</version>
+        <revision>3.0</revision>
       </Version>
     </release>
     <release>
       <Version>
         <name>bsf</name>
         <created>2010-24-06</created>
-        <version>3.1</version>
+        <revision>3.1</revision>
       </Version>
     </release>
     <repository>
