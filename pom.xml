@@ -44,6 +44,7 @@
       <maven.compiler.source>1.3</maven.compiler.source>
       <maven.compiler.target>1.3</maven.compiler.target>
       <commons.componentid>bsf</commons.componentid>
+      <commons.module.name>org.apache.commons.bsf</commons.module.name>
       <commons.release.version>2.4.0</commons.release.version>
       <commons.release.desc></commons.release.desc>
 
