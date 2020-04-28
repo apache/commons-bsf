@@ -138,7 +138,7 @@
 
     <scm>
         <connection>scm:git:https://gitbox.apache.org/repos/asf/commons-bsf</connection>
-        <developerConnection>git:https://gitbox.apache.org/repos/asf/commons-bsf</developerConnection>
+        <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/commons-bsf</developerConnection>
         <url>https://gitbox.apache.org/repos/asf/commons-bsf</url>
     </scm>
 
