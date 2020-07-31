@@ -33,9 +33,9 @@ import org.apache.bsf.BSFManager;
  * and if it doesn't find one looks for a standard implementation of
  * that adapter in the org.apache.bsf.util.event.adapters package with a
  * standard naming convention. The naming convention it assumes is the
- * following: for event listener type <tt>a.b.c.FooListener</tt>,
+ * following: for event listener type {@code a.b.c.FooListener},
  * it loads an adapter of type
- * <tt>org.apache.bsf.util.event.adapters.a_b_c_FooAdapter</tt>.
+ * {@code org.apache.bsf.util.event.adapters.a_b_c_FooAdapter}.
  * If both the loading and the dynamic generation fail, then a
  * <code>null</code> is returned.
  * <p>

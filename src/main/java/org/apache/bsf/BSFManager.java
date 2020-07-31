@@ -300,7 +300,7 @@ public class BSFManager {
 
     /**
      * Compile the application of the given anonymous function of the given
-     * language to the given parameters into the given <tt>CodeBuffer</tt>.
+     * language to the given parameters into the given {@code CodeBuffer}.
      *
      * @param lang language identifier
      * @param source (context info) the source of this expression
@@ -351,7 +351,7 @@ public class BSFManager {
 
     /**
      * Compile the given expression of the given language into the given
-     * <tt>CodeBuffer</tt>.
+     * {@code CodeBuffer}.
      *
      * @param lang     language identifier
      * @param source   (context info) the source of this expression
@@ -394,7 +394,7 @@ public class BSFManager {
 
     /**
      * Compile the given script of the given language into the given
-     * <tt>CodeBuffer</tt>.
+     * {@code CodeBuffer}.
      *
      * @param lang     language identifier
      * @param source   (context info) the source of this script

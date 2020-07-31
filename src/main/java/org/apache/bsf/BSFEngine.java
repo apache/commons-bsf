@@ -115,7 +115,7 @@ public interface BSFEngine extends PropertyChangeListener {
     /**
      * This is used by an application to compile a value-returning expression.
      * The expr may be string or some other type, depending on the language.
-     * The generated code is dumped into the <tt>CodeBuffer</tt>.
+     * The generated code is dumped into the {@code CodeBuffer}.
      *
      * @param source   (context info) the source of this expression
      *                 (e.g., filename)
@@ -137,7 +137,7 @@ public interface BSFEngine extends PropertyChangeListener {
     /**
      * This is used by an application to compile some script. The
      * script may be string or some other type, depending on the
-     * language. The generated code is dumped into the <tt>CodeBuffer</tt>.
+     * language. The generated code is dumped into the {@code CodeBuffer}.
      *
      * @param source   (context info) the source of this script
      *                 (e.g., filename)
