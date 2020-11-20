@@ -119,7 +119,7 @@ public class JythonEngine extends BSFEngineImpl {
           
           Object result = interp.eval ("bsf_temp_fn()");
           
-          if (result instanceof PyJavaInstance)
+          if (result != null && result instanceof PyJavaInstance)
               result = ((PyJavaInstance)result).__tojava__(Object.class);
           return result;
       } catch (PyException e) {
@@ -137,7 +137,7 @@ public class JythonEngine extends BSFEngineImpl {
 	  String scriptStr = byteify(script.toString ());
 	  importPackage(scriptStr);
 	  Object result = interp.eval (scriptStr);
-	  if (result instanceof PyJavaInstance)
+	  if (result != null && result instanceof PyJavaInstance)
 		result = ((PyJavaInstance)result).__tojava__(Object.class);
 	  return result;
 	} catch (PyException e) {
