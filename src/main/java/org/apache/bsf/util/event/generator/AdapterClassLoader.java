@@ -43,8 +43,7 @@ public class AdapterClassLoader extends ClassLoader
 
   public AdapterClassLoader()
   {
-    super();
-        logger = BSF_LogFactory.getLog(this.getClass().getName());
+    logger = BSF_LogFactory.getLog(this.getClass().getName());
   }
 
   public synchronized Class defineClass(String name, byte[] b)
