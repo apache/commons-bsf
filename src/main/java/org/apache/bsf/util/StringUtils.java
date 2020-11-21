@@ -53,7 +53,7 @@ public class StringUtils
       arrayDim++;
     }
 
-    int    iLastPeriod = className.lastIndexOf('.');
+    final int    iLastPeriod = className.lastIndexOf('.');
     String varName     = Introspector.decapitalize(
                                          iLastPeriod != -1
                                          ? className.substring(iLastPeriod + 1)
@@ -67,14 +67,14 @@ public class StringUtils
     return getValidIdentifierName(varName);
   }
   // Ensure that escape sequences are passed through properly.
-  public static String cleanString(String str)
+  public static String cleanString(final String str)
   {
     if (str == null) {
         return null;
     } else
     {
-      char[]       charArray = str.toCharArray();
-      StringBuffer sBuf      = new StringBuffer();
+      final char[]       charArray = str.toCharArray();
+      final StringBuffer sBuf      = new StringBuffer();
       
       for (int i = 0; i < charArray.length; i++) {
         switch (charArray[i])
@@ -100,13 +100,13 @@ public class StringUtils
    *
    * @return a string consisting of <code>numberOfChars</code> theChars.
    */
-  public static String getChars(int numberOfChars, char theChar)
+  public static String getChars(final int numberOfChars, final char theChar)
   {
 	if (numberOfChars <= 0) {
         return "";
     }
 
-	StringBuffer sRet = new StringBuffer(numberOfChars);
+	final StringBuffer sRet = new StringBuffer(numberOfChars);
 
 	for (int i = 0; i < numberOfChars; i++) {
         sRet.append(theChar);
@@ -125,15 +125,15 @@ public class StringUtils
 	grammar is defined in section 4.3 of the Java VM Spec). This method will
 	parse the Descriptor if necessary.
   */
-  public static String getClassName(Class targetClass)
+  public static String getClassName(final Class targetClass)
   {
-	String className = targetClass.getName();
+	final String className = targetClass.getName();
 
 	return targetClass.isArray() ? parseDescriptor(className) : className;
   }
-  public static String getCommaListFromVector(Vector sourceVector)
+  public static String getCommaListFromVector(final Vector sourceVector)
   {
-	StringBuffer strBuf = new StringBuffer();
+	final StringBuffer strBuf = new StringBuffer();
 
 	for (int i = 0; i < sourceVector.size(); i++)
 	{
@@ -147,7 +147,7 @@ public class StringUtils
 	Returns a Reader for reading from the specified resource, if the resource
 	points to a stream.
   */
-  public static Reader getContentAsReader(URL url) throws SecurityException,
+  public static Reader getContentAsReader(final URL url) throws SecurityException,
 														  IllegalArgumentException,
 														  IOException
   {
@@ -158,7 +158,7 @@ public class StringUtils
 
 	try
 	{
-	  Object content = url.getContent();
+	  final Object content = url.getContent();
 
 	  if (content == null)
 	  {
@@ -167,7 +167,7 @@ public class StringUtils
 
 	  if (content instanceof InputStream)
 	  {
-		Reader in = new InputStreamReader((InputStream)content);
+		final Reader in = new InputStreamReader((InputStream)content);
 
 		if (in.ready())
 		{
@@ -186,11 +186,11 @@ public class StringUtils
 											 StringUtils.getClassName(content.getClass()));
 	  }
 	}
-	catch (SecurityException e)
+	catch (final SecurityException e)
 	{
 	  throw new SecurityException("Your JVM's SecurityManager has disallowed this.");
 	}
-	catch (FileNotFoundException e)
+	catch (final FileNotFoundException e)
 	{
 	  throw new FileNotFoundException("This file was not found: " + url);
 	}
@@ -198,17 +198,17 @@ public class StringUtils
   /*
 	Shorthand for: IOUtils.getStringFromReader(getContentAsReader(url)).
   */
-  public static String getContentAsString(URL url) throws SecurityException,
+  public static String getContentAsString(final URL url) throws SecurityException,
 														  IllegalArgumentException,
 														  IOException
   {
 	return IOUtils.getStringFromReader(getContentAsReader(url));
   }
   // Handles multi-line strings.
-  public static String getSafeString(String scriptStr)
+  public static String getSafeString(final String scriptStr)
   {
-	BufferedReader in           = new BufferedReader(new StringReader(scriptStr));
-	StringBuffer   strBuf       = new StringBuffer();
+	final BufferedReader in           = new BufferedReader(new StringReader(scriptStr));
+	final StringBuffer   strBuf       = new StringBuffer();
 	String         tempLine,
 				   previousLine = null;
 
@@ -225,7 +225,7 @@ public class StringUtils
 		previousLine = cleanString(tempLine);
 	  }
 	}
-	catch (IOException e)
+	catch (final IOException e)
 	{
 	}      
 
@@ -236,7 +236,7 @@ public class StringUtils
   }
   /*
   */
-  public static URL getURL(URL contextURL, String spec) throws MalformedURLException
+  public static URL getURL(final URL contextURL, final String spec) throws MalformedURLException
   {
 	return getURL(contextURL, spec, 1);
   }
@@ -244,7 +244,7 @@ public class StringUtils
 	The recursiveDepth argument is used to insure that the algorithm gives up
 	after hunting 2 levels up in the contextURL's path.
   */
-  private static URL getURL(URL contextURL, String spec, int recursiveDepth)
+  private static URL getURL(final URL contextURL, final String spec, final int recursiveDepth)
                                                   throws MalformedURLException
   {
     URL url = null;
@@ -257,12 +257,12 @@ public class StringUtils
       {
         url.openStream();
       }
-      catch (IOException ioe1)
+      catch (final IOException ioe1)
       {
         throw new MalformedURLException("This file was not found: " + url);
       }
     }
-    catch (MalformedURLException e1)
+    catch (final MalformedURLException e1)
     {
       url = new URL("file", "", spec);
 
@@ -270,12 +270,12 @@ public class StringUtils
       {
         url.openStream();
       }
-      catch (IOException ioe2)
+      catch (final IOException ioe2)
       {
         if (contextURL != null)
         {
-          String contextFileName = contextURL.getFile();
-          String parentName      = new File(contextFileName).getParent();
+          final String contextFileName = contextURL.getFile();
+          final String parentName      = new File(contextFileName).getParent();
 
           if (parentName != null && recursiveDepth < 3)
           {
@@ -291,15 +291,15 @@ public class StringUtils
 
     return url;
   }
-  public static String getValidIdentifierName(String identifierName)
+  public static String getValidIdentifierName(final String identifierName)
   {
     if (identifierName == null || identifierName.length() == 0) {
         return null;
     }
 
-    StringBuffer strBuf = new StringBuffer();
+    final StringBuffer strBuf = new StringBuffer();
 
-    char[] chars = identifierName.toCharArray();
+    final char[] chars = identifierName.toCharArray();
 
     strBuf.append(Character.isJavaIdentifierStart(chars[0])
                   ? chars[0]
@@ -316,13 +316,13 @@ public class StringUtils
 
     return strBuf.toString();
   }
-  public static boolean isValidIdentifierName(String identifierName)
+  public static boolean isValidIdentifierName(final String identifierName)
   {
     if (identifierName == null || identifierName.length() == 0) {
         return false;
     }
 
-    char[] chars = identifierName.toCharArray();
+    final char[] chars = identifierName.toCharArray();
 
     if (!Character.isJavaIdentifierStart(chars[0])) {
         return false;
@@ -336,7 +336,7 @@ public class StringUtils
 
     return true;
   }
-  public static boolean isValidPackageName(String packageName)
+  public static boolean isValidPackageName(final String packageName)
   {
     if (packageName == null) {
         return false;
@@ -345,7 +345,7 @@ public class StringUtils
           return true;
     }
 
-    StringTokenizer strTok = new StringTokenizer(packageName, ".", true);
+    final StringTokenizer strTok = new StringTokenizer(packageName, ".", true);
 
     // Should have an odd number of tokens (including '.' delimiters).
     if (strTok.countTokens() % 2 != 1) {
@@ -381,9 +381,9 @@ public class StringUtils
   /*
     See the comment above for getClassName(targetClass)...
   */
-  private static String parseDescriptor(String className)
+  private static String parseDescriptor(final String className)
   {
-    char[] classNameChars = className.toCharArray();
+    final char[] classNameChars = className.toCharArray();
     int    arrayDim       = 0;
     int    i              = 0;
 
@@ -393,7 +393,7 @@ public class StringUtils
       i++;
     }
 
-    StringBuffer classNameBuf = new StringBuffer();
+    final StringBuffer classNameBuf = new StringBuffer();
 
     switch (classNameChars[i++])
     {

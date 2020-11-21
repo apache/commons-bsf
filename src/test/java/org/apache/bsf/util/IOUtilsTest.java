@@ -80,31 +80,31 @@ public class IOUtilsTest extends TestCase {
     static private final String lineSeparator =
         System.getProperty("line.separator","/n");
 
-    public IOUtilsTest(String name) {
+    public IOUtilsTest(final String name) {
         super(name);
     }
 
     public void testGetStringFromReader() throws IOException {
         String result;
-        StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw);
+        final StringWriter sw = new StringWriter();
+        final PrintWriter pw = new PrintWriter(sw);
 
         pw.println("IOUtilsTest");
         pw.flush();
 
-        StringReader sr = new StringReader(sw.toString());
+        final StringReader sr = new StringReader(sw.toString());
         result = IOUtils.getStringFromReader(sr);
 
         assertTrue(result.equals(new String("IOUtilsTest" + lineSeparator)));
 
-        File myFile = File.createTempFile("Test", "txt");
+        final File myFile = File.createTempFile("Test", "txt");
 
-        FileWriter fw = new FileWriter(myFile);
-        PrintWriter npw = new PrintWriter(fw);
+        final FileWriter fw = new FileWriter(myFile);
+        final PrintWriter npw = new PrintWriter(fw);
         npw.println("file name : Test.txt");
         npw.flush();
 
-        FileReader fr = new FileReader(myFile);
+        final FileReader fr = new FileReader(myFile);
         result = IOUtils.getStringFromReader(fr);
 
         assertTrue(result.equals(new String("file name : Test.txt" +

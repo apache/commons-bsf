@@ -25,7 +25,7 @@ import org.apache.bsf.util.event.EventAdapterImpl;
 public class java_awt_event_ActionAdapter extends EventAdapterImpl
                                              implements ActionListener {
 
-  public void actionPerformed (ActionEvent e) {
+  public void actionPerformed (final ActionEvent e) {
     eventProcessor.processEvent ("actionPerformed", new Object[]{e});
   }
 }

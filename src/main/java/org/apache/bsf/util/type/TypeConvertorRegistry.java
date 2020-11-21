@@ -38,7 +38,7 @@ public class TypeConvertorRegistry {
   public TypeConvertorRegistry () {
     // no-op convertors: cvt from primitive wrappers to the object wrapper
     TypeConvertor tc = new TypeConvertor () {
-      public Object convert (Class from, Class to, Object obj) {
+      public Object convert (final Class from, final Class to, final Object obj) {
           return obj;
       }
         
@@ -69,7 +69,7 @@ public class TypeConvertorRegistry {
     // if the target is string and there is no special convertor available
     // otherwise
     tc = new TypeConvertor () {
-      public Object convert (Class from, Class to, Object obj) {
+      public Object convert (final Class from, final Class to, final Object obj) {
           return (obj == null) ? "(null)" : obj.toString ();
       }
         
@@ -84,8 +84,8 @@ public class TypeConvertorRegistry {
     // convert strings to various primitives (both their object versions
     // and wrappers for primitive versions)
     tc = new TypeConvertor () {
-      public Object convert (Class from, Class to, Object obj) {
-        String str = (String) obj;
+      public Object convert (final Class from, final Class to, final Object obj) {
+        final String str = (String) obj;
         if (to == Boolean.class || to == boolean.class) {
           return Boolean.valueOf (str);
         } else if (to == Byte.class || to == byte.class) {
@@ -151,7 +151,7 @@ public class TypeConvertorRegistry {
 
     // strings to fonts
     tc = new TypeConvertor () {
-      public Object convert (Class from, Class to, Object obj) {
+      public Object convert (final Class from, final Class to, final Object obj) {
           return Font.decode ((String) obj);
       }
         
@@ -165,7 +165,7 @@ public class TypeConvertorRegistry {
 
     // strings to colors
     tc = new TypeConvertor () {
-      public Object convert (Class from, Class to, Object obj) {
+      public Object convert (final Class from, final Class to, final Object obj) {
           return Color.decode ((String) obj);
       }
         
@@ -178,9 +178,9 @@ public class TypeConvertorRegistry {
     register (String.class, Color.class, tc);
   }
   // lookup a convertor
-  public TypeConvertor lookup (Class from, Class to) {
-    String key = from.getName () + " -> " + to.getName ();
-    TypeConvertor tc = (TypeConvertor) reg.get (key);
+  public TypeConvertor lookup (final Class from, final Class to) {
+    final String key = from.getName () + " -> " + to.getName ();
+    final TypeConvertor tc = (TypeConvertor) reg.get (key);
     if (tc == null) {
       if (from != void.class
           && from != Void.class
@@ -192,16 +192,16 @@ public class TypeConvertorRegistry {
     return tc;
   }
   // lookup a convertor by key
-  public TypeConvertor lookupByKey (Object key) {
+  public TypeConvertor lookupByKey (final Object key) {
     return (TypeConvertor) keyedReg.get (key);
   }
   // register a convertor
-  public void register (Class from, Class to, TypeConvertor convertor) {
-    String key = from.getName () + " -> " + to.getName ();
+  public void register (final Class from, final Class to, final TypeConvertor convertor) {
+    final String key = from.getName () + " -> " + to.getName ();
     reg.put (key, convertor);
   }
   // register a convertor by key
-  public void registerByKey (Object key, TypeConvertor convertor) {
+  public void registerByKey (final Object key, final TypeConvertor convertor) {
     keyedReg.put (key, convertor);
   }
 }

@@ -88,16 +88,16 @@ public class ReflectionUtils {
    * @exception InvocationTargetException if something goes wrong while
    *            running add event listener method
    */
-  public static void addEventListener (Object source, String eventSetName,
-                       EventProcessor processor)
+  public static void addEventListener (final Object source, final String eventSetName,
+                       final EventProcessor processor)
        throws IntrospectionException, IllegalArgumentException,
               IllegalAccessException, InstantiationException,
               InvocationTargetException {
     // find the event set descriptor for this event
-    BeanInfo bi = Introspector.getBeanInfo (source.getClass ());
+    final BeanInfo bi = Introspector.getBeanInfo (source.getClass ());
 
-    EventSetDescriptor arrESD[]=bi.getEventSetDescriptors ();
-    EventSetDescriptor esd=(EventSetDescriptor) findFeatureByName ("event", eventSetName, arrESD);
+    final EventSetDescriptor arrESD[]=bi.getEventSetDescriptors ();
+    final EventSetDescriptor esd=(EventSetDescriptor) findFeatureByName ("event", eventSetName, arrESD);
 
     if (esd == null)        // no events found, maybe a proxy from OpenOffice.org?
         {
@@ -112,21 +112,21 @@ public class ReflectionUtils {
               errMsg=errMsg+"class defines the following event set(s): ";
 
               // sort ESD by Name
-              TreeSet ts=new TreeSet(new Comparator () {
-                          public int    compare(Object o1, Object o2) {return ((EventSetDescriptor)o1).getName().compareToIgnoreCase(((EventSetDescriptor)o2).getName());}
-                          public boolean equals(Object o1, Object o2) {return ((EventSetDescriptor)o1).getName().equalsIgnoreCase   (((EventSetDescriptor)o2).getName());}
+              final TreeSet ts=new TreeSet(new Comparator () {
+                          public int    compare(final Object o1, final Object o2) {return ((EventSetDescriptor)o1).getName().compareToIgnoreCase(((EventSetDescriptor)o2).getName());}
+                          public boolean equals(final Object o1, final Object o2) {return ((EventSetDescriptor)o1).getName().equalsIgnoreCase   (((EventSetDescriptor)o2).getName());}
                          });
 
               for (int i=0;i<arrESD.length;i++)
               {
                   ts.add(arrESD[i]);
               }
-              Iterator it=ts.iterator();    // get iterator
+              final Iterator it=ts.iterator();    // get iterator
 
               int i=0;
               while (it.hasNext())          // iterate in sorted order
               {
-                  EventSetDescriptor tmpESD=(EventSetDescriptor) it.next();
+                  final EventSetDescriptor tmpESD=(EventSetDescriptor) it.next();
 
                   if (i>0)
                   {
@@ -136,17 +136,17 @@ public class ReflectionUtils {
 
 
                     // iterate over listener methods and display their names in sorted order
-                  Method m[]=tmpESD.getListenerMethods();
-                  TreeSet tsM=new TreeSet(new Comparator () {
-                          public int    compare(Object o1, Object o2) {return ((Method)o1).getName().compareToIgnoreCase(((Method)o2).getName());}
-                          public boolean equals(Object o1, Object o2) {return ((Method)o1).getName().equalsIgnoreCase   (((Method)o2).getName());}
+                  final Method m[]=tmpESD.getListenerMethods();
+                  final TreeSet tsM=new TreeSet(new Comparator () {
+                          public int    compare(final Object o1, final Object o2) {return ((Method)o1).getName().compareToIgnoreCase(((Method)o2).getName());}
+                          public boolean equals(final Object o1, final Object o2) {return ((Method)o1).getName().equalsIgnoreCase   (((Method)o2).getName());}
                          });
 
                   for (int j=0;j<m.length;j++)
                   {
                       tsM.add(m[j]);
                   }
-                  Iterator itM=tsM.iterator();
+                  final Iterator itM=tsM.iterator();
 
                   int j=0;
                   while (itM.hasNext())
@@ -168,10 +168,10 @@ public class ReflectionUtils {
     }
 
     // get the class object for the event
-    Class listenerType=esd.getListenerType(); // get ListenerType class object from EventSetDescriptor
+    final Class listenerType=esd.getListenerType(); // get ListenerType class object from EventSetDescriptor
 
     // find an event adapter class of the right type
-    Class adapterClass = EventAdapterRegistry.lookup (listenerType);
+    final Class adapterClass = EventAdapterRegistry.lookup (listenerType);
     if (adapterClass == null) {
       throw new IllegalArgumentException ("event adapter for listener type " +
                           "'" + listenerType + "' (eventset " +
@@ -179,7 +179,7 @@ public class ReflectionUtils {
     }
 
     // create the event adapter and give it the event processor
-    EventAdapter adapter = (EventAdapter) adapterClass.newInstance ();
+    final EventAdapter adapter = (EventAdapter) adapterClass.newInstance ();
     adapter.setEventProcessor (processor);
 
     // bind the adapter to the source bean
@@ -227,8 +227,8 @@ public class ReflectionUtils {
    * @exception InvocationTargetException if constructor excepted
    * @exception IOException               if I/O error in beans.instantiate
    */
-  public static Bean createBean (ClassLoader cld, String className,
-                 Class[] argTypes, Object[] args)
+  public static Bean createBean (final ClassLoader cld, final String className,
+                 final Class[] argTypes, final Object[] args)
        throws ClassNotFoundException, NoSuchMethodException,
               InstantiationException, IllegalAccessException,
               IllegalArgumentException, InvocationTargetException,
@@ -246,19 +246,19 @@ public class ReflectionUtils {
               try {     // CL passed as argument
                   cl=cld.loadClass(className);
               }
-              catch (ClassNotFoundException e02) {
+              catch (final ClassNotFoundException e02) {
                   exCTX=e02;
               }
           }
 
           if (cl==null) {
               // load context class loader, only use it, if not null
-              ClassLoader tccl=Thread.currentThread().getContextClassLoader();
+              final ClassLoader tccl=Thread.currentThread().getContextClassLoader();
               if (tccl!=null) {
                   try {         // CTXCL
                           cl=tccl.loadClass(className);
                       }
-                  catch (ClassNotFoundException e01) {}
+                  catch (final ClassNotFoundException e01) {}
               }
           }
 
@@ -273,11 +273,11 @@ public class ReflectionUtils {
           }
 // -----------------------------
 
-      Constructor c = MethodUtils.getConstructor (cl, argTypes);
+      final Constructor c = MethodUtils.getConstructor (cl, argTypes);
       return new Bean (cl, c.newInstance (args));
     } else {
       // create the bean with no args constructor
-      Object obj = Beans.instantiate (cld, className);
+      final Object obj = Beans.instantiate (cld, className);
       return new Bean (obj.getClass (), obj);
     }
   }
@@ -302,7 +302,7 @@ public class ReflectionUtils {
    * @exception InvocationTargetException if constructor excepted
    * @exception IOException               if I/O error in beans.instantiate
    */
-  public static Bean createBean (ClassLoader cld, String className, Object[] args)
+  public static Bean createBean (final ClassLoader cld, final String className, final Object[] args)
        throws ClassNotFoundException, NoSuchMethodException,
               InstantiationException, IllegalAccessException,
               IllegalArgumentException, InvocationTargetException,
@@ -323,8 +323,8 @@ public class ReflectionUtils {
    * null if not found.
    */
   private static
-  FeatureDescriptor findFeatureByName (String featureType, String name,
-                       FeatureDescriptor[] fds) {
+  FeatureDescriptor findFeatureByName (final String featureType, final String name,
+                       final FeatureDescriptor[] fds) {
     for (int i = 0; i < fds.length; i++) {
       if (name.equals (fds[i].getName())) {
         return fds[i];
@@ -334,21 +334,21 @@ public class ReflectionUtils {
   }
 
 
-  public static Bean getField (Object target, String fieldName)
+  public static Bean getField (final Object target, final String fieldName)
       throws IllegalArgumentException, IllegalAccessException {
     // This is to handle how we do static fields.
-    Class targetClass = (target instanceof Class)
+    final Class targetClass = (target instanceof Class)
                         ? (Class) target
                         : target.getClass ();
 
     try {
-      Field f = targetClass.getField (fieldName);
-      Class fieldType = f.getType ();
+      final Field f = targetClass.getField (fieldName);
+      final Class fieldType = f.getType ();
 
       // Get the value and return it.
-      Object value = f.get (target);
+      final Object value = f.get (target);
       return new Bean (fieldType, value);
-    } catch (NoSuchFieldException e) {
+    } catch (final NoSuchFieldException e) {
       throw new IllegalArgumentException ("field '" + fieldName + "' is " +
                           "unknown for '" + target + "'");
     }
@@ -370,13 +370,13 @@ public class ReflectionUtils {
    * @exception IllegalAccessException if read method is not accessible
    * @exception InvocationTargetException if read method excepts
    */
-  public static Bean getProperty (Object target, String propName,
-                  Integer index)
+  public static Bean getProperty (final Object target, final String propName,
+                  final Integer index)
        throws IntrospectionException, IllegalArgumentException,
               IllegalAccessException, InvocationTargetException {
     // find the property descriptor
-    BeanInfo bi = Introspector.getBeanInfo (target.getClass ());
-    PropertyDescriptor pd = (PropertyDescriptor)
+    final BeanInfo bi = Introspector.getBeanInfo (target.getClass ());
+    final PropertyDescriptor pd = (PropertyDescriptor)
       findFeatureByName ("property", propName, bi.getPropertyDescriptors ());
     if (pd == null) {
       throw new IllegalArgumentException ("property '" + propName + "' is " +
@@ -393,7 +393,7 @@ public class ReflectionUtils {
                             "property '" + propName +
                             "' as being indexed");
       }
-      IndexedPropertyDescriptor ipd = (IndexedPropertyDescriptor) pd;
+      final IndexedPropertyDescriptor ipd = (IndexedPropertyDescriptor) pd;
       rm = ipd.getIndexedReadMethod ();
       propType = ipd.getIndexedPropertyType ();
     } else {
@@ -415,17 +415,17 @@ public class ReflectionUtils {
     }
     return new Bean (propType, propVal);
   }
-  public static void setField (Object target, String fieldName, Bean value,
-                   TypeConvertorRegistry tcr)
+  public static void setField (final Object target, final String fieldName, final Bean value,
+                   final TypeConvertorRegistry tcr)
       throws IllegalArgumentException, IllegalAccessException {
     // This is to handle how we do static fields.
-    Class targetClass = (target instanceof Class)
+    final Class targetClass = (target instanceof Class)
                         ? (Class) target
                         : target.getClass ();
 
     try {
-      Field f = targetClass.getField (fieldName);
-      Class fieldType = f.getType ();
+      final Field f = targetClass.getField (fieldName);
+      final Class fieldType = f.getType ();
 
       // type convert the value if necessary
       Object fieldVal = null;
@@ -433,7 +433,7 @@ public class ReflectionUtils {
       if (fieldType.isAssignableFrom (value.type)) {
         fieldVal = value.value;
       } else if (tcr != null) {
-        TypeConvertor cvtor = tcr.lookup (value.type, fieldType);
+        final TypeConvertor cvtor = tcr.lookup (value.type, fieldType);
         if (cvtor != null) {
           fieldVal = cvtor.convert (value.type, fieldType, value.value);
         } else {
@@ -449,7 +449,7 @@ public class ReflectionUtils {
 
       // now set the value
       f.set (target, fieldVal);
-    } catch (NoSuchFieldException e) {
+    } catch (final NoSuchFieldException e) {
       throw new IllegalArgumentException ("field '" + fieldName + "' is " +
                           "unknown for '" + target + "'");
     }
@@ -475,14 +475,14 @@ public class ReflectionUtils {
    * @exception IllegalAccessException if write method is not accessible
    * @exception InvocationTargetException if write method excepts
    */
-  public static void setProperty (Object target, String propName,
-                  Integer index, Object value,
-                  Class valueType, TypeConvertorRegistry tcr)
+  public static void setProperty (final Object target, final String propName,
+                  final Integer index, final Object value,
+                  final Class valueType, final TypeConvertorRegistry tcr)
        throws IntrospectionException, IllegalArgumentException,
               IllegalAccessException, InvocationTargetException {
     // find the property descriptor
-    BeanInfo bi = Introspector.getBeanInfo (target.getClass ());
-    PropertyDescriptor pd = (PropertyDescriptor)
+    final BeanInfo bi = Introspector.getBeanInfo (target.getClass ());
+    final PropertyDescriptor pd = (PropertyDescriptor)
       findFeatureByName ("property", propName, bi.getPropertyDescriptors ());
     if (pd == null) {
       throw new IllegalArgumentException ("property '" + propName + "' is " +
@@ -499,7 +499,7 @@ public class ReflectionUtils {
                             "property '" + propName +
                                             "' as being indexed");
       }
-      IndexedPropertyDescriptor ipd = (IndexedPropertyDescriptor) pd;
+      final IndexedPropertyDescriptor ipd = (IndexedPropertyDescriptor) pd;
       wm = ipd.getIndexedWriteMethod ();
       propType = ipd.getIndexedPropertyType ();
     } else {
@@ -518,7 +518,7 @@ public class ReflectionUtils {
     if (propType.isAssignableFrom (valueType)) {
       propVal = value;
     } else if (tcr != null) {
-      TypeConvertor cvtor = tcr.lookup (valueType, propType);
+      final TypeConvertor cvtor = tcr.lookup (valueType, propType);
       if (cvtor != null) {
         propVal = cvtor.convert (valueType, propType, value);
       } else {

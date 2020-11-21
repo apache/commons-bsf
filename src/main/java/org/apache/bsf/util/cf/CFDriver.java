@@ -66,7 +66,7 @@ public class CFDriver
     *      [-sdelim     group]   default: ,
     *</pre></code>
     */
-    public static void main(String[] argv)
+    public static void main(final String[] argv)
   {
     if (argv.length % 2 == 0)
     {
@@ -78,7 +78,7 @@ public class CFDriver
                     sDelim  = null;
       Reader        in      = null;
         Writer        out     = null;
-      CodeFormatter cf      = new CodeFormatter();
+      final CodeFormatter cf      = new CodeFormatter();
 
       for (int i = 0; i < argv.length; i += 2)
       {
@@ -103,7 +103,7 @@ public class CFDriver
         {
           in = new FileReader(inFile);
         }
-        catch (FileNotFoundException e)
+        catch (final FileNotFoundException e)
         {
           printError("Cannot open input file: " + inFile);
             
@@ -121,7 +121,7 @@ public class CFDriver
         {
           out = new FileWriter(outFile);
         }
-        catch (IOException e)
+        catch (final IOException e)
         {
           printError("Cannot open output file: " + outFile);
           
@@ -139,7 +139,7 @@ public class CFDriver
         {
             cf.setMaxLineLength(Integer.parseInt(maxLine));
         }
-        catch (NumberFormatException nfe)
+        catch (final NumberFormatException nfe)
         {
             printError("Not a valid integer: " + maxLine);
             
@@ -153,7 +153,7 @@ public class CFDriver
         {
           cf.setIndentationStep(Integer.parseInt(indStep));
         }
-        catch (NumberFormatException nfe)
+        catch (final NumberFormatException nfe)
         {
           printError("Not a valid integer: " + indStep);
           
@@ -174,7 +174,7 @@ public class CFDriver
         printHelp();
     }
   }
-    private static void printError(String errMsg)
+    private static void printError(final String errMsg)
   {
     System.err.println("ERROR: " + errMsg);
   }

@@ -70,7 +70,7 @@ public class XSLTEngine extends BSFEngineImpl {
     /**
      * call the named method of the given object.
      */
-    public Object call (Object object, String method, Object[] args)
+    public Object call (final Object object, final String method, final Object[] args)
         throws BSFException {
     throw new BSFException (BSFException.REASON_UNSUPPORTED_FEATURE,
                                 "BSF:XSLTEngine can't call methods");
@@ -79,7 +79,7 @@ public class XSLTEngine extends BSFEngineImpl {
     /**
      * Declare a bean by setting it as a parameter
      */
-    public void declareBean (BSFDeclaredBean bean) throws BSFException {
+    public void declareBean (final BSFDeclaredBean bean) throws BSFException {
         transformer.setParameter (bean.name, new XObject (bean.bean));
     }
 
@@ -87,15 +87,15 @@ public class XSLTEngine extends BSFEngineImpl {
      * Evaluate an expression. In this case, an expression is assumed
      * to be a stylesheet of the template style (see the XSLT spec).
      */
-    public Object eval (String source, int lineNo, int columnNo,
-                        Object oscript) throws BSFException {
+    public Object eval (final String source, final int lineNo, final int columnNo,
+                        final Object oscript) throws BSFException {
     // get the style base URI (the place from where Xerces XSLT will
     // look for imported/included files and referenced docs): if a
     // bean named "xslt:styleBaseURI" is registered, then cvt it
     // to a string and use that. Otherwise use ".", which means the
     // base is the directory where the process is running from
-    Object sbObj = mgr.lookupBean ("xslt:styleBaseURI");
-    String styleBaseURI = (sbObj == null) ? "." : sbObj.toString ();
+    final Object sbObj = mgr.lookupBean ("xslt:styleBaseURI");
+    final String styleBaseURI = (sbObj == null) ? "." : sbObj.toString ();
 
     // Locate the stylesheet.
     StreamSource styleSource;
@@ -106,7 +106,7 @@ public class XSLTEngine extends BSFEngineImpl {
 
         try {
             transformer = tFactory.newTransformer(styleSource);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             logger.error("Exception from Xerces XSLT:", e);
             throw new BSFException (BSFException.REASON_EXECUTION_ERROR,
                                     "Exception from Xerces XSLT: " + e, e);
@@ -117,7 +117,7 @@ public class XSLTEngine extends BSFEngineImpl {
     // if its a URL parse it, if not treat it as a file and make a URL and
     // parse it and go. If no xslt:src is found, use an empty document
     // (stylesheet is treated as a literal result element stylesheet)
-    Object srcObj = mgr.lookupBean ("xslt:src");
+    final Object srcObj = mgr.lookupBean ("xslt:src");
     Object xis = null;
     if (srcObj != null) {
             if (srcObj instanceof Node) {
@@ -132,7 +132,7 @@ public class XSLTEngine extends BSFEngineImpl {
                         xis = new StreamSource ((File) srcObj);
                         mesg = "as a file";
                     } else {
-                        String srcObjstr=srcObj.toString();
+                        final String srcObjstr=srcObj.toString();
                         xis = new StreamSource (new StringReader(srcObjstr));
                         if (srcObj instanceof URL) {
                             mesg = "as a URL";
@@ -146,7 +146,7 @@ public class XSLTEngine extends BSFEngineImpl {
             throw new Exception ("Unable to get input from '" +
                                              srcObj + "' " + mesg);
                     }
-        } catch (Exception e) {
+        } catch (final Exception e) {
                     throw new BSFException (BSFException.REASON_EXECUTION_ERROR,
                                             "BSF:XSLTEngine: unable to get " +
                                             "input from '" + srcObj + "' as XML", e);
@@ -161,7 +161,7 @@ public class XSLTEngine extends BSFEngineImpl {
 
     // set all declared beans as parameters.
     for (int i = 0; i < declaredBeans.size (); i++) {
-            BSFDeclaredBean b = (BSFDeclaredBean) declaredBeans.elementAt (i);
+            final BSFDeclaredBean b = (BSFDeclaredBean) declaredBeans.elementAt (i);
             transformer.setParameter (b.name, new XObject (b.bean));
     }
 
@@ -172,10 +172,10 @@ public class XSLTEngine extends BSFEngineImpl {
 
     // do it
     try {
-            DOMResult result = new DOMResult();
+            final DOMResult result = new DOMResult();
             transformer.transform ((StreamSource) xis, result);
             return new XSLTResultNode (result.getNode());
-    } catch (Exception e) {
+    } catch (final Exception e) {
             throw new BSFException (BSFException.REASON_EXECUTION_ERROR,
                                     "exception while eval'ing XSLT script" + e, e);
     }
@@ -184,8 +184,8 @@ public class XSLTEngine extends BSFEngineImpl {
     /**
      * Initialize the engine.
      */
-    public void initialize (BSFManager mgr, String lang,
-                            Vector declaredBeans) throws BSFException {
+    public void initialize (final BSFManager mgr, final String lang,
+                            final Vector declaredBeans) throws BSFException {
     super.initialize (mgr, lang, declaredBeans);
 
         tFactory = TransformerFactory.newInstance();
@@ -194,7 +194,7 @@ public class XSLTEngine extends BSFEngineImpl {
     /**
      * Undeclare a bean by setting he parameter represeting it to null
      */
-    public void undeclareBean (BSFDeclaredBean bean) throws BSFException {
+    public void undeclareBean (final BSFDeclaredBean bean) throws BSFException {
         // Cannot clear only one parameter in Xalan 2, so we set it to null
         if ((transformer.getParameter (bean.name)) != null) {
             transformer.setParameter (bean.name, null);

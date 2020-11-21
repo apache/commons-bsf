@@ -51,9 +51,9 @@ public class JaclEngine extends BSFEngineImpl {
    * passed to the extension, which may be either
    * Vectors of Nodes, or Strings.
    */
-  public Object call (Object obj, String method, Object[] args) 
+  public Object call (final Object obj, final String method, final Object[] args) 
                                                         throws BSFException {
-    StringBuffer tclScript = new StringBuffer (method);
+    final StringBuffer tclScript = new StringBuffer (method);
     if (args != null) {
       for( int i = 0 ; i < args.length ; i++ ) {
     tclScript.append (" ");
@@ -65,8 +65,8 @@ public class JaclEngine extends BSFEngineImpl {
   /**
    * Declare a bean
    */
-  public void declareBean (BSFDeclaredBean bean) throws BSFException {
-    String expr = "set " + bean.name + " [bsf lookupBean \"" + bean.name +
+  public void declareBean (final BSFDeclaredBean bean) throws BSFException {
+    final String expr = "set " + bean.name + " [bsf lookupBean \"" + bean.name +
 	  "\"]";
     eval ("<declare bean>", 0, 0, expr);
   }
@@ -74,13 +74,13 @@ public class JaclEngine extends BSFEngineImpl {
    * This is used by an application to evaluate a string containing
    * some expression.
    */
-  public Object eval (String source, int lineNo, int columnNo, 
-              Object oscript) throws BSFException {
-    String script = oscript.toString ();
+  public Object eval (final String source, final int lineNo, final int columnNo, 
+              final Object oscript) throws BSFException {
+    final String script = oscript.toString ();
     try {
       interp.eval (script);
-      TclObject result = interp.getResult();
-      Object internalRep = result.getInternalRep();
+      final TclObject result = interp.getResult();
+      final Object internalRep = result.getInternalRep();
 
       // if the object has a corresponding Java type, unwrap it
       if (internalRep instanceof ReflectObject) {
@@ -97,7 +97,7 @@ public class JaclEngine extends BSFEngineImpl {
     }
 
       return result;
-    } catch (TclException e) { 
+    } catch (final TclException e) { 
       throw new BSFException (BSFException.REASON_EXECUTION_ERROR,
                   "error while eval'ing Jacl expression: " + 
                   interp.getResult (), e);
@@ -106,8 +106,8 @@ public class JaclEngine extends BSFEngineImpl {
   /**
    * Initialize the engine.
    */
-  public void initialize (BSFManager mgr, String lang,
-              Vector declaredBeans) throws BSFException {
+  public void initialize (final BSFManager mgr, final String lang,
+              final Vector declaredBeans) throws BSFException {
     super.initialize (mgr, lang, declaredBeans);
 
     // create interpreter
@@ -120,13 +120,13 @@ public class JaclEngine extends BSFEngineImpl {
     // Make java functions be available to Jacl
         try {
         interp.eval("jaclloadjava");
-    } catch (TclException e) {
+    } catch (final TclException e) {
         throw new BSFException (BSFException.REASON_OTHER_ERROR,
                     "error while loading java package: " +
                     interp.getResult (), e);
     }
 
-    int size = declaredBeans.size ();
+    final int size = declaredBeans.size ();
     for (int i = 0; i < size; i++) {
       declareBean ((BSFDeclaredBean) declaredBeans.elementAt (i));
     }
@@ -135,7 +135,7 @@ public class JaclEngine extends BSFEngineImpl {
   /**
    * Undeclare a previously declared bean.
    */
-  public void undeclareBean (BSFDeclaredBean bean) throws BSFException {
+  public void undeclareBean (final BSFDeclaredBean bean) throws BSFException {
     eval ("<undeclare bean>", 0, 0, "set " + bean.name + " \"\"");
   }
 }

@@ -25,16 +25,16 @@ import org.apache.bsf.util.event.EventAdapterImpl;
 public class java_awt_event_ComponentAdapter extends EventAdapterImpl
                                                 implements ComponentListener {
 
-  public void componentHidden (ComponentEvent e) {
+  public void componentHidden (final ComponentEvent e) {
     eventProcessor.processEvent ("componentHidden", new Object[]{e});
   }
-  public void componentMoved (ComponentEvent e) {
+  public void componentMoved (final ComponentEvent e) {
     eventProcessor.processEvent ("componentMoved", new Object[]{e});
   }
-  public void componentResized (ComponentEvent e) {
+  public void componentResized (final ComponentEvent e) {
     eventProcessor.processEvent ("componentResized", new Object[]{e});
   }
-  public void componentShown (ComponentEvent e) {
+  public void componentShown (final ComponentEvent e) {
     eventProcessor.processEvent ("componentShown", new Object[]{e});
   }
 }

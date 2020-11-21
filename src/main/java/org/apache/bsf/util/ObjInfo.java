@@ -30,14 +30,14 @@ public class ObjInfo
 		 public  String objName;
 		 public  Class  objClass;
 
-  public ObjInfo(Class objClass, String objName)
+  public ObjInfo(final Class objClass, final String objName)
   {
 	this.objClass = objClass;
 	this.objName  = objName;
   }
   public boolean isExecutable()
   {
-	char[]  chars            = objName.toCharArray();
+	final char[]  chars            = objName.toCharArray();
 	char    openingChar      = ' ';
 	boolean inString         = false,
 			inEscapeSequence = false;

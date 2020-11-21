@@ -36,11 +36,11 @@ public class ObjectRegistry {
 
   public ObjectRegistry () {
   }
-  public ObjectRegistry (ObjectRegistry parent) {
+  public ObjectRegistry (final ObjectRegistry parent) {
 	this.parent = parent;
   }
   // lookup an object: cascade up if needed
-  public Object lookup (String name) throws IllegalArgumentException {
+  public Object lookup (final String name) throws IllegalArgumentException {
 	Object obj = reg.get (name);
 
 	if (obj == null && parent != null) {
@@ -54,11 +54,11 @@ public class ObjectRegistry {
 	return obj;
   }
   // register an object
-  public void register (String name, Object obj) {
+  public void register (final String name, final Object obj) {
 	reg.put (name, obj);
   }
   // unregister an object (silent if unknown name)
-  public void unregister (String name) {
+  public void unregister (final String name) {
 	reg.remove (name);
   }
 }

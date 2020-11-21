@@ -32,7 +32,7 @@ public class Bean {
   // its current value (mebbe null)
   public Object value;
 
-  public Bean (Class type, Object value) {
+  public Bean (final Class type, final Object value) {
 	this.type = type;
 	this.value = value;
   }

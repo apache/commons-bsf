@@ -34,23 +34,23 @@ public class JavaUtils {
                 logger = BSF_LogFactory.getLog((org.apache.bsf.util.JavaUtils.class).getName());
     }
 
-    public static boolean JDKcompile(String fileName, String classPath) {
-        String option = (logger.isDebugEnabled()) ? "-g" : "-O";
-        String args[] = { "javac", option, "-classpath", classPath, fileName };
+    public static boolean JDKcompile(final String fileName, final String classPath) {
+        final String option = (logger.isDebugEnabled()) ? "-g" : "-O";
+        final String args[] = { "javac", option, "-classpath", classPath, fileName };
 
         logger.debug("JavaEngine: Compiling " + fileName);
         logger.debug("JavaEngine: Classpath is " + classPath);
 
         try {
-            Process p = java.lang.Runtime.getRuntime().exec(args);
+            final Process p = java.lang.Runtime.getRuntime().exec(args);
             p.waitFor();
             return (p.exitValue() != 0);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             logger.error("ERROR: IO exception during exec(javac).", e);
-        } catch (SecurityException e) {
+        } catch (final SecurityException e) {
             logger.error("ERROR: Unable to create subprocess to exec(javac).",
                     e);
-        } catch (InterruptedException e) {
+        } catch (final InterruptedException e) {
             logger.error("ERROR: Wait for exec(javac) was interrupted.", e);
         }
         return false;

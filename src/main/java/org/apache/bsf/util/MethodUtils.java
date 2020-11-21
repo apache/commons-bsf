@@ -63,21 +63,21 @@ public class MethodUtils {
 
       newEntry: Method or Constructor under consideration.
       */
-    void addItem (Object newEntry)
+    void addItem (final Object newEntry)
     {
       if(size()==0) {
         addElement(newEntry);
     } else
         {
-          Class[] newargs=entryGetParameterTypes(newEntry);
+          final Class[] newargs=entryGetParameterTypes(newEntry);
           boolean keep=true;
-          for (Enumeration e = elements();
+          for (final Enumeration e = elements();
                keep & e.hasMoreElements() ;
                 )
             {
-              Object oldEntry=e.nextElement();
+              final Object oldEntry=e.nextElement();
               // CAVEAT: Implicit references to enclosing class!
-              Class[] oldargs=entryGetParameterTypes(oldEntry);
+              final Class[] oldargs=entryGetParameterTypes(oldEntry);
               if(areMethodConvertable(oldargs,newargs)) {
                 removeElement(oldEntry); // New more specific; discard old
             } else if(areMethodConvertable(newargs,oldargs))
@@ -98,8 +98,8 @@ public class MethodUtils {
       Arguments describe the call we were hoping to resolve. They are
       used to throw a nice verbose exception if something goes wrong.
       */
-    Object getMostSpecific(Class targetClass,String methodName,
-                           Class[] argTypes,boolean isStaticReference)
+    Object getMostSpecific(final Class targetClass,final String methodName,
+                           final Class[] argTypes,final boolean isStaticReference)
          throws NoSuchMethodException
     {
       if(size()==1) {
@@ -107,8 +107,8 @@ public class MethodUtils {
     }
       if(size()>1)
         {
-          StringBuffer buf=new StringBuffer();
-          Enumeration e=elements();
+          final StringBuffer buf=new StringBuffer();
+          final Enumeration e=elements();
           buf.append(e.nextElement());
           while(e.hasMoreElements()) {
             buf.append(" and ").append(e.nextElement());
@@ -127,7 +127,7 @@ public class MethodUtils {
   /** Convenience method: Test an entire parameter-list/argument-list pair
     for isMethodConvertable(), qv. 
     */
-  static private boolean areMethodConvertable(Class[] parms,Class[] args)
+  static private boolean areMethodConvertable(final Class[] parms,final Class[] args)
   {
     if(parms.length!=args.length) {
         return false;
@@ -144,10 +144,10 @@ public class MethodUtils {
   /** Internal subroutine for getEntryPoint(): Format arguments as a
       string describing the function being searched for. Used in
       verbose exceptions. */
-  private static String callToString(Class targetClass,String methodName,
-                                    Class[] argTypes,boolean isStaticReference)
+  private static String callToString(final Class targetClass,final String methodName,
+                                    final Class[] argTypes,final boolean isStaticReference)
   {
-    StringBuffer buf = new StringBuffer();
+    final StringBuffer buf = new StringBuffer();
     if(isStaticReference) {
         buf.append("static ");
     }
@@ -177,7 +177,7 @@ public class MethodUtils {
   }
   /** Utility function: obtain common data from either Method or
       Constructor. (In lieu of an EntryPoint interface.) */
-  static int entryGetModifiers(Object entry)
+  static int entryGetModifiers(final Object entry)
   {
     return (entry instanceof Method)
       ? ((Method)entry).getModifiers()
@@ -194,7 +194,7 @@ public class MethodUtils {
 
   /** Utility function: obtain common data from either Method or
       Constructor. (In lieu of an EntryPoint interface.) */
-  static String entryGetName(Object entry)
+  static String entryGetName(final Object entry)
   {
     return (entry instanceof Method)
       ? ((Method)entry).getName()
@@ -202,7 +202,7 @@ public class MethodUtils {
   }
   /** Utility function: obtain common data from either Method or
       Constructor. (In lieu of an EntryPoint interface.) */
-  static Class[] entryGetParameterTypes(Object entry)
+  static Class[] entryGetParameterTypes(final Object entry)
   {
     return (entry instanceof Method)
       ? ((Method)entry).getParameterTypes()
@@ -210,7 +210,7 @@ public class MethodUtils {
   }
   /** Utility function: obtain common data from either Method or
       Constructor. (In lieu of an EntryPoint interface.) */
-  static String entryToString(Object entry)
+  static String entryToString(final Object entry)
   {
     return (entry instanceof Method)
       ? ((Method)entry).toString()
@@ -228,7 +228,7 @@ public class MethodUtils {
 
     @exception NoSuchMethodException if constructor not found.
     */
-  static public Constructor getConstructor(Class targetClass, Class[] argTypes)
+  static public Constructor getConstructor(final Class targetClass, final Class[] argTypes)
        throws SecurityException, NoSuchMethodException
   {
     return (Constructor) getEntryPoint(targetClass,null,argTypes,true);
@@ -257,10 +257,10 @@ public class MethodUtils {
    * @exception SecurityException     if security violation
    * @exception NoSuchMethodException if no such method
    */
-  static private Object getEntryPoint(Class targetClass,
-                                      String methodName,
-                                      Class[] argTypes,
-                                      boolean isStaticReference) 
+  static private Object getEntryPoint(final Class targetClass,
+                                      final String methodName,
+                                      final Class[] argTypes,
+                                      final boolean isStaticReference) 
        throws SecurityException, NoSuchMethodException
   {
     // 15.11.1: OBTAIN STARTING CLASS FOR SEARCH
@@ -289,7 +289,7 @@ public class MethodUtils {
         return targetClass.getConstructor (argTypes);
     }
           
-    } catch (NoSuchMethodException e) {
+    } catch (final NoSuchMethodException e) {
       // no-args has no alternatives!
       if(argTypes==null || argTypes.length==0)
       {
@@ -322,10 +322,10 @@ public class MethodUtils {
         throw new NoSuchMethodException("No methods!");
       }
 
-    MoreSpecific best=new MoreSpecific();
+    final MoreSpecific best=new MoreSpecific();
     for(int i=0;i<methods.length;++i)
       {
-        Object mi=methods[i];
+        final Object mi=methods[i];
         if (
             // 15.11.2.1 ACCESSIBLE: Method is public.
             Modifier.isPublic(entryGetModifiers(mi))
@@ -386,8 +386,8 @@ public class MethodUtils {
     appropriateness before returning the method; if the query is
     being made via a static reference, only static methods will be
     found and returned. */
-  static public Method getMethod(Class target,String methodName,
-                                 Class[] argTypes,boolean isStaticReference)
+  static public Method getMethod(final Class target,final String methodName,
+                                 final Class[] argTypes,final boolean isStaticReference)
        throws SecurityException, NoSuchMethodException
   {
     return (Method)getEntryPoint(target,methodName,argTypes,isStaticReference);
@@ -414,11 +414,11 @@ public class MethodUtils {
    * @exception SecurityException     if security violation
    * @exception NoSuchMethodException if no such method
    */
-  static public Method getMethod(Object target,String methodName,
-                                 Class[] argTypes)
+  static public Method getMethod(final Object target,final String methodName,
+                                 final Class[] argTypes)
        throws SecurityException, NoSuchMethodException
   {
-    boolean staticRef=target instanceof Class;
+    final boolean staticRef=target instanceof Class;
     return getMethod( staticRef ? (Class)target : target.getClass(),
                       methodName,argTypes,staticRef);
   }
@@ -432,7 +432,7 @@ public class MethodUtils {
 
     Legal ASSIGNMENT CONVERSIONS (5.2) are METHOD CONVERSIONS (5.3)
     plus implicit narrowing of int to byte, short or char.  */
-  static private boolean isAssignmentConvertable(Class parm,Class arg)
+  static private boolean isAssignmentConvertable(final Class parm,final Class arg)
   {
     return
       (arg.equals(Integer.TYPE) &&
@@ -512,7 +512,7 @@ public class MethodUtils {
         return false;
     }
     
-    Class[] primTypes={ Character.TYPE, Byte.TYPE, Short.TYPE, Integer.TYPE,
+    final Class[] primTypes={ Character.TYPE, Byte.TYPE, Short.TYPE, Integer.TYPE,
                         Long.TYPE, Float.TYPE, Double.TYPE };
     int parmscore,argscore;
     

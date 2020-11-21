@@ -32,12 +32,12 @@ public class BSF_LogFactory
 {
     protected BSF_LogFactory() {}              // mimickries org.apache.commons.logging.LogFactory
 
-    static public BSF_Log getLog (String name)
+    static public BSF_Log getLog (final String name)
     {
         return new BSF_Log(name);
     }
 
-    static public BSF_Log getLog (Class clz)
+    static public BSF_Log getLog (final Class clz)
     {
         return new BSF_Log(clz);
     }

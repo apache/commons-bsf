@@ -32,10 +32,10 @@ public abstract class BSFEngineTestTmpl extends TestCase {
     protected BSFManager bsfManager;
     protected PrintStream sysOut;
 
-    private PrintStream tmpOut;
-    private ByteArrayOutputStream tmpBaos;
+    private final PrintStream tmpOut;
+    private final ByteArrayOutputStream tmpBaos;
 
-    public BSFEngineTestTmpl(String name) {
+    public BSFEngineTestTmpl(final String name) {
         super(name);
 
         sysOut = System.out;
@@ -61,7 +61,7 @@ public abstract class BSFEngineTestTmpl extends TestCase {
         tmpBaos.reset();
     }
     
-    protected String failMessage(String failure, Exception e) {
+    protected String failMessage(final String failure, final Exception e) {
         String message = failure;
         message += "\nReason:\n";
         message += e.getMessage();

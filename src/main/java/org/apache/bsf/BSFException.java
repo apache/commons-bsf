@@ -37,15 +37,15 @@ public class BSFException extends Exception {
   int reason;
   Throwable targetThrowable;
 
-  public BSFException (int reason, String msg) {
+  public BSFException (final int reason, final String msg) {
     super (msg);
     this.reason = reason;
   }
-  public BSFException (int reason, String msg, Throwable t) {
+  public BSFException (final int reason, final String msg, final Throwable t) {
     this (reason, msg);
     targetThrowable = t;
   }
-  public BSFException (String msg) {
+  public BSFException (final String msg) {
     this (REASON_OTHER_ERROR, msg);
   }
   public int getReason () {
@@ -56,7 +56,7 @@ public class BSFException extends Exception {
   }
   public void printStackTrace () {
     if (targetThrowable != null) {
-      String msg = getMessage ();
+      final String msg = getMessage ();
 
       if (msg != null && !msg.equals (targetThrowable.getMessage ())) {
         System.err.print (msg + ": ");

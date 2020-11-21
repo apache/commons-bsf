@@ -25,7 +25,7 @@ import org.apache.bsf.util.event.EventAdapterImpl;
 public class java_awt_event_AdjustmentAdapter extends EventAdapterImpl
                                                  implements AdjustmentListener {
 
-  public void adjustmentValueChanged (AdjustmentEvent e) {
+  public void adjustmentValueChanged (final AdjustmentEvent e) {
     eventProcessor.processEvent ("adjustmentValueChanged", new Object[]{e});
   }
 }

@@ -30,7 +30,7 @@ public class BSFDeclaredBean {
     public Object bean;
     public Class type;
 
-    BSFDeclaredBean(String name, Object bean, Class type) {
+    BSFDeclaredBean(final String name, final Object bean, final Class type) {
         this.name = name;
         this.bean = bean;
         this.type = type;

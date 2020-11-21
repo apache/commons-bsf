@@ -68,7 +68,7 @@ public class EventAdapterGenerator
     // logger = LogFactory.getLog((org.apache.bsf.util.event.generator.EventAdapterGenerator.class).getName());
         logger = BSF_LogFactory.getLog((org.apache.bsf.util.event.generator.EventAdapterGenerator.class).getName());
 
-    String USERCLASSPACKAGE = System.getProperty("DynamicEventClassPackage",
+    final String USERCLASSPACKAGE = System.getProperty("DynamicEventClassPackage",
                                                  "");
 
     if (!USERCLASSPACKAGE.equals(""))
@@ -96,14 +96,14 @@ public class EventAdapterGenerator
 
             // rgf, 20070917: first try context class loader, then BSFManager's defining class loader
             EVENTLISTENER=null;
-            ClassLoader tccl=Thread.currentThread().getContextClassLoader();
+            final ClassLoader tccl=Thread.currentThread().getContextClassLoader();
 
             if (tccl!=null)
             {
                 try {
                      EVENTLISTENER = tccl.loadClass ("java.util.EventListener");
                 }
-                catch(ClassNotFoundException ex01)
+                catch(final ClassNotFoundException ex01)
                 {}
             }
 
@@ -113,7 +113,7 @@ public class EventAdapterGenerator
             }
 
         }
-    catch(ClassNotFoundException ex)
+    catch(final ClassNotFoundException ex)
     {
             System.err.println(ex.getMessage());
             ex.printStackTrace();
@@ -209,7 +209,7 @@ public class EventAdapterGenerator
   }
 
   /* methods that take an EventListener Class Type to create an EventAdapterClass */
-  public static Class makeEventAdapterClass(Class listenerType,boolean writeClassFile)
+  public static Class makeEventAdapterClass(final Class listenerType,final boolean writeClassFile)
   {
       logger.debug("EventAdapterGenerator");
 
@@ -225,9 +225,9 @@ public class EventAdapterGenerator
       short   nonExceptionableCount;
 
       /* Derive Names */
-      String listenerTypeName      = listenerType.getName();
+      final String listenerTypeName      = listenerType.getName();
           logger.debug("ListenerTypeName: "+listenerTypeName);
-      String adapterClassName      =
+      final String adapterClassName      =
         CLASSPACKAGE+
         (listenerTypeName.endsWith("Listener")
          ? listenerTypeName.substring(0, listenerTypeName.length() - 8)
@@ -250,7 +250,7 @@ public class EventAdapterGenerator
                 return cached;
             }
           }
-          catch(VerifyError ex)
+          catch(final VerifyError ex)
           {
                       System.err.println(ex.getMessage());
                       ex.printStackTrace();
@@ -260,10 +260,10 @@ public class EventAdapterGenerator
       }
       while (cached != null);
 
-      String eventListenerName = listenerTypeName.replace('.', '/');
+      final String eventListenerName = listenerTypeName.replace('.', '/');
 
       /* method stuff */
-      java.lang.reflect.Method lms[] = listenerType.getMethods();
+      final java.lang.reflect.Method lms[] = listenerType.getMethods();
 
       /* ****************************************************************************************** */
       // Listener interface
@@ -285,7 +285,7 @@ public class EventAdapterGenerator
       // do we have nonExceptionalble event, exceptionable or both
       for (int i = 0 ; i < lms.length ; ++i)
       {
-        Class exceptionTypes[] = lms[i].getExceptionTypes();
+        final Class exceptionTypes[] = lms[i].getExceptionTypes();
         if( 0 < exceptionTypes.length)
         { exceptionable = true; }
         else
@@ -318,9 +318,9 @@ public class EventAdapterGenerator
       exceptionableCount = 0;
       if(exceptionable)
       {
-        int classIndex = BASECPCOUNT + cpCount + 1;
-        int nameIndex  = BASECPCOUNT + cpCount + 0;
-        int natIndex   = BASECPCOUNT + cpCount + 3;
+        final int classIndex = BASECPCOUNT + cpCount + 1;
+        final int nameIndex  = BASECPCOUNT + cpCount + 0;
+        final int natIndex   = BASECPCOUNT + cpCount + 3;
 
         exceptionableCount = 5;
         cpCount += exceptionableCount;
@@ -348,8 +348,8 @@ public class EventAdapterGenerator
 
       for (int i = 0 ; i < lms.length ; ++i)
       {
-        String eventMethodName = lms[i].getName();
-        String eventName = lms[i].getParameterTypes()[0].getName().replace('.','/');
+        final String eventMethodName = lms[i].getName();
+        final String eventName = lms[i].getParameterTypes()[0].getName().replace('.','/');
         cpCount += 3;
         // cp items for event methods
         constantPool = Bytecode.addUtf8(constantPool,eventMethodName);
@@ -357,11 +357,11 @@ public class EventAdapterGenerator
         constantPool = Bytecode.addString(constantPool,(short)(BASECPCOUNT+cpCount-3));
       }/* End for*/
 
-      boolean propertyChangeFlag[] = new boolean[lms.length];
+      final boolean propertyChangeFlag[] = new boolean[lms.length];
       int cpIndexPCE = 0;
       for (int i = 0 ; i < lms.length ; ++i)
       {
-        String eventName = lms[i].getParameterTypes()[0].getName().replace('.','/');
+        final String eventName = lms[i].getParameterTypes()[0].getName().replace('.','/');
         // cp items for PropertyChangeEvent special handling
         if(eventName.equalsIgnoreCase("java/beans/PropertyChangeEvent"))
         {
@@ -390,10 +390,10 @@ public class EventAdapterGenerator
       cpExceptionBaseIndex = (short)(BASECPCOUNT + cpCount);
           logger.debug("cpExceptionBaseIndex: " + cpExceptionBaseIndex);
 
-      int excpIndex[][] = new int[lms.length][];
+      final int excpIndex[][] = new int[lms.length][];
       for (int i = 0 ; i < lms.length ; ++i)
       {
-        Class exceptionTypes[] = lms[i].getExceptionTypes();
+        final Class exceptionTypes[] = lms[i].getExceptionTypes();
         excpIndex[i] = new int[exceptionTypes.length];
         for ( int j = 0 ; j < exceptionTypes.length ; j++)
         {
@@ -410,7 +410,7 @@ public class EventAdapterGenerator
 
       /* start */
       byte newClass[] = CLASSHEADER;                                   // magic, version      (fixed)
-      short count = (short)(BASECPCOUNT + cpCount);
+      final short count = (short)(BASECPCOUNT + cpCount);
       newClass = ByteUtility.addBytes(newClass,count);                 // constant_pool_count (variable)
       newClass = ByteUtility.addBytes(newClass,BASECP);                // constant_pool       (fixed)
       newClass = ByteUtility.addBytes(newClass,constantPool);          // constant_pool       (variable)
@@ -562,11 +562,11 @@ public class EventAdapterGenerator
         try
         {
                     // removed "WRITEDIRECTORY+", as this path is already part of 'finalAdapterClassName'
-          FileOutputStream fos =  new FileOutputStream(finalAdapterClassName+".class");
+          final FileOutputStream fos =  new FileOutputStream(finalAdapterClassName+".class");
           fos.write(newClass);
           fos.close();
         }
-        catch(IOException ex)
+        catch(final IOException ex)
         {
                     System.err.println(ex.getMessage());
                     ex.printStackTrace();
@@ -574,13 +574,13 @@ public class EventAdapterGenerator
 
         try
         {
-          Class ret = ldr.loadClass(finalAdapterClassName);
+          final Class ret = ldr.loadClass(finalAdapterClassName);
           logger.debug("EventAdapterGenerator: " +
                              ret.getName() +
                              " dynamically generated");
           return ret;
         }
-        catch (ClassNotFoundException ex)
+        catch (final ClassNotFoundException ex)
         {
                     System.err.println(ex.getMessage());
                     ex.printStackTrace();
@@ -589,14 +589,14 @@ public class EventAdapterGenerator
 
       try
       {
-        Class ret = ldr.defineClass(finalAdapterClassName,newClass);
+        final Class ret = ldr.defineClass(finalAdapterClassName,newClass);
         logger.debug("EventAdapterGenerator: " +
                                        ret.getName() +
                                        " dynamically generated");
         return ret;
       }
 
-      catch(Throwable ex)           // rgf, 2012-01-15
+      catch(final Throwable ex)           // rgf, 2012-01-15
       {
         System.err.println(ex.getMessage());
         ex.printStackTrace();

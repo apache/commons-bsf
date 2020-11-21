@@ -44,8 +44,8 @@ public class BSFEventProcessor implements EventProcessor {
    * Package-protected constructor makes this class unavailable for
    * public use.
    */
-  BSFEventProcessor (BSFEngine engine, BSFManager manager, String filter,
-             String source, int lineNo, int columnNo, Object script)
+  BSFEventProcessor (final BSFEngine engine, final BSFManager manager, final String filter,
+             final String source, final int lineNo, final int columnNo, final Object script)
        throws BSFException {
     this.engine = engine;
     this.manager = manager;
@@ -63,14 +63,14 @@ public class BSFEventProcessor implements EventProcessor {
   // of the property. In any case, in the event processor, I only forward
   // those events if for which the filters match (if one is specified).
 
-  public void processEvent (String inFilter, Object[] evtInfo) {
+  public void processEvent (final String inFilter, final Object[] evtInfo) {
     try {
       processExceptionableEvent (inFilter, evtInfo);
-    } catch (RuntimeException re) {
+    } catch (final RuntimeException re) {
       // rethrow this .. I don't want to intercept run-time stuff
       // that can in fact occur legit
       throw re;
-    } catch (Exception e) {
+    } catch (final Exception e) {
       // should not occur
       System.err.println ("BSFError: non-exceptionable event delivery " +
               "threw exception (that's not nice): " + e);
@@ -83,7 +83,7 @@ public class BSFEventProcessor implements EventProcessor {
   // an exception which must go all the way back to the source (as in
   // the vetoableChange case)
 
-  public void processExceptionableEvent (String inFilter, Object[] evtInfo) throws Exception
+  public void processExceptionableEvent (final String inFilter, final Object[] evtInfo) throws Exception
   {
       if ((filter != null) && !isFilteredEvent(filter, inFilter)) {
       // ignore this event
@@ -96,7 +96,7 @@ public class BSFEventProcessor implements EventProcessor {
   }
 
 
-  private static boolean isFilteredEvent(final String filter, String inFilter)
+  private static boolean isFilteredEvent(final String filter, final String inFilter)
   {
       boolean bRes=filter.equalsIgnoreCase(inFilter);
       if (bRes)
@@ -104,7 +104,7 @@ public class BSFEventProcessor implements EventProcessor {
           return bRes;
       }
 
-      String chunks[]=filter.replace('+',' ').split(" ");
+      final String chunks[]=filter.replace('+',' ').split(" ");
       for (int i=0;i<chunks.length;i++)
       {
           bRes=chunks[i].equalsIgnoreCase(inFilter);

@@ -46,7 +46,7 @@ public class AdapterClassLoader extends ClassLoader
     logger = BSF_LogFactory.getLog(this.getClass().getName());
   }
 
-  public synchronized Class defineClass(String name, byte[] b)
+  public synchronized Class defineClass(final String name, final byte[] b)
   {
     if ((c = getLoadedClass(name)) == null)
     {
@@ -56,18 +56,18 @@ public class AdapterClassLoader extends ClassLoader
        {
           c = defineClass(tmpName, b, 0, b.length);   // rgf, 2006-02-03
        }
-       catch (NoClassDefFoundError e)  // note "Error": Java thread would be killed otherwise!
+       catch (final NoClassDefFoundError e)  // note "Error": Java thread would be killed otherwise!
        {
           // now try the Thread's current context class loader, but don't cache it
-          ClassLoader tccl=Thread.currentThread().getContextClassLoader();
+          final ClassLoader tccl=Thread.currentThread().getContextClassLoader();
           if (tccl!=null)
           {
              try
              {
-                LocalThreadClassLoader ltcl=new LocalThreadClassLoader(tccl);
+                final LocalThreadClassLoader ltcl=new LocalThreadClassLoader(tccl);
                 return ltcl.defineClass(tmpName,b);
              }
-             catch (NoClassDefFoundError e1) // (NoClassDefFoundError e1)
+             catch (final NoClassDefFoundError e1) // (NoClassDefFoundError e1)
              {
                 logger.error("AdapterClassLoader: NoClassDefFoundError ERROR for class ["+tmpName+"]!");
                 throw e1;      // rethrow error
@@ -91,17 +91,17 @@ public class AdapterClassLoader extends ClassLoader
     return c;
   }
 
-  final protected Class findClass(String name)
+  final protected Class findClass(final String name)
   {
     return get(name);
   }
 
-  final protected Class get(String name)
+  final protected Class get(final String name)
   {
     return (Class)classCache.get(name);
   }
 
-  public synchronized Class getLoadedClass(String name)
+  public synchronized Class getLoadedClass(final String name)
   {
     Class c = findLoadedClass(name);
 
@@ -111,7 +111,7 @@ public class AdapterClassLoader extends ClassLoader
       {
         c = findSystemClass(name);
       }
-      catch (ClassNotFoundException e)
+      catch (final ClassNotFoundException e)
       {
       }
     }
@@ -124,7 +124,7 @@ public class AdapterClassLoader extends ClassLoader
         // rgf, 2008-07-04
         if (c==null)        // not found so far, try to use the current Thread's context class loader instead
         {
-            LocalThreadClassLoader ltcl=new LocalThreadClassLoader(Thread.currentThread().getContextClassLoader());
+            final LocalThreadClassLoader ltcl=new LocalThreadClassLoader(Thread.currentThread().getContextClassLoader());
 
             c = ltcl.findLoadedClass(name,'0');
 
@@ -134,13 +134,13 @@ public class AdapterClassLoader extends ClassLoader
               {
                     c = ltcl.findSystemClass(name,'0');
               }
-              catch (ClassNotFoundException e)
+              catch (final ClassNotFoundException e)
               {
                   try
                   {
                       c = ltcl.findClass(name,'0');
                   }
-                  catch (ClassNotFoundException e1)
+                  catch (final ClassNotFoundException e1)
                   {}
               }
             }
@@ -149,10 +149,10 @@ public class AdapterClassLoader extends ClassLoader
     return c;
   }
 
-  protected synchronized Class loadClass(String name, boolean resolve)
+  protected synchronized Class loadClass(final String name, final boolean resolve)
     throws ClassNotFoundException
   {
-    Class c = getLoadedClass(name);
+    final Class c = getLoadedClass(name);
 
     if (c != null && resolve)
     {
@@ -162,7 +162,7 @@ public class AdapterClassLoader extends ClassLoader
     return c;
   }
 
-  final protected void put(String name, Class c)
+  final protected void put(final String name, final Class c)
   {
     classCache.put(name, c);
   }
@@ -172,30 +172,30 @@ public class AdapterClassLoader extends ClassLoader
   class LocalThreadClassLoader extends ClassLoader
   {
      // public LocalThreadClassLoader(){super (Thread.currentThread().getContextClassLoader());};
-     public LocalThreadClassLoader (ClassLoader cl)
+     public LocalThreadClassLoader (final ClassLoader cl)
      {
          super (cl);
      }
 
-     public Class defineClass(String name, byte[] b)
+     public Class defineClass(final String name, final byte[] b)
      {
          return defineClass(name, b, 0, b.length);     // protected in ClassLoader, hence invoking it this way
      }
 
            // use a signature that allows invoking super's protected method via inheritance resolution
-     Class findLoadedClass(String name, char nixi)
+     Class findLoadedClass(final String name, final char nixi)
      {
          return findLoadedClass(name);
      }
 
            // use a signature that allows invoking super's protected method via inheritance resolution
-     Class findClass(String name, char nixi)          throws ClassNotFoundException
+     Class findClass(final String name, final char nixi)          throws ClassNotFoundException
      {
          return findClass(name);
      }
 
            // use a signature that allows invoking super's protected method via inheritance resolution
-     Class findSystemClass(String name, char nixi)    throws ClassNotFoundException
+     Class findSystemClass(final String name, final char nixi)    throws ClassNotFoundException
      {
          return findSystemClass(name);
      }

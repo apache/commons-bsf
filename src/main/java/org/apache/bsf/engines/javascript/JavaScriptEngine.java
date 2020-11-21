@@ -62,7 +62,7 @@ public class JavaScriptEngine extends BSFEngineImpl {
      * passed to the extension, which may be either
      * Vectors of Nodes, or Strings.
      */
-    public Object call(Object object, String method, Object[] args)
+    public Object call(final Object object, final String method, final Object[] args)
         throws BSFException {
 
         Object retval = null;
@@ -73,7 +73,7 @@ public class JavaScriptEngine extends BSFEngineImpl {
 
             // REMIND: convert arg list Vectors here?
 
-            Object fun = global.get(method, global);
+            final Object fun = global.get(method, global);
             // NOTE: Source and line arguments are nonsense in a call().
             //       Any way to make these arguments *sensible?
             if (fun == Scriptable.NOT_FOUND) {
@@ -96,7 +96,7 @@ public class JavaScriptEngine extends BSFEngineImpl {
                 retval = ((Wrapper) retval).unwrap();
             }
         } 
-        catch (Throwable t) {
+        catch (final Throwable t) {
             handleError(t);
         } 
         finally {
@@ -105,7 +105,7 @@ public class JavaScriptEngine extends BSFEngineImpl {
         return retval;
     }
 
-    public void declareBean(BSFDeclaredBean bean) throws BSFException {
+    public void declareBean(final BSFDeclaredBean bean) throws BSFException {
         if ((bean.bean instanceof Number) ||
             (bean.bean instanceof String) ||
             (bean.bean instanceof Boolean)) {
@@ -113,7 +113,7 @@ public class JavaScriptEngine extends BSFEngineImpl {
         } 
         else {
             // Must wrap non-scriptable objects before presenting to Rhino
-            Scriptable wrapped = Context.toObject(bean.bean, global);
+            final Scriptable wrapped = Context.toObject(bean.bean, global);
             global.put(bean.name, global, wrapped);
         }
     }
@@ -122,10 +122,10 @@ public class JavaScriptEngine extends BSFEngineImpl {
      * This is used by an application to evaluate a string containing
      * some expression.
      */
-    public Object eval(String source, int lineNo, int columnNo, Object oscript)
+    public Object eval(final String source, final int lineNo, final int columnNo, final Object oscript)
         throws BSFException {
 
-        String scriptText = oscript.toString();
+        final String scriptText = oscript.toString();
         Object retval = null;
         Context cx;
 
@@ -147,7 +147,7 @@ public class JavaScriptEngine extends BSFEngineImpl {
             }
 
         } 
-        catch (Throwable t) { // includes JavaScriptException, rethrows Errors
+        catch (final Throwable t) { // includes JavaScriptException, rethrows Errors
             handleError(t);
         } 
         finally {
@@ -168,7 +168,7 @@ public class JavaScriptEngine extends BSFEngineImpl {
             message = t.getLocalizedMessage();
 
             // Is it an exception wrapped in a JavaScriptException?
-            Object value = ((JavaScriptException) t).getValue();
+            final Object value = ((JavaScriptException) t).getValue();
             if (value instanceof Throwable) {
                 // likely a wrapped exception from a LiveConnect call.
                 // Display its stack trace as a diagnostic
@@ -209,23 +209,23 @@ public class JavaScriptEngine extends BSFEngineImpl {
      * Put the manager into the context-manager
      * map hashtable too.
      */
-    public void initialize(BSFManager mgr, String lang, Vector declaredBeans)
+    public void initialize(final BSFManager mgr, final String lang, final Vector declaredBeans)
         throws BSFException {
         
         super.initialize(mgr, lang, declaredBeans);
 
         // Initialize context and global scope object
         try {
-            Context cx = Context.enter();
+            final Context cx = Context.enter();
             global = new ImporterTopLevel(cx);
-            Scriptable bsf = Context.toObject(new BSFFunctions(mgr, this), global);
+            final Scriptable bsf = Context.toObject(new BSFFunctions(mgr, this), global);
             global.put("bsf", global, bsf);
 
-            for(Iterator it = declaredBeans.iterator(); it.hasNext();) {
+            for(final Iterator it = declaredBeans.iterator(); it.hasNext();) {
                 declareBean((BSFDeclaredBean) it.next());
             }
         } 
-        catch (Throwable t) {
+        catch (final Throwable t) {
 
         } 
         finally {
@@ -233,7 +233,7 @@ public class JavaScriptEngine extends BSFEngineImpl {
         }
     }
 
-    public void undeclareBean(BSFDeclaredBean bean) throws BSFException {
+    public void undeclareBean(final BSFDeclaredBean bean) throws BSFException {
         global.delete(bean.name);
     }
 }

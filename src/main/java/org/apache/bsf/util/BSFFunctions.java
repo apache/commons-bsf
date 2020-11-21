@@ -33,23 +33,23 @@ public class BSFFunctions {
   BSFManager mgr;
   BSFEngine engine;
 
-  public BSFFunctions (BSFManager mgr, BSFEngine engine) {
+  public BSFFunctions (final BSFManager mgr, final BSFEngine engine) {
     this.mgr = mgr;
     this.engine = engine;
   }
-  public void addEventListener (Object src, String eventSetName,
-                String filter, Object script)
+  public void addEventListener (final Object src, final String eventSetName,
+                final String filter, final Object script)
        throws BSFException {
     EngineUtils.addEventListener (src, eventSetName, filter, engine, 
                   mgr, "<event-binding>", 0, 0, script);
   }
-  public  Object lookupBean (String name) {
+  public  Object lookupBean (final String name) {
     return mgr.lookupBean (name);
   }
-  public void registerBean (String name, Object bean) {
+  public void registerBean (final String name, final Object bean) {
     mgr.registerBean (name, bean);
   }
-  public void unregisterBean (String name) {
+  public void unregisterBean (final String name) {
     mgr.unregisterBean (name);
   }
 }

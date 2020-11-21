@@ -34,13 +34,13 @@ import org.apache.bsf.util.cf.CodeFormatter;
  */
 public class CodeBuffer
 {
-  private StringWriter fieldDeclSW       = new StringWriter(),
+  private final StringWriter fieldDeclSW       = new StringWriter(),
                        methodDeclSW      = new StringWriter(),
                        initializerSW     = new StringWriter(),
                        constructorSW     = new StringWriter(),
                        serviceMethodSW   = new StringWriter();
 
-  private PrintWriter  fieldDeclPW       = new PrintWriter(fieldDeclSW),
+  private final PrintWriter  fieldDeclPW       = new PrintWriter(fieldDeclSW),
                        methodDeclPW      = new PrintWriter(methodDeclSW),
                        initializerPW     = new PrintWriter(initializerSW),
                        constructorPW     = new PrintWriter(constructorSW),
@@ -59,7 +59,7 @@ public class CodeBuffer
   }
 
   // New stuff...
-  private Vector imports                 = new Vector(),
+  private final Vector imports                 = new Vector(),
                  constructorArguments    = new Vector(),
                  constructorExceptions   = new Vector(),
                  serviceMethodExceptions = new Vector(),
@@ -73,71 +73,71 @@ public class CodeBuffer
   public CodeBuffer()
   {
   }
-  public CodeBuffer(CodeBuffer parent)
+  public CodeBuffer(final CodeBuffer parent)
   {
     this.parent = parent;
   }
-  public void addConstructorArgument(ObjInfo arg)
+  public void addConstructorArgument(final ObjInfo arg)
   {
     constructorArguments.addElement(arg);
   }
-  public void addConstructorException(String exceptionName)
+  public void addConstructorException(final String exceptionName)
   {
     if (!constructorExceptions.contains(exceptionName))
     {
       constructorExceptions.addElement(exceptionName);
     }
   }
-  public void addConstructorStatement(String statement)
+  public void addConstructorStatement(final String statement)
   {
     constructorPW.println(statement);
   }
-  public void addFieldDeclaration(String statement)
+  public void addFieldDeclaration(final String statement)
   {
     fieldDeclPW.println(statement);
   }
-  public void addImplements(String importName)
+  public void addImplements(final String importName)
   {
     if (!implementsVector.contains(importName))
     {
       implementsVector.addElement(importName);
     }
   }
-  public void addImport(String importName)
+  public void addImport(final String importName)
   {
     if (!imports.contains(importName))
     {
       imports.addElement(importName);
     }
   }
-  public void addInitializerStatement(String statement)
+  public void addInitializerStatement(final String statement)
   {
     initializerPW.println(statement);
   }
-  public void addMethodDeclaration(String statement)
+  public void addMethodDeclaration(final String statement)
   {
     methodDeclPW.println(statement);
   }
-  public void addServiceMethodException(String exceptionName)
+  public void addServiceMethodException(final String exceptionName)
   {
     if (!serviceMethodExceptions.contains(exceptionName))
     {
       serviceMethodExceptions.addElement(exceptionName);
     }
   }
-  public void addServiceMethodStatement(String statement)
+  public void addServiceMethodStatement(final String statement)
   {
     serviceMethodPW.println(statement);
   }
   // Used internally by merge(...).
-  private void appendIfNecessary(PrintWriter pw, StringBuffer buf)
+  private void appendIfNecessary(final PrintWriter pw, final StringBuffer buf)
   {
     if (buf.length() > 0)
     {
       pw.print(buf.toString());
     }
   }
-  public String buildNewSymbol(String prefix)
+  public String buildNewSymbol(final String prefix)
   {
     Integer nextNum = getSymbolIndex(prefix);
 
@@ -252,7 +252,7 @@ public class CodeBuffer
       return void.class;
     }
   }
-  public ObjInfo getSymbol(String symbol)
+  public ObjInfo getSymbol(final String symbol)
   {
     ObjInfo ret = (ObjInfo)symbolTable.get(symbol);
 
@@ -262,7 +262,7 @@ public class CodeBuffer
 
     return ret;
   }
-  Integer getSymbolIndex(String prefix)
+  Integer getSymbolIndex(final String prefix)
   {
     if (parent != null)
     {
@@ -277,9 +277,9 @@ public class CodeBuffer
   {
     return symbolTable;
   }
-  public void merge(CodeBuffer otherCB)
+  public void merge(final CodeBuffer otherCB)
   {
-    Vector otherImports = otherCB.getImports();
+    final Vector otherImports = otherCB.getImports();
 
     for (int i = 0; i < otherImports.size(); i++)
     {
@@ -292,7 +292,7 @@ public class CodeBuffer
     appendIfNecessary(constructorPW,   otherCB.getConstructorBuffer());
     appendIfNecessary(serviceMethodPW, otherCB.getServiceMethodBuffer());
 
-    ObjInfo oldRet = getFinalServiceMethodStatement();
+    final ObjInfo oldRet = getFinalServiceMethodStatement();
 
     if (oldRet != null && oldRet.isExecutable())
     {
@@ -306,7 +306,7 @@ public class CodeBuffer
     symbolTableStack.pop();
     symbolTable = (Hashtable)symbolTableStack.peek();
   }
-  public void print(PrintWriter out, boolean formatOutput)
+  public void print(final PrintWriter out, final boolean formatOutput)
   {
     if (formatOutput)
     {
@@ -323,11 +323,11 @@ public class CodeBuffer
   {
     symbolTable = (Hashtable)symbolTableStack.push(new ScriptSymbolTable(symbolTable));
   }
-  public void putSymbol(String symbol, ObjInfo obj)
+  public void putSymbol(final String symbol, final ObjInfo obj)
   {
     symbolTable.put(symbol, obj);
   }
-  void putSymbolIndex(String prefix, Integer index)
+  void putSymbolIndex(final String prefix, final Integer index)
   {
     if (parent != null)
     {
@@ -338,31 +338,31 @@ public class CodeBuffer
       usedSymbolIndices.put(prefix, index);
     }
   }
-  public void setClassName(String className)
+  public void setClassName(final String className)
   {
     this.className = className;
   }
-  public void setExtends(String extendsName)
+  public void setExtends(final String extendsName)
   {
     this.extendsName = extendsName;
   }
-  public void setFinalServiceMethodStatement(ObjInfo finalStatementInfo)
+  public void setFinalServiceMethodStatement(final ObjInfo finalStatementInfo)
   {
     this.finalStatementInfo = finalStatementInfo;
   }
-  public void setPackageName(String packageName)
+  public void setPackageName(final String packageName)
   {
     this.packageName = packageName;
   }
-  public void setServiceMethodName(String serviceMethodName)
+  public void setServiceMethodName(final String serviceMethodName)
   {
     this.serviceMethodName = serviceMethodName;
   }
-  public void setServiceMethodReturnType(Class serviceMethodReturnType)
+  public void setServiceMethodReturnType(final Class serviceMethodReturnType)
   {
     this.serviceMethodReturnType = serviceMethodReturnType;
   }
-  public void setSymbolTable(Hashtable symbolTable)
+  public void setSymbolTable(final Hashtable symbolTable)
   {
     this.symbolTable = symbolTable;
   }
@@ -372,9 +372,9 @@ public class CodeBuffer
   }
   public String toString()
   {
-    StringWriter sw  = new StringWriter();
-    PrintWriter  pw  = new PrintWriter(sw);
-    ObjInfo      ret = finalStatementInfo;
+    final StringWriter sw  = new StringWriter();
+    final PrintWriter  pw  = new PrintWriter(sw);
+    final ObjInfo      ret = finalStatementInfo;
 
     if (packageName != null && !packageName.equals(""))
     {

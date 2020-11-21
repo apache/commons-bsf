@@ -30,7 +30,7 @@ package org.apache.bsf.util.event;
 public class EventAdapterImpl implements EventAdapter {
   protected EventProcessor eventProcessor;
 
-  public void setEventProcessor (EventProcessor eventProcessor) {
+  public void setEventProcessor (final EventProcessor eventProcessor) {
     this.eventProcessor = eventProcessor;
   }
 }

@@ -35,7 +35,7 @@ class BSFClassLoader extends ClassLoader {
   // this package.
   BSFClassLoader () {
   }
-  public synchronized Class loadClass (String name, boolean resolve)
+  public synchronized Class loadClass (final String name, final boolean resolve)
                                                throws ClassNotFoundException {
     Class c = (Class) cache.get (name);
     if (c == null) {
@@ -44,14 +44,14 @@ class BSFClassLoader extends ClassLoader {
     c = findSystemClass (name);
     cache.put (name, c);
     return c;
-      } catch (ClassNotFoundException e) {
+      } catch (final ClassNotFoundException e) {
     // nope
       }
       try {
-    byte[] data = loadClassData (name);
+    final byte[] data = loadClassData (name);
     c = defineClass (name, data, 0, data.length);
     cache.put (name, c); 
-      } catch (Exception e) {
+      } catch (final Exception e) {
     e.printStackTrace ();
     throw new ClassNotFoundException ("unable to resolve class '" + 
                       name + "'");
@@ -62,15 +62,15 @@ class BSFClassLoader extends ClassLoader {
     } 
     return c;  
   }
-  private byte[] loadClassData (String name) throws Exception {
-    String fileName = tempDir + File.separatorChar + name + ".class";
-    FileInputStream fi = new FileInputStream (fileName);
-    byte[] data = new byte[fi.available ()];
+  private byte[] loadClassData (final String name) throws Exception {
+    final String fileName = tempDir + File.separatorChar + name + ".class";
+    final FileInputStream fi = new FileInputStream (fileName);
+    final byte[] data = new byte[fi.available ()];
     fi.read (data);
     fi.close();
     return data;
   }
-  public void setTempDir (String tempDir) {
+  public void setTempDir (final String tempDir) {
     this.tempDir = tempDir;
   }
 }

@@ -34,7 +34,7 @@ public class EngineUtilsTest extends TestCase {
 
     Object result=null;
 
-    public EngineUtilsTest(String name) {
+    public EngineUtilsTest(final String name) {
         super(name);
     }
     
@@ -45,12 +45,12 @@ public class EngineUtilsTest extends TestCase {
     public void testCallBeanMethod() {
 
         Object[] args = new Object[]{new String("MoreConfirmation")};
-        TestBean bean = new TestBean("TestBean");
+        final TestBean bean = new TestBean("TestBean");
 
         try {
             result = EngineUtils.callBeanMethod(bean, "getStringValue", null);
         }
-        catch (BSFException bsfe) {
+        catch (final BSFException bsfe) {
             fail("createBean method failed"+bsfe);
         }
 
@@ -59,7 +59,7 @@ public class EngineUtilsTest extends TestCase {
         try {
             EngineUtils.callBeanMethod(bean,"setValue",args);
         }
-        catch (BSFException bsfe) {
+        catch (final BSFException bsfe) {
             fail("createBean method failed"+bsfe);
         }
 
@@ -70,7 +70,7 @@ public class EngineUtilsTest extends TestCase {
         try {
             EngineUtils.callBeanMethod(bean,"setValue",args);
         }
-        catch (BSFException bsfe) {
+        catch (final BSFException bsfe) {
             fail("createBean method failed"+bsfe);
         }
 
@@ -84,18 +84,18 @@ public class EngineUtilsTest extends TestCase {
                                                    args);
                 fail();
             }
-            catch (BSFException bsfe) {
+            catch (final BSFException bsfe) {
             }
     }
 
     public void testCreateBean() throws BSFException {
 
-        Object args[] = new Object[]{ new String("test") };
+        final Object args[] = new Object[]{ new String("test") };
 
         try {
             result = EngineUtils.createBean("org.apache.bsf.util.TestBean", args);
         }
-        catch (BSFException bsfe) {
+        catch (final BSFException bsfe) {
             fail("createBean method failed"+bsfe);
         }
 
@@ -108,15 +108,15 @@ public class EngineUtilsTest extends TestCase {
                 EngineUtils.createBean("nonExsitentClass",null);
                 fail();
             }
-            catch (BSFException bsfe) {
+            catch (final BSFException bsfe) {
             }
 
     }
 
     public void testGetTypeSignatureString() {
         //test for a non primitive type
-        Integer int1 = new Integer(10);
-        Object obj = EngineUtils.getTypeSignatureString(int1.getClass());
+        final Integer int1 = new Integer(10);
+        final Object obj = EngineUtils.getTypeSignatureString(int1.getClass());
 
         assertEquals("Ljava/lang/Integer;",(String)obj);
         assertEquals("I", EngineUtils.getTypeSignatureString(int.class));

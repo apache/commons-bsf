@@ -58,14 +58,14 @@ public class Main {
      *
      * @exception IOException if any I/O error while loading script
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(final String[] args) throws IOException {
         try {
             if ((args.length == 0) || (args.length % 2 != 0)) {
                 printHelp();
                 System.exit(1);
             }
 
-            Hashtable argsTable = new Hashtable();
+            final Hashtable argsTable = new Hashtable();
 
             argsTable.put(ARG_OUT, DEFAULT_CLASS_NAME);
             argsTable.put(ARG_MODE, DEFAULT_MODE);
@@ -96,15 +96,15 @@ public class Main {
                 inFileName = DEFAULT_IN_FILE_NAME;
             }
 
-            BSFManager mgr = new BSFManager();
-            String mode = (String) argsTable.get(ARG_MODE);
+            final BSFManager mgr = new BSFManager();
+            final String mode = (String) argsTable.get(ARG_MODE);
 
             if (mode.equals(ARG_VAL_COMPILE)) {
-                String outClassName = (String) argsTable.get(ARG_OUT);
-                FileWriter out = new FileWriter(outClassName + ".java");
-                PrintWriter pw = new PrintWriter(out);
+                final String outClassName = (String) argsTable.get(ARG_OUT);
+                final FileWriter out = new FileWriter(outClassName + ".java");
+                final PrintWriter pw = new PrintWriter(out);
 
-                CodeBuffer cb = new CodeBuffer();
+                final CodeBuffer cb = new CodeBuffer();
                 cb.setClassName(outClassName);
                 mgr.compileScript(
                     language,
@@ -119,7 +119,7 @@ public class Main {
                 if (mode.equals(ARG_VAL_EXEC)) {
                     mgr.exec(language, inFileName, 0, 0, IOUtils.getStringFromReader(in));
                 } else { /* eval */
-                    Object obj = mgr.eval(language, inFileName, 0, 0, IOUtils.getStringFromReader(in));
+                    final Object obj = mgr.eval(language, inFileName, 0, 0, IOUtils.getStringFromReader(in));
 
 
                     // Try to display the result.
@@ -135,7 +135,7 @@ public class Main {
                         // Add a window listener to quit on closing.
                         f.addWindowListener(
                                 new WindowAdapter () {
-                                    public void windowClosing (WindowEvent e) {
+                                    public void windowClosing (final WindowEvent e) {
                                         System.exit (0);
                                     }
                                 }
@@ -151,7 +151,7 @@ public class Main {
                     System.err.println("Result: " + obj);
                 }
             }
-        } catch (BSFException e) {
+        } catch (final BSFException e) {
             e.printStackTrace();
         }
     }

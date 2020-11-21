@@ -71,15 +71,15 @@ public class TestBean implements Serializable{
     public TestBean(){
     }
 
-    public TestBean(String value){
+    public TestBean(final String value){
         this.strValue = value;
     }
 
-    public void setValue(String value){
+    public void setValue(final String value){
         this.strValue = value;
     }
 
-    public void setValue(String sValue, Number nValue){
+    public void setValue(final String sValue, final Number nValue){
         this.strValue = sValue;
         this.numValue = nValue;
     }

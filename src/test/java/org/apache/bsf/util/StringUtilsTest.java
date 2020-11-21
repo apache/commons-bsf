@@ -84,7 +84,7 @@ public class StringUtilsTest extends TestCase {
      * Constructor for StringUtilsTest.
      * @param arg0
      */
-    public StringUtilsTest (String arg0) {
+    public StringUtilsTest (final String arg0) {
         super(arg0);
     }
 
@@ -152,7 +152,7 @@ public class StringUtilsTest extends TestCase {
 
         String result;
 
-        Vector vector = new Vector();
+        final Vector vector = new Vector();
         vector.add(new Character('a'));
         vector.add(new Character('b'));
 
@@ -169,15 +169,15 @@ public class StringUtilsTest extends TestCase {
 
             Reader reader;
 
-            File myFile = File.createTempFile("Test", "txt");
+            final File myFile = File.createTempFile("Test", "txt");
 
-            FileWriter fw = new FileWriter(myFile);
-            PrintWriter pw = new PrintWriter(fw);
+            final FileWriter fw = new FileWriter(myFile);
+            final PrintWriter pw = new PrintWriter(fw);
             pw.println("file name : Test.txt");
             pw.flush();
 
             reader = StringUtils.getContentAsReader(myFile.toURL());
-            BufferedReader bf = new BufferedReader(reader);
+            final BufferedReader bf = new BufferedReader(reader);
             assertTrue(bf.readLine().equals(
                                             new String("file name : Test.txt")));
 
@@ -187,10 +187,10 @@ public class StringUtilsTest extends TestCase {
 
         String result;
 
-        File myFile = File.createTempFile("Test", "txt");
+        final File myFile = File.createTempFile("Test", "txt");
 
-        FileWriter fw = new FileWriter(myFile);
-        PrintWriter pw = new PrintWriter(fw);
+        final FileWriter fw = new FileWriter(myFile);
+        final PrintWriter pw = new PrintWriter(fw);
         pw.println("file name : Test.txt");
         pw.flush();
 

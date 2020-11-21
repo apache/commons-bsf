@@ -35,10 +35,10 @@ public class IOUtils {
 
   //////////////////////////////////////////////////////////////////////////
 
-  public static String getStringFromReader (Reader reader) throws IOException {
-    BufferedReader bufIn = new BufferedReader(reader);
-    StringWriter   swOut = new StringWriter();
-    PrintWriter    pwOut = new PrintWriter(swOut);
+  public static String getStringFromReader (final Reader reader) throws IOException {
+    final BufferedReader bufIn = new BufferedReader(reader);
+    final StringWriter   swOut = new StringWriter();
+    final PrintWriter    pwOut = new PrintWriter(swOut);
     String         tempLine;
 
     while ((tempLine = bufIn.readLine()) != null) {

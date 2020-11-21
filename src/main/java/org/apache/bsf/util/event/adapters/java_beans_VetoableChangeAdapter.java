@@ -26,16 +26,16 @@ import org.apache.bsf.util.event.EventAdapterImpl;
 public class java_beans_VetoableChangeAdapter extends EventAdapterImpl
                                                  implements VetoableChangeListener {
 
-  public void vetoableChange (PropertyChangeEvent e) throws PropertyVetoException {
+  public void vetoableChange (final PropertyChangeEvent e) throws PropertyVetoException {
     try
     {
       eventProcessor.processExceptionableEvent (e.getPropertyName(), new Object[]{e});
     }
-    catch (PropertyVetoException ex)
+    catch (final PropertyVetoException ex)
     {
       throw ex;
     }
-    catch (Exception ex)
+    catch (final Exception ex)
     {
     }
   }

@@ -34,19 +34,19 @@ class BSFCommand implements Command {
   BSFManager mgr;
   BSFEngine jengine;
 
-  BSFCommand (BSFManager mgr, BSFEngine jengine) {
+  BSFCommand (final BSFManager mgr, final BSFEngine jengine) {
     this.mgr = mgr;
     this.jengine = jengine;
   }
-  public void cmdProc (Interp interp, 
-               TclObject argv[]) throws TclException {
+  public void cmdProc (final Interp interp, 
+               final TclObject argv[]) throws TclException {
     if (argv.length < 2) {
       interp.setResult ("invalid # of args; usage: bsf " +
         "lookupBean|registerBean|unregisterBean|addEventListener args");
       throw new TclException (TCL.ERROR);
     }
 
-    String op = argv[1].toString ();
+    final String op = argv[1].toString ();
 
     if (op.equals ("lookupBean")) {
       if (argv.length != 3) {
@@ -55,8 +55,8 @@ class BSFCommand implements Command {
     throw new TclException (TCL.ERROR);
       }
 
-      String beanName = argv[2].toString ();
-      Object bean = mgr.lookupBean (beanName);
+      final String beanName = argv[2].toString ();
+      final Object bean = mgr.lookupBean (beanName);
       if (bean == null) {
     interp.setResult ("unknown object: " + beanName);
     throw new TclException (TCL.ERROR);
@@ -98,7 +98,7 @@ class BSFCommand implements Command {
                       argv[3].toString (), filter,
                       jengine, mgr, "<event-script>", 0, 0,
                       argv[5].toString ());
-      } catch (BSFException e) {
+      } catch (final BSFException e) {
     e.printStackTrace ();
     interp.setResult ("got BSF exception: " + e.getMessage ());
     throw new TclException (TCL.ERROR);

@@ -28,11 +28,11 @@ package org.apache.bsf.util.event.generator;
  */
 public class ByteUtility
 {
-  public static byte[] addBytes(byte[] array,byte[] value)
+  public static byte[] addBytes(byte[] array,final byte[] value)
   {
     if( null != array )
     {
-      byte newarray[] = new byte[array.length + value.length];
+      final byte newarray[] = new byte[array.length + value.length];
       System.arraycopy(array,0,newarray,0,array.length);
       System.arraycopy(value,0,newarray,array.length,value.length);
       array = newarray;
@@ -43,11 +43,11 @@ public class ByteUtility
     }
     return array;
   }
-  public static byte[] addBytes(byte[] array, byte value)
+  public static byte[] addBytes(byte[] array, final byte value)
   {
     if( null != array )
     {
-      byte newarray[] = new byte[array.length + 1];
+      final byte newarray[] = new byte[array.length + 1];
       System.arraycopy(array,0,newarray,0,array.length);
       newarray[newarray.length-1] = value;
       array = newarray;
@@ -59,11 +59,11 @@ public class ByteUtility
     }
     return array;
   }
-  public static byte[] addBytes(byte[] array, int value)
+  public static byte[] addBytes(byte[] array, final int value)
   {
     if( null != array )
     {
-      byte newarray[] = new byte[array.length + 3];
+      final byte newarray[] = new byte[array.length + 3];
       System.arraycopy(array,0,newarray,0,array.length);
       newarray[newarray.length-3] = (byte) (( value >> 16 ) & 0xFF);
       newarray[newarray.length-2] = (byte) (( value >>  8 ) & 0xFF);
@@ -79,11 +79,11 @@ public class ByteUtility
     }
     return array;
   }
-  public static byte[] addBytes(byte[] array, long value)
+  public static byte[] addBytes(byte[] array, final long value)
   {
     if( null != array )
     {
-      byte newarray[] = new byte[array.length + 4];
+      final byte newarray[] = new byte[array.length + 4];
       System.arraycopy(array,0,newarray,0,array.length);
       newarray[newarray.length-4] = (byte) (( value >> 24 ) & 0xFF);
       newarray[newarray.length-3] = (byte) (( value >> 16 ) & 0xFF);
@@ -101,13 +101,13 @@ public class ByteUtility
     }
     return array;
   }
-  public static byte[] addBytes(byte[] array,String value)
+  public static byte[] addBytes(byte[] array,final String value)
   {
     if( null != value )
     {
       if( null != array)
       {
-        byte newarray[] = new byte[array.length + value.length()];
+        final byte newarray[] = new byte[array.length + value.length()];
         System.arraycopy(array,0,newarray,0,array.length);
         System.arraycopy(value.getBytes(),0,newarray,array.length,value.length());
         array = newarray;
@@ -119,11 +119,11 @@ public class ByteUtility
     }
     return array;
   }
-  public static byte[] addBytes(byte[] array, short value)
+  public static byte[] addBytes(byte[] array, final short value)
   {
     if( null != array)
     {
-      byte newarray[] = new byte[array.length + 2];
+      final byte newarray[] = new byte[array.length + 2];
       System.arraycopy(array,0,newarray,0,array.length);
       newarray[newarray.length-2] = (byte) (( value >> 8 ) & 0xFF);
       newarray[newarray.length-1] = (byte) (  value        & 0xFF);
@@ -137,7 +137,7 @@ public class ByteUtility
     }
     return array;
   }
-  public static double byteArrayToDouble(byte high[], byte low[])
+  public static double byteArrayToDouble(final byte high[], final byte low[])
   {
     double temp = 0;
     // high bytes
@@ -152,10 +152,10 @@ public class ByteUtility
     temp += (((long)low[3]) & 0xFF);
     return temp;
   }
-  public static double byteArrayToDouble(byte value[])
+  public static double byteArrayToDouble(final byte value[])
   {
-    byte high[] = new byte[4];
-    byte low[] = new byte[4];
+    final byte high[] = new byte[4];
+    final byte low[] = new byte[4];
     high[0] = value[0];
     high[1] = value[1];
     high[2] = value[2];
@@ -166,7 +166,7 @@ public class ByteUtility
     low[3] = value[7];
     return byteArrayToDouble(high,low);
   }
-  public static float byteArrayToFloat(byte value[])
+  public static float byteArrayToFloat(final byte value[])
   {
     float temp = 0;
     temp += (value[0] & 0xFF) << 24;
@@ -175,7 +175,7 @@ public class ByteUtility
     temp += (value[3] & 0xFF);
     return temp;
   }
-  public static int byteArrayToInt(byte value[])
+  public static int byteArrayToInt(final byte value[])
   {
     int temp = 0;
     temp += (value[0] & 0xFF) << 24;
@@ -184,10 +184,10 @@ public class ByteUtility
     temp += (value[3] & 0xFF);
     return temp;
   }
-  public static long byteArrayToLong(byte value[])
+  public static long byteArrayToLong(final byte value[])
   {
-    byte high[] = new byte[4];
-    byte low[] = new byte[4];
+    final byte high[] = new byte[4];
+    final byte low[] = new byte[4];
     high[0] = value[0];
     high[1] = value[1];
     high[2] = value[2];
@@ -198,7 +198,7 @@ public class ByteUtility
     low[3] = value[7];
     return byteArrayToLong(high,low);
   }
-  public static long byteArrayToLong(byte high[], byte low[])
+  public static long byteArrayToLong(final byte high[], final byte low[])
   {
     long temp = 0;
     // high bytes
@@ -214,14 +214,14 @@ public class ByteUtility
     return temp;
   }
   // make the following loops with check on array length *****************
-  public static short byteArrayToShort(byte value[])
+  public static short byteArrayToShort(final byte value[])
   {
     short temp = 0;
     temp += (value[0] & 0xFF) << 8;
     temp += (value[1] & 0xFF);
     return temp;
   }
-  public static String byteToHexString(byte value)
+  public static String byteToHexString(final byte value)
   {
     String temp = null;
 

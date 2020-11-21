@@ -35,7 +35,7 @@ public class IndentWriter extends PrintWriter
    * Forwards its arguments to the <code>PrintWriter</code> constructor
    * with the same signature.
    */
-  public IndentWriter(OutputStream out)
+  public IndentWriter(final OutputStream out)
   {
     super(out);
   }
@@ -43,7 +43,7 @@ public class IndentWriter extends PrintWriter
    * Forwards its arguments to the <code>PrintWriter</code> constructor
    * with the same signature.
    */
-  public IndentWriter(OutputStream out, boolean autoFlush)
+  public IndentWriter(final OutputStream out, final boolean autoFlush)
   {
     super(out, autoFlush);
   }
@@ -51,7 +51,7 @@ public class IndentWriter extends PrintWriter
    * Forwards its arguments to the <code>PrintWriter</code> constructor
    * with the same signature.
    */
-  public IndentWriter(Writer out)
+  public IndentWriter(final Writer out)
   {
     super(out);
   }
@@ -59,7 +59,7 @@ public class IndentWriter extends PrintWriter
    * Forwards its arguments to the <code>PrintWriter</code> constructor
    * with the same signature.
    */
-  public IndentWriter(Writer out, boolean autoFlush)
+  public IndentWriter(final Writer out, final boolean autoFlush)
   {
     super(out, autoFlush);
   }
@@ -69,7 +69,7 @@ public class IndentWriter extends PrintWriter
    * @param numberOfSpaces the number of spaces to indent the text.
    * @param text the text to print.
    */
-  public void print(int numberOfSpaces, String text)
+  public void print(final int numberOfSpaces, final String text)
   {
     super.print(StringUtils.getChars(numberOfSpaces, ' ') + text);
   }
@@ -79,7 +79,7 @@ public class IndentWriter extends PrintWriter
    * @param numberOfSpaces the number of spaces to indent the text.
    * @param text the text to print.
    */
-  public void println(int numberOfSpaces, String text)
+  public void println(final int numberOfSpaces, final String text)
   {
     super.println(StringUtils.getChars(numberOfSpaces, ' ') + text);
   }

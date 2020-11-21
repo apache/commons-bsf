@@ -25,7 +25,7 @@ import org.apache.bsf.util.event.EventAdapterImpl;
 public class java_beans_PropertyChangeAdapter extends EventAdapterImpl
                                                  implements PropertyChangeListener {
 
-  public void propertyChange(PropertyChangeEvent e) {
+  public void propertyChange(final PropertyChangeEvent e) {
     eventProcessor.processEvent (e.getPropertyName(), new Object[]{e});
   }
 }

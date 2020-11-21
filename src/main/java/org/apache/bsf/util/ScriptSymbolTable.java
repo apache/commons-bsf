@@ -27,13 +27,13 @@ import java.util.Hashtable;
  */
 class ScriptSymbolTable extends Hashtable
 {
-    private Hashtable parentTable;
+    private final Hashtable parentTable;
 
-    ScriptSymbolTable(Hashtable parentTable)
+    ScriptSymbolTable(final Hashtable parentTable)
   {
     this.parentTable = parentTable;
   }
-  public synchronized Object get(Object key)
+  public synchronized Object get(final Object key)
   {
     Object ret = super.get(key);
 

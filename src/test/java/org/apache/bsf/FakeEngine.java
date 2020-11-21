@@ -22,25 +22,25 @@ import org.apache.bsf.util.BSFEngineImpl;
 
 public class FakeEngine extends BSFEngineImpl {
 
-    public Object call(Object object, String method, Object[] args)
+    public Object call(final Object object, final String method, final Object[] args)
         throws BSFException
     {
         return Boolean.TRUE;
     }
 
-    public Object eval(String source, int lineNo, int columnNo, Object expr)
+    public Object eval(final String source, final int lineNo, final int columnNo, final Object expr)
         throws BSFException
     {
         return Boolean.TRUE;
     }
 
-    public void iexec(String source, int lineNo, int columnNo, Object script)
+    public void iexec(final String source, final int lineNo, final int columnNo, final Object script)
         throws BSFException
     {
         System.out.print("PASSED");
     }
 
-    public void exec(String source, int lineNo, int columnNo, Object script)
+    public void exec(final String source, final int lineNo, final int columnNo, final Object script)
         throws BSFException
     {
         System.out.print("PASSED");

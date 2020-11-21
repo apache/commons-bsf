@@ -63,22 +63,22 @@ public class EventAdapterRegistry {
   private static String adapterSuffix = "Adapter";
   private static boolean dynamic = true;
 
-  public static Class lookup (Class listenerType) {
-	String key = listenerType.getName().replace ('.', '_');
+  public static Class lookup (final Class listenerType) {
+	final String key = listenerType.getName().replace ('.', '_');
 	Class adapterClass = (Class) reg.get (key);
 
 	if (adapterClass == null) {
-            String en = key.substring (0, key.lastIndexOf ("Listener"));
-            String cn = adapterPackage + "." + en + adapterSuffix;
+            final String en = key.substring (0, key.lastIndexOf ("Listener"));
+            final String cn = adapterPackage + "." + en + adapterSuffix;
 
             if (adapterClass==null) {     // get Thread's context class loader
-                ClassLoader tccl=Thread.currentThread().getContextClassLoader();
+                final ClassLoader tccl=Thread.currentThread().getContextClassLoader();
                 if (tccl!=null)
                 {
                     try {     // try supplied class loader
                         adapterClass=Thread.currentThread().getContextClassLoader().loadClass(cn);
                     }
-                    catch (ClassNotFoundException e02) {}
+                    catch (final ClassNotFoundException e02) {}
                 }
             }
 
@@ -87,16 +87,16 @@ public class EventAdapterRegistry {
                     adapterClass=cl.loadClass(cn);
                 }
             }
-            catch (ClassNotFoundException e01) {}
+            catch (final ClassNotFoundException e01) {}
 
             if (adapterClass==null) {     // Defined CL
                 try {     // try supplied class loader
-                    ClassLoader defCL=BSFManager.getDefinedClassLoader();
+                    final ClassLoader defCL=BSFManager.getDefinedClassLoader();
                     if (cl != defCL) {
                         adapterClass=defCL.loadClass(cn);
                     }
                 }
-                catch (ClassNotFoundException e03) {}
+                catch (final ClassNotFoundException e03) {}
             }
 
             if (adapterClass==null && dynamic) {
@@ -113,14 +113,14 @@ public class EventAdapterRegistry {
 	return adapterClass;
   }
 
-  public static void register (Class listenerType, Class eventAdapterClass) {
-	String key = listenerType.getName().replace('.', '_');
+  public static void register (final Class listenerType, final Class eventAdapterClass) {
+	final String key = listenerType.getName().replace('.', '_');
 	reg.put (key, eventAdapterClass);
   }
   /**
    * Class loader to use to load event adapter classes.
    */
-  public static void setClassLoader (ClassLoader cloader) {
+  public static void setClassLoader (final ClassLoader cloader) {
 	cl = cloader;
   }
   /**
@@ -133,7 +133,7 @@ public class EventAdapterRegistry {
    *
    * @param dynamic whether or not to dynamically generate adapters.
    */
-  public static void setDynamic (boolean dynamic) {
+  public static void setDynamic (final boolean dynamic) {
 	EventAdapterRegistry.dynamic = dynamic;
   }
 }

@@ -107,7 +107,7 @@ public class JavaEngine extends BSFEngineImpl {
         File file = null;
         FileOutputStream fos = null;
         String className = null;
-        GeneratedFile(File file, FileOutputStream fos, String className) {
+        GeneratedFile(final File file, final FileOutputStream fos, final String className) {
             this.file = file;
             this.fos = fos;
             this.className = className;
@@ -123,16 +123,16 @@ public class JavaEngine extends BSFEngineImpl {
         // Do compilation-possible check here??????????????
     }
 
-    public Object call (Object object, String method, Object[] args)
+    public Object call (final Object object, final String method, final Object[] args)
     throws BSFException
     {
         throw new BSFException (BSFException.REASON_UNSUPPORTED_FEATURE,
         "call() is not currently supported by JavaEngine");
     }
 
-    public void compileScript (String source, int lineNo, int columnNo,
-            Object script, CodeBuffer cb) throws BSFException {
-        ObjInfo oldRet = cb.getFinalServiceMethodStatement ();
+    public void compileScript (final String source, final int lineNo, final int columnNo,
+            final Object script, final CodeBuffer cb) throws BSFException {
+        final ObjInfo oldRet = cb.getFinalServiceMethodStatement ();
 
         if (oldRet != null && oldRet.isExecutable ()) {
             cb.addServiceMethodStatement (oldRet.objName + ";");
@@ -159,14 +159,14 @@ public class JavaEngine extends BSFEngineImpl {
      * We will attempt to use it, then if necessary fall back on invoking
      * javac via the command line.
      */
-    public Object eval (String source, int lineNo, int columnNo,
-            Object oscript) throws BSFException
+    public Object eval (final String source, final int lineNo, final int columnNo,
+            final Object oscript) throws BSFException
             {
         Object retval = null;
         String classname = null;
         GeneratedFile gf = null;
 
-        String basescript = oscript.toString();
+        final String basescript = oscript.toString();
         String script = basescript; // May be altered by $$CLASSNAME$$ expansion
 
         try {
@@ -195,7 +195,7 @@ public class JavaEngine extends BSFEngineImpl {
                 int startpoint = script.indexOf(placeholder);
                 int endpoint;
                 if(startpoint >= 0) {
-                    StringBuffer changed = new StringBuffer();
+                    final StringBuffer changed = new StringBuffer();
                     for(; startpoint >=0; startpoint = script.indexOf(placeholder,startpoint)) {
                         changed.setLength(0);   // Reset for 2nd pass or later
                         if(startpoint > 0) {
@@ -245,12 +245,12 @@ public class JavaEngine extends BSFEngineImpl {
                 codeToClass.put(basescript, javaclass);
             }
 
-            Object[] callArgs = {mgr};
+            final Object[] callArgs = {mgr};
             retval = internalCall(this,"BSFJavaEngineEntry",callArgs);
         }
 
 
-        catch(Exception e) {
+        catch(final Exception e) {
             e.printStackTrace ();
             throw new BSFException (BSFException.REASON_IO_ERROR, e.getMessage ());
         } finally {
@@ -269,10 +269,10 @@ public class JavaEngine extends BSFEngineImpl {
                 // Search for and clean up minor classes, classname$xxx.class
                 file = new File(tempDir);  // ***** Is this required?
                 minorPrefix = classname+"$"; // Indirect arg to filter
-                String[] minorClassfiles = file.list(new FilenameFilter()
+                final String[] minorClassfiles = file.list(new FilenameFilter()
                             {
                         // Starts with classname$ and ends with .class
-                        public boolean accept(File dir,String name) {
+                        public boolean accept(final File dir,final String name) {
                             return
                             (0 == name.indexOf(minorPrefix))
                             &&
@@ -288,8 +288,8 @@ public class JavaEngine extends BSFEngineImpl {
         return retval;
     }
 
-    public void initialize (BSFManager mgr, String lang,
-            Vector declaredBeans) throws BSFException {
+    public void initialize (final BSFManager mgr, final String lang,
+            final Vector declaredBeans) throws BSFException {
         super.initialize (mgr, lang, declaredBeans);
     }
     /**
@@ -300,7 +300,7 @@ public class JavaEngine extends BSFEngineImpl {
      * passed to the extension, which may be either
      * Vectors of Nodes, or Strings.
      */
-    Object internalCall (Object object, String method, Object[] args)
+    Object internalCall (final Object object, final String method, final Object[] args)
     throws BSFException
     {
         //***** ISSUE: Only static methods are currently supported
@@ -308,24 +308,24 @@ public class JavaEngine extends BSFEngineImpl {
         try {
             if(javaclass != null) {
                 //***** This should call the lookup used in BML, for typesafety
-                Class[] argtypes = new Class[args.length];
+                final Class[] argtypes = new Class[args.length];
                 for(int i=0; i<args.length; ++i) {
                     argtypes[i]=args[i].getClass();
                 }
-                Method m = MethodUtils.getMethod(javaclass, method, argtypes);
+                final Method m = MethodUtils.getMethod(javaclass, method, argtypes);
                 retval = m.invoke(null, args);
             }
         }
-        catch(Exception e) {
+        catch(final Exception e) {
             throw new BSFException (BSFException.REASON_IO_ERROR, e.getMessage ());
         }
         return retval;
     }
 
-    private GeneratedFile openUniqueFile(String directory,String prefix,String suffix) {
+    private GeneratedFile openUniqueFile(final String directory,final String prefix,final String suffix) {
         File file = null;
         FileOutputStream fos = null;
-        int max = 1000;     // Don't try forever
+        final int max = 1000;     // Don't try forever
         GeneratedFile gf = null;
         int i;
         String className = null;
@@ -338,7 +338,7 @@ public class JavaEngine extends BSFEngineImpl {
                     fos = new FileOutputStream(file);
                 }
             }
-            catch(Exception e) {
+            catch(final Exception e) {
                 // File could not be opened for write, or Security Exception
                 // was thrown. If someone else created the file before we could
                 // open it, that's probably a threading conflict and we don't

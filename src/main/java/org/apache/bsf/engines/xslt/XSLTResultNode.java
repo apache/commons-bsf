@@ -23,7 +23,7 @@ public class XSLTResultNode
 {
   Node node;
 
-  public XSLTResultNode(Node node)
+  public XSLTResultNode(final Node node)
   {
     this.node = node;
   }

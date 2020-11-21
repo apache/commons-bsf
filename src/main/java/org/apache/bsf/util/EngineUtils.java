@@ -58,13 +58,13 @@ public class EngineUtils {
     // ---rgf, 2003-02-13, determine whether changing accessibility of Methods is possible
     static boolean bMethodHasSetAccessible=false;
     static {
-        Class mc=Method.class;            // get the "Method" class object
-        Class arg[]={boolean.class};      // define an array with the primitive "boolean" pseudo class object
+        final Class mc=Method.class;            // get the "Method" class object
+        final Class arg[]={boolean.class};      // define an array with the primitive "boolean" pseudo class object
         try {
             mc.getMethod("setAccessible", arg ); // is this method available?
             bMethodHasSetAccessible=true; // no exception, hence method exists
         }
-        catch (Exception e)
+        catch (final Exception e)
         {
             bMethodHasSetAccessible=false;// exception occurred, hence method does not exist
         }
@@ -90,18 +90,18 @@ public class EngineUtils {
      *
      * @exception BSFException if anything goes wrong while running the script
      */
-    public static void addEventListener (Object bean, String eventSetName,
-                                         String filter, BSFEngine engine,
-                                         BSFManager manager, String source,
-                                         int lineNo, int columnNo,
-                                         Object script) throws BSFException {
-        BSFEventProcessor ep = new BSFEventProcessor (engine, manager, filter,
+    public static void addEventListener (final Object bean, final String eventSetName,
+                                         final String filter, final BSFEngine engine,
+                                         final BSFManager manager, final String source,
+                                         final int lineNo, final int columnNo,
+                                         final Object script) throws BSFException {
+        final BSFEventProcessor ep = new BSFEventProcessor (engine, manager, filter,
                                                       source, lineNo, columnNo,
                                                       script);
 
         try {
             ReflectionUtils.addEventListener (bean, eventSetName, ep);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace ();
             throw new BSFException (BSFException.REASON_OTHER_ERROR,
                                     "[EngineUtils.addEventListener()] ouch while adding event listener: "
@@ -134,19 +134,19 @@ public class EngineUtils {
      *
      * @exception BSFException if anything goes wrong while running the script
      */
-    public static void addEventListenerReturningEventInfos ( Object bean,
-                               String eventSetName,
-                               String filter,
-                               BSFEngine engine,
-                               BSFManager manager,
-                               String source,
-                               int lineNo,
-                               int columnNo,
-                               Object script,
-                               Object dataFromScriptingEngine
+    public static void addEventListenerReturningEventInfos ( final Object bean,
+                               final String eventSetName,
+                               final String filter,
+                               final BSFEngine engine,
+                               final BSFManager manager,
+                               final String source,
+                               final int lineNo,
+                               final int columnNo,
+                               final Object script,
+                               final Object dataFromScriptingEngine
                                ) throws BSFException
     {
-        BSFEventProcessorReturningEventInfos ep =
+        final BSFEventProcessorReturningEventInfos ep =
         new BSFEventProcessorReturningEventInfos (engine,
                                                   manager,
                                                   filter,
@@ -159,7 +159,7 @@ public class EngineUtils {
 
         try {
             ReflectionUtils.addEventListener (bean, eventSetName, ep);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace ();
             throw new BSFException (BSFException.REASON_OTHER_ERROR,
                                     "[EngineUtils.addEventListenerReturningEventInfos()] ouch while adding event listener: "
@@ -182,8 +182,8 @@ public class EngineUtils {
      *
      * @exception BSFException if something goes wrong
      */
-    public static Object callBeanMethod (Object bean, String methodName,
-                                         Object[] args) throws BSFException {
+    public static Object callBeanMethod (final Object bean, final String methodName,
+                                         final Object[] args) throws BSFException {
         Class[] argTypes = null;
         // determine arg types. note that a null argtype
         // matches any object type
@@ -197,8 +197,8 @@ public class EngineUtils {
 
         // we want to allow a static call to occur on an object, similar
         // to what Java allows. So isStaticOnly is set to false.
-        boolean isStaticOnly = false;
-        Class beanClass = (bean instanceof Class) ? (Class)bean :
+        final boolean isStaticOnly = false;
+        final Class beanClass = (bean instanceof Class) ? (Class)bean :
                                                     bean.getClass ();
 
         // now try to call method with the right signature
@@ -207,7 +207,7 @@ public class EngineUtils {
   	  try {
   	m = MethodUtils.getMethod (beanClass, methodName, argTypes,
   				       isStaticOnly);
-  	  } catch (NoSuchMethodException e) {
+  	  } catch (final NoSuchMethodException e) {
   	// ok, so that didn't work - now try converting any primitive
   	// wrapper types to their primitive counterparts
   	try {
@@ -239,7 +239,7 @@ public class EngineUtils {
 
   	  m = MethodUtils.getMethod (beanClass, methodName, argTypes,
   					 isStaticOnly);
-  	} catch (Exception e2) {
+  	} catch (final Exception e2) {
   	  // throw the original
   	  throw e;
   	}
@@ -249,7 +249,7 @@ public class EngineUtils {
         try {
             return m.invoke (bean, args);
         }
-        catch (Exception e)                   // 2003-02-23, --rgf, maybe an IllegalAccessException?
+        catch (final Exception e)                   // 2003-02-23, --rgf, maybe an IllegalAccessException?
         {
             if (e instanceof IllegalAccessException &&
                 bMethodHasSetAccessible &&
@@ -262,9 +262,9 @@ public class EngineUtils {
   	  throw e;
         }
 
-        } catch (Exception e) {
+        } catch (final Exception e) {
             // something went wrong while invoking method
-            Throwable t = (e instanceof InvocationTargetException) ?
+            final Throwable t = (e instanceof InvocationTargetException) ?
                           ((InvocationTargetException)e).getTargetException () :
                           null;
             throw new BSFException (BSFException.REASON_OTHER_ERROR,
@@ -289,7 +289,7 @@ public class EngineUtils {
      *            org.apache.cs.util.MethodUtils for the real
      *            exceptions that can occur).
      */
-    public static Object createBean (String className, Object args[])
+    public static Object createBean (final String className, final Object args[])
         throws BSFException {
         Bean obj;
         Class[] argTypes = null;
@@ -306,7 +306,7 @@ public class EngineUtils {
                 obj = ReflectionUtils.createBean (null, className,
                                                   argTypes, args);
                 return obj.value;
-            } catch (NoSuchMethodException me) {
+            } catch (final NoSuchMethodException me) {
                 // ok, so that didn't work - now try converting any primitive
                 // wrapper types to their primitive counterparts
                 try {
@@ -324,12 +324,12 @@ public class EngineUtils {
                     obj = ReflectionUtils.createBean (null, className,
                                                       argTypes, args);
                     return obj.value;
-                } catch (Exception e) {
+                } catch (final Exception e) {
                     // throw the previous exception
                     throw me;
                 }
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             throw new BSFException (BSFException.REASON_OTHER_ERROR,
                                     "[EngineUtils.createBean()]" + e.getMessage (), e);
         }
@@ -343,7 +343,7 @@ public class EngineUtils {
      *
      * @return the string representing the type signature
      */
-    public static String getTypeSignatureString (Class cl) {
+    public static String getTypeSignatureString (final Class cl) {
         if (cl.isPrimitive ()) {
             if (cl == boolean.class) {
                 return "Z";
@@ -365,7 +365,7 @@ public class EngineUtils {
                 return "V";
             }
         } else {
-            StringBuffer sb = new StringBuffer ("L");
+            final StringBuffer sb = new StringBuffer ("L");
             sb.append (cl.getName ());
             sb.append (";");
             return sb.toString().replace ('.', '/');
@@ -388,20 +388,20 @@ public class EngineUtils {
      *
      * @exception BSFException if something goes wrong.
      */
-    public static Class loadClass (BSFManager mgr, String name)
+    public static Class loadClass (final BSFManager mgr, final String name)
         throws BSFException {
 
         ClassLoader mgrCL = null;
 
         try {
             // TCCL may not be set, adapt logic!
-            ClassLoader cl=Thread.currentThread().getContextClassLoader();
+            final ClassLoader cl=Thread.currentThread().getContextClassLoader();
             if (cl!=null)
             {
                 try {   // try the Thread's context loader first
                         return Thread.currentThread().getContextClassLoader().loadClass(name);
                 }
-                catch (ClassNotFoundException e01) {
+                catch (final ClassNotFoundException e01) {
                 }
             }
 
@@ -411,7 +411,7 @@ public class EngineUtils {
                     return mgrCL.loadClass(name);
                 }
             }
-            catch (ClassNotFoundException e02) {
+            catch (final ClassNotFoundException e02) {
                     // o.k., now try the defined class loader
             }
 
@@ -420,7 +420,7 @@ public class EngineUtils {
                 return bsfManagerDefinedCL.loadClass(name);
             }
 
-        } catch (ClassNotFoundException e) {
+        } catch (final ClassNotFoundException e) {
             // try to load it from the temp dir using my own class loader
             try {
                 if (bsfCL == null) {
@@ -428,7 +428,7 @@ public class EngineUtils {
                 }
                 bsfCL.setTempDir (mgr.getTempDir ());
                 return bsfCL.loadClass (name);
-            } catch (ClassNotFoundException e2) {
+            } catch (final ClassNotFoundException e2) {
                 throw new BSFException (BSFException.REASON_OTHER_ERROR,
                         "[EngineUtils.loadClass()] unable to load class '" + name + "':" + e, e);
             }

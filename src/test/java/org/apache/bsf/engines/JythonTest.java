@@ -66,7 +66,7 @@ import org.apache.bsf.BSFException;
 public class JythonTest extends BSFEngineTestTmpl {
     private BSFEngine jythonEngine;
 
-    public JythonTest(String name) {
+    public JythonTest(final String name) {
         super(name);
     }
 
@@ -76,7 +76,7 @@ public class JythonTest extends BSFEngineTestTmpl {
         try {
             jythonEngine = bsfManager.loadScriptingEngine("jython");
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             fail(failMessage("Failure attempting to load jython", e));
         }
     }
@@ -86,7 +86,7 @@ public class JythonTest extends BSFEngineTestTmpl {
             jythonEngine.exec("Test.py", 0, 0,
                               "print \"PASSED\",");
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             fail(failMessage("exec() test failed", e));
         }
 
@@ -100,7 +100,7 @@ public class JythonTest extends BSFEngineTestTmpl {
             retval = new Integer((jythonEngine.eval("Test.py", 0, 0,
                                                     "1 + 1")).toString());
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             fail(failMessage("eval() test failed", e));
         }
 
@@ -108,7 +108,7 @@ public class JythonTest extends BSFEngineTestTmpl {
     }
 
     public void testCall() {
-        Object[] args = { new Integer(1) };
+        final Object[] args = { new Integer(1) };
         Integer retval = null;
 
         try {
@@ -118,7 +118,7 @@ public class JythonTest extends BSFEngineTestTmpl {
                 new Integer((jythonEngine.call(null, "addOne",
                                                args).toString()));
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             fail(failMessage("call() test failed", e));
         }
 
@@ -132,7 +132,7 @@ public class JythonTest extends BSFEngineTestTmpl {
             jythonEngine.iexec("Test.py", 0, 0,
                                "print \"PASSED\"," + "\n" + "print \"FAILED\",");
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             fail(failMessage("iexec() test failed", e));
         }
         
@@ -146,7 +146,7 @@ public class JythonTest extends BSFEngineTestTmpl {
             retval = new Integer((bsfManager.eval("jython", "Test.py", 0, 0,
                                                   "1 + 1")).toString());
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             fail(failMessage("BSFManager eval() test failed", e));
         }
 
@@ -160,7 +160,7 @@ public class JythonTest extends BSFEngineTestTmpl {
             retval = jythonEngine.eval("Test.py", 0, 0,
                                        "bsf.lookupBean(\"foo\")");
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             fail(failMessage("Test of BSFManager availability failed", e));
         }
 
@@ -168,7 +168,7 @@ public class JythonTest extends BSFEngineTestTmpl {
     }
 
     public void testRegisterBean() {
-        Integer foo = new Integer(1);
+        final Integer foo = new Integer(1);
         Integer bar = null;
 
         try {
@@ -177,7 +177,7 @@ public class JythonTest extends BSFEngineTestTmpl {
                                                  "bsf.lookupBean(\"foo\")"))
                               .toString());
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             fail(failMessage("registerBean() test failed", e));
         }
 
@@ -185,7 +185,7 @@ public class JythonTest extends BSFEngineTestTmpl {
     }
 
     public void testUnregisterBean() {
-        Integer foo = new Integer(1);
+        final Integer foo = new Integer(1);
         Object bar = null;
 
         try {
@@ -194,7 +194,7 @@ public class JythonTest extends BSFEngineTestTmpl {
             bar = jythonEngine.eval("Test.py", 0, 0,
                                     "bsf.lookupBean(\"foo\")");
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             fail(failMessage("unregisterBean() test failed", e));
         }
 
@@ -202,7 +202,7 @@ public class JythonTest extends BSFEngineTestTmpl {
     }
 
     public void testDeclareBean() {
-        Integer foo = new Integer(1);
+        final Integer foo = new Integer(1);
         Integer bar = null;
 
         try {
@@ -210,7 +210,7 @@ public class JythonTest extends BSFEngineTestTmpl {
             bar = new Integer((jythonEngine.eval("Test.py", 0, 0,
                                                  "foo + 1")).toString());
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             fail(failMessage("declareBean() test failed", e));
         }
 
@@ -218,7 +218,7 @@ public class JythonTest extends BSFEngineTestTmpl {
     }
 
     public void testUndeclareBean() {
-        Integer foo = new Integer(1);
+        final Integer foo = new Integer(1);
         Integer bar = null;
 
         try {
@@ -227,10 +227,10 @@ public class JythonTest extends BSFEngineTestTmpl {
             bar = new Integer((jythonEngine.eval("Test.py", 0, 0,
                                                  "foo + 1")).toString());
         }
-        catch (BSFException bsfE) {
+        catch (final BSFException bsfE) {
             // Do nothing. This is the expected case.
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             fail(failMessage("undeclareBean() test failed", e));
         }
 

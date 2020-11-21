@@ -37,7 +37,7 @@ public class JavaClassEngine extends BSFEngineImpl {
    * an instance method call or a static call (as per Java) on the given 
    * object.
    */
-  public Object call (Object object, String method, Object[] args) 
+  public Object call (final Object object, final String method, final Object[] args) 
                                                         throws BSFException {
     // determine arg types
     Class[] argTypes = null;
@@ -50,11 +50,11 @@ public class JavaClassEngine extends BSFEngineImpl {
 
     // now find method with the right signature, call it and return result
     try {
-      Method m = MethodUtils.getMethod (object, method, argTypes);
+      final Method m = MethodUtils.getMethod (object, method, argTypes);
       return m.invoke (object, args);
-    } catch (Exception e) {
+    } catch (final Exception e) {
       // something went wrong while invoking method
-      Throwable t = (e instanceof InvocationTargetException) ?
+      final Throwable t = (e instanceof InvocationTargetException) ?
                 ((InvocationTargetException)e).getTargetException () :
                 null;
       throw new BSFException (BSFException.REASON_OTHER_ERROR,
@@ -66,8 +66,8 @@ public class JavaClassEngine extends BSFEngineImpl {
    * This is used by an application to evaluate an object containing
    * some expression - clearly not possible for compiled code ..
    */
-  public Object eval (String source, int lineNo, int columnNo, 
-              Object oscript) throws BSFException {
+  public Object eval (final String source, final int lineNo, final int columnNo, 
+              final Object oscript) throws BSFException {
     throw new BSFException (BSFException.REASON_UNSUPPORTED_FEATURE,
                 "Java bytecode engine can't evaluate expressions");
   }

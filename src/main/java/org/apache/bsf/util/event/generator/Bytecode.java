@@ -50,17 +50,17 @@ public class Bytecode
 //  return array;
 //}
 
-  public static byte[] addClass(byte[] array,short value)
+  public static byte[] addClass(final byte[] array,final short value)
   { return addRef(C_Class,array,value); }
-  public static byte[] addFieldRef(byte[] array,short value1,short value2)
+  public static byte[] addFieldRef(final byte[] array,final short value1,final short value2)
   { return addRef(C_FieldRef,array,value1,value2); }
-  public static byte[] addInteger(byte[] array,int value)
+  public static byte[] addInteger(byte[] array,final int value)
   {
     array = ByteUtility.addBytes(array,C_Integer);
     array = ByteUtility.addBytes(array,value);
     return array;
   }
-  public static byte[] addInterfaceMethodRef(byte[] array,short value1,short value2)
+  public static byte[] addInterfaceMethodRef(final byte[] array,final short value1,final short value2)
   { return addRef(C_InterfaceMethodRef,array,value1,value2); }
 //public static byte[] addFloat(byte[] array,float value)
 //{
@@ -69,34 +69,34 @@ public class Bytecode
 //  return array;
 //}
 
-  public static byte[] addLong(byte[] array,long value)
+  public static byte[] addLong(byte[] array,final long value)
   {
     array = ByteUtility.addBytes(array,C_Long);
     array = ByteUtility.addBytes(array,value);
     return array;
   }
-  public static byte[] addMethodRef(byte[] array,short value1,short value2)
+  public static byte[] addMethodRef(final byte[] array,final short value1,final short value2)
   { return addRef(C_MethodRef,array,value1,value2); }
-  public static byte[] addNameAndType(byte[] array,short value1,short value2)
+  public static byte[] addNameAndType(final byte[] array,final short value1,final short value2)
   { return addRef(C_NameAndType,array,value1,value2); }
-  public static byte[] addRef(byte refType,byte[] array,short value)
+  public static byte[] addRef(final byte refType,byte[] array,final short value)
   {
     array = ByteUtility.addBytes(array,refType);
     array = ByteUtility.addBytes(array,value);
     return array;
   }
   // Generic Bytecode Methods
-  public static byte[] addRef(byte refType,byte[] array,short value1,short value2)
+  public static byte[] addRef(final byte refType,byte[] array,final short value1,final short value2)
   {
     array = ByteUtility.addBytes(array,refType);
     array = ByteUtility.addBytes(array,value1);
     array = ByteUtility.addBytes(array,value2);
     return array;
   }
-  public static byte[] addString(byte[] array,short value)
+  public static byte[] addString(final byte[] array,final short value)
   { return addRef(C_String,array,value); }
   // Constant Pool Item Methods
-  public static byte[] addUtf8(byte[] array,String value)
+  public static byte[] addUtf8(byte[] array,final String value)
   {
     array = ByteUtility.addBytes(array,C_Utf8);
     array = ByteUtility.addBytes(array,(short)value.length());
