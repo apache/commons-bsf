@@ -30,7 +30,7 @@ package org.apache.bsf.util.event;
  * @see      EventAdapter
  */
 public interface EventProcessor {
-  public void processEvent (String filter, Object[] eventInfo);
-  public void processExceptionableEvent (String filter, Object[] eventInfo) 
+  void processEvent (String filter, Object[] eventInfo);
+  void processExceptionableEvent (String filter, Object[] eventInfo) 
        throws Exception;
 }

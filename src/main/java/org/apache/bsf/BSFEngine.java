@@ -63,7 +63,7 @@ public interface BSFEngine extends PropertyChangeListener {
      *
      * @exception BSFException if anything goes wrong while doin' it.
      */
-    public Object apply(
+    Object apply(
         String source,
         int lineNo,
         int columnNo,
@@ -86,7 +86,7 @@ public interface BSFEngine extends PropertyChangeListener {
      * @exception BSFException if anything goes wrong while eval'ing a
 	 *            BSFException is thrown. The reason indicates the problem.
 	 */
-	public Object call(Object object, String name, Object[] args)
+	Object call(Object object, String name, Object[] args)
 		throws BSFException;
 	/**
 	 * This is used by an application to compile an anonymous function. See
@@ -103,7 +103,7 @@ public interface BSFEngine extends PropertyChangeListener {
 	 *
 	 * @exception BSFException if anything goes wrong while doin' it.
      */
-    public void compileApply(
+    void compileApply(
         String source,
         int lineNo,
         int columnNo,
@@ -127,7 +127,7 @@ public interface BSFEngine extends PropertyChangeListener {
      * @exception BSFException if anything goes wrong while compiling a
      *            BSFException is thrown. The reason indicates the problem.
      */
-    public void compileExpr(
+    void compileExpr(
         String source,
         int lineNo,
         int columnNo,
@@ -149,7 +149,7 @@ public interface BSFEngine extends PropertyChangeListener {
      * @exception BSFException if anything goes wrong while compiling a
      *            BSFException is thrown. The reason indicates the problem.
      */
-    public void compileScript(
+    void compileScript(
         String source,
         int lineNo,
         int columnNo,
@@ -165,7 +165,7 @@ public interface BSFEngine extends PropertyChangeListener {
      *
      * @exception BSFException if the engine cannot do this operation
      */
-    public void declareBean(BSFDeclaredBean bean) throws BSFException;
+    void declareBean(BSFDeclaredBean bean) throws BSFException;
     /**
      * This is used by an application to evaluate an expression. The
      * expression may be string or some other type, depending on the
@@ -181,7 +181,7 @@ public interface BSFEngine extends PropertyChangeListener {
      * @exception BSFException if anything goes wrong while eval'ing a
      *            BSFException is thrown. The reason indicates the problem.
      */
-    public Object eval(String source, int lineNo, int columnNo, Object expr)
+    Object eval(String source, int lineNo, int columnNo, Object expr)
         throws BSFException;
     /**
      * This is used by an application to execute some script. The
@@ -198,7 +198,7 @@ public interface BSFEngine extends PropertyChangeListener {
      * @exception BSFException if anything goes wrong while exec'ing a
      *            BSFException is thrown. The reason indicates the problem.
      */
-    public void exec(String source, int lineNo, int columnNo, Object script)
+    void exec(String source, int lineNo, int columnNo, Object script)
         throws BSFException;
     /**
      * This is used by an application to execute some script, as though
@@ -216,7 +216,7 @@ public interface BSFEngine extends PropertyChangeListener {
      * @exception BSFException if anything goes wrong while exec'ing a
      *            BSFException is thrown. The reason indicates the problem.
      */
-    public void iexec(String source, int lineNo, int columnNo, Object script)
+    void iexec(String source, int lineNo, int columnNo, Object script)
         throws BSFException;
 
     /**
@@ -235,12 +235,12 @@ public interface BSFEngine extends PropertyChangeListener {
      * @exception BSFException if anything goes wrong while init'ing a
      *            BSFException is thrown. The reason indicates the problem.
      */
-    public void initialize(BSFManager mgr, String lang, Vector declaredBeans)
+    void initialize(BSFManager mgr, String lang, Vector declaredBeans)
         throws BSFException;
     /**
      * Graceful termination
      */
-    public void terminate();
+    void terminate();
     /**
      * Undeclare a previously declared bean.
      *
@@ -248,5 +248,5 @@ public interface BSFEngine extends PropertyChangeListener {
      *
      * @exception BSFException if the engine cannot do this operation
      */
-    public void undeclareBean(BSFDeclaredBean bean) throws BSFException;
+    void undeclareBean(BSFDeclaredBean bean) throws BSFException;
 }

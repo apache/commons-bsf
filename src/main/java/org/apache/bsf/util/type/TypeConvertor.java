@@ -27,6 +27,6 @@ package org.apache.bsf.util.type;
  * @see      TypeConvertorRegistry
  */
 public interface TypeConvertor {
-  public Object convert (Class from, Class to, Object obj);
-  public String getCodeGenString ();
+  Object convert (Class from, Class to, Object obj);
+  String getCodeGenString ();
 }

@@ -32,5 +32,5 @@ package org.apache.bsf.util.event;
  * @see      EventProcessor
  */
 public interface EventAdapter {
-  public void setEventProcessor (EventProcessor eventProcessor);
+  void setEventProcessor (EventProcessor eventProcessor);
 }
