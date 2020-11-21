@@ -94,8 +94,6 @@ public class CodeFormatter
     }
 
     targetBuf.append(tokBuf.toString());
-
-    return;
   }
   /**
    * Formats the code read from <code>source</code>, and writes the formatted
