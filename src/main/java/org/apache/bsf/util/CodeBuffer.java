@@ -256,8 +256,9 @@ public class CodeBuffer
   {
     ObjInfo ret = (ObjInfo)symbolTable.get(symbol);
 
-    if (ret == null && parent != null)
-      ret = parent.getSymbol(symbol);
+    if (ret == null && parent != null) {
+        ret = parent.getSymbol(symbol);
+    }
 
     return ret;
   }

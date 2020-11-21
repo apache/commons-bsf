@@ -216,15 +216,25 @@ public class EngineUtils {
   	  for (int i = 0; i < args.length; i++) {
              if (args[i] instanceof Number)
              {
-                 if      (args[i] instanceof Byte)    argTypes[i] = byte.class;
-                 else if (args[i] instanceof Integer) argTypes[i] = int.class;
-                 else if (args[i] instanceof Long)    argTypes[i] = long.class;
-                 else if (args[i] instanceof Float)   argTypes[i] = float.class;
-                 else if (args[i] instanceof Double ) argTypes[i] = double.class;
-                 else if (args[i] instanceof Short  ) argTypes[i] = short.class;
+                 if      (args[i] instanceof Byte) {
+                    argTypes[i] = byte.class;
+                } else if (args[i] instanceof Integer) {
+                    argTypes[i] = int.class;
+                } else if (args[i] instanceof Long) {
+                    argTypes[i] = long.class;
+                } else if (args[i] instanceof Float) {
+                    argTypes[i] = float.class;
+                } else if (args[i] instanceof Double ) {
+                    argTypes[i] = double.class;
+                } else if (args[i] instanceof Short  ) {
+                    argTypes[i] = short.class;
+                }
              }
-             else if (args[i] instanceof Boolean)   argTypes[i] = boolean.class;
-             else if (args[i] instanceof Character) argTypes[i] = char.class;
+             else if (args[i] instanceof Boolean) {
+                argTypes[i] = boolean.class;
+            } else if (args[i] instanceof Character) {
+                argTypes[i] = char.class;
+            }
   	  }
 
   	  m = MethodUtils.getMethod (beanClass, methodName, argTypes,
@@ -303,12 +313,13 @@ public class EngineUtils {
                     // if args is null the NullPointerException will get caught
                     // below and the right thing'll happen .. ugly but works
                     for (int i = 0; i < args.length; i++) {
-                        if (args[i] instanceof Number)
+                        if (args[i] instanceof Number) {
                             argTypes[i] = byte.class;
-                        else if (args[i] instanceof Boolean)
+                        } else if (args[i] instanceof Boolean) {
                             argTypes[i] = boolean.class;
-                        else if (args[i] instanceof Character)
+                        } else if (args[i] instanceof Character) {
                             argTypes[i] = char.class;
+                        }
                     }
                     obj = ReflectionUtils.createBean (null, className,
                                                       argTypes, args);
@@ -334,24 +345,25 @@ public class EngineUtils {
      */
     public static String getTypeSignatureString (Class cl) {
         if (cl.isPrimitive ()) {
-            if (cl == boolean.class)
+            if (cl == boolean.class) {
                 return "Z";
-            else if (cl == byte.class)
+            } else if (cl == byte.class) {
                 return "B";
-            else if (cl == char.class)
+            } else if (cl == char.class) {
                 return "C";
-            else if (cl == short.class)
+            } else if (cl == short.class) {
                 return "S";
-            else if (cl == int.class)
+            } else if (cl == int.class) {
                 return "I";
-            else if (cl == long.class)
+            } else if (cl == long.class) {
                 return "J";
-            else if (cl == float.class)
+            } else if (cl == float.class) {
                 return "F";
-            else if (cl == double.class)
+            } else if (cl == double.class) {
                 return "D";
-            else
+            } else {
                 return "V";
+            }
         } else {
             StringBuffer sb = new StringBuffer ("L");
             sb.append (cl.getName ());
@@ -411,8 +423,9 @@ public class EngineUtils {
         } catch (ClassNotFoundException e) {
             // try to load it from the temp dir using my own class loader
             try {
-                if (bsfCL == null)
+                if (bsfCL == null) {
                     bsfCL = new BSFClassLoader ();
+                }
                 bsfCL.setTempDir (mgr.getTempDir ());
                 return bsfCL.loadClass (name);
             } catch (ClassNotFoundException e2) {

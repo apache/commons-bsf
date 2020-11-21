@@ -59,8 +59,9 @@ public class JythonEngine extends BSFEngineImpl {
 
           if (args != null) {
               pyargs = new PyObject[args.length];
-              for (int i = 0; i < pyargs.length; i++)
-                  pyargs[i] = Py.java2py(args[i]);
+              for (int i = 0; i < pyargs.length; i++) {
+                pyargs[i] = Py.java2py(args[i]);
+            }
           }
 
           if (object != null) {
@@ -70,8 +71,9 @@ public class JythonEngine extends BSFEngineImpl {
 
           PyObject m = interp.get(method);
 
-          if (m == null)
-              m = interp.eval(method);
+          if (m == null) {
+            m = interp.eval(method);
+        }
           if (m != null) {
               return unwrap(m.__call__(pyargs));
           }
@@ -119,8 +121,9 @@ public class JythonEngine extends BSFEngineImpl {
           
           Object result = interp.eval ("bsf_temp_fn()");
           
-          if (result instanceof PyJavaInstance)
-              result = ((PyJavaInstance)result).__tojava__(Object.class);
+          if (result instanceof PyJavaInstance) {
+            result = ((PyJavaInstance)result).__tojava__(Object.class);
+        }
           return result;
       } catch (PyException e) {
           throw new BSFException (BSFException.REASON_EXECUTION_ERROR,
@@ -137,8 +140,9 @@ public class JythonEngine extends BSFEngineImpl {
 	  String scriptStr = byteify(script.toString ());
 	  importPackage(scriptStr);
 	  Object result = interp.eval (scriptStr);
-	  if (result instanceof PyJavaInstance)
-		result = ((PyJavaInstance)result).__tojava__(Object.class);
+	  if (result instanceof PyJavaInstance) {
+        result = ((PyJavaInstance)result).__tojava__(Object.class);
+    }
 	  return result;
 	} catch (PyException e) {
 	  throw new BSFException (BSFException.REASON_EXECUTION_ERROR,
@@ -178,15 +182,18 @@ public class JythonEngine extends BSFEngineImpl {
       importPackage(scriptStr);
       int newline = scriptStr.indexOf("\n");
 
-      if (newline > -1)
-          scriptStr = scriptStr.substring(0, newline);
+      if (newline > -1) {
+        scriptStr = scriptStr.substring(0, newline);
+    }
 
       try {
-          if (interp.buffer.length() > 0)
-              interp.buffer.append("\n");
+          if (interp.buffer.length() > 0) {
+            interp.buffer.append("\n");
+        }
           interp.buffer.append(scriptStr);
-          if (!(interp.runsource(interp.buffer.toString())))
-              interp.resetbuffer();
+          if (!(interp.runsource(interp.buffer.toString()))) {
+            interp.resetbuffer();
+        }
       } catch (PyException e) {
           interp.resetbuffer();
           throw new BSFException(BSFException.REASON_EXECUTION_ERROR, 
@@ -228,8 +235,9 @@ public class JythonEngine extends BSFEngineImpl {
   public Object unwrap(PyObject result) {
 	if (result != null) {
 	   Object ret = result.__tojava__(Object.class);
-	   if (ret != Py.NoConversion)
-		  return ret;
+	   if (ret != Py.NoConversion) {
+        return ret;
+    }
 	}
 	return result;
   }

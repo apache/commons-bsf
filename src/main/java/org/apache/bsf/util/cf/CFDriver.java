@@ -82,18 +82,19 @@ public class CFDriver
 
       for (int i = 0; i < argv.length; i += 2)
       {
-        if (argv[i].startsWith("-i"))
-          inFile = argv[i + 1];
-        else if (argv[i].startsWith("-o"))
-          outFile = argv[i + 1];
-        else if (argv[i].startsWith("-m"))
+        if (argv[i].startsWith("-i")) {
+            inFile = argv[i + 1];
+        } else if (argv[i].startsWith("-o")) {
+            outFile = argv[i + 1];
+        } else if (argv[i].startsWith("-m")) {
             maxLine = argv[i + 1];
-        else if (argv[i].startsWith("-st"))
-          indStep = argv[i + 1];
-        else if (argv[i].startsWith("-d"))
+        } else if (argv[i].startsWith("-st")) {
+            indStep = argv[i + 1];
+        } else if (argv[i].startsWith("-d")) {
             delim = argv[i + 1];
-        else if (argv[i].startsWith("-sd"))
-          sDelim = argv[i + 1];
+        } else if (argv[i].startsWith("-sd")) {
+            sDelim = argv[i + 1];
+        }
       }
 
       if (inFile != null)
@@ -160,16 +161,18 @@ public class CFDriver
         }
       }
         
-        if (delim != null)
-          cf.setDelimiters(delim);
+        if (delim != null) {
+            cf.setDelimiters(delim);
+        }
         
-        if (sDelim != null)
-        cf.setStickyDelimiters(sDelim);
+        if (sDelim != null) {
+            cf.setStickyDelimiters(sDelim);
+        }
             
         cf.formatCode(in, out);
+    } else {
+        printHelp();
     }
-    else
-      printHelp();
   }
     private static void printError(String errMsg)
   {

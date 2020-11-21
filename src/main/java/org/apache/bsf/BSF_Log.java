@@ -130,13 +130,17 @@ public class BSF_Log // implements org.apache.commons.logging.Log
 
         catch (ClassNotFoundException e)// o.k., so we do not use org.apache.commons.logging in this run
         {
-            if (iDebug>1) e.printStackTrace();
+            if (iDebug>1) {
+                e.printStackTrace();
+            }
             oac_LogFactory_=null;              // make sure it does not get used
             oac_LogFactoryGetLog_String_=null; // make sure it does not get used
         }
         catch (NoSuchMethodException  e)// o.k., so we do not use org.apache.commons.logging in this run
         {
-            if (iDebug>1) e.printStackTrace();
+            if (iDebug>1) {
+                e.printStackTrace();
+            }
             oac_LogFactory_=null;              // make sure it does not get used
             oac_LogFactoryGetLog_String_=null; // make sure it does not get used
         }
@@ -183,7 +187,10 @@ public class BSF_Log // implements org.apache.commons.logging.Log
     // --------------------------------------------------------------------
     public void debug(Object msg)
     {
-        if (oac_logger==null) return;   // no org.apache.commons.logging.Log object ?
+        if (oac_logger==null)
+         {
+            return;   // no org.apache.commons.logging.Log object ?
+        }
 
         try
         {
@@ -196,7 +203,10 @@ public class BSF_Log // implements org.apache.commons.logging.Log
 
     public void debug(Object msg, Throwable t)
     {
-        if (oac_logger==null) return;   // no org.apache.commons.logging.Log object ?
+        if (oac_logger==null)
+         {
+            return;   // no org.apache.commons.logging.Log object ?
+        }
 
         try
         {
@@ -209,7 +219,10 @@ public class BSF_Log // implements org.apache.commons.logging.Log
     // --------------------------------------------------------------------
     public void error(Object msg)
     {
-        if (oac_logger==null) return;   // no org.apache.commons.logging.Log object ?
+        if (oac_logger==null)
+         {
+            return;   // no org.apache.commons.logging.Log object ?
+        }
 
         try
         {
@@ -221,7 +234,10 @@ public class BSF_Log // implements org.apache.commons.logging.Log
 
     public void error(Object msg, Throwable t)
     {
-        if (oac_logger==null) return;   // no org.apache.commons.logging.Log object ?
+        if (oac_logger==null)
+         {
+            return;   // no org.apache.commons.logging.Log object ?
+        }
 
         try
         {
@@ -235,7 +251,10 @@ public class BSF_Log // implements org.apache.commons.logging.Log
     // --------------------------------------------------------------------
     public void fatal(Object msg)
     {
-        if (oac_logger==null) return;   // no org.apache.commons.logging.Log object ?
+        if (oac_logger==null)
+         {
+            return;   // no org.apache.commons.logging.Log object ?
+        }
 
         try
         {
@@ -247,7 +266,10 @@ public class BSF_Log // implements org.apache.commons.logging.Log
 
     public void fatal(Object msg, Throwable t)
     {
-        if (oac_logger==null) return;   // no org.apache.commons.logging.Log object ?
+        if (oac_logger==null)
+         {
+            return;   // no org.apache.commons.logging.Log object ?
+        }
         try
         {
             // ((org.apache.commons.logging.Log) oac_logger).fatal(msg, t);
@@ -260,7 +282,10 @@ public class BSF_Log // implements org.apache.commons.logging.Log
     // --------------------------------------------------------------------
     public void info (Object msg)
     {
-        if (oac_logger==null) return;   // no org.apache.commons.logging.Log object ?
+        if (oac_logger==null)
+         {
+            return;   // no org.apache.commons.logging.Log object ?
+        }
 
         try
         {
@@ -272,7 +297,10 @@ public class BSF_Log // implements org.apache.commons.logging.Log
 
     public void info (Object msg, Throwable t)
     {
-        if (oac_logger==null) return;   // no org.apache.commons.logging.Log object ?
+        if (oac_logger==null)
+         {
+            return;   // no org.apache.commons.logging.Log object ?
+        }
 
         try
         {
@@ -286,7 +314,10 @@ public class BSF_Log // implements org.apache.commons.logging.Log
     // --------------------------------------------------------------------
     public void trace(Object msg)
     {
-        if (oac_logger==null) return;   // no org.apache.commons.logging.Log object ?
+        if (oac_logger==null)
+         {
+            return;   // no org.apache.commons.logging.Log object ?
+        }
 
         try
         {
@@ -298,7 +329,10 @@ public class BSF_Log // implements org.apache.commons.logging.Log
 
     public void trace(Object msg, Throwable t)
     {
-        if (oac_logger==null) return;   // no org.apache.commons.logging.Log object ?
+        if (oac_logger==null)
+         {
+            return;   // no org.apache.commons.logging.Log object ?
+        }
 
         try
         {
@@ -312,7 +346,10 @@ public class BSF_Log // implements org.apache.commons.logging.Log
     // --------------------------------------------------------------------
     public void warn (Object msg)
     {
-        if (oac_logger==null) return;   // no org.apache.commons.logging.Log object ?
+        if (oac_logger==null)
+         {
+            return;   // no org.apache.commons.logging.Log object ?
+        }
 
         try
         {
@@ -324,7 +361,10 @@ public class BSF_Log // implements org.apache.commons.logging.Log
 
     public void warn (Object msg, Throwable t)
     {
-        if (oac_logger==null) return;   // no org.apache.commons.logging.Log object ?
+        if (oac_logger==null)
+         {
+            return;   // no org.apache.commons.logging.Log object ?
+        }
 
         try
         {
@@ -352,7 +392,10 @@ public class BSF_Log // implements org.apache.commons.logging.Log
 
     public boolean isErrorEnabled()
     {
-        if (oac_logger==null) return false;     // no org.apache.commons.logging.Log object ?
+        if (oac_logger==null)
+         {
+            return false;     // no org.apache.commons.logging.Log object ?
+        }
 
         try
         {
@@ -365,7 +408,10 @@ public class BSF_Log // implements org.apache.commons.logging.Log
 
     public boolean isFatalEnabled()
     {
-        if (oac_logger==null) return false;     // no org.apache.commons.logging.Log object ?
+        if (oac_logger==null)
+         {
+            return false;     // no org.apache.commons.logging.Log object ?
+        }
 
         try
         {
@@ -378,7 +424,10 @@ public class BSF_Log // implements org.apache.commons.logging.Log
 
     public boolean isInfoEnabled ()
     {
-        if (oac_logger==null) return false;     // no org.apache.commons.logging.Log object ?
+        if (oac_logger==null)
+         {
+            return false;     // no org.apache.commons.logging.Log object ?
+        }
 
         try
         {
@@ -391,7 +440,10 @@ public class BSF_Log // implements org.apache.commons.logging.Log
 
     public boolean isTraceEnabled()
     {
-        if (oac_logger==null) return false;     // no org.apache.commons.logging.Log object ?
+        if (oac_logger==null)
+         {
+            return false;     // no org.apache.commons.logging.Log object ?
+        }
 
         try
         {
@@ -404,7 +456,10 @@ public class BSF_Log // implements org.apache.commons.logging.Log
 
     public boolean isWarnEnabled ()
     {
-        if (oac_logger==null) return false;     // no org.apache.commons.logging.Log object ?
+        if (oac_logger==null)
+         {
+            return false;     // no org.apache.commons.logging.Log object ?
+        }
 
         try
         {

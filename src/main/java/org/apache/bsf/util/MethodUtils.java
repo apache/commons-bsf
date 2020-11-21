@@ -65,9 +65,9 @@ public class MethodUtils {
       */
     void addItem (Object newEntry)
     {
-      if(size()==0)
+      if(size()==0) {
         addElement(newEntry);
-      else
+    } else
         {
           Class[] newargs=entryGetParameterTypes(newEntry);
           boolean keep=true;
@@ -78,14 +78,17 @@ public class MethodUtils {
               Object oldEntry=e.nextElement();
               // CAVEAT: Implicit references to enclosing class!
               Class[] oldargs=entryGetParameterTypes(oldEntry);
-              if(areMethodConvertable(oldargs,newargs))
+              if(areMethodConvertable(oldargs,newargs)) {
                 removeElement(oldEntry); // New more specific; discard old
-              else if(areMethodConvertable(newargs,oldargs))
+            } else if(areMethodConvertable(newargs,oldargs))
+             {
                 keep=false;     // Old more specific; discard new
               // Else they're tied. Keep both and hope someone beats both.
             }
-          if(keep)
+            }
+          if(keep) {
             addElement(newEntry);
+        }
         }
     }
 
@@ -99,15 +102,17 @@ public class MethodUtils {
                            Class[] argTypes,boolean isStaticReference)
          throws NoSuchMethodException
     {
-      if(size()==1)
+      if(size()==1) {
         return firstElement();
+    }
       if(size()>1)
         {
           StringBuffer buf=new StringBuffer();
           Enumeration e=elements();
           buf.append(e.nextElement());
-          while(e.hasMoreElements())
+          while(e.hasMoreElements()) {
             buf.append(" and ").append(e.nextElement());
+        }
           throw new NoSuchMethodException (callToString(targetClass,
                                                         methodName,
                                                         argTypes,
@@ -124,12 +129,15 @@ public class MethodUtils {
     */
   static private boolean areMethodConvertable(Class[] parms,Class[] args)
   {
-    if(parms.length!=args.length)
-      return false;
-    
-    for(int i=0;i<parms.length;++i)
-      if(!isMethodConvertable(parms[i],args[i]))
+    if(parms.length!=args.length) {
         return false;
+    }
+    
+    for(int i=0;i<parms.length;++i) {
+        if(!isMethodConvertable(parms[i],args[i])) {
+            return false;
+        }
+    }
     
     return true;
   }
@@ -140,11 +148,13 @@ public class MethodUtils {
                                     Class[] argTypes,boolean isStaticReference)
   {
     StringBuffer buf = new StringBuffer();
-    if(isStaticReference)
-      buf.append("static ");
+    if(isStaticReference) {
+        buf.append("static ");
+    }
     buf.append(StringUtils.getClassName(targetClass));
-    if(methodName!=null)
-      buf.append(".").append(methodName);
+    if(methodName!=null) {
+        buf.append(".").append(methodName);
+    }
     buf.append("(");
     if (argTypes != null && argTypes.length>0) {
       if(false)
@@ -159,9 +169,9 @@ public class MethodUtils {
             buf.append(",").append(StringUtils.getClassName(argTypes[i]));
           }
         }
+    } else {
+        buf.append("[none]");
     }
-    else
-      buf.append("[none]");
     buf.append(")");
     return buf.toString();
   }
@@ -275,9 +285,9 @@ public class MethodUtils {
                                            " resolved to instance " + m);
             }
           return m;
-        }
-      else
+        } else {
         return targetClass.getConstructor (argTypes);
+    }
           
     } catch (NoSuchMethodException e) {
       // no-args has no alternatives!
@@ -325,9 +335,10 @@ public class MethodUtils {
             &&
             // 15.11.2.1 APPLICABLE: Parameters match arguments
             areMethodConvertable(entryGetParameterTypes(mi),argTypes)
-             )
-          // 15.11.2.2 MORE SPECIFIC displace less specific.
-          best.addItem(mi);
+             ) {
+            // 15.11.2.2 MORE SPECIFIC displace less specific.
+              best.addItem(mi);
+        }
       }
 
     // May throw NoSuchMethodException; we pass in info needed to
@@ -451,8 +462,9 @@ public class MethodUtils {
     */
   static private boolean isMethodConvertable(Class parm, Class arg)
   {
-    if (parm.equals(arg))       // If same class, short-circuit now!
-      return true;
+    if (parm.equals(arg)) {
+        return true;
+    }
 
     // Accept any type EXCEPT primitives (which can't have null values).
     if (arg == null)
@@ -465,16 +477,18 @@ public class MethodUtils {
     // does it successfully handle arrays of primatives?
     while(parm.isArray())
       {
-        if(!arg.isArray())
-          return false;         // Unequal array depth
-        else
+        if(!arg.isArray()) {
+            return false;         // Unequal array depth
+        } else
           {
             parm=parm.getComponentType();
             arg=arg.getComponentType();
           }
       }
     if(arg.isArray())
-      return false;             // Unequal array depth
+     {
+        return false;             // Unequal array depth
+    }
     
     // Despite its name, the 1.1.6 docs say that this function does
     // NOT return true for all legal ASSIGNMENT CONVERSIONS
@@ -484,8 +498,9 @@ public class MethodUtils {
     //   to the type represented by this Class object via
     //   an identity conversion or via a widening reference
     //   conversion."
-    if(parm.isAssignableFrom(arg))
-      return true;
+    if(parm.isAssignableFrom(arg)) {
+        return true;
+    }
 
     // That leaves us the Widening Primitives case. Four possibilities:
     // void (can only convert to void), boolean (can only convert to boolean),
@@ -493,24 +508,33 @@ public class MethodUtils {
     // numerics by promoting to int or larger)
 
     if(parm.equals(Void.TYPE) || parm.equals(Boolean.TYPE) ||
-       arg.equals(Void.TYPE) || arg.equals(Boolean.TYPE))
-      return false;
+       arg.equals(Void.TYPE) || arg.equals(Boolean.TYPE)) {
+        return false;
+    }
     
     Class[] primTypes={ Character.TYPE, Byte.TYPE, Short.TYPE, Integer.TYPE,
                         Long.TYPE, Float.TYPE, Double.TYPE };
     int parmscore,argscore;
     
-    for(parmscore=0;parmscore<primTypes.length;++parmscore)
-      if (parm.equals(primTypes[parmscore]))
-        break;
+    for(parmscore=0;parmscore<primTypes.length;++parmscore) {
+        if (parm.equals(primTypes[parmscore])) {
+            break;
+        }
+    }
     if(parmscore>=primTypes.length)
-      return false;             // Off the end
+     {
+        return false;             // Off the end
+    }
     
-    for(argscore=0;argscore<primTypes.length;++argscore)
-      if (arg.equals(primTypes[argscore]))
-        break;
+    for(argscore=0;argscore<primTypes.length;++argscore) {
+        if (arg.equals(primTypes[argscore])) {
+            break;
+        }
+    }
     if(argscore>=primTypes.length)
-      return false;             // Off the end
+     {
+        return false;             // Off the end
+    }
     
     // OK if ordered AND NOT char-to-smaller-than-int
     return (argscore<parmscore && (argscore!=0 || parmscore>2) );

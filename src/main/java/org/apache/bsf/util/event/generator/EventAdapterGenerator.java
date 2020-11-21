@@ -244,10 +244,11 @@ public class EventAdapterGenerator
                     logger.debug("cached:  "+cached);
           try
           {
-            if (!listenerType.isAssignableFrom(cached))
-              finalAdapterClassName = adapterClassName + "_" + suffixIndex++;
-            else
-              return cached;
+            if (!listenerType.isAssignableFrom(cached)) {
+                finalAdapterClassName = adapterClassName + "_" + suffixIndex++;
+            } else {
+                return cached;
+            }
           }
           catch(VerifyError ex)
           {

@@ -122,9 +122,9 @@ public class CodeFormatter
           indent        = origIndent;
           hangingIndent = indent + indentationStep;
           printLine(line, out);
+        } else {
+            out.println();
         }
-        else
-          out.println();
       }
     }
     catch (IOException e)
@@ -216,8 +216,9 @@ public class CodeFormatter
 			  tokBuf.append(ch);
 			  break;
 			default :
-			  if (ch > 31)
-				tokBuf.append(ch);
+			  if (ch > 31) {
+                tokBuf.append(ch);
+            }
 			  break;
 		  }
 		}
@@ -227,8 +228,9 @@ public class CodeFormatter
 		  {
 			tokBuf.append(ch);
 
-			if (ch == '/' && i > 0 && source[i - 1] == '*')
-			  inCPP_Comment = false;
+			if (ch == '/' && i > 0 && source[i - 1] == '*') {
+                inCPP_Comment = false;
+            }
 		  }
 		  else
 		  {
@@ -251,8 +253,9 @@ public class CodeFormatter
 			  case '*' :
 				tokBuf.append(ch);
 
-				if (i > 0 && source[i - 1] == '/')
-				  inCPP_Comment = true;
+				if (i > 0 && source[i - 1] == '/') {
+                    inCPP_Comment = true;
+                }
 				break;
 			  case '\'' :
 			  case '\"' :
@@ -273,8 +276,9 @@ public class CodeFormatter
 				tokBuf.append(ch);
 				origIndent -= indentationStep;
 
-				if (i == 0)
-				  indent = origIndent;
+				if (i == 0) {
+                    indent = origIndent;
+                }
 				break;
 			  default :
 				if (ch > 31)
@@ -290,9 +294,9 @@ public class CodeFormatter
 					tokBuf.append(ch);
 					addTok(targetBuf, tokBuf, out);
 					tokBuf.setLength(0);
-				  }
-				  else
-					tokBuf.append(ch);
+				  } else {
+                    tokBuf.append(ch);
+                }
 				}
 				break;
 			}
@@ -301,13 +305,15 @@ public class CodeFormatter
 	  }
 	}
 
-	if (tokBuf.length() > 0)
-	  addTok(targetBuf, tokBuf, out);
+	if (tokBuf.length() > 0) {
+        addTok(targetBuf, tokBuf, out);
+    }
 
 	String lastLine = targetBuf.toString().trim();
 
-	if (lastLine.length() > 0)
-	  out.println(indent, lastLine);
+	if (lastLine.length() > 0) {
+        out.println(indent, lastLine);
+    }
   }
   /**
    * Sets the set of delimiters; default set is <code>"(+"</code>.

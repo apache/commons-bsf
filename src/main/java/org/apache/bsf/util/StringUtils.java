@@ -69,14 +69,14 @@ public class StringUtils
   // Ensure that escape sequences are passed through properly.
   public static String cleanString(String str)
   {
-    if (str == null)
-      return null;
-    else
+    if (str == null) {
+        return null;
+    } else
     {
       char[]       charArray = str.toCharArray();
       StringBuffer sBuf      = new StringBuffer();
       
-      for (int i = 0; i < charArray.length; i++)
+      for (int i = 0; i < charArray.length; i++) {
         switch (charArray[i])
         {
           case '\"' : sBuf.append("\\\"");
@@ -90,6 +90,7 @@ public class StringUtils
 		  default   : sBuf.append(charArray[i]);
 					  break;
 		}
+    }
 	  
 	  return sBuf.toString();
 	}
@@ -101,13 +102,15 @@ public class StringUtils
    */
   public static String getChars(int numberOfChars, char theChar)
   {
-	if (numberOfChars <= 0)
-	  return "";
+	if (numberOfChars <= 0) {
+        return "";
+    }
 
 	StringBuffer sRet = new StringBuffer(numberOfChars);
 
-	for (int i = 0; i < numberOfChars; i++)
-	  sRet.append(theChar);     
+	for (int i = 0; i < numberOfChars; i++) {
+        sRet.append(theChar);
+    }     
 
 	return sRet.toString();
   }
@@ -290,8 +293,9 @@ public class StringUtils
   }
   public static String getValidIdentifierName(String identifierName)
   {
-    if (identifierName == null || identifierName.length() == 0)
-      return null;
+    if (identifierName == null || identifierName.length() == 0) {
+        return null;
+    }
 
     StringBuffer strBuf = new StringBuffer();
 
@@ -314,53 +318,62 @@ public class StringUtils
   }
   public static boolean isValidIdentifierName(String identifierName)
   {
-    if (identifierName == null || identifierName.length() == 0)
-      return false;
+    if (identifierName == null || identifierName.length() == 0) {
+        return false;
+    }
 
     char[] chars = identifierName.toCharArray();
 
-    if (!Character.isJavaIdentifierStart(chars[0]))
-      return false;
-
-    for (int i = 1; i < chars.length; i++)
-      if (!Character.isJavaIdentifierPart(chars[i]))
+    if (!Character.isJavaIdentifierStart(chars[0])) {
         return false;
+    }
+
+    for (int i = 1; i < chars.length; i++) {
+        if (!Character.isJavaIdentifierPart(chars[i])) {
+            return false;
+        }
+    }
 
     return true;
   }
   public static boolean isValidPackageName(String packageName)
   {
-    if (packageName == null)
-      return false;
-    else if (packageName.length() == 0)
-      // Empty is ok.
-      return true;
+    if (packageName == null) {
+        return false;
+    } else if (packageName.length() == 0) {
+        // Empty is ok.
+          return true;
+    }
 
     StringTokenizer strTok = new StringTokenizer(packageName, ".", true);
 
     // Should have an odd number of tokens (including '.' delimiters).
-    if (strTok.countTokens() % 2 != 1)
-      return false;
+    if (strTok.countTokens() % 2 != 1) {
+        return false;
+    }
 
     // Must start with a valid identifier name.
-    if (!isValidIdentifierName(strTok.nextToken()))
-      return false;
+    if (!isValidIdentifierName(strTok.nextToken())) {
+        return false;
+    }
 
     // ... followed by 0 or more of ".ValidIdentifier".
     while (strTok.hasMoreTokens())
     {
       // Must be a '.'.
-      if (!strTok.nextToken().equals("."))
+      if (!strTok.nextToken().equals(".")) {
         return false;
+    }
 
       // Must be a valid identifier name.
       if (strTok.hasMoreTokens())
       {
-        if (!isValidIdentifierName(strTok.nextToken()))
-          return false;
-      }
-      else
+        if (!isValidIdentifierName(strTok.nextToken())) {
+            return false;
+        }
+      } else {
         return false;
+    }
     }
 
     return true;
@@ -405,8 +418,9 @@ public class StringUtils
                  break;
     }
 
-    for (i = 0; i < arrayDim; i++)
-      classNameBuf.append("[]");
+    for (i = 0; i < arrayDim; i++) {
+        classNameBuf.append("[]");
+    }
 
     return classNameBuf.toString();
   }

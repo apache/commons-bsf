@@ -83,14 +83,18 @@ public class JaclEngine extends BSFEngineImpl {
       Object internalRep = result.getInternalRep();
 
       // if the object has a corresponding Java type, unwrap it
-      if (internalRep instanceof ReflectObject)
+      if (internalRep instanceof ReflectObject) {
         return ReflectObject.get(interp,result);
-      if (internalRep instanceof TclString)
+    }
+      if (internalRep instanceof TclString) {
         return result.toString();
-      if (internalRep instanceof TclDouble)
+    }
+      if (internalRep instanceof TclDouble) {
         return new Double(TclDouble.get(interp,result));
-      if (internalRep instanceof TclInteger)
+    }
+      if (internalRep instanceof TclInteger) {
         return new Integer(TclInteger.get(interp,result));
+    }
 
       return result;
     } catch (TclException e) { 

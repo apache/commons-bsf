@@ -57,8 +57,9 @@ class BSFClassLoader extends ClassLoader {
                       name + "'");
       }
     }
-    if (resolve)
-      resolveClass (c); 
+    if (resolve) {
+        resolveClass (c);
+    } 
     return c;  
   }
   private byte[] loadClassData (String name) throws Exception {

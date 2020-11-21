@@ -37,8 +37,9 @@ class ScriptSymbolTable extends Hashtable
   {
     Object ret = super.get(key);
 
-    if (ret == null && parentTable != null)
-      ret = parentTable.get(key);
+    if (ret == null && parentTable != null) {
+        ret = parentTable.get(key);
+    }
 
     return ret;
   }
