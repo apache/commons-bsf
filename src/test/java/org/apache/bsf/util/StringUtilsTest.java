@@ -90,8 +90,8 @@ public class StringUtilsTest extends TestCase {
 
     public void testClassNameToVarName() {
 
-        assertTrue((StringUtils.classNameToVarName("int")).equals(new String("int")));
-        assertTrue((StringUtils.classNameToVarName("int[][][]")).equals(new String("int_3D")));
+        assertTrue((StringUtils.classNameToVarName("int")).equals("int"));
+        assertTrue((StringUtils.classNameToVarName("int[][][]")).equals("int_3D"));
         assertNull((StringUtils.classNameToVarName("")));
     }
 
@@ -118,16 +118,16 @@ public class StringUtilsTest extends TestCase {
         String result;
 
         result = StringUtils.getChars(1, 'a');
-        assertTrue(result.equals(new String("a")));
+        assertTrue(result.equals("a"));
 
         result = StringUtils.getChars(1, ' ');
-        assertTrue(result.equals(new String(" ")));
+        assertTrue(result.equals(" "));
 
         result = StringUtils.getChars(10, ' ');
-        assertTrue(result.equals(new String("          ")));
+        assertTrue(result.equals("          "));
 
         result = StringUtils.getChars(-1, 'a');
-        assertTrue(result.equals(new String("")));
+        assertTrue(result.equals(""));
 
     }
 
@@ -135,16 +135,16 @@ public class StringUtilsTest extends TestCase {
         String result;
 
         result = StringUtils.getClassName((new Byte("0")).getClass());
-        assertTrue(result.equals(new String("java.lang.Byte")));
+        assertTrue(result.equals("java.lang.Byte"));
 
         result = StringUtils.getClassName((new Byte[0][0][0]).getClass());
-        assertTrue(result.equals(new String("java.lang.Byte[][][]")));
+        assertTrue(result.equals("java.lang.Byte[][][]"));
 
-        result = StringUtils.getClassName((new String("")).getClass());
-        assertTrue(result.equals(new String("java.lang.String")));
+        result = StringUtils.getClassName(("").getClass());
+        assertTrue(result.equals("java.lang.String"));
 
         result = StringUtils.getClassName((new String[0][0][0]).getClass());
-        assertTrue(result.equals(new String("java.lang.String[][][]")));
+        assertTrue(result.equals("java.lang.String[][][]"));
 
     }
 
@@ -157,10 +157,10 @@ public class StringUtilsTest extends TestCase {
         vector.add(new Character('b'));
 
         result = StringUtils.getCommaListFromVector(vector);
-        assertTrue(result.equals(new String("a, b")));
+        assertTrue(result.equals("a, b"));
 
         result = StringUtils.getCommaListFromVector(new Vector());
-        assertTrue(result.equals(new String("")));
+        assertTrue(result.equals(""));
 
     }
 
@@ -179,7 +179,7 @@ public class StringUtilsTest extends TestCase {
             reader = StringUtils.getContentAsReader(myFile.toURL());
             final BufferedReader bf = new BufferedReader(reader);
             assertTrue(bf.readLine().equals(
-                                            new String("file name : Test.txt")));
+                                            "file name : Test.txt"));
 
         }
 
@@ -195,7 +195,7 @@ public class StringUtilsTest extends TestCase {
         pw.flush();
 
         result = StringUtils.getContentAsString(myFile.toURL());
-        assertTrue(result.equals(new String("file name : Test.txt" +
+        assertTrue(result.equals(("file name : Test.txt" +
                                             lineSeparator)));
 
     }
@@ -204,27 +204,27 @@ public class StringUtilsTest extends TestCase {
         String result;
 
         result = StringUtils.getSafeString("test-string");
-        assertTrue(result.equals(new String("\"test-string\"" +
+        assertTrue(result.equals(("\"test-string\"" +
                                             lineSeparator)));
         //checks for an empty string ..
         result = StringUtils.getSafeString("");
-        assertTrue(result.equals(new String("\"\"" +
+        assertTrue(result.equals(("\"\"" +
                                             lineSeparator)));
 
         result = StringUtils.getSafeString("\n");
-        assertTrue(result.equals(new String("\"\"" +
+        assertTrue(result.equals(("\"\"" +
                                             lineSeparator)));
 
         result = StringUtils.getSafeString("\r");
-        assertTrue(result.equals(new String("\"\"" +
+        assertTrue(result.equals(("\"\"" +
                                             lineSeparator)));
 
         result = StringUtils.getSafeString("\\n");
-        assertTrue(result.equals(new String("\"\\\\n\"" +
+        assertTrue(result.equals(("\"\\\\n\"" +
                                             lineSeparator)));
 
         result = StringUtils.getSafeString("\\r");
-        assertTrue(result.equals(new String("\"\\\\r\"" +
+        assertTrue(result.equals(("\"\\\\r\"" +
                                             lineSeparator)));
 
     }
@@ -232,25 +232,25 @@ public class StringUtilsTest extends TestCase {
     public void testGetValidIdentifierName(){
 
         assertTrue((StringUtils.getValidIdentifierName("identifier")).equals(
-                                                                             new String("identifier")));
+                                                                             "identifier"));
 
         assertTrue((StringUtils.getValidIdentifierName("0identifier")).equals(
-                                                                              new String("_identifier")));
+                                                                              "_identifier"));
 
         assertTrue((StringUtils.getValidIdentifierName("i0dentifier")).equals(
-                                                                              new String("i0dentifier")));
+                                                                              "i0dentifier"));
 
         assertTrue((StringUtils.getValidIdentifierName("$identifier")).equals(
-                                                                              new String("$identifier")));
+                                                                              "$identifier"));
 
         assertTrue((StringUtils.getValidIdentifierName("identi$fier")).equals(
-                                                                              new String("identi$fier")));
+                                                                              "identi$fier"));
 
         assertTrue((StringUtils.getValidIdentifierName(" identifier")).equals(
-                                                                              new String("_identifier")));
+                                                                              "_identifier"));
 
         assertTrue((StringUtils.getValidIdentifierName("identi fier")).equals(
-                                                                              new String("identi_fier")));
+                                                                              "identi_fier"));
 
         // checks for a empty string which should return null
         assertNull(StringUtils.getValidIdentifierName(""));

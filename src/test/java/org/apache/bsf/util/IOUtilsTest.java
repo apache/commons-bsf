@@ -95,7 +95,7 @@ public class IOUtilsTest extends TestCase {
         final StringReader sr = new StringReader(sw.toString());
         result = IOUtils.getStringFromReader(sr);
 
-        assertTrue(result.equals(new String("IOUtilsTest" + lineSeparator)));
+        assertTrue(result.equals(("IOUtilsTest" + lineSeparator)));
 
         final File myFile = File.createTempFile("Test", "txt");
 
@@ -107,7 +107,7 @@ public class IOUtilsTest extends TestCase {
         final FileReader fr = new FileReader(myFile);
         result = IOUtils.getStringFromReader(fr);
 
-        assertTrue(result.equals(new String("file name : Test.txt" +
+        assertTrue(result.equals(("file name : Test.txt" +
                                             lineSeparator)));
     }
 }

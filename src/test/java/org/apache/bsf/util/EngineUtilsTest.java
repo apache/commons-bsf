@@ -44,7 +44,7 @@ public class EngineUtilsTest extends TestCase {
 
     public void testCallBeanMethod() {
 
-        Object[] args = new Object[]{new String("MoreConfirmation")};
+        Object[] args = new Object[]{"MoreConfirmation"};
         final TestBean bean = new TestBean("TestBean");
 
         try {
@@ -65,7 +65,7 @@ public class EngineUtilsTest extends TestCase {
 
         assertEquals("MoreConfirmation",bean.getStringValue());
 
-        args = new Object[]{new String("aString"),new Integer(1)};
+        args = new Object[]{"aString",new Integer(1)};
 
         try {
             EngineUtils.callBeanMethod(bean,"setValue",args);
@@ -90,7 +90,7 @@ public class EngineUtilsTest extends TestCase {
 
     public void testCreateBean() throws BSFException {
 
-        final Object args[] = new Object[]{ new String("test") };
+        final Object args[] = new Object[]{ "test" };
 
         try {
             result = EngineUtils.createBean("org.apache.bsf.util.TestBean", args);
