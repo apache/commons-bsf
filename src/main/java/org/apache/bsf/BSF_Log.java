@@ -28,7 +28,7 @@ import  java.lang.reflect.*;
  * forward the message.
 
  *  Therefore, if Apache's common logging is available, then it is employed.
- * If Apache's commons logging is <em>not</em> available then a <em>no-op</em> behaviour
+ * If Apache's commons logging is <em>not</em> available then a <em>no-op</em> behavior
  is employed, modelled after <code>org.apache.commons.logging.impl.NoOpLog</code>.
 
    @author Rony G. Flatscher, 2006-12-08
