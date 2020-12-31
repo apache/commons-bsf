@@ -91,7 +91,7 @@ public class TypeConvertorRegistry {
         } else if (to == Byte.class || to == byte.class) {
           return Byte.valueOf (str);
         } else if (to == Character.class || to == char.class) {
-          return new Character (str.charAt (0));
+          return Character.valueOf (str.charAt (0));
         } else if (to == Short.class || to == short.class) {
           return Short.valueOf (str);
         } else if (to == Integer.class || to == int.class) {
@@ -115,7 +115,7 @@ public class TypeConvertorRegistry {
                "} else if (to == Byte.class || to == byte.class) {\n" +
                "return Byte.valueOf (str);\n" +
                "} else if (to == Character.class || to == char.class) {\n" +
-               "return new Character (str.charAt (0));\n" +
+               "return Character.valueOf (str.charAt (0));\n" +
                "} else if (to == Short.class || to == short.class) {\n" +
                "return Short.valueOf (str);\n" +
                "} else if (to == Integer.class || to == int.class) {\n" +
