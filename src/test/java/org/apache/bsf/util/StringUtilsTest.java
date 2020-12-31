@@ -153,8 +153,8 @@ public class StringUtilsTest extends TestCase {
         String result;
 
         final Vector vector = new Vector();
-        vector.add(new Character('a'));
-        vector.add(new Character('b'));
+        vector.add(Character.valueOf('a'));
+        vector.add(Character.valueOf('b'));
 
         result = StringUtils.getCommaListFromVector(vector);
         assertTrue(result.equals("a, b"));
