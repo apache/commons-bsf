@@ -57,10 +57,10 @@ import org.apache.bsf.BSFManager;
  */
 
 public class EventAdapterRegistry {
-  private static Hashtable reg = new Hashtable ();
+  private static final Hashtable reg = new Hashtable ();
   private static ClassLoader cl = null;
-  private static String adapterPackage = "org.apache.bsf.util.event.adapters";
-  private static String adapterSuffix = "Adapter";
+  private static final String adapterPackage = "org.apache.bsf.util.event.adapters";
+  private static final String adapterSuffix = "Adapter";
   private static boolean dynamic = true;
 
   public static Class lookup (final Class listenerType) {

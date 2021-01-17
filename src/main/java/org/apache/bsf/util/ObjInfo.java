@@ -25,8 +25,8 @@ package org.apache.bsf.util;
  */
 public class ObjInfo
 {
-  static private String QUOTE_CHARS = "\'\"",
-						EXEC_CHARS  = "(=";
+     static private final String QUOTE_CHARS = "\'\"";
+     static private final String EXEC_CHARS  = "(=";
 		 public  String objName;
 		 public  Class  objClass;
 

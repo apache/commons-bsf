@@ -40,16 +40,16 @@ import org.apache.bsf.util.IOUtils;
  * @author   Sam Ruby
  */
 public class Main {
-    private static String ARG_IN = "-in";
-    private static String ARG_LANG = "-lang";
-    private static String ARG_MODE = "-mode";
-    private static String ARG_OUT = "-out";
-    private static String ARG_VAL_EVAL = "eval";
-    private static String ARG_VAL_EXEC = "exec";
-    private static String ARG_VAL_COMPILE = "compile";
-    private static String DEFAULT_IN_FILE_NAME = "<STDIN>";
-    private static String DEFAULT_MODE = ARG_VAL_EVAL;
-    private static String DEFAULT_CLASS_NAME = "Test";
+    private static final String ARG_IN = "-in";
+    private static final String ARG_LANG = "-lang";
+    private static final String ARG_MODE = "-mode";
+    private static final String ARG_OUT = "-out";
+    private static final String ARG_VAL_EVAL = "eval";
+    private static final String ARG_VAL_EXEC = "exec";
+    private static final String ARG_VAL_COMPILE = "compile";
+    private static final String DEFAULT_IN_FILE_NAME = "<STDIN>";
+    private static final String DEFAULT_MODE = ARG_VAL_EVAL;
+    private static final String DEFAULT_CLASS_NAME = "Test";
 
     /**
      * Static driver to be able to run BSF scripts from the command line.

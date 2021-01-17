@@ -35,7 +35,7 @@ import java.util.Hashtable;
 
 public class AdapterClassLoader extends ClassLoader
 {
-  private static Hashtable classCache = new Hashtable();
+  private static final Hashtable classCache = new Hashtable();
   private Class c;
 
   // private Log logger = LogFactory.getLog(this.getClass().getName());
