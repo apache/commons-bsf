@@ -1,243 +1,228 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    * Licensed to the Apache Software Foundation (ASF) under one
-    * or more contributor license agreements.  See the NOTICE file
-    * distributed with this work for additional information
-    * regarding copyright ownership.  The ASF licenses this file
-    * to you under the Apache License, Version 2.0 (the
-    * "License"); you may not use this file except in compliance
-    * with the License.  You may obtain a copy of the License at
-    * 
-    *   http://www.apache.org/licenses/LICENSE-2.0
-    * 
-    * Unless required by applicable law or agreed to in writing,
-    * software distributed under the License is distributed on an
-    * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    * KIND, either express or implied.  See the License for the
-    * specific language governing permissions and limitations
-    * under the License.    
+  * Licensed to the Apache Software Foundation (ASF) under one
+  * or more contributor license agreements. See the NOTICE file
+  * distributed with this work for additional information
+  * regarding copyright ownership. The ASF licenses this file
+  * to you under the Apache License, Version 2.0 (the
+  * "License"); you may not use this file except in compliance
+  * with the License. You may obtain a copy of the License at
+  *
+  * http://www.apache.org/licenses/LICENSE-2.0
+  *
+  * Unless required by applicable law or agreed to in writing,
+  * software distributed under the License is distributed on an
+  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  * KIND, either express or implied. See the License for the
+  * specific language governing permissions and limitations
+  * under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-parent</artifactId>
-        <version>35</version>
-    </parent>
+  <parent>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-parent</artifactId>
+    <version>35</version>
+  </parent>
 
-    <groupId>bsf</groupId>
-    <artifactId>bsf</artifactId>
-    <version>2.5.0-SNAPSHOT</version>
-    <name>Apache Commons BSF (Bean Scripting Framework)</name>
-    <url>http://commons.apache.org/proper/commons-bsf</url>
-    <packaging>jar</packaging>
+  <groupId>bsf</groupId>
+  <artifactId>bsf</artifactId>
+  <version>2.5.0-SNAPSHOT</version>
+  <name>Apache Commons BSF (Bean Scripting Framework)</name>
+  <url>http://commons.apache.org/proper/commons-bsf</url>
+  <packaging>jar</packaging>
 
-    <inceptionYear>2002</inceptionYear>
+  <inceptionYear>2002</inceptionYear>
 
-    <properties>
-      <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
-      <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-      <maven.compiler.source>1.3</maven.compiler.source>
-      <maven.compiler.target>1.3</maven.compiler.target>
-      <commons.componentid>bsf</commons.componentid>
-      <commons.module.name>org.apache.commons.bsf</commons.module.name>
-      <commons.release.version>2.4.0</commons.release.version>
-      <commons.release.desc></commons.release.desc>
+  <properties>
+    <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.compiler.source>1.3</maven.compiler.source>
+    <maven.compiler.target>1.3</maven.compiler.target>
+    <commons.componentid>bsf</commons.componentid>
+    <commons.module.name>org.apache.commons.bsf</commons.module.name>
+    <commons.release.version>2.4.0</commons.release.version>
+    <commons.release.desc></commons.release.desc>
 
-      <commons.release.2.version>3.1</commons.release.2.version>
-      <commons.release.2.desc>(Requires Java 5 or later)</commons.release.2.desc>
-      
-      <commons.jira.id>BSF</commons.jira.id>
-      <commons.jira.pid>12310621</commons.jira.pid>
-      <!-- Configuration properties for the OSGi maven-bundle-plugin -->
-      <!--  TODO this is probably wrong -->
-      <commons.osgi.symbolicName>bsf</commons.osgi.symbolicName>
-      <commons.osgi.export>bsf.*;version=${project.version};-noimport:=true</commons.osgi.export>
-      <commons.osgi.import>*</commons.osgi.import>
-      <commons.osgi.dynamicImport />
-      <commons.osgi.private />
-    </properties> 
+    <commons.release.2.version>3.1</commons.release.2.version>
+    <commons.release.2.desc>(Requires Java 5 or later)</commons.release.2.desc>
 
-    <distributionManagement>
-      <site>
-        <id>apache.website</id>
-        <name>Apache Website</name>
-        <url>scp://people.apache.org/www/commons.apache.org/${commons.componentid}/</url>
-      </site>
-    </distributionManagement>
+    <commons.jira.id>BSF</commons.jira.id>
+    <commons.jira.pid>12310621</commons.jira.pid>
+    <!-- Configuration properties for the OSGi maven-bundle-plugin -->
+    <!-- TODO this is probably wrong -->
+    <commons.osgi.symbolicName>bsf</commons.osgi.symbolicName>
+    <commons.osgi.export>bsf.*;version=${project.version};-noimport:=true</commons.osgi.export>
+    <commons.osgi.import>*</commons.osgi.import>
+    <commons.osgi.dynamicImport />
+    <commons.osgi.private />
+  </properties>
 
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
+  <distributionManagement>
+    <site>
+      <id>apache.website</id>
+      <name>Apache Website</name>
+      <url>scp://people.apache.org/www/commons.apache.org/${commons.componentid}/</url>
+    </site>
+  </distributionManagement>
 
-    <organization>
-        <name>The Apache Software Foundation</name>
-        <url>http://www.apache.org/</url>
-    </organization>
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
 
-    <developers>
-      <developer>
-          <id>chuck</id>
-          <name>Chuck Murcko</name>
-          <email>chuck@topsail.org</email>
-      </developer>
-      <developer>
-          <id>victor</id>
-          <name>Victor Orlikowski</name>
-          <email>victor.j.orlikowski@alumni.duke.edu</email>
-      </developer>
-      <developer>
-          <id>rony</id>
-          <name>Rony G. Flatscher</name>
-          <email>rony@apache.org</email>
-      </developer>
-    </developers>
+  <organization>
+    <name>The Apache Software Foundation</name>
+    <url>http://www.apache.org/</url>
+  </organization>
 
-    <contributors>
+  <developers>
+    <developer>
+      <id>chuck</id>
+      <name>Chuck Murcko</name>
+      <email>chuck@topsail.org</email>
+    </developer>
+    <developer>
+      <id>victor</id>
+      <name>Victor Orlikowski</name>
+      <email>victor.j.orlikowski@alumni.duke.edu</email>
+    </developer>
+    <developer>
+      <id>rony</id>
+      <name>Rony G. Flatscher</name>
+      <email>rony@apache.org</email>
+    </developer>
+  </developers>
+
+  <contributors>
 
 
-    </contributors>
+  </contributors>
 
-    <mailingLists>
-        <mailingList>
-            <name>BSF User List</name>
-            <subscribe>
+  <mailingLists>
+    <mailingList>
+      <name>BSF User List</name>
+      <subscribe>
                 user-subscribe@commons.apache.org
             </subscribe>
-            <unsubscribe>
+      <unsubscribe>
                 user-unsubscribe@commons.apache.org
             </unsubscribe>
-            <archive>
+      <archive>
                 http://mail-archives.apache.org/mod_mbox/commons-user/
             </archive>
-        </mailingList>
-        <mailingList>
-            <name>BSF Developer List</name>
-            <subscribe>dev-subscribe@commons.apache.org</subscribe>
-            <unsubscribe>
+    </mailingList>
+    <mailingList>
+      <name>BSF Developer List</name>
+      <subscribe>dev-subscribe@commons.apache.org</subscribe>
+      <unsubscribe>
                 dev-unsubscribe@commons.apache.org
             </unsubscribe>
-            <archive>
+      <archive>
                 http://mail-archives.apache.org/mod_mbox/commons-dev/
             </archive>
-        </mailingList>
-    </mailingLists>
+    </mailingList>
+  </mailingLists>
 
-    <issueManagement>
-        <system>JIRA</system>
-        <url>http://issues.apache.org/jira/browse/BSF</url>
-    </issueManagement>
+  <issueManagement>
+    <system>JIRA</system>
+    <url>http://issues.apache.org/jira/browse/BSF</url>
+  </issueManagement>
 
-    <scm>
-        <connection>scm:git:https://gitbox.apache.org/repos/asf/commons-bsf</connection>
-        <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/commons-bsf</developerConnection>
-        <url>https://gitbox.apache.org/repos/asf/commons-bsf</url>
-    </scm>
+  <scm>
+    <connection>scm:git:https://gitbox.apache.org/repos/asf/commons-bsf</connection>
+    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/commons-bsf</developerConnection>
+    <url>https://gitbox.apache.org/repos/asf/commons-bsf</url>
+  </scm>
 
-    <build>
-          <plugins>
-            <plugin>
-               <!-- Temporary hack to allow compilation; remove when engine dependencies have been sorted -->
-               <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <!-- engine dependencies have not yet been sorted -->
-                    <excludes>
-                        <exclude>org/apache/bsf/engines/netrexx/**</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-jar-plugin</artifactId>
-              <executions>
-                <execution>
-                  <goals>
-                    <goal>test-jar</goal>
-                  </goals>
-                </execution>
-              </executions>
-            </plugin>
-            <plugin>
-               <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>**/Abstract*</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+  <build>
+    <plugins>
+      <plugin>
+        <!-- Temporary hack to allow compilation; remove when engine dependencies have been sorted -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <!-- engine dependencies have not yet been sorted -->
+          <excludes>
+            <exclude>org/apache/bsf/engines/netrexx/**</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>test-jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>**/Abstract*</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
-    <reporting>
-        <plugins>
-            <!--
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>jardiff-maven-plugin</artifactId>
-                <configuration>
-                  <artifacts>
-                    <artifact>
-                      <version>5.2</version>
-                    </artifact>
-                    <artifact>
-                      <groupId>bcel</groupId>
-                      <version>5.1</version>
-                    </artifact>
-                  </artifacts>
-                </configuration>
-            </plugin>
-            -->
+  <reporting>
+    <plugins>
+      <!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>jardiff-maven-plugin</artifactId> <configuration> <artifacts> 
+        <artifact> <version>5.2</version> </artifact> <artifact> <groupId>bcel</groupId> <version>5.1</version> </artifact> </artifacts> 
+        </configuration> </plugin> -->
 
-        </plugins>
-    </reporting>
+    </plugins>
+  </reporting>
 
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>commons-jexl</groupId>
-            <artifactId>commons-jexl</artifactId>
-            <version>1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>rhino</groupId>
-            <artifactId>js</artifactId>
-            <version>1.7R2</version>
-        </dependency>
-        <dependency>
-            <groupId>jython</groupId>
-            <artifactId>jython</artifactId>
-            <version>2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>xalan</groupId>
-            <artifactId>xalan</artifactId>
-            <version>2.7.0</version>
-        </dependency>
-        <dependency>
-            <groupId>jacl</groupId>
-            <artifactId>jacl</artifactId>
-            <version>1.2.6</version>
-        </dependency>
-        <dependency>
-            <groupId>jacl</groupId>
-            <artifactId>tcljava</artifactId>
-            <version>1.2.6</version>
-        </dependency>
-    </dependencies>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.2</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-jexl</groupId>
+      <artifactId>commons-jexl</artifactId>
+      <version>1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>rhino</groupId>
+      <artifactId>js</artifactId>
+      <version>1.7R2</version>
+    </dependency>
+    <dependency>
+      <groupId>jython</groupId>
+      <artifactId>jython</artifactId>
+      <version>2.1</version>
+    </dependency>
+    <dependency>
+      <groupId>xalan</groupId>
+      <artifactId>xalan</artifactId>
+      <version>2.7.0</version>
+    </dependency>
+    <dependency>
+      <groupId>jacl</groupId>
+      <artifactId>jacl</artifactId>
+      <version>1.2.6</version>
+    </dependency>
+    <dependency>
+      <groupId>jacl</groupId>
+      <artifactId>tcljava</artifactId>
+      <version>1.2.6</version>
+    </dependency>
+  </dependencies>
 
 </project>
