@@ -1,3 +1,20 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ 
 /* A silly little calculator implemented in Object Rexx using
    Java components for the UI. ("bsf\samples\bsh\calculator.js" served as an example)
 
@@ -5,23 +22,6 @@
    BSF4Rexx (FOSS): <http://wi.wu-wien.ac.at/rgf/rexx/bsf4rexx/current/> or
                     eventually at <https://sourceforge.net/projects/bsf4rexx>
 
-   license:
-
-    ------------------------ Apache Version 2.0 license -------------------------
-       Copyright (C) 2001-2006 Rony G. Flatscher
-
-       Licensed under the Apache License, Version 2.0 (the "License");
-       you may not use this file except in compliance with the License.
-       You may obtain a copy of the License at
-
-           http://www.apache.org/licenses/LICENSE-2.0
-
-       Unless required by applicable law or agreed to in writing, software
-       distributed under the License is distributed on an "AS IS" BASIS,
-       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-       See the License for the specific language governing permissions and
-       limitations under the License.
-    -----------------------------------------------------------------------------
 */
 
 if      BsfInvokedBy()=1 then say "This Rexx program was invoked by Java!"

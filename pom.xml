@@ -25,7 +25,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>35</version>
+    <version>52</version>
   </parent>
 
   <groupId>bsf</groupId>
@@ -46,6 +46,8 @@
     <commons.module.name>org.apache.commons.bsf</commons.module.name>
     <commons.release.version>2.4.0</commons.release.version>
     <commons.release.desc></commons.release.desc>
+    <spotbugs.plugin.version>4.2.0</spotbugs.plugin.version>
+    <spotbugs.impl.version>4.2.0</spotbugs.impl.version>    
 
     <commons.release.2.version>3.1</commons.release.2.version>
     <commons.release.2.desc>(Requires Java 5 or later)</commons.release.2.desc>
@@ -142,6 +144,8 @@
   </scm>
 
   <build>
+    <!-- japicmp:cmp needs package to work from a jar -->
+    <defaultGoal>clean package apache-rat:check japicmp:cmp checkstyle:check javadoc:javadoc</defaultGoal>
     <plugins>
       <plugin>
         <!-- Temporary hack to allow compilation; remove when engine dependencies have been sorted -->
@@ -166,13 +170,16 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <excludes>
-            <exclude>**/Abstract*</exclude>
-          </excludes>
-        </configuration>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <version>${spotbugs.plugin.version}</version>
+        <dependencies>
+          <dependency>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs</artifactId>
+            <version>${spotbugs.impl.version}</version>
+         </dependency>
+        </dependencies>
       </plugin>
     </plugins>
   </build>
