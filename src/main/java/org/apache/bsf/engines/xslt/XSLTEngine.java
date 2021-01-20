@@ -58,7 +58,7 @@ public class XSLTEngine extends BSFEngineImpl {
     Transformer transformer;
 
     // Log logger = LogFactory.getLog(this.getClass().getName());
-    BSF_Log logger = null;
+    BSF_Log logger;
 
     public XSLTEngine ()
     {
@@ -98,7 +98,7 @@ public class XSLTEngine extends BSFEngineImpl {
     final String styleBaseURI = (sbObj == null) ? "." : sbObj.toString ();
 
     // Locate the stylesheet.
-    StreamSource styleSource;
+    final StreamSource styleSource;
 
         styleSource =
             new StreamSource(new StringReader(oscript.toString ()));

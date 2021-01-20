@@ -28,7 +28,7 @@ import java.util.Hashtable;
  * @author   Sanjiva Weerawarana
  */
 class BSFClassLoader extends ClassLoader {
-  Hashtable cache = new Hashtable ();
+  final Hashtable cache = new Hashtable ();
   String tempDir = ".";
 
   // note the non-public constructor - this is only avail within

@@ -31,7 +31,7 @@ import java.io.StringWriter;
  */
 public class IOUtils {
   // debug flag - generates debug stuff if true
-  static boolean debug = false;
+  static boolean debug;
 
   //////////////////////////////////////////////////////////////////////////
 
