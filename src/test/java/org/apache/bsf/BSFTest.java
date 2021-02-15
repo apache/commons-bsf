@@ -36,7 +36,7 @@ import org.apache.bsf.util.StringUtilsTest;
  */
 public class BSFTest extends BSFEngineTestTmpl {
     public static String[] testNames;
-    
+
     public BSFTest(final String name) {
         super(name);
     }
@@ -49,7 +49,7 @@ public class BSFTest extends BSFEngineTestTmpl {
         for (int i = 0; i < suite.testCount(); i++) {
             System.out.print(testNames[i]);
             results = runner.doRun(suite.testAt(i), false);
-            System.out.println("Results: " + results.runCount() + 
+            System.out.println("Results: " + results.runCount() +
                                " tests run, " + results.failureCount() +
                                " failures, " + results.errorCount() +
                                " errors.");
@@ -57,11 +57,11 @@ public class BSFTest extends BSFEngineTestTmpl {
         }
     }
 
-    public static Test suite() { 
+    public static Test suite() {
         /*
          * Please add testcases here as needed.
          */
-        final TestSuite suite = new TestSuite(); 
+        final TestSuite suite = new TestSuite();
         testNames = new String [8];
 
         suite.addTestSuite(BSFTest.class);
@@ -80,14 +80,14 @@ public class BSFTest extends BSFEngineTestTmpl {
         testNames[6] = "IOUtils Test";
         suite.addTestSuite(EngineUtilsTest.class);
         testNames[7] = "EngineUtils Test";
-        
+
         return suite;
     }
 
     public void setUp() {
         super.setUp();
-        BSFManager.registerScriptingEngine("fakeEngine", 
-                                           FakeEngine.class.getName(), 
+        BSFManager.registerScriptingEngine("fakeEngine",
+                                           FakeEngine.class.getName(),
                                            new String[] { "fakeEng", "fE" });
     }
 
@@ -97,7 +97,7 @@ public class BSFTest extends BSFEngineTestTmpl {
 
     public void testGetLangFromFileName() {
         try {
-            assertEquals("fakeEngine", 
+            assertEquals("fakeEngine",
                          BSFManager.getLangFromFilename("Test.fE"));
         }
         catch (final Exception e) {
@@ -120,14 +120,14 @@ public class BSFTest extends BSFEngineTestTmpl {
         Boolean retval = Boolean.FALSE;
 
         try {
-            retval = (Boolean) bsfManager.eval("fakeEngine", 
+            retval = (Boolean) bsfManager.eval("fakeEngine",
                                                "Test.fE", 0, 0,
                                                "Fake Syntax");
         }
         catch (final Exception e) {
             fail(failMessage("eval() test failed", e));
         }
-        
+
         assertTrue(retval.booleanValue());
     }
 

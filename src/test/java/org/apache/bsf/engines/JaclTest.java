@@ -54,7 +54,7 @@ public class JaclTest extends BSFEngineTestTmpl {
 
         assertEquals("PASSED", getTmpOutStr());
     }
-    
+
     public void testEval() {
         Integer retval = null;
 
@@ -146,7 +146,7 @@ public class JaclTest extends BSFEngineTestTmpl {
 
         assertNull(bar);
     }
-    
+
     public void testDeclareBean() {
         final Integer foo = new Integer(1);
         Integer bar = null;

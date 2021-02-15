@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -106,7 +106,7 @@ public class CFDriver
         catch (final FileNotFoundException e)
         {
           printError("Cannot open input file: " + inFile);
-            
+
           return;
         }
       }
@@ -124,7 +124,7 @@ public class CFDriver
         catch (final IOException e)
         {
           printError("Cannot open output file: " + outFile);
-          
+
           return;
         }
       }
@@ -142,7 +142,7 @@ public class CFDriver
         catch (final NumberFormatException nfe)
         {
             printError("Not a valid integer: " + maxLine);
-            
+
             return;
         }
       }
@@ -156,19 +156,19 @@ public class CFDriver
         catch (final NumberFormatException nfe)
         {
           printError("Not a valid integer: " + indStep);
-          
+
           return;
         }
       }
-        
+
         if (delim != null) {
             cf.setDelimiters(delim);
         }
-        
+
         if (sDelim != null) {
             cf.setStickyDelimiters(sDelim);
         }
-            
+
         cf.formatCode(in, out);
     } else {
         printHelp();

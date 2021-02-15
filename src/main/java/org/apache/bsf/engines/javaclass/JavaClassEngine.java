@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,8 +25,8 @@ import org.apache.bsf.util.BSFEngineImpl;
 import org.apache.bsf.util.MethodUtils;
 
 /**
- * This is the interface to scripts consisting of Java objects from the 
- * Bean Scripting Framework. 
+ * This is the interface to scripts consisting of Java objects from the
+ * Bean Scripting Framework.
  *
  * @author   Sanjiva Weerawarana
  */
@@ -34,10 +34,10 @@ public class JavaClassEngine extends BSFEngineImpl {
   /**
    * call the named method of the given object. If object is an instance
    * of Class, then the call is a static call on that object. If not, its
-   * an instance method call or a static call (as per Java) on the given 
+   * an instance method call or a static call (as per Java) on the given
    * object.
    */
-  public Object call (final Object object, final String method, final Object[] args) 
+  public Object call (final Object object, final String method, final Object[] args)
                                                         throws BSFException {
     // determine arg types
     Class[] argTypes = null;
@@ -66,7 +66,7 @@ public class JavaClassEngine extends BSFEngineImpl {
    * This is used by an application to evaluate an object containing
    * some expression - clearly not possible for compiled code ..
    */
-  public Object eval (final String source, final int lineNo, final int columnNo, 
+  public Object eval (final String source, final int lineNo, final int columnNo,
               final Object oscript) throws BSFException {
     throw new BSFException (BSFException.REASON_UNSUPPORTED_FEATURE,
                 "Java bytecode engine can't evaluate expressions");

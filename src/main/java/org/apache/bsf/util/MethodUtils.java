@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,7 +26,7 @@ import java.util.Vector;
 /**
  * This file is a collection of reflection utilities for dealing with
  * methods and constructors.
- * 
+ *
  * @author   Sanjiva Weerawarana
  * @author   Joseph Kesselman
  */
@@ -45,12 +45,12 @@ public class MethodUtils {
     a single winner it is considered the Most Specific Method and
     hence the one that should be invoked.  Otherwise, a
     NoSuchMethodException is thrown.
-    
+
     PERFORMANCE VERSUS ARCHITECTURE: Arguably, this should "have-a"
     Vector. But the code is 6% smaller, and possibly faster, if we
     code it as "is-a" Vector. Since it's an inner class, nobody's
     likely to abuse the privilage.
-    
+
     Note: "Static" in the case of an inner class means "Does not
     reference instance data in the outer class", and is required since
     our caller is a static method. */
@@ -125,20 +125,20 @@ public class MethodUtils {
   }
 
   /** Convenience method: Test an entire parameter-list/argument-list pair
-    for isMethodConvertable(), qv. 
+    for isMethodConvertable(), qv.
     */
   static private boolean areMethodConvertable(final Class[] parms,final Class[] args)
   {
     if(parms.length!=args.length) {
         return false;
     }
-    
+
     for(int i=0;i<parms.length;++i) {
         if(!isMethodConvertable(parms[i],args[i])) {
             return false;
         }
     }
-    
+
     return true;
   }
   /** Internal subroutine for getEntryPoint(): Format arguments as a
@@ -243,7 +243,7 @@ public class MethodUtils {
    * @param methodName  Name of method to invoke, or null for constructor.
    *                    Only Public methods will be accepted.
    * @param argTypes    Classes of intended arguments.  Note that primitives
-   *                    must be specified via their TYPE equivalents, 
+   *                    must be specified via their TYPE equivalents,
    *                    rather than as their wrapper classes -- Integer.TYPE
    *                    rather than Integer. "null" may be passed in as an
    *                    indication that you intend to invoke the method with
@@ -260,15 +260,15 @@ public class MethodUtils {
   static private Object getEntryPoint(final Class targetClass,
                                       final String methodName,
                                       final Class[] argTypes,
-                                      final boolean isStaticReference) 
+                                      final boolean isStaticReference)
        throws SecurityException, NoSuchMethodException
   {
     // 15.11.1: OBTAIN STARTING CLASS FOR SEARCH
     Object m=null;
-    
+
     // 15.11.2 DETERMINE ARGUMENT SIGNATURE
     // (Passed in as argTypes array.)
-    
+
     // Shortcut: If an exact match exists, return it.
     try {
       if(methodName!=null)
@@ -277,7 +277,7 @@ public class MethodUtils {
           if(isStaticReference &&
              !Modifier.isStatic(entryGetModifiers(m)) )
             {
-              throw 
+              throw
                 new NoSuchMethodException (callToString (targetClass,
                                                          methodName,
                                                          argTypes,
@@ -288,12 +288,12 @@ public class MethodUtils {
         } else {
         return targetClass.getConstructor (argTypes);
     }
-          
+
     } catch (final NoSuchMethodException e) {
       // no-args has no alternatives!
       if(argTypes==null || argTypes.length==0)
       {
-        throw 
+        throw
           new NoSuchMethodException (callToString (targetClass,
                                                    methodName,
                                                    argTypes,
@@ -302,10 +302,10 @@ public class MethodUtils {
       }
       // Else fall through.
     }
-    
+
     // Well, _that_ didn't work. Time to search for the Most Specific
     // matching function. NOTE that conflicts are possible!
-    
+
     // 15.11.2.1 ACCESSIBLE: We apparently need to gather from two
     // sources to be sure we have both instance and static methods.
     Object[] methods;
@@ -344,7 +344,7 @@ public class MethodUtils {
     // May throw NoSuchMethodException; we pass in info needed to
     // create a useful exception
     m=best.getMostSpecific(targetClass,methodName,argTypes,isStaticReference);
-  
+
     // 15.11.3 APPROPRIATE: Class invocation can call only static
     // methods. Note that the defined order of evaluation permits a
     // call to be resolved to an inappropriate method and then
@@ -426,7 +426,7 @@ public class MethodUtils {
     type. Note that class.isAssignable() is _not_ a complete test!
     (This method is not needed by getMethod() or getConstructor(), but
     is provided as a convenience for other users.)
-    
+
     parm: The type given in the method's signature.
     arg: The type we want to pass in.
 
@@ -489,7 +489,7 @@ public class MethodUtils {
      {
         return false;             // Unequal array depth
     }
-    
+
     // Despite its name, the 1.1.6 docs say that this function does
     // NOT return true for all legal ASSIGNMENT CONVERSIONS
     // (5.2):
@@ -511,11 +511,11 @@ public class MethodUtils {
        arg.equals(Void.TYPE) || arg.equals(Boolean.TYPE)) {
         return false;
     }
-    
+
     final Class[] primTypes={ Character.TYPE, Byte.TYPE, Short.TYPE, Integer.TYPE,
                         Long.TYPE, Float.TYPE, Double.TYPE };
     int parmscore,argscore;
-    
+
     for(parmscore=0;parmscore<primTypes.length;++parmscore) {
         if (parm.equals(primTypes[parmscore])) {
             break;
@@ -525,7 +525,7 @@ public class MethodUtils {
      {
         return false;             // Off the end
     }
-    
+
     for(argscore=0;argscore<primTypes.length;++argscore) {
         if (arg.equals(primTypes[argscore])) {
             break;
@@ -535,7 +535,7 @@ public class MethodUtils {
      {
         return false;             // Off the end
     }
-    
+
     // OK if ordered AND NOT char-to-smaller-than-int
     return (argscore<parmscore && (argscore!=0 || parmscore>2) );
   }

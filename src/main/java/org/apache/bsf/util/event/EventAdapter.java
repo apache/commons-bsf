@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,9 +24,9 @@ package org.apache.bsf.util.event;
  * that allows setting the event processor delegated to process the event
  * after the adapter has received the event from the event source. The
  * task of any event adapter is to receive the event and then delegate it
- * to the event processor assigned to it, using either 
+ * to the event processor assigned to it, using either
  * eventProcessor.processEvent or eventProcessor.processExceptionableEvent.
- * 
+ *
  * @author   Sanjiva Weerawarana
  * @author   Matthew J. Duftler
  * @see      EventProcessor

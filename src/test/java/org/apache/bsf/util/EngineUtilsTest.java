@@ -37,7 +37,7 @@ public class EngineUtilsTest extends TestCase {
     public EngineUtilsTest(final String name) {
         super(name);
     }
-    
+
     protected void setUp() throws Exception {
         super.setUp();
     }

@@ -52,7 +52,7 @@ public abstract class BSFEngineTestTmpl extends TestCase {
         System.setOut(sysOut);
         resetTmpOut();
     }
-    
+
     protected String getTmpOutStr() {
         return tmpBaos.toString();
     }
@@ -60,7 +60,7 @@ public abstract class BSFEngineTestTmpl extends TestCase {
     protected void resetTmpOut() {
         tmpBaos.reset();
     }
-    
+
     protected String failMessage(final String failure, final Exception e) {
         String message = failure;
         message += "\nReason:\n";

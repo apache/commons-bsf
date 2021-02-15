@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -45,13 +45,13 @@ public class JaclEngine extends BSFEngineImpl {
   private Interp interp;
 
   /**
-   * 
+   *
    * @param method The name of the method to call.
    * @param args an array of arguments to be
    * passed to the extension, which may be either
    * Vectors of Nodes, or Strings.
    */
-  public Object call (final Object obj, final String method, final Object[] args) 
+  public Object call (final Object obj, final String method, final Object[] args)
                                                         throws BSFException {
     final StringBuffer tclScript = new StringBuffer (method);
     if (args != null) {
@@ -74,7 +74,7 @@ public class JaclEngine extends BSFEngineImpl {
    * This is used by an application to evaluate a string containing
    * some expression.
    */
-  public Object eval (final String source, final int lineNo, final int columnNo, 
+  public Object eval (final String source, final int lineNo, final int columnNo,
               final Object oscript) throws BSFException {
     final String script = oscript.toString ();
     try {
@@ -97,9 +97,9 @@ public class JaclEngine extends BSFEngineImpl {
     }
 
       return result;
-    } catch (final TclException e) { 
+    } catch (final TclException e) {
       throw new BSFException (BSFException.REASON_EXECUTION_ERROR,
-                  "error while eval'ing Jacl expression: " + 
+                  "error while eval'ing Jacl expression: " +
                   interp.getResult (), e);
     }
   }

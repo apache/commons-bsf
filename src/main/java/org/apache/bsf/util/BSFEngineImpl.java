@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,8 +27,8 @@ import org.apache.bsf.BSFManager;
 
 /**
  * This is a base implementation of the BSFEngine interface which
- * engine implementations may choose to extend to get the basic 
- * methods of the interface implemented. 
+ * engine implementations may choose to extend to get the basic
+ * methods of the interface implemented.
  * <p>
  *
  * @author   Sanjiva Weerawarana
@@ -48,7 +48,7 @@ public abstract class BSFEngineImpl implements BSFEngine {
      * Default impl of apply - calls eval ignoring parameters and returns
      * the result.
      */
-    public Object apply(final String source, final int lineNo, final int columnNo, 
+    public Object apply(final String source, final int lineNo, final int columnNo,
                         final Object funcBody, final Vector paramNames, final Vector arguments)
         throws BSFException {
         return eval(source, lineNo, columnNo, funcBody);
@@ -58,7 +58,7 @@ public abstract class BSFEngineImpl implements BSFEngine {
      * Default impl of compileApply - calls compileExpr ignoring parameters.
      */
     public void compileApply(final String source, final int lineNo, final int columnNo,
-                             final Object funcBody, final Vector paramNames, 
+                             final Object funcBody, final Vector paramNames,
                              final Vector arguments, final CodeBuffer cb)
         throws BSFException {
         compileExpr(source, lineNo, columnNo, funcBody, cb);
@@ -71,10 +71,10 @@ public abstract class BSFEngineImpl implements BSFEngine {
     public void compileExpr(final String source, final int lineNo, final int columnNo,
                             final Object expr, final CodeBuffer cb) throws BSFException {
         ObjInfo bsfInfo = cb.getSymbol("bsf");
-        
+
         if (bsfInfo == null) {
             bsfInfo = new ObjInfo(BSFManager.class, "bsf");
-            cb.addFieldDeclaration("org.apache.bsf.BSFManager bsf = " + 
+            cb.addFieldDeclaration("org.apache.bsf.BSFManager bsf = " +
                                    "new org.apache.bsf.BSFManager();");
             cb.putSymbol("bsf", bsfInfo);
         }
@@ -90,9 +90,9 @@ public abstract class BSFEngineImpl implements BSFEngine {
             cb.addServiceMethodStatement(oldRet.objName + ";");
         }
 
-        cb.setFinalServiceMethodStatement(new ObjInfo(Object.class, 
+        cb.setFinalServiceMethodStatement(new ObjInfo(Object.class,
                                                       evalString));
-        
+
         cb.addServiceMethodException("org.apache.bsf.BSFException");
     }
 
@@ -101,13 +101,13 @@ public abstract class BSFEngineImpl implements BSFEngine {
      * manager, and execute the script.
      */
     public void compileScript(final String source, final int lineNo, final int columnNo,
-                              final Object script, final CodeBuffer cb) 
+                              final Object script, final CodeBuffer cb)
         throws BSFException {
         ObjInfo bsfInfo = cb.getSymbol("bsf");
-        
+
         if (bsfInfo == null) {
             bsfInfo = new ObjInfo(BSFManager.class, "bsf");
-            cb.addFieldDeclaration("org.apache.bsf.BSFManager bsf = " + 
+            cb.addFieldDeclaration("org.apache.bsf.BSFManager bsf = " +
                                    "new org.apache.bsf.BSFManager();");
             cb.putSymbol("bsf", bsfInfo);
         }
@@ -130,7 +130,7 @@ public abstract class BSFEngineImpl implements BSFEngine {
 
     public void declareBean(final BSFDeclaredBean bean) throws BSFException {
         throw new BSFException(BSFException.REASON_UNSUPPORTED_FEATURE,
-                               "language " + lang + 
+                               "language " + lang +
                                " does not support declareBean(...).");
     }
 
@@ -151,13 +151,13 @@ public abstract class BSFEngineImpl implements BSFEngine {
     }
 
     /**
-     * initialize the engine; called right after construction by 
+     * initialize the engine; called right after construction by
      * the manager. Declared beans are simply kept in a vector and
      * that's it. Subclasses must do whatever they want with it.
      */
     public void initialize(final BSFManager mgr, final String lang, final Vector declaredBeans)
         throws BSFException {
-        
+
         this.mgr = mgr;
         this.lang = lang;
         this.declaredBeans = declaredBeans;
@@ -178,27 +178,27 @@ public abstract class BSFEngineImpl implements BSFEngine {
     public void propertyChange(final PropertyChangeEvent e) {
         final String name = e.getPropertyName();
         final Object value = e.getNewValue();
-        
+
         if (name.equals("classPath")) {
             classPath = (String) value;
-        } 
+        }
         else if (name.equals("tempDir")) {
             tempDir = (String) value;
-        } 
+        }
         else if (name.equals("classLoader")) {
             classLoader = (ClassLoader) value;
         }
     }
-    
+
     public void terminate() {
         mgr = null;
         declaredBeans = null;
         classLoader = null;
     }
-    
+
     public void undeclareBean(final BSFDeclaredBean bean) throws BSFException {
         throw new BSFException(BSFException.REASON_UNSUPPORTED_FEATURE,
-                               "language " + lang + 
+                               "language " + lang +
                                " does not support undeclareBean(...).");
     }
 }

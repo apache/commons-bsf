@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,7 +25,7 @@ import java.util.Hashtable;
  * The <em>TypeConvertorRegistry</em> is the registry of type convertors.
  * It has lookup and register capabilities based on the types to be
  * converted as well as by some object key.
- * 
+ *
  * @author   Sanjiva Weerawarana
  * @author   Matthew J. Duftler
  * @see      TypeConvertorRegistry
@@ -41,7 +41,7 @@ public class TypeConvertorRegistry {
       public Object convert (final Class from, final Class to, final Object obj) {
           return obj;
       }
-        
+
       public String getCodeGenString() {
         return "(Class from, Class to, Object obj) {\n" +
                "return obj;\n" +
@@ -72,7 +72,7 @@ public class TypeConvertorRegistry {
       public Object convert (final Class from, final Class to, final Object obj) {
           return (obj == null) ? "(null)" : obj.toString ();
       }
-        
+
         public String getCodeGenString() {
         return "(Class from, Class to, Object obj) {\n" +
                "return (obj == null) ? \"(null)\" : obj.toString ();\n" +
@@ -80,7 +80,7 @@ public class TypeConvertorRegistry {
         }
     };
     register (Object.class, String.class, tc);
-    
+
     // convert strings to various primitives (both their object versions
     // and wrappers for primitive versions)
     tc = new TypeConvertor () {
@@ -106,7 +106,7 @@ public class TypeConvertorRegistry {
           return null;
         }
       }
-        
+
         public String getCodeGenString() {
         return "(Class from, Class to, Object obj) {\n" +
                "String str = (String) obj;\n" +
@@ -154,7 +154,7 @@ public class TypeConvertorRegistry {
       public Object convert (final Class from, final Class to, final Object obj) {
           return Font.decode ((String) obj);
       }
-        
+
       public String getCodeGenString() {
         return "(Class from, Class to, Object obj) {\n" +
                "return Font.decode ((String) obj);\n" +
@@ -168,7 +168,7 @@ public class TypeConvertorRegistry {
       public Object convert (final Class from, final Class to, final Object obj) {
           return Color.decode ((String) obj);
       }
-        
+
         public String getCodeGenString() {
         return "(Class from, Class to, Object obj) {\n" +
                "return Color.decode ((String) obj);\n" +

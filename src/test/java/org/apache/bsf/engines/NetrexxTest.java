@@ -100,7 +100,7 @@ public class NetrexxTest extends BSFEngineTestTmpl {
         // FIXME: Netrexx is a little chatty about the missing variable...
         final Integer foo = new Integer(0);
         Object  bar = null;
-        
+
         try {
             bsfManager.declareBean("foo", foo, Integer.class);
             bsfManager.undeclareBean("foo");

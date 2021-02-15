@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -86,19 +86,19 @@ public class JavaScriptEngine extends BSFEngineImpl {
             cx.setGeneratingSource(false);
             cx.setOptimizationLevel(0);
             cx.setDebugger(null, null);
-            
+
             retval =
                 ((Function) fun).call(cx, global, global, args);
-            
+
 //                ScriptRuntime.call(cx, fun, global, args, global);
 
             if (retval instanceof Wrapper) {
                 retval = ((Wrapper) retval).unwrap();
             }
-        } 
+        }
         catch (final Throwable t) {
             handleError(t);
-        } 
+        }
         finally {
             Context.exit();
         }
@@ -110,7 +110,7 @@ public class JavaScriptEngine extends BSFEngineImpl {
             (bean.bean instanceof String) ||
             (bean.bean instanceof Boolean)) {
             global.put(bean.name, global, bean.bean);
-        } 
+        }
         else {
             // Must wrap non-scriptable objects before presenting to Rhino
             final Scriptable wrapped = Context.toObject(bean.bean, global);
@@ -146,10 +146,10 @@ public class JavaScriptEngine extends BSFEngineImpl {
                 retval = ((NativeJavaObject) retval).unwrap();
             }
 
-        } 
+        }
         catch (final Throwable t) { // includes JavaScriptException, rethrows Errors
             handleError(t);
-        } 
+        }
         finally {
             Context.exit();
         }
@@ -205,13 +205,13 @@ public class JavaScriptEngine extends BSFEngineImpl {
     }
 
     /**
-     * Initialize the engine. 
+     * Initialize the engine.
      * Put the manager into the context-manager
      * map hashtable too.
      */
     public void initialize(final BSFManager mgr, final String lang, final Vector declaredBeans)
         throws BSFException {
-        
+
         super.initialize(mgr, lang, declaredBeans);
 
         // Initialize context and global scope object
@@ -224,10 +224,10 @@ public class JavaScriptEngine extends BSFEngineImpl {
             for(final Iterator it = declaredBeans.iterator(); it.hasNext();) {
                 declareBean((BSFDeclaredBean) it.next());
             }
-        } 
+        }
         catch (final Throwable t) {
 
-        } 
+        }
         finally {
             Context.exit();
         }

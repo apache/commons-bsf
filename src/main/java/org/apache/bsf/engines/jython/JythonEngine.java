@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -48,11 +48,11 @@ import org.python.util.InteractiveInterpreter;
 public class JythonEngine extends BSFEngineImpl {
   BSFPythonInterpreter interp;
   private final static Pattern fromRegExp = Pattern.compile("from ([.^\\S]*)");
-  
+
   /**
    * call the named method of the given object.
    */
-  public Object call (final Object object, final String method, final Object[] args) 
+  public Object call (final Object object, final String method, final Object[] args)
       throws BSFException {
       try {
           PyObject[] pyargs = Py.EmptyObjects;
@@ -93,10 +93,10 @@ public class JythonEngine extends BSFEngineImpl {
   }
 
   /**
-   * Evaluate an anonymous function (differs from eval() in that apply() 
+   * Evaluate an anonymous function (differs from eval() in that apply()
    * handles multiple lines).
    */
-  public Object apply (final String source, final int lineNo, final int columnNo, 
+  public Object apply (final String source, final int lineNo, final int columnNo,
                        final Object funcBody, final Vector paramNames,
                        final Vector arguments) throws BSFException {
       try {
@@ -107,7 +107,7 @@ public class JythonEngine extends BSFEngineImpl {
           final StringBuffer script = new StringBuffer(byteify(funcBody.toString()));
           int index = 0;
           script.insert(0, "def bsf_temp_fn():\n");
-         
+
           while (index < script.length()) {
               if (script.charAt(index) == '\n') {
                   script.insert(index+1, '\t');
@@ -118,9 +118,9 @@ public class JythonEngine extends BSFEngineImpl {
           final String scriptStr = script.toString ();
           importPackage(scriptStr);
           interp.exec (scriptStr);
-          
+
           Object result = interp.eval ("bsf_temp_fn()");
-          
+
           if (result instanceof PyJavaInstance) {
             result = ((PyJavaInstance)result).__tojava__(Object.class);
         }
@@ -134,7 +134,7 @@ public class JythonEngine extends BSFEngineImpl {
   /**
    * Evaluate an expression.
    */
-  public Object eval (final String source, final int lineNo, final int columnNo, 
+  public Object eval (final String source, final int lineNo, final int columnNo,
 		      final Object script) throws BSFException {
 	try {
 	  final String scriptStr = byteify(script.toString ());
@@ -151,7 +151,7 @@ public class JythonEngine extends BSFEngineImpl {
   }
 
   /**
-   * Execute a script. 
+   * Execute a script.
    */
   public void exec (final String source, final int lineNo, final int columnNo,
 		    final Object script) throws BSFException {
@@ -196,7 +196,7 @@ public class JythonEngine extends BSFEngineImpl {
         }
       } catch (final PyException e) {
           interp.resetbuffer();
-          throw new BSFException(BSFException.REASON_EXECUTION_ERROR, 
+          throw new BSFException(BSFException.REASON_EXECUTION_ERROR,
                                  "exception from Jython:\n" + e, e);
       }
   }
@@ -214,7 +214,7 @@ public class JythonEngine extends BSFEngineImpl {
     // ensure that output and error streams are re-directed correctly
     interp.setOut(System.out);
     interp.setErr(System.err);
-    
+
 	// register the mgr with object name "bsf"
 	interp.set ("bsf", new BSFFunctions (mgr, this));
 
@@ -241,21 +241,21 @@ public class JythonEngine extends BSFEngineImpl {
 	}
 	return result;
   }
-  
+
   private String byteify (final String orig) {
       // Ugh. Jython likes to be fed bytes, rather than the input string.
-      final ByteArrayInputStream bais = 
+      final ByteArrayInputStream bais =
           new ByteArrayInputStream(orig.getBytes());
       final StringBuffer s = new StringBuffer();
       int c;
-      
+
       while ((c = bais.read()) >= 0) {
           s.append((char)c);
       }
 
       return s.toString();
   }
-  
+
   private class BSFPythonInterpreter extends InteractiveInterpreter {
 
       public BSFPythonInterpreter() {

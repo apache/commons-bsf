@@ -47,7 +47,7 @@ public class JavascriptTest extends BSFEngineTestTmpl {
     public void testExec() {
         try {
             javascriptEngine.exec("Test.js", 0, 0,
-                                  "java.lang.System.out.print " + 
+                                  "java.lang.System.out.print " +
                                   "(\"PASSED\");");
         }
         catch (final Exception e) {
@@ -56,7 +56,7 @@ public class JavascriptTest extends BSFEngineTestTmpl {
 
         assertEquals("PASSED", getTmpOutStr());
     }
-    
+
     public void testEval() {
         Double retval = null;
 
@@ -78,7 +78,7 @@ public class JavascriptTest extends BSFEngineTestTmpl {
         try {
             javascriptEngine.exec("Test.js", 0, 0,
                                   "function addOne (f) {\n return f + 1;\n}");
-            retval = 
+            retval =
                 new Double((javascriptEngine.call(null, "addOne",
                                                   args).toString()));
         }
@@ -92,7 +92,7 @@ public class JavascriptTest extends BSFEngineTestTmpl {
     public void testIexec() {
         try {
             javascriptEngine.iexec("Test.js", 0, 0,
-                                   "java.lang.System.out.print " + 
+                                   "java.lang.System.out.print " +
                                    "(\"PASSED\");");
         }
         catch (final Exception e) {
@@ -115,7 +115,7 @@ public class JavascriptTest extends BSFEngineTestTmpl {
 
         assertEquals(new Double(2), retval);
     }
-    
+
     public void testBSFManagerAvailability() {
         Object retval = null;
 
@@ -154,7 +154,7 @@ public class JavascriptTest extends BSFEngineTestTmpl {
         try {
             bsfManager.registerBean("foo", foo);
             bsfManager.unregisterBean("foo");
-            bar = (Double) 
+            bar = (Double)
                 javascriptEngine.eval("Test.js", 0, 0,
                                       "bsf.lookupBean(\"foo\");");
         }
@@ -164,7 +164,7 @@ public class JavascriptTest extends BSFEngineTestTmpl {
 
         assertNull(bar);
     }
-    
+
     public void testDeclareBean() {
         final Double foo = new Double(1);
         Double bar = null;

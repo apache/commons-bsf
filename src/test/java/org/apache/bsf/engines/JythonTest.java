@@ -35,7 +35,7 @@ public class JythonTest extends BSFEngineTestTmpl {
 
     public void setUp() {
         super.setUp();
-        
+
         try {
             jythonEngine = bsfManager.loadScriptingEngine("jython");
         }
@@ -77,7 +77,7 @@ public class JythonTest extends BSFEngineTestTmpl {
         try {
             jythonEngine.exec("Test.py", 0, 0,
                               "def addOne(f):\n\t return f + 1\n");
-            retval = 
+            retval =
                 new Integer((jythonEngine.call(null, "addOne",
                                                args).toString()));
         }
@@ -98,9 +98,9 @@ public class JythonTest extends BSFEngineTestTmpl {
         catch (final Exception e) {
             fail(failMessage("iexec() test failed", e));
         }
-        
+
         assertEquals("PASSED", getTmpOutStr());
-    } 
+    }
 
     public void testBSFManagerEval() {
         Integer retval = null;

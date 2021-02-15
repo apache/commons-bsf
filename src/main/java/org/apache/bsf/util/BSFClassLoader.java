@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,8 +23,8 @@ import java.util.Hashtable;
 
 /**
  * This class loader knows to load a class from the tempDir dir
- * of the environment of the given manager. 
- * 
+ * of the environment of the given manager.
+ *
  * @author   Sanjiva Weerawarana
  */
 class BSFClassLoader extends ClassLoader {
@@ -50,17 +50,17 @@ class BSFClassLoader extends ClassLoader {
       try {
     final byte[] data = loadClassData (name);
     c = defineClass (name, data, 0, data.length);
-    cache.put (name, c); 
+    cache.put (name, c);
       } catch (final Exception e) {
     e.printStackTrace ();
-    throw new ClassNotFoundException ("unable to resolve class '" + 
+    throw new ClassNotFoundException ("unable to resolve class '" +
                       name + "'");
       }
     }
     if (resolve) {
         resolveClass (c);
-    } 
-    return c;  
+    }
+    return c;
   }
   private byte[] loadClassData (final String name) throws Exception {
     final String fileName = tempDir + File.separatorChar + name + ".class";

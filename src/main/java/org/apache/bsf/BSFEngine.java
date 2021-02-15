@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,7 +29,7 @@ import org.apache.bsf.util.CodeBuffer;
  * the more common situation, which is that of the scripting language
  * calling into the application.)
  * <p>
- * When a scripting engine is first fired up, the initialize() 
+ * When a scripting engine is first fired up, the initialize()
  * method is called right after construction.
  * <p>
  * A scripting engine must provide two access points for applications
@@ -44,7 +44,7 @@ import org.apache.bsf.util.CodeBuffer;
  * @author  Matthew J. Duftler
  */
 public interface BSFEngine extends PropertyChangeListener {
-    
+
     /**
      * This is used by an application to invoke an anonymous function. An
      * anonymous function is a multi-line script which when evaluated will
@@ -202,7 +202,7 @@ public interface BSFEngine extends PropertyChangeListener {
         throws BSFException;
     /**
      * This is used by an application to execute some script, as though
-     * one were interacting with the language in an interactive session. 
+     * one were interacting with the language in an interactive session.
      * The expression may be string or some other type, depending on the
      * language. Returns nothing but if something goes wrong it excepts (of
      * course).
@@ -223,9 +223,9 @@ public interface BSFEngine extends PropertyChangeListener {
      * This method is used to initialize the engine right after construction.
      * This method will be called before any calls to eval or call. At this
      * time the engine should capture the current values of interesting
-     * properties from the manager. In the future, any changes to those 
+     * properties from the manager. In the future, any changes to those
      * will be mirrored to me by the manager via a property change event.
-     * 
+     *
      * @param mgr           The BSFManager that's hosting this engine.
      * @param lang          Language string which this engine is handling.
      * @param declaredBeans Vector of BSFDeclaredObject containing beans
