@@ -17,7 +17,6 @@
 
 package org.apache.bsf;
 
-import org.apache.bsf.BSFException;
 import org.apache.bsf.util.BSFEngineImpl;
 
 public class FakeEngine extends BSFEngineImpl {

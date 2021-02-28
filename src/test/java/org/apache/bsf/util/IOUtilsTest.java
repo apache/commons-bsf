@@ -27,8 +27,6 @@ import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-import org.apache.bsf.util.IOUtils;
-
 import junit.framework.TestCase;
 
 /**

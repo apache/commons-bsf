@@ -27,8 +27,6 @@ import java.io.Reader;
 import java.net.MalformedURLException;
 import java.util.Vector;
 
-import org.apache.bsf.util.StringUtils;
-
 import junit.framework.TestCase;
 
 /**

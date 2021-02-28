@@ -22,8 +22,6 @@ import java.io.PrintStream;
 
 import junit.framework.TestCase;
 
-import org.apache.bsf.BSFManager;
-
 /**
  * Superclass for language engine tests.
  * @author   Victor J. Orlikowski <vjo@us.ibm.com>

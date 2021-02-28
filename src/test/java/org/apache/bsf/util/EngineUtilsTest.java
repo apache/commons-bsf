@@ -18,8 +18,6 @@
 package org.apache.bsf.util;
 
 import org.apache.bsf.BSFException;
-import org.apache.bsf.util.EngineUtils;
-
 import junit.framework.TestCase;
 
 /**

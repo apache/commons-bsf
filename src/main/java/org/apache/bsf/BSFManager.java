@@ -184,7 +184,7 @@ public class BSFManager {
 
 
                     // get the extensions for this language
-                    final String exts = value.substring(value.indexOf(",")+1, value.length());
+                    final String exts = value.substring(value.indexOf(",")+1);
                     final StringTokenizer st = new StringTokenizer(exts, "|");
                     final String[] extensions = new String[st.countTokens()];
 
