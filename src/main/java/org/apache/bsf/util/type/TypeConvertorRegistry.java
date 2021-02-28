@@ -181,14 +181,12 @@ public class TypeConvertorRegistry {
   public TypeConvertor lookup (final Class from, final Class to) {
     final String key = from.getName () + " -> " + to.getName ();
     final TypeConvertor tc = (TypeConvertor) reg.get (key);
-    if (tc == null) {
-      if (from != void.class
+    if ((tc == null) && (from != void.class
           && from != Void.class
-          && to == String.class) {
+          && to == String.class)) {
         // find the object -> string convertor
         return lookup (Object.class, String.class);
       }
-    }
     return tc;
   }
   // lookup a convertor by key
