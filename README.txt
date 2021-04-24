@@ -15,7 +15,7 @@
  limitations under the License.
 -->
 
-Bean Scripting Framework (BSF) is a set of Java classes which provides an
+Bean Scripting Framework (BSF) is a set of Java classes which provides 
 easy to use scripting language support within Java applications.  It also
 provides access to Java objects and methods from supported scripting
 languages.  BSF allows one to write JSPs in languages other than Java
