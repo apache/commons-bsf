@@ -34,7 +34,7 @@ public class BSFException extends Exception {
   public static final int REASON_UNSUPPORTED_FEATURE = 499;
   public static final int REASON_OTHER_ERROR = 500;
 
-  int reason;
+  final int reason;
   Throwable targetThrowable;
 
   public BSFException (final int reason, final String msg) {

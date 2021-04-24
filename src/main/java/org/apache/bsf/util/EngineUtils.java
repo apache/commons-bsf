@@ -53,10 +53,10 @@ public class EngineUtils {
     static BSFClassLoader bsfCL;
 
     // rgf, 20070917: class loaders that we might need to load classes
-    static ClassLoader bsfManagerDefinedCL=BSFManager.getDefinedClassLoader();
+    static final ClassLoader bsfManagerDefinedCL=BSFManager.getDefinedClassLoader();
 
     // ---rgf, 2003-02-13, determine whether changing accessibility of Methods is possible
-    static boolean bMethodHasSetAccessible=false;
+    static boolean bMethodHasSetAccessible;
     static {
         final Class mc=Method.class;            // get the "Method" class object
         final Class arg[]={boolean.class};      // define an array with the primitive "boolean" pseudo class object

@@ -26,9 +26,9 @@ package org.apache.bsf;
  * @author  Sanjiva Weerawarana
  */
 public class BSFDeclaredBean {
-    public String name;
-    public Object bean;
-    public Class type;
+    public final String name;
+    public final Object bean;
+    public final Class type;
 
     BSFDeclaredBean(final String name, final Object bean, final Class type) {
         this.name = name;

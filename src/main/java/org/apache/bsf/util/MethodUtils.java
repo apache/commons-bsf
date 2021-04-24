@@ -308,7 +308,7 @@ public class MethodUtils {
 
     // 15.11.2.1 ACCESSIBLE: We apparently need to gather from two
     // sources to be sure we have both instance and static methods.
-    Object[] methods;
+    final Object[] methods;
     if(methodName!=null)
       {
         methods=targetClass.getMethods();

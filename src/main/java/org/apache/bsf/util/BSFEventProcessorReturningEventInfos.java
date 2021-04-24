@@ -46,21 +46,21 @@ import org.apache.bsf.util.event.EventProcessor;
  *         org.apache.bsf.util.BSFEventProcessor by Sanjiva Weerawarana
  */
 public class BSFEventProcessorReturningEventInfos implements EventProcessor {
-    BSFEngine engine;
+    final BSFEngine engine;
 
-    BSFManager manager;
+    final BSFManager manager;
 
-    String filter;
+    final String filter;
 
-    String source;
+    final String source;
 
-    int lineNo;
+    final int lineNo;
 
-    int columnNo;
+    final int columnNo;
 
-    Object script;
+    final Object script;
 
-    Object dataFromScriptingEngine; // ---rgf, 2006-02-24: data coming from the
+    final Object dataFromScriptingEngine; // ---rgf, 2006-02-24: data coming from the
                                     // script engine, could be
 
     // e.g. an object reference to forward event with received arguments to

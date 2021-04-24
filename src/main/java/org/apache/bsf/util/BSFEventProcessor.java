@@ -32,13 +32,13 @@ import org.apache.bsf.util.event.EventProcessor;
  * @author Sanjiva Weerawarana
  */
 public class BSFEventProcessor implements EventProcessor {
-  BSFEngine engine;
-  BSFManager manager;
-  String filter;
-  String source;
-  int lineNo;
-  int columnNo;
-  Object script;
+  final BSFEngine engine;
+  final BSFManager manager;
+  final String filter;
+  final String source;
+  final int lineNo;
+  final int columnNo;
+  final Object script;
 
   /**
    * Package-protected constructor makes this class unavailable for

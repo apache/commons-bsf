@@ -87,7 +87,7 @@ public class Main {
                 }
             }
 
-            Reader in;
+            final Reader in;
 
             if (inFileName != null) {
                 in = new FileReader(inFileName);
@@ -125,7 +125,7 @@ public class Main {
                     // Try to display the result.
 
                     if (obj instanceof java.awt.Component) {
-                        Frame f;
+                        final Frame f;
                         if (obj instanceof Frame) {
                             f = (Frame) obj;
                         } else {

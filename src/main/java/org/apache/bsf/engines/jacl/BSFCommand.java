@@ -31,8 +31,8 @@ import tcl.lang.TclObject;
 
 // class used to add "bsf" command to the Jacl runtime
 class BSFCommand implements Command {
-  BSFManager mgr;
-  BSFEngine jengine;
+  final BSFManager mgr;
+  final BSFEngine jengine;
 
   BSFCommand (final BSFManager mgr, final BSFEngine jengine) {
     this.mgr = mgr;

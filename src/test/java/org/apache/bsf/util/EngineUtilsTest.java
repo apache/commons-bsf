@@ -30,7 +30,7 @@ import junit.framework.TestCase;
 
 public class EngineUtilsTest extends TestCase {
 
-    Object result=null;
+    Object result;
 
     public EngineUtilsTest(final String name) {
         super(name);

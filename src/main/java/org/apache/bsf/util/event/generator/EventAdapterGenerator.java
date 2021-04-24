@@ -45,28 +45,28 @@ import java.io.IOException;
   **/
 public class EventAdapterGenerator
 {
-  public static AdapterClassLoader ldr = new AdapterClassLoader();
-  static Class  EVENTLISTENER          = null;
+  public static final AdapterClassLoader LDR = new AdapterClassLoader();
+  static Class  EVENTLISTENER;
   static String CLASSPACKAGE           = "org/apache/bsf/util/event/adapters/";
-  static String WRITEDIRECTORY         = null;
+  static String WRITEDIRECTORY;
 
   // starting 8 bytes of all Java Class files
   static byte   CLASSHEADER[];
   // constant pool items found in all event adapters
-  static short  BASECPCOUNT; // number of cp items + 1 ( cp item # 0 reserved for JVM )
+  static final short  BASECPCOUNT; // number of cp items + 1 ( cp item # 0 reserved for JVM )
   static byte   BASECP[];    //
   // some bytes in the middle of the class file (see below)
   static byte   FIXEDCLASSBYTES[];
   // the initialization method, noargs constructor
   static byte   INITMETHOD[];
 
-  private static BSF_Log logger=null;
+  private static final BSF_Log LOGGER;
 
   /* The static initializer */
   static
   {
     // logger = LogFactory.getLog((org.apache.bsf.util.event.generator.EventAdapterGenerator.class).getName());
-        logger = BSF_LogFactory.getLog((org.apache.bsf.util.event.generator.EventAdapterGenerator.class).getName());
+        LOGGER = BSF_LogFactory.getLog((org.apache.bsf.util.event.generator.EventAdapterGenerator.class).getName());
 
     final String USERCLASSPACKAGE = System.getProperty("DynamicEventClassPackage",
                                                  "");
@@ -211,22 +211,22 @@ public class EventAdapterGenerator
   /* methods that take an EventListener Class Type to create an EventAdapterClass */
   public static Class makeEventAdapterClass(final Class listenerType,final boolean writeClassFile)
   {
-      logger.debug("EventAdapterGenerator");
+      LOGGER.debug("EventAdapterGenerator");
 
         if( EVENTLISTENER.isAssignableFrom(listenerType) )
     {
       boolean exceptionable    = false;
       boolean nonExceptionable = false;
       byte    constantPool[]   = null;
-      short   cpBaseIndex;
+      final short   cpBaseIndex;
       short   cpCount          = 0;
-      short   cpExceptionBaseIndex;
+      final short   cpExceptionBaseIndex;
       short   exceptionableCount;
       short   nonExceptionableCount;
 
       /* Derive Names */
       final String listenerTypeName      = listenerType.getName();
-          logger.debug("ListenerTypeName: "+listenerTypeName);
+          LOGGER.debug("ListenerTypeName: "+listenerTypeName);
       final String adapterClassName      =
         CLASSPACKAGE+
         (listenerTypeName.endsWith("Listener")
@@ -239,9 +239,9 @@ public class EventAdapterGenerator
 
       do
       {
-        if (null != (cached = ldr.getLoadedClass(finalAdapterClassName)))
+        if (null != (cached = LDR.getLoadedClass(finalAdapterClassName)))
         {
-                    logger.debug("cached:  "+cached);
+                    LOGGER.debug("cached:  "+cached);
           try
           {
             if (!listenerType.isAssignableFrom(cached)) {
@@ -344,7 +344,7 @@ public class EventAdapterGenerator
 
       // base index for method cp references
       cpBaseIndex = (short)(BASECPCOUNT + cpCount);
-          logger.debug("cpBaseIndex: " + cpBaseIndex);
+          LOGGER.debug("cpBaseIndex: " + cpBaseIndex);
 
       for (int i = 0 ; i < lms.length ; ++i)
       {
@@ -388,7 +388,7 @@ public class EventAdapterGenerator
       }/* End for*/
 
       cpExceptionBaseIndex = (short)(BASECPCOUNT + cpCount);
-          logger.debug("cpExceptionBaseIndex: " + cpExceptionBaseIndex);
+          LOGGER.debug("cpExceptionBaseIndex: " + cpExceptionBaseIndex);
 
       final int excpIndex[][] = new int[lms.length][];
       for (int i = 0 ; i < lms.length ; ++i)
@@ -548,9 +548,9 @@ public class EventAdapterGenerator
       newClass = ByteUtility.addBytes(newClass,(short)0);                     // attribute_count          (fixed)
       /* done */
 
-          logger.debug("adapterName: " + finalAdapterClassName);
-          logger.debug("cpCount: " + count + " = " + BASECPCOUNT + " + " +  cpCount);
-          logger.debug("methodCount: " + (lms.length+1));
+          LOGGER.debug("adapterName: " + finalAdapterClassName);
+          LOGGER.debug("cpCount: " + count + " = " + BASECPCOUNT + " + " +  cpCount);
+          LOGGER.debug("methodCount: " + (lms.length+1));
       // output to disk class file
       /* ****************************************************************************************** */
 
@@ -574,8 +574,8 @@ public class EventAdapterGenerator
 
         try
         {
-          final Class ret = ldr.loadClass(finalAdapterClassName);
-          logger.debug("EventAdapterGenerator: " +
+          final Class ret = LDR.loadClass(finalAdapterClassName);
+          LOGGER.debug("EventAdapterGenerator: " +
                              ret.getName() +
                              " dynamically generated");
           return ret;
@@ -589,8 +589,8 @@ public class EventAdapterGenerator
 
       try
       {
-        final Class ret = ldr.defineClass(finalAdapterClassName,newClass);
-        logger.debug("EventAdapterGenerator: " +
+        final Class ret = LDR.defineClass(finalAdapterClassName,newClass);
+        LOGGER.debug("EventAdapterGenerator: " +
                                        ret.getName() +
                                        " dynamically generated");
         return ret;

@@ -85,14 +85,14 @@ import org.apache.bsf.util.ObjInfo;
  * @author   Rony G. Flatscher (added BSF_Log[Factory] to allow BSF to run without org.apache.commons.logging present)
  */
 public class JavaEngine extends BSFEngineImpl {
-    Class javaclass = null;
-    static Hashtable codeToClass = new Hashtable();
-    static String serializeCompilation = "";
-    static String placeholder = "$$CLASSNAME$$";
+    Class javaclass;
+    static final Hashtable codeToClass = new Hashtable();
+    static final String serializeCompilation = "";
+    static final String placeholder = "$$CLASSNAME$$";
     String minorPrefix;
 
     // private Log logger = LogFactory.getLog(this.getClass().getName());
-    private BSF_Log logger = null;
+    private final BSF_Log logger;
 
     /**
      * Create a scratchfile, open it for writing, return its name.
@@ -104,9 +104,9 @@ public class JavaEngine extends BSFEngineImpl {
     private int uniqueFileOffset = -1;
 
     private class GeneratedFile {
-        File file = null;
-        FileOutputStream fos = null;
-        String className = null;
+        final File file;
+        final FileOutputStream fos;
+        final String className;
         GeneratedFile(final File file, final FileOutputStream fos, final String className) {
             this.file = file;
             this.fos = fos;

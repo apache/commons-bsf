@@ -39,7 +39,7 @@ public class AdapterClassLoader extends ClassLoader
   private Class c;
 
   // private Log logger = LogFactory.getLog(this.getClass().getName());
-  private BSF_Log logger = null;
+  private final BSF_Log logger;
 
   public AdapterClassLoader()
   {

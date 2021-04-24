@@ -128,7 +128,7 @@ public class StringUtilsTest extends TestCase {
     public void testGetContentAsReader()
         throws MalformedURLException, IOException {
 
-            Reader reader;
+            final Reader reader;
 
             final File myFile = File.createTempFile("Test", "txt");
 
@@ -146,7 +146,7 @@ public class StringUtilsTest extends TestCase {
 
     public void testGetContentAsString() throws IOException{
 
-        String result;
+        final String result;
 
         final File myFile = File.createTempFile("Test", "txt");
 

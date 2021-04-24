@@ -30,8 +30,8 @@ import org.apache.bsf.BSFManager;
  * @author   Sanjiva Weerawarana
  */
 public class BSFFunctions {
-  BSFManager mgr;
-  BSFEngine engine;
+  final BSFManager mgr;
+  final BSFEngine engine;
 
   public BSFFunctions (final BSFManager mgr, final BSFEngine engine) {
     this.mgr = mgr;

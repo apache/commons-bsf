@@ -141,7 +141,7 @@ public class BSFManager {
     protected Vector declaredBeans = new Vector();
 
     // private Log logger = LogFactory.getLog(this.getClass().getName());
-    private BSF_Log logger = null;
+    private final BSF_Log logger;
 
     //////////////////////////////////////////////////////////////////////
     //
@@ -856,7 +856,7 @@ public class BSFManager {
     public void registerBean(final String beanName, final Object bean) {
         logger.debug("BSFManager:registerBean");
 
-        BSFDeclaredBean tempBean;
+        final BSFDeclaredBean tempBean;
 
         if(bean == null) {
             tempBean = new BSFDeclaredBean(beanName, null, null);

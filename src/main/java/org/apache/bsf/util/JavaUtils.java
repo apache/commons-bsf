@@ -27,31 +27,31 @@ import java.io.IOException;
 public class JavaUtils {
     // Temporarily copied from JavaEngine...
 
-    private static BSF_Log logger=null;
+    private static final BSF_Log LOGGER;
 
     static {
                     // handle logger
-                logger = BSF_LogFactory.getLog((org.apache.bsf.util.JavaUtils.class).getName());
+                LOGGER = BSF_LogFactory.getLog((org.apache.bsf.util.JavaUtils.class).getName());
     }
 
     public static boolean JDKcompile(final String fileName, final String classPath) {
-        final String option = (logger.isDebugEnabled()) ? "-g" : "-O";
+        final String option = (LOGGER.isDebugEnabled()) ? "-g" : "-O";
         final String args[] = { "javac", option, "-classpath", classPath, fileName };
 
-        logger.debug("JavaEngine: Compiling " + fileName);
-        logger.debug("JavaEngine: Classpath is " + classPath);
+        LOGGER.debug("JavaEngine: Compiling " + fileName);
+        LOGGER.debug("JavaEngine: Classpath is " + classPath);
 
         try {
             final Process p = java.lang.Runtime.getRuntime().exec(args);
             p.waitFor();
             return (p.exitValue() != 0);
         } catch (final IOException e) {
-            logger.error("ERROR: IO exception during exec(javac).", e);
+            LOGGER.error("ERROR: IO exception during exec(javac).", e);
         } catch (final SecurityException e) {
-            logger.error("ERROR: Unable to create subprocess to exec(javac).",
+            LOGGER.error("ERROR: Unable to create subprocess to exec(javac).",
                     e);
         } catch (final InterruptedException e) {
-            logger.error("ERROR: Wait for exec(javac) was interrupted.", e);
+            LOGGER.error("ERROR: Wait for exec(javac) was interrupted.", e);
         }
         return false;
     }
