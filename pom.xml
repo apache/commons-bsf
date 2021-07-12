@@ -46,7 +46,7 @@
     <commons.module.name>org.apache.commons.bsf</commons.module.name>
     <commons.release.version>2.4.0</commons.release.version>
     <commons.release.desc></commons.release.desc>
-    <spotbugs.plugin.version>4.2.0</spotbugs.plugin.version>
+    <spotbugs.plugin.version>4.3.0</spotbugs.plugin.version>
     <spotbugs.impl.version>4.2.0</spotbugs.impl.version>    
 
     <commons.jira.id>BSF</commons.jira.id>
