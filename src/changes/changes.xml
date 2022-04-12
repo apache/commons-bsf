@@ -27,6 +27,7 @@
       <!-- FIXES -->
       <!-- ADDS -->
       <!-- UPDATES -->
+      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump actions/cache from 2 to 3.0.2.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump actions/setup-java from v1.4.3 to v2.</action>
     </release>
   </body>
