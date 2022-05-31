@@ -184,7 +184,6 @@ public class BSF_Log // implements org.apache.commons.logging.Log
         this(clazz.getName());
     }
 
-    // --------------------------------------------------------------------
     public void debug(final Object msg)
     {
         if (oac_logger==null)
@@ -216,7 +215,6 @@ public class BSF_Log // implements org.apache.commons.logging.Log
         catch (final Exception e) { e.printStackTrace(); }
     }
 
-    // --------------------------------------------------------------------
     public void error(final Object msg)
     {
         if (oac_logger==null)
@@ -248,7 +246,6 @@ public class BSF_Log // implements org.apache.commons.logging.Log
     }
 
 
-    // --------------------------------------------------------------------
     public void fatal(final Object msg)
     {
         if (oac_logger==null)
@@ -279,7 +276,6 @@ public class BSF_Log // implements org.apache.commons.logging.Log
     }
 
 
-    // --------------------------------------------------------------------
     public void info (final Object msg)
     {
         if (oac_logger==null)
@@ -311,7 +307,6 @@ public class BSF_Log // implements org.apache.commons.logging.Log
     }
 
 
-    // --------------------------------------------------------------------
     public void trace(final Object msg)
     {
         if (oac_logger==null)
@@ -343,7 +338,6 @@ public class BSF_Log // implements org.apache.commons.logging.Log
     }
 
 
-    // --------------------------------------------------------------------
     public void warn (final Object msg)
     {
         if (oac_logger==null)
@@ -375,8 +369,6 @@ public class BSF_Log // implements org.apache.commons.logging.Log
     }
 
 
-    // --------------------------------------------------------------------
-    // --------------------------------------------------------------------
     public boolean isDebugEnabled()
     {
         if (oac_logger==null) {return false;}   // no org.apache.commons.logging.Log object ?
