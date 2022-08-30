@@ -24,9 +24,6 @@ import org.apache.bsf.BSFException;
 
 /**
  * This is a testcase for NetRexx Script Engine
- *
- * @author Sanka Samaranayake <sanka@opensource.lk>
- * @author Nilupa Bandara     <nilupa@opensoruce.lk>
  */
 
 public class NetrexxTest extends BSFEngineTestTmpl {

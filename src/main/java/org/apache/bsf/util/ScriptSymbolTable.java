@@ -22,8 +22,6 @@ import java.util.Hashtable;
 /**
  * An <code>ScriptSymbolTable</code> object is used by a <code>CodeBuffer</code>
  * object to implement nested scopes.
- *
- * @author   Matthew J. Duftler
  */
 class ScriptSymbolTable extends Hashtable
 {

@@ -24,7 +24,6 @@ import org.apache.bsf.BSFException;
 
 /**
  * Test class for the Rhino language engine.
- * @author   Victor J. Orlikowski <vjo@us.ibm.com>
  */
 public class JavascriptTest extends BSFEngineTestTmpl {
     private BSFEngine javascriptEngine;

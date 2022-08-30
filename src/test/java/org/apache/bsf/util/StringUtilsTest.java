@@ -31,10 +31,6 @@ import junit.framework.TestCase;
 
 /**
  * This is a testcase for org.apache.bsf.util.StringUtils.java
- *
- * @author Sanka Samaranayake <sanka_hdins@yahoo.com>
- * @author Nilupa Bandara     <nilupa@opensource.lk>
- *
  */
 public class StringUtilsTest extends TestCase {
 

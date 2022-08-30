@@ -31,7 +31,6 @@ import  java.lang.reflect.*;
  * If Apache's commons logging is <em>not</em> available then a <em>no-op</em> behavior
  is employed, modelled after <code>org.apache.commons.logging.impl.NoOpLog</code>.
 
-   @author Rony G. Flatscher, 2006-12-08
 */
 
 /* ---rgf, 2007-01-29, loading and invoking all methods via reflection

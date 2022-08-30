@@ -39,7 +39,6 @@ import java.io.Writer;
  * @see CodeFormatter
  *
  * @version 1.0
- * @author Matthew J. Duftler
  */
 public class CFDriver
 {

@@ -41,9 +41,6 @@ import org.apache.bsf.util.event.EventProcessor;
  * This is used to support binding scripts to be run when an event occurs,
  * forwarding the arguments supplied to the event listener. It is an adapted
  * version of org.apache.bsf.util.BSFEventProcessor.
- *
- * @author Rony G. Flatscher, but most of the code copied from
- *         org.apache.bsf.util.BSFEventProcessor by Sanjiva Weerawarana
  */
 public class BSFEventProcessorReturningEventInfos implements EventProcessor {
     BSFEngine engine;

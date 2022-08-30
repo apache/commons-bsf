@@ -28,10 +28,6 @@ import org.apache.bsf.BSFManager;
 /**
  * This class contains utilities that language integrators can use
  * when implementing the BSFEngine interface.
- *
- * @author   Sanjiva Weerawarana
- * @author   Sam Ruby
- * @author   Rony G. Flatscher (added addEventListenerReturningEventInfos)
  */
 
  /*

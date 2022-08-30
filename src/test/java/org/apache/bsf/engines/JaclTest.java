@@ -23,7 +23,6 @@ import org.apache.bsf.BSFException;
 
 /**
  * Test class for the jacl language engine.
- * @author   Victor J. Orlikowski <vjo@us.ibm.com>
  */
 public class JaclTest extends BSFEngineTestTmpl {
     private BSFEngine jaclEngine;

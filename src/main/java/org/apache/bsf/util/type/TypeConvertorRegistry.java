@@ -26,8 +26,6 @@ import java.util.Hashtable;
  * It has lookup and register capabilities based on the types to be
  * converted as well as by some object key.
  *
- * @author   Sanjiva Weerawarana
- * @author   Matthew J. Duftler
  * @see      TypeConvertorRegistry
  */
 public class TypeConvertorRegistry {

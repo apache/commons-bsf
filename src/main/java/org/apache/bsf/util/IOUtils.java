@@ -25,9 +25,6 @@ import java.io.StringWriter;
 
 /**
  * This file is a collection of input/output utilities.
- *
- * @author   Sanjiva Weerawarana
- * @author   Matthew J. Duftler
  */
 public class IOUtils {
   // debug flag - generates debug stuff if true

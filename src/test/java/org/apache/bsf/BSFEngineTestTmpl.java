@@ -24,7 +24,6 @@ import junit.framework.TestCase;
 
 /**
  * Superclass for language engine tests.
- * @author   Victor J. Orlikowski <vjo@us.ibm.com>
  */
 public abstract class BSFEngineTestTmpl extends TestCase {
     protected BSFManager bsfManager;

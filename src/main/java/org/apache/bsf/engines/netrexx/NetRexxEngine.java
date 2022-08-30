@@ -76,10 +76,6 @@ import org.apache.bsf.util.StringUtils;
  * <p>
  * Minor-class .class files are now being deleted after the major class loads.
  * This coould potentially cause problems.
- *
- * @author  Joe Kesselman
- * @author  Sanjiva Weerawarana
- * @author   Rony G. Flatscher (added BSF_Log[Factory] to allow BSF to run without org.apache.commons.logging present)
  */
 public class NetRexxEngine extends BSFEngineImpl
 {

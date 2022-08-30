@@ -23,7 +23,6 @@ package org.apache.bsf.util.type;
  * from object, the desired class, and the from object itself. The
  * convertor must return a new object of the desired class.
  *
- * @author   Sanjiva Weerawarana
  * @see      TypeConvertorRegistry
  */
 public interface TypeConvertor {

@@ -26,8 +26,6 @@ import java.io.Writer;
  * <code>PrintWriter</code> object, with the additional capability
  * of being able to print strings that are prepended with a specified
  * amount of spaces.
- *
- * @author Matthew J. Duftler
  */
 public class IndentWriter extends PrintWriter
 {

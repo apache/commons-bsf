@@ -36,7 +36,6 @@ import org.apache.bsf.util.StringUtils;
  * arguments.
  *
  * @version 1.0
- * @author Matthew J. Duftler
  */
 public class CodeFormatter
 {

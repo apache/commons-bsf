@@ -30,11 +30,7 @@ import java.io.StringWriter;
 import junit.framework.TestCase;
 
 /**
- *
  * This is testcase for the org.apache.bsf.util.IOUtils
- *
- * @author Thusitha Perera <pererawt@yahoo.com>
- *
  */
 
 public class IOUtilsTest extends TestCase {

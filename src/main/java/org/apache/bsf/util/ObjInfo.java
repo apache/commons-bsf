@@ -20,8 +20,6 @@ package org.apache.bsf.util;
 /**
  * An <code>ObjInfo</code> object is used by a compiler to track the name and
  * type of a bean.
- *
- * @author   Matthew J. Duftler
  */
 public class ObjInfo
 {

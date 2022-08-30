@@ -36,8 +36,6 @@ import tcl.lang.TclString;
  * This is the interface to Scriptics's Jacl (Tcl) from the
  * Bean Scripting Framework.
  * <p>
- *
- * @author   Sanjiva Weerawarana
  */
 
 public class JaclEngine extends BSFEngineImpl {

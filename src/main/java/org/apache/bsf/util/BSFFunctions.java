@@ -26,8 +26,6 @@ import org.apache.bsf.BSFManager;
  * object they expose in the scripting language as "bsf". This has
  * essentially a subset of the methods in BSFManager plus some
  * stuff from the utils. Currently used by Javascript (Rhino) & BML.
- *
- * @author   Sanjiva Weerawarana
  */
 public class BSFFunctions {
   BSFManager mgr;

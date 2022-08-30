@@ -23,8 +23,6 @@ package org.apache.bsf.util.event;
  * instead of implementing the interface themselves. Saves 5 lines of code
  * mebbe.
  *
- * @author   Sanjiva Weerawarana
- * @author   Matthew J. Duftler
  * @see      EventAdapter
  */
 public class EventAdapterImpl implements EventAdapter {

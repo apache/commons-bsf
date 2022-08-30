@@ -47,9 +47,6 @@ import org.apache.bsf.util.type.TypeConvertorRegistry;
  * This file is a collection of reflection utilities. There are utilities
  * for creating beans, getting bean infos, setting/getting properties,
  * and binding events.
- *
- * @author   Sanjiva Weerawarana
- * @author   Joseph Kesselman
  */
  /*  2007-09-21: Rony G. Flatscher, new class loading sequence:
 

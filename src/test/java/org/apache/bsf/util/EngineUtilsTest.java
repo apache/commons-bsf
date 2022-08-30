@@ -21,11 +21,7 @@ import org.apache.bsf.BSFException;
 import junit.framework.TestCase;
 
 /**
- *
  * This is a testcase for org.apache.bsf.util.EngineUtils
- *
- * @author Nandika Jayawardana <jayawark@yahoo.com>
- *
  */
 
 public class EngineUtilsTest extends TestCase {

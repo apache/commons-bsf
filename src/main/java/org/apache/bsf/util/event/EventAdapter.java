@@ -27,8 +27,6 @@ package org.apache.bsf.util.event;
  * to the event processor assigned to it, using either
  * eventProcessor.processEvent or eventProcessor.processExceptionableEvent.
  *
- * @author   Sanjiva Weerawarana
- * @author   Matthew J. Duftler
  * @see      EventProcessor
  */
 public interface EventAdapter {

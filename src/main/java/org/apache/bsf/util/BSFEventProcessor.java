@@ -28,8 +28,6 @@ import org.apache.bsf.util.event.EventProcessor;
 /**
  * This is used to support binding scripts to be run when an event
  * occurs.
- *
- * @author Sanjiva Weerawarana
  */
 public class BSFEventProcessor implements EventProcessor {
   BSFEngine engine;

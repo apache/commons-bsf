@@ -51,13 +51,6 @@ import org.apache.bsf.util.ObjectRegistry;
  * as well. Loading and unloading of scripting engines is
  * supported as well. Each BSFManager loads one engine per language.
  * Several BSFManagers can be created per JVM.
- *
- * @author   Sanjiva Weerawarana
- * @author   Matthew J. Duftler
- * @author   Sam Ruby
- * @author   Olivier Gruber (added original debugging support)
- * @author   Don Schwarz (added support for registering languages dynamically)
- * @author   Rony G. Flatscher (added BSF_Log[Factory] to allow BSF to run without org.apache.commons.logging present)
  */
 
 // changed 2007-01-28: ---rgf, fixed Class.forName() to use the context class loader instead; oversaw this the last time

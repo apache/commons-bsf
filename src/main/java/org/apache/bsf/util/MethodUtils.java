@@ -26,9 +26,6 @@ import java.util.Vector;
 /**
  * This file is a collection of reflection utilities for dealing with
  * methods and constructors.
- *
- * @author   Sanjiva Weerawarana
- * @author   Joseph Kesselman
  */
 public class MethodUtils {
 

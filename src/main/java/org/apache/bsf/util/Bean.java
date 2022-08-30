@@ -22,8 +22,6 @@ package org.apache.bsf.util;
  * type and a value. This is needed because otherwise we can't represent
  * the types of null-valued beans (or primitives) correctly. This was
  * originally in the BML player.
- *
- * @author   Sanjiva Weerawarana
  */
 public class Bean {
   // type of this bean

@@ -21,9 +21,6 @@ package org.apache.bsf;
  * BSFDeclaredBeans are used internally by BSF to encapsulate information being
  * passed between a BSFManager and its various BSFEngines. Note that the
  * constructor is not public because this is not a public class.
- *
- * @author  Matthew J. Duftler
- * @author  Sanjiva Weerawarana
  */
 public class BSFDeclaredBean {
     public String name;

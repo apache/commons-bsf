@@ -26,9 +26,6 @@ import java.util.Hashtable;
  * invoked, it will first look in its own table for a name, and if it's not
  * there, it will cascade to the parent <em>ObjectRegistry</em>.
  * All registration is always local. [??]
- *
- * @author   Sanjiva Weerawarana
- * @author   Matthew J. Duftler
  */
 public class ObjectRegistry {
   Hashtable      reg    = new Hashtable ();

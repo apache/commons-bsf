@@ -33,8 +33,6 @@ import java.util.Vector;
 
 /**
  * Deals with strings (probably need to elaborate some more).
- *
- * @author   Matthew J. Duftler
  */
 public class StringUtils
 {

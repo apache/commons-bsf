@@ -81,8 +81,6 @@ import org.apache.bsf.util.ObjInfo;
  * preload-and-name-script and execute-preloaded-script-by-name options to
  * provide better control over when and how much overhead occurs.
  * <p>
- * @author Joe Kesselman
- * @author   Rony G. Flatscher (added BSF_Log[Factory] to allow BSF to run without org.apache.commons.logging present)
  */
 public class JavaEngine extends BSFEngineImpl {
     Class javaclass = null;

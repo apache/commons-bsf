@@ -29,10 +29,6 @@ import org.apache.bsf.BSFManager;
  * This is a base implementation of the BSFEngine interface which
  * engine implementations may choose to extend to get the basic
  * methods of the interface implemented.
- * <p>
- *
- * @author   Sanjiva Weerawarana
- * @author   Olivier Gruber (added original debugging support)
  */
 
 public abstract class BSFEngineImpl implements BSFEngine {

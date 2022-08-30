@@ -38,11 +38,6 @@ import org.python.util.InteractiveInterpreter;
 /**
  * This is the interface to Jython (http://www.jython.org/) from BSF.
  * It's derived from the JPython 1.x engine
- *
- * @author   Sanjiva Weerawarana
- * @author   Finn Bock <bckfnn@worldonline.dk>
- * @author   Chuck Murcko
- * @author   Sonny To" <son.c.to@gmail.com>, 2006-10-30
  */
 
 public class JythonEngine extends BSFEngineImpl {

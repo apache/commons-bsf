@@ -24,7 +24,6 @@ import org.apache.bsf.BSFException;
 
 /**
  * Test class for the jython language engine.
- * @author   Victor J. Orlikowski <vjo@us.ibm.com>
  */
 public class JythonTest extends BSFEngineTestTmpl {
     private BSFEngine jythonEngine;

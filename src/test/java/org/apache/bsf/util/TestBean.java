@@ -23,8 +23,6 @@ import java.io.Serializable;
 /**
  * This is the org.apache.bsf.test.utilTests.TestBean.java used in
  * EngineUtils.java
- *
- * @author Nandika Jayawardana <jayawark@yahoo.com>
  */
 
 public class TestBean implements Serializable{

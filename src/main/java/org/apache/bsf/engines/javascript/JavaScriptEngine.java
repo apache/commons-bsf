@@ -41,11 +41,6 @@ import org.mozilla.javascript.Wrapper;
  * <p>
  * The original version of this code was first written by Adam Peller
  * for use in LotusXSL. Sanjiva took his code and adapted it for BSF.
- *
- * @author   Adam Peller <peller@lotus.com>
- * @author   Sanjiva Weerawarana
- * @author   Matthew J. Duftler
- * @author   Norris Boyd
  */
 public class JavaScriptEngine extends BSFEngineImpl {
     /**

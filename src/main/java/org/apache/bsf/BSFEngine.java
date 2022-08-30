@@ -39,9 +39,6 @@ import org.apache.bsf.util.CodeBuffer;
  * A scripting engine is a property change listener and will be notified
  * when any of the relevant properties of the manager change. (See
  * BSFManager to see which of its properties are bound.)
- *
- * @author  Sanjiva Weerawarana
- * @author  Matthew J. Duftler
  */
 public interface BSFEngine extends PropertyChangeListener {
 

@@ -24,8 +24,6 @@ import java.util.Hashtable;
 /**
  * This class loader knows to load a class from the tempDir dir
  * of the environment of the given manager.
- *
- * @author   Sanjiva Weerawarana
  */
 class BSFClassLoader extends ClassLoader {
   Hashtable cache = new Hashtable ();

@@ -25,8 +25,6 @@ package org.apache.bsf.util.event;
  * can be excepted to, via processExceptionableEvent (in which case the
  * adapter is expected to forward on an exception to the source bean).
  *
- * @author   Sanjiva Weerawarana
- * @author   Matthew J. Duftler
  * @see      EventAdapter
  */
 public interface EventProcessor {

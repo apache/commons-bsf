@@ -23,8 +23,6 @@ package org.apache.bsf;
  * may give more details. The reason one exception with multiple meanings
  * (via the code) [instead of multiple exception types] is used is due to
  * the interest to keep the run-time size small.
- *
- * @author   Sanjiva Weerawarana
  */
 public class BSFException extends Exception {
   public static final int REASON_INVALID_ARGUMENT = 0;

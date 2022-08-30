@@ -27,8 +27,6 @@ import org.apache.bsf.util.MethodUtils;
 /**
  * This is the interface to scripts consisting of Java objects from the
  * Bean Scripting Framework.
- *
- * @author   Sanjiva Weerawarana
  */
 public class JavaClassEngine extends BSFEngineImpl {
   /**

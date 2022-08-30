@@ -40,8 +40,6 @@ import org.apache.bsf.BSFManager;
  * <code>null</code> is returned.
  * <p>
  *
- * @author   Sanjiva Weerawarana
- * @author   Matthew J. Duftler
  * @see      EventAdapter
  */
 

@@ -32,7 +32,6 @@ import org.apache.bsf.util.StringUtilsTest;
 
 /**
  * Primary test class and testing front end for BSF.
- * @author   Victor J. Orlikowski <vjo@us.ibm.com>
  */
 public class BSFTest extends BSFEngineTestTmpl {
     public static String[] testNames;

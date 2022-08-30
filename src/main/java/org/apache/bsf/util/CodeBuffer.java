@@ -29,8 +29,6 @@ import org.apache.bsf.util.cf.CodeFormatter;
 /**
  * A <code>CodeBuffer</code> object is used as a code repository for generated Java code.
  * It provides buffers which correspond to the various sections of a Java class.
- *
- * @author   Matthew J. Duftler
  */
 public class CodeBuffer
 {

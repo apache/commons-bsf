@@ -34,10 +34,6 @@ import org.apache.bsf.util.IOUtils;
 /**
  * This is the main driver for BSF to be run on the command line
  * to eval/exec/compile scripts directly.
- *
- * @author   Sanjiva Weerawarana
- * @author   Matthew J. Duftler
- * @author   Sam Ruby
  */
 public class Main {
     private static final String ARG_IN = "-in";

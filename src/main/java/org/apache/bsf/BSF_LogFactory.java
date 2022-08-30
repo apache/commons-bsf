@@ -24,8 +24,6 @@ package org.apache.bsf;
  * methods which return an instance of the class <code>org.apache.bsf.BSF_Log</code>, which in
  * turn implements all the methods of the <code>org.apache.commons.logging.Log</code> interface class.
  *
-
-   @author Rony G. Flatscher, 2006-12-08
 */
 
 public class BSF_LogFactory
