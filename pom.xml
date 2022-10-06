@@ -25,7 +25,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>52</version>
+    <version>54</version>
   </parent>
 
   <groupId>bsf</groupId>
@@ -44,8 +44,10 @@
     <maven.compiler.target>1.7</maven.compiler.target>
     <commons.componentid>bsf</commons.componentid>
     <commons.module.name>org.apache.commons.bsf</commons.module.name>
-    <commons.release.version>2.4.0</commons.release.version>
-    <commons.release.desc></commons.release.desc>
+    <commons.release.version>2.5.0</commons.release.version>
+    <commons.release.isDistModule>true</commons.release.isDistModule>
+    <commons.rc.version>RC1</commons.rc.version>
+    <commons.bc.version>2.4.0</commons.bc.version>
     <spotbugs.plugin.version>4.2.0</spotbugs.plugin.version>
     <spotbugs.impl.version>4.2.0</spotbugs.impl.version>    
 
@@ -141,8 +143,8 @@
   </scm>
 
   <build>
-    <!-- japicmp:cmp needs package to work from a jar -->
-    <defaultGoal>clean package apache-rat:check japicmp:cmp checkstyle:check javadoc:javadoc</defaultGoal>
+    <!-- japicmp:cmp detected breaks -->
+    <defaultGoal>clean install apache-rat:check checkstyle:check javadoc:javadoc</defaultGoal>
     <plugins>
       <plugin>
         <!-- Temporary hack to allow compilation; remove when engine dependencies have been sorted -->

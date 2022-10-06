@@ -25,7 +25,7 @@ import junit.textui.TestRunner;
 import org.apache.bsf.engines.JaclTest;
 import org.apache.bsf.engines.JavascriptTest;
 import org.apache.bsf.engines.JythonTest;
-import org.apache.bsf.engines.NetrexxTest;
+import org.apache.bsf.engines.NetrexxTest_IGNORE;
 import org.apache.bsf.util.EngineUtilsTest;
 import org.apache.bsf.util.IOUtilsTest;
 import org.apache.bsf.util.StringUtilsTest;
@@ -71,7 +71,7 @@ public class BSFTest extends BSFEngineTestTmpl {
         testNames[2] = "Rhino Engine Tests";
         suite.addTestSuite(JythonTest.class);
         testNames[3] = "Jython Engine Tests";
-        suite.addTestSuite(NetrexxTest.class);
+        suite.addTestSuite(NetrexxTest_IGNORE.class);
         testNames[4] = "NetRexx Engine Tests";
         suite.addTestSuite(StringUtilsTest.class);
         testNames[5] = "StringUtils Test";

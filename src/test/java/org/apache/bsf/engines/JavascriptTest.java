@@ -39,7 +39,7 @@ public class JavascriptTest extends BSFEngineTestTmpl {
             javascriptEngine = bsfManager.loadScriptingEngine("javascript");
         }
         catch (final Exception e) {
-            fail(failMessage("Failure attempting to load Rhino", e));
+            fail(failMessage("Failure attempting to load javascript engine", e));
         }
     }
 

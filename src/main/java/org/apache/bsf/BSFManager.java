@@ -789,7 +789,7 @@ public class BSFManager {
 
             if (engineClass==null)      // not found, try the defined classLoader
             {
-                engineClass = definedClassLoader.loadClass (engineClassName);
+                engineClass = definedClassLoader.loadClass(engineClassName);
             }
 
             final BSFEngine engf = (BSFEngine) engineClass.newInstance();
