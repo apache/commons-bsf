@@ -19,13 +19,13 @@
 package org.apache.bsf.engines;
 
 import org.apache.bsf.BSFEngine;
-import org.apache.bsf.BSFEngineTestTmpl;
+import org.apache.bsf.BSFEngineTestCase;
 import org.apache.bsf.BSFException;
 
 /**
  * Test class for the Rhino language engine.
  */
-public class JavascriptTest extends BSFEngineTestTmpl {
+public class JavascriptTest extends BSFEngineTestCase {
     private BSFEngine javascriptEngine;
 
     public JavascriptTest(final String name) {

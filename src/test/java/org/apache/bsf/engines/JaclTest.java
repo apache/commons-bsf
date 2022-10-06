@@ -17,115 +17,114 @@
 
 package org.apache.bsf.engines;
 
+import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.apache.bsf.AbstractBSFEngineTest;
 import org.apache.bsf.BSFEngine;
-import org.apache.bsf.BSFEngineTestTmpl;
 import org.apache.bsf.BSFException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledForJreRange;
+import org.junit.jupiter.api.condition.JRE;
 
 /**
  * Test class for the jacl language engine.
  */
-public class JaclTest extends BSFEngineTestTmpl {
+@DisabledForJreRange(min = JRE.JAVA_11) // Jacl's Interp class fails to find one of its resources on Java 11
+public class JaclTest extends AbstractBSFEngineTest {
     private BSFEngine jaclEngine;
 
-    public JaclTest(final String name) {
-        super(name);
-    }
-
+    @BeforeEach
     public void setUp() {
         super.setUp();
-
         try {
             jaclEngine = bsfManager.loadScriptingEngine("jacl");
-        }
-        catch (final Exception e) {
+        } catch (final Exception e) {
             fail(failMessage("Failure attempting to load jacl", e));
         }
     }
 
+    @Test
     public void testExec() {
         try {
-            jaclEngine.exec("Test.jacl", 0, 0,
-                            "puts -nonewline \"PASSED\"");
-        }
-        catch (final Exception e) {
+            jaclEngine.exec("Test.jacl", 0, 0, "puts -nonewline \"PASSED\"");
+        } catch (final Exception e) {
             fail(failMessage("exec() test failed", e));
         }
 
         assertEquals("PASSED", getTmpOutStr());
     }
 
+    @Test
     public void testEval() {
         Integer retval = null;
 
         try {
-            retval =  (Integer) jaclEngine.eval("Test.jacl", 0, 0,
-                                                "expr 1 + 1");
-        }
-        catch (final Exception e) {
+            retval = (Integer) jaclEngine.eval("Test.jacl", 0, 0, "expr 1 + 1");
+        } catch (final Exception e) {
             fail(failMessage("eval() test failed", e));
         }
 
         assertEquals(new Integer(2), retval);
     }
 
+    @Test
     public void testCall() {
         final Object[] args = { new Integer(1) };
         Integer retval = null;
 
         try {
-            jaclEngine.exec("Test.jacl", 0, 0,
-                            "proc addOne {f} {\n return [expr $f + 1]\n}");
+            jaclEngine.exec("Test.jacl", 0, 0, "proc addOne {f} {\n return [expr $f + 1]\n}");
             retval = (Integer) jaclEngine.call(null, "addOne", args);
-        }
-        catch (final Exception e) {
+        } catch (final Exception e) {
             fail(failMessage("call() test failed", e));
         }
 
         assertEquals(new Integer(2), retval);
     }
 
+    @Test
     public void testIexec() {
         try {
-            jaclEngine.iexec("Test.jacl", 0, 0,
-                             "puts -nonewline \"PASSED\"");
-        }
-        catch (final Exception e) {
+            jaclEngine.iexec("Test.jacl", 0, 0, "puts -nonewline \"PASSED\"");
+        } catch (final Exception e) {
             fail(failMessage("iexec() test failed", e));
         }
 
         assertEquals("PASSED", getTmpOutStr());
     }
 
+    @Test
     public void testBSFManagerEval() {
         Integer retval = null;
 
         try {
-            retval = (Integer) bsfManager.eval("jacl", "Test.jacl", 0, 0,
-                                               "expr 1 + 1");
-        }
-        catch (final Exception e) {
+            retval = (Integer) bsfManager.eval("jacl", "Test.jacl", 0, 0, "expr 1 + 1");
+        } catch (final Exception e) {
             fail(failMessage("BSFManager eval() test failed", e));
         }
 
         assertEquals(new Integer(2), retval);
     }
 
+    @Test
     public void testRegisterBean() {
         final Integer foo = new Integer(1);
         Integer bar = null;
 
         try {
             bsfManager.registerBean("foo", foo);
-            bar = (Integer) jaclEngine.eval("Test.jacl", 0, 0,
-                                            "bsf lookupBean \"foo\"");
-        }
-        catch (final Exception e) {
+            bar = (Integer) jaclEngine.eval("Test.jacl", 0, 0, "bsf lookupBean \"foo\"");
+        } catch (final Exception e) {
             fail(failMessage("registerBean() test failed", e));
         }
 
         assertEquals(foo, bar);
     }
 
+    @Test
     public void testUnregisterBean() {
         final Integer foo = new Integer(1);
         Integer bar = null;
@@ -133,37 +132,32 @@ public class JaclTest extends BSFEngineTestTmpl {
         try {
             bsfManager.registerBean("foo", foo);
             bsfManager.unregisterBean("foo");
-            bar = (Integer) jaclEngine.eval("Test.jacl", 0, 0,
-                                            "bsf lookupBean \"foo\"");
-        }
-        catch (final BSFException bsfE) {
+            bar = (Integer) jaclEngine.eval("Test.jacl", 0, 0, "bsf lookupBean \"foo\"");
+        } catch (final BSFException bsfE) {
             // Do nothing. This is the expected case.
-        }
-        catch (final Exception e) {
+        } catch (final Exception e) {
             fail(failMessage("unregisterBean() test failed", e));
         }
 
         assertNull(bar);
     }
 
+    @Test
     public void testDeclareBean() {
         final Integer foo = new Integer(1);
         Integer bar = null;
 
         try {
             bsfManager.declareBean("foo", foo, Integer.class);
-            bar = (Integer)
-                jaclEngine.eval("Test.jacl", 0, 0,
-                                "proc ret {} {\n upvar 1 foo lfoo\n " +
-                                "return $lfoo\n }\n ret");
-        }
-        catch (final Exception e) {
+            bar = (Integer) jaclEngine.eval("Test.jacl", 0, 0, "proc ret {} {\n upvar 1 foo lfoo\n " + "return $lfoo\n }\n ret");
+        } catch (final Exception e) {
             fail(failMessage("declareBean() test failed", e));
         }
 
         assertEquals(foo, bar);
     }
 
+    @Test
     public void testUndeclareBean() {
         final Integer foo = new Integer(1);
         Integer bar = null;
@@ -171,11 +165,8 @@ public class JaclTest extends BSFEngineTestTmpl {
         try {
             bsfManager.declareBean("foo", foo, Integer.class);
             bsfManager.undeclareBean("foo");
-            bar = (Integer)
-                jaclEngine.eval("Test.jacl", 0, 0,
-                                "expr $foo + 1");
-        }
-        catch (final Exception e) {
+            bar = (Integer) jaclEngine.eval("Test.jacl", 0, 0, "expr $foo + 1");
+        } catch (final Exception e) {
             fail(failMessage("undeclareBean() test failed", e));
         }
 

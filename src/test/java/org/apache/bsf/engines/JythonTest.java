@@ -19,13 +19,13 @@
 package org.apache.bsf.engines;
 
 import org.apache.bsf.BSFEngine;
-import org.apache.bsf.BSFEngineTestTmpl;
+import org.apache.bsf.BSFEngineTestCase;
 import org.apache.bsf.BSFException;
 
 /**
  * Test class for the jython language engine.
  */
-public class JythonTest extends BSFEngineTestTmpl {
+public class JythonTest extends BSFEngineTestCase {
     private BSFEngine jythonEngine;
 
     public JythonTest(final String name) {

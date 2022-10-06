@@ -17,12 +17,6 @@
 
 package org.apache.bsf;
 
-import junit.framework.Test;
-import junit.framework.TestResult;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
-
-import org.apache.bsf.engines.JaclTest;
 import org.apache.bsf.engines.JavascriptTest;
 import org.apache.bsf.engines.JythonTest;
 import org.apache.bsf.engines.NetrexxTest_IGNORE;
@@ -30,10 +24,15 @@ import org.apache.bsf.util.EngineUtilsTest;
 import org.apache.bsf.util.IOUtilsTest;
 import org.apache.bsf.util.StringUtilsTest;
 
+import junit.framework.Test;
+import junit.framework.TestResult;
+import junit.framework.TestSuite;
+import junit.textui.TestRunner;
+
 /**
  * Primary test class and testing front end for BSF.
  */
-public class BSFTest extends BSFEngineTestTmpl {
+public class BSFTest extends BSFEngineTestCase {
     public static String[] testNames;
 
     public BSFTest(final String name) {
@@ -61,24 +60,22 @@ public class BSFTest extends BSFEngineTestTmpl {
          * Please add testcases here as needed.
          */
         final TestSuite suite = new TestSuite();
-        testNames = new String [8];
+        testNames = new String [7];
 
         suite.addTestSuite(BSFTest.class);
         testNames[0] = "BSFManager Base Tests";
-        suite.addTestSuite(JaclTest.class);
-        testNames[1] = "Jacl Engine Tests";
         suite.addTestSuite(JavascriptTest.class);
-        testNames[2] = "Rhino Engine Tests";
+        testNames[1] = "Rhino Engine Tests";
         suite.addTestSuite(JythonTest.class);
-        testNames[3] = "Jython Engine Tests";
+        testNames[2] = "Jython Engine Tests";
         suite.addTestSuite(NetrexxTest_IGNORE.class);
-        testNames[4] = "NetRexx Engine Tests";
+        testNames[3] = "NetRexx Engine Tests";
         suite.addTestSuite(StringUtilsTest.class);
-        testNames[5] = "StringUtils Test";
+        testNames[4] = "StringUtils Test";
         suite.addTestSuite(IOUtilsTest.class);
-        testNames[6] = "IOUtils Test";
+        testNames[5] = "IOUtils Test";
         suite.addTestSuite(EngineUtilsTest.class);
-        testNames[7] = "EngineUtils Test";
+        testNames[6] = "EngineUtils Test";
 
         return suite;
     }

@@ -19,7 +19,7 @@
 package org.apache.bsf.engines;
 
 import org.apache.bsf.BSFEngine;
-import org.apache.bsf.BSFEngineTestTmpl;
+import org.apache.bsf.BSFEngineTestCase;
 import org.apache.bsf.BSFException;
 
 /**
@@ -27,7 +27,7 @@ import org.apache.bsf.BSFException;
  */
 
 //@Ignore("How do we tell Maven to depend on Netrexx")
-public class NetrexxTest_IGNORE extends BSFEngineTestTmpl {
+public class NetrexxTest_IGNORE extends BSFEngineTestCase {
     private BSFEngine netrexxEngine;
     private final String lineSeparatorStr = System.getProperty("line.separator");
 

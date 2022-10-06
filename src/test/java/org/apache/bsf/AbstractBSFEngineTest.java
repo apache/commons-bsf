@@ -20,21 +20,17 @@ package org.apache.bsf;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import junit.framework.TestCase;
-
 /**
  * Superclass for language engine tests.
  */
-public abstract class BSFEngineTestTmpl extends TestCase {
+public abstract class AbstractBSFEngineTest {
     protected BSFManager bsfManager;
     protected PrintStream sysOut;
 
     private final PrintStream tmpOut;
     private final ByteArrayOutputStream tmpBaos;
 
-    public BSFEngineTestTmpl(final String name) {
-        super(name);
-
+    public AbstractBSFEngineTest() {
         sysOut = System.out;
         tmpBaos = new ByteArrayOutputStream();
         tmpOut = new PrintStream(tmpBaos);
