@@ -48,7 +48,7 @@
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.rc.version>RC1</commons.rc.version>
     <commons.bc.version>2.4.0</commons.bc.version>
-    <spotbugs.plugin.version>4.2.0</spotbugs.plugin.version>
+    <spotbugs.plugin.version>4.7.2.1</spotbugs.plugin.version>
     <spotbugs.impl.version>4.2.0</spotbugs.impl.version>    
 
     <commons.jira.id>BSF</commons.jira.id>
