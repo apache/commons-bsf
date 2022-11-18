@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.net.MalformedURLException;
+import java.nio.file.Files;
 import java.util.Vector;
 
 import junit.framework.TestCase;
@@ -126,7 +127,7 @@ public class StringUtilsTest extends TestCase {
 
             Reader reader;
 
-            final File myFile = File.createTempFile("Test", "txt");
+            final File myFile = Files.createTempFile("Test","txt").toFile();
 
             final FileWriter fw = new FileWriter(myFile);
             final PrintWriter pw = new PrintWriter(fw);
@@ -144,7 +145,7 @@ public class StringUtilsTest extends TestCase {
 
         String result;
 
-        final File myFile = File.createTempFile("Test", "txt");
+        final File myFile = Files.createTempFile("Test","txt").toFile();
 
         final FileWriter fw = new FileWriter(myFile);
         final PrintWriter pw = new PrintWriter(fw);

@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.nio.file.Files;
 
 import junit.framework.TestCase;
 
@@ -55,7 +56,7 @@ public class IOUtilsTest extends TestCase {
 
         assertTrue(result.equals(("IOUtilsTest" + lineSeparator)));
 
-        final File myFile = File.createTempFile("Test", "txt");
+        final File myFile = Files.createTempFile("Test","txt").toFile();
 
         final FileWriter fw = new FileWriter(myFile);
         final PrintWriter npw = new PrintWriter(fw);
