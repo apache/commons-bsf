@@ -21,7 +21,7 @@ import org.w3c.dom.Node;
 
 public class XSLTResultNode
 {
-  Node node;
+  final Node node;
 
   public XSLTResultNode(final Node node)
   {

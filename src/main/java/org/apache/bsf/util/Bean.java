@@ -25,10 +25,10 @@ package org.apache.bsf.util;
  */
 public class Bean {
   // type of this bean
-  public Class type;
+  public final Class type;
 
   // its current value (mebbe null)
-  public Object value;
+  public final Object value;
 
   public Bean (final Class type, final Object value) {
 	this.type = type;

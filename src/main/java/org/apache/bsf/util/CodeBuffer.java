@@ -62,10 +62,10 @@ public class CodeBuffer
                  constructorExceptions   = new Vector(),
                  serviceMethodExceptions = new Vector(),
                  implementsVector        = new Vector();
-  private String packageName             = null,
+  private String packageName,
                  className               = "Test",
                  serviceMethodName       = "exec",
-                 extendsName             = null;
+                 extendsName;
   private Class  serviceMethodReturnType = void.class;
 
   public CodeBuffer()

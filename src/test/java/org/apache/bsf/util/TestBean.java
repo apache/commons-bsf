@@ -26,7 +26,7 @@ import java.io.Serializable;
  */
 
 public class TestBean implements Serializable{
-    private String strValue = null;
+    private String strValue;
     private Number numValue;
 
     public TestBean(){

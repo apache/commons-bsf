@@ -26,7 +26,7 @@ import java.util.Hashtable;
  * of the environment of the given manager.
  */
 class BSFClassLoader extends ClassLoader {
-  Hashtable cache = new Hashtable ();
+  final Hashtable cache = new Hashtable ();
   String tempDir = ".";
 
   // note the non-public constructor - this is only avail within

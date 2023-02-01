@@ -29,8 +29,8 @@ import java.util.Hashtable;
  * @see      TypeConvertorRegistry
  */
 public class TypeConvertorRegistry {
-  Hashtable reg = new Hashtable ();
-  Hashtable keyedReg = new Hashtable ();
+  final Hashtable reg = new Hashtable ();
+  final Hashtable keyedReg = new Hashtable ();
 
   // register some standard convertors at construction time
   public TypeConvertorRegistry () {

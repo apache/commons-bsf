@@ -61,7 +61,7 @@ public class JavaScriptEngine extends BSFEngineImpl {
         throws BSFException {
 
         Object retval = null;
-        Context cx;
+        final Context cx;
 
         try {
             cx = Context.enter();
@@ -122,7 +122,7 @@ public class JavaScriptEngine extends BSFEngineImpl {
 
         final String scriptText = oscript.toString();
         Object retval = null;
-        Context cx;
+        final Context cx;
 
         try {
             cx = Context.enter();

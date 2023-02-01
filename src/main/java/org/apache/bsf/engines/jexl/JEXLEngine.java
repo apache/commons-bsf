@@ -32,7 +32,7 @@ import org.apache.commons.jexl.Script;
 import org.apache.commons.jexl.ScriptFactory;
 
 /**
- * {@link BSFEngine} for Commons JEXL.
+ * {@link org.apache.bsf.BSFEngine} for Commons JEXL.
  * Requires Commons JEXL version 1.1 or later.
  *
  * @see <a href="http://commons.apache.org/jexl/">Commons JEXL</a>

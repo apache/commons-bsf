@@ -28,8 +28,8 @@ import java.util.Hashtable;
  * All registration is always local. [??]
  */
 public class ObjectRegistry {
-  Hashtable      reg    = new Hashtable ();
-  ObjectRegistry parent = null;
+  final Hashtable reg = new Hashtable ();
+  ObjectRegistry parent;
 
   public ObjectRegistry () {
   }

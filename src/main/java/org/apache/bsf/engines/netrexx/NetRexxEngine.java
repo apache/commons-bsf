@@ -80,13 +80,13 @@ import org.apache.bsf.util.StringUtils;
 public class NetRexxEngine extends BSFEngineImpl
 {
     BSFFunctions mgrfuncs;
-    static Hashtable codeToClass=new Hashtable();
-    static String serializeCompilation="";
-    static String placeholder="$$CLASSNAME$$";
+    static final Hashtable codeToClass=new Hashtable();
+    static final String serializeCompilation="";
+    static final String placeholder="$$CLASSNAME$$";
     String minorPrefix;
 
     // private Log logger = LogFactory.getLog(this.getClass().getName());
-    private BSF_Log logger = null;
+    private final BSF_Log logger;
 
     /**
      * Create a scratchfile, open it for writing, return its name.
@@ -98,13 +98,13 @@ public class NetRexxEngine extends BSFEngineImpl
      * I've made the offset static, due to concerns about reuse/reentrancy
      * of the NetRexx engine.
      */
-  private static int uniqueFileOffset=0;
+  private static int uniqueFileOffset;
   private class GeneratedFile
   {
-    File file=null;
-    FileOutputStream fos=null;
-    String className=null;
-    GeneratedFile(File file,FileOutputStream fos,String className)
+    final File file;
+    final FileOutputStream fos;
+    final String className;
+    GeneratedFile(final File file, final FileOutputStream fos, final String className)
       {
           this.file=file;
           this.fos=fos;
@@ -146,7 +146,7 @@ public class NetRexxEngine extends BSFEngineImpl
      * passed to the extension, which may be either
      * Vectors of Nodes, or Strings.
      */
-    public Object call (Object object, String method, Object[] args)
+    public Object call (final Object object, final String method, final Object[] args)
     throws BSFException
     {
         throw new BSFException(BSFException.REASON_UNSUPPORTED_FEATURE,
@@ -161,7 +161,7 @@ public class NetRexxEngine extends BSFEngineImpl
      * passed to the extension, which may be either
      * Vectors of Nodes, or Strings.
      */
-    Object callStatic(Class rexxclass, String method, Object[] args)
+    Object callStatic(final Class rexxclass, final String method, final Object[] args)
     throws BSFException
     {
         //***** ISSUE: Currently supports only static methods
@@ -171,11 +171,11 @@ public class NetRexxEngine extends BSFEngineImpl
             if (rexxclass != null)
             {
                 //***** This should call the lookup used in BML, for typesafety
-                Class[] argtypes=new Class[args.length];
+                final Class[] argtypes=new Class[args.length];
                 for(int i=0;i<args.length;++i)
                     argtypes[i]=args[i].getClass();
 
-                Method m=MethodUtils.getMethod(rexxclass, method, argtypes);
+                final Method m=MethodUtils.getMethod(rexxclass, method, argtypes);
                 retval=m.invoke(null,args);
             }
             else
@@ -183,12 +183,12 @@ public class NetRexxEngine extends BSFEngineImpl
                 logger.error("NetRexxEngine: ERROR: rexxclass==null!");
             }
         }
-        catch(Exception e)
+        catch(final Exception e)
         {
             e.printStackTrace ();
             if (e instanceof InvocationTargetException)
             {
-                Throwable t = ((InvocationTargetException)e).getTargetException ();
+                final Throwable t = ((InvocationTargetException)e).getTargetException ();
                 t.printStackTrace ();
             }
             throw new BSFException (BSFException.REASON_IO_ERROR,
@@ -197,7 +197,7 @@ public class NetRexxEngine extends BSFEngineImpl
         }
         return retval;
     }
-    public void declareBean (BSFDeclaredBean bean) throws BSFException {}
+    public void declareBean (final BSFDeclaredBean bean) throws BSFException {}
     /**
      * Override impl of execute. In NetRexx, methods which do not wish
      * to return a value should be invoked via exec, which will cause them
@@ -210,8 +210,8 @@ public class NetRexxEngine extends BSFEngineImpl
      * return primitive types without having to enclose them in their
      * object wrappers. BSF does not currently support that concept.
      */
-    public Object eval (String source, int lineNo, int columnNo,
-                    Object script)
+    public Object eval (final String source, final int lineNo, final int columnNo,
+                        final Object script)
     throws BSFException
     {
         return execEvalShared(source, lineNo, columnNo, script,true);
@@ -223,8 +223,8 @@ public class NetRexxEngine extends BSFEngineImpl
      * Those which wish to return a value should call eval instead.
      * which will add "returns java.lang.Object" to the header.
      */
-    public void exec (String source, int lineNo, int columnNo,
-                  Object script)
+    public void exec (final String source, final int lineNo, final int columnNo,
+                      final Object script)
     throws BSFException
     {
          execEvalShared(source, lineNo, columnNo, script,false);
@@ -244,8 +244,8 @@ public class NetRexxEngine extends BSFEngineImpl
      * Nobody knows whether javac is threadsafe.
      * I'm going to serialize access to the compilers to protect it.
      */
-    public Object execEvalShared (String source, int lineNo, int columnNo,
-                              Object oscript,boolean returnsObject)
+    public Object execEvalShared (final String source, final int lineNo, final int columnNo,
+                                  final Object oscript, final boolean returnsObject)
     throws BSFException
     {
         Object retval=null;
@@ -255,7 +255,7 @@ public class NetRexxEngine extends BSFEngineImpl
         // Moved into the exec process; see comment above.
         Class rexxclass=null;
 
-        String basescript=oscript.toString();
+        final String basescript=oscript.toString();
         String script=basescript; // May be altered by $$CLASSNAME$$ expansion
 
         try {
@@ -298,7 +298,7 @@ public class NetRexxEngine extends BSFEngineImpl
                             int startpoint,endpoint;
                             if((startpoint=script.indexOf(placeholder))>=0)
                 {
-                                    StringBuffer changed=new StringBuffer();
+                                    final StringBuffer changed=new StringBuffer();
                                     for(;
                                         startpoint>=0;
                                         startpoint=script.indexOf(placeholder,startpoint))
@@ -348,7 +348,7 @@ public class NetRexxEngine extends BSFEngineImpl
                     }
 
                     netrexx.lang.Rexx cmdline= new netrexx.lang.Rexx(command);
-                    int retValue;
+                    final int retValue;
 
                     // May not be threadsafe. Serialize access on static object:
                     synchronized(serializeCompilation)
@@ -374,20 +374,20 @@ public class NetRexxEngine extends BSFEngineImpl
                 codeToClass.put(basescript,rexxclass);
                         }
 
-            Object[] args={mgrfuncs};
+            final Object[] args={mgrfuncs};
             retval=callStatic(rexxclass, "BSFNetRexxEngineEntry",args);
                 }
-                catch (BSFException e)
+                catch (final BSFException e)
                     {
                         // Just forward the exception on.
                         throw e;
                     }
-                catch(Exception e)
+                catch(final Exception e)
                     {
             e.printStackTrace ();
             if (e instanceof InvocationTargetException)
             {
-                Throwable t = ((InvocationTargetException)e).getTargetException ();
+                final Throwable t = ((InvocationTargetException)e).getTargetException ();
                 t.printStackTrace ();
             }
             throw new BSFException (BSFException.REASON_IO_ERROR,
@@ -421,13 +421,13 @@ public class NetRexxEngine extends BSFEngineImpl
                 // Search for and clean up minor classes, classname$xxx.class
                 file=new File(tempDir);
                 minorPrefix=classname+"$"; // Indirect arg to filter
-                String[] minor_classfiles=
+                final String[] minor_classfiles=
                     file.list(
                         // ANONYMOUS CLASS for filter:
                         new FilenameFilter()
                         {
                             // Starts with classname$ and ends with .class
-                            public boolean accept(File dir,String name)
+                            public boolean accept(final File dir, final String name)
                             {
                                 return
                                     (0==name.indexOf(minorPrefix))
@@ -448,17 +448,17 @@ public class NetRexxEngine extends BSFEngineImpl
 
         return retval;
     }
-    public void initialize(BSFManager mgr, String lang,Vector declaredBeans)
+    public void initialize(final BSFManager mgr, final String lang, final Vector declaredBeans)
     throws BSFException
     {
         super.initialize(mgr, lang, declaredBeans);
         mgrfuncs = new BSFFunctions (mgr, this);
     }
-private GeneratedFile openUniqueFile(String directory,String prefix,String suffix)
+private GeneratedFile openUniqueFile(final String directory, final String prefix, final String suffix)
     {
         File file=null,obj=null;
         FileOutputStream fos=null;
-        int max=1000;           // Don't try forever
+        final int max=1000;           // Don't try forever
         GeneratedFile gf=null;
         int i;
         String className = null;
@@ -475,7 +475,7 @@ private GeneratedFile openUniqueFile(String directory,String prefix,String suffi
                     if(file!=null && !file.exists() & obj!=null & !obj.exists())
                         fos=new FileOutputStream(file);
                 }
-            catch(Exception e)
+            catch(final Exception e)
                 {
                     // File could not be opened for write, or Security Exception
                     // was thrown. If someone else created the file before we could
@@ -494,5 +494,5 @@ private GeneratedFile openUniqueFile(String directory,String prefix,String suffi
         return gf;
     }
 
-    public void undeclareBean (BSFDeclaredBean bean) throws BSFException {}
+    public void undeclareBean (final BSFDeclaredBean bean) throws BSFException {}
 }

@@ -25,8 +25,8 @@ public class ObjInfo
 {
      static private final String QUOTE_CHARS = "\'\"";
      static private final String EXEC_CHARS  = "(=";
-		 public  String objName;
-		 public  Class  objClass;
+		 public final String objName;
+		 public final Class  objClass;
 
   public ObjInfo(final Class objClass, final String objName)
   {

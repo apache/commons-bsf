@@ -33,6 +33,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import java.util.Arrays;
 import java.util.TreeSet;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -62,7 +63,7 @@ import org.apache.bsf.util.type.TypeConvertorRegistry;
  */
 public class ReflectionUtils {
     // rgf, 20070921: class loaders that we might need to load classes
-    static ClassLoader bsfManagerDefinedCL=BSFManager.getDefinedClassLoader();
+    static final ClassLoader bsfManagerDefinedCL=BSFManager.getDefinedClassLoader();
 
 
   //////////////////////////////////////////////////////////////////////////
@@ -98,15 +99,15 @@ public class ReflectionUtils {
 
     if (esd == null)        // no events found, maybe a proxy from OpenOffice.org?
         {
-          String errMsg="event set '" + eventSetName +"' unknown for source type '" + source.getClass () + "': ";
+          StringBuffer errMsg= new StringBuffer("event set '" + eventSetName + "' unknown for source type '" + source.getClass() + "': ");
           if (arrESD.length==0)     // no event sets found in class!
           {
-              errMsg=errMsg+"class does not implement any event methods following Java's event pattern!";
+              errMsg.append("class does not implement any event methods following Java's event pattern!");
           }
           else
           {
               // errMsg=errMsg+"class defines the following event set(s): {";
-              errMsg=errMsg+"class defines the following event set(s): ";
+              errMsg.append("class defines the following event set(s): ");
 
               // sort ESD by Name
               final TreeSet ts=new TreeSet(new Comparator () {
@@ -114,10 +115,7 @@ public class ReflectionUtils {
                           public boolean equals(final Object o1, final Object o2) {return ((EventSetDescriptor)o1).getName().equalsIgnoreCase   (((EventSetDescriptor)o2).getName());}
                          });
 
-              for (int i=0;i<arrESD.length;i++)
-              {
-                  ts.add(arrESD[i]);
-              }
+              ts.addAll(Arrays.asList(arrESD));
               final Iterator it=ts.iterator();    // get iterator
 
               int i=0;
@@ -127,9 +125,9 @@ public class ReflectionUtils {
 
                   if (i>0)
                   {
-                      errMsg=errMsg+", ";
+                      errMsg.append(", ");
                   }
-                  errMsg=errMsg+"\n\t"+'\''+tmpESD.getName()+"'={";  // event set name
+                  errMsg.append("\n\t").append('\'').append(tmpESD.getName()).append("'={");  // event set name
 
 
                     // iterate over listener methods and display their names in sorted order
@@ -139,10 +137,7 @@ public class ReflectionUtils {
                           public boolean equals(final Object o1, final Object o2) {return ((Method)o1).getName().equalsIgnoreCase   (((Method)o2).getName());}
                          });
 
-                  for (int j=0;j<m.length;j++)
-                  {
-                      tsM.add(m[j]);
-                  }
+                  tsM.addAll(Arrays.asList(m));
                   final Iterator itM=tsM.iterator();
 
                   int j=0;
@@ -150,18 +145,18 @@ public class ReflectionUtils {
                   {
                       if (j>0)
                       {
-                          errMsg=errMsg+',';
+                          errMsg.append(',');
                       }
-                      errMsg=errMsg+'\''+((Method) itM.next()).getName()+'\'';
+                      errMsg.append('\'').append(((Method) itM.next()).getName()).append('\'');
                       j++;
                   }
-                  errMsg=errMsg+'}';    // close event method set
+                  errMsg.append('}');    // close event method set
                   i++;
               }
 
-              errMsg=errMsg+".";       // close set of event sets
+              errMsg.append(".");       // close set of event sets
           }
-          throw new IllegalArgumentException (errMsg);
+          throw new IllegalArgumentException (errMsg.toString());
     }
 
     // get the class object for the event
@@ -180,8 +175,8 @@ public class ReflectionUtils {
     adapter.setEventProcessor (processor);
 
     // bind the adapter to the source bean
-    Method addListenerMethod;
-    Object[] args;
+    final Method addListenerMethod;
+    final Object[] args;
     if (eventSetName.equals ("propertyChange") ||
         eventSetName.equals ("vetoableChange")) {
       // In Java 1.2, beans may have direct listener adding methods
@@ -381,8 +376,8 @@ public class ReflectionUtils {
     }
 
     // get read method and type of property
-    Method rm;
-    Class propType;
+    final Method rm;
+    final Class propType;
     if (index != null) {
       // if index != null, then property is indexed - pd better be so too
       if (!(pd instanceof IndexedPropertyDescriptor)) {
@@ -487,8 +482,8 @@ public class ReflectionUtils {
     }
 
     // get write method and type of property
-    Method wm;
-    Class propType;
+    final Method wm;
+    final Class propType;
     if (index != null) {
       // if index != null, then property is indexed - pd better be so too
       if (!(pd instanceof IndexedPropertyDescriptor)) {
