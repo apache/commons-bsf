@@ -66,11 +66,11 @@ BSF 2.x supports several scripting languages currently:
 
 <ul>
    <li>
-       <a href="http://www.mozilla.org/rhino/">Javascript (using Rhino ECMAScript, from the Mozilla project)</a>
+       <a href="https://github.com/mozilla/rhino">Javascript (using Rhino ECMAScript, from the Mozilla project)</a>
    </li>
 
    <li>
-       <a href="http://www-306.ibm.com/software/awdtools/netrexx/">NetRexx</a> (an extension of the IBM REXX scripting language in Java)
+       <a href="https://netrexx.org/">NetRexx</a> (an extension of the IBM REXX scripting language in Java)
    </li>
 
    <li>
@@ -99,7 +99,7 @@ BSF 2.x supports several scripting languages currently:
    </li>
 
    <li>
-       <a href="http://groovy.codehaus.org/">Groovy</a>
+       <a href="https://groovy-lang.org/">Groovy</a>
    </li>
 
    <li>
@@ -111,11 +111,11 @@ BSF 2.x supports several scripting languages currently:
    </li>
 
    <li>
-       <a href="http://jruby.codehaus.org/">JRuby</a>
+       <a href="https://www.jruby.org/">JRuby</a>
    </li>
 
    <li>
-       <a href="http://www.judoscript.org">JudoScript</a>
+       <a href="https://metaprgmr.github.io/Judoscript/website/judoscript.com-v2/home.html">JudoScript</a>
    </li>
 
    <li>
@@ -190,7 +190,7 @@ with some implementations of javax.script (e.g. Sun Java 6) this may prevent any
 An example language which includes the necessary engine factory is:
 <a href="http://commons.apache.org/jexl/">Apache Jexl 2.0</a> (requires Java 5).
 Some other scripting languages also come with their own factories already included.
-For example <a href="http://groovy.codehaus.org/">Groovy</a> and <a href="http://jruby.org/">JRuby</a>.  
+For example <a href="https://groovy-lang.org/">Groovy</a> and <a href="https://jruby.org/">JRuby</a>.  
 </p>
 <p>
 Many other languages are supported by the 3rd party engine factories available at 
