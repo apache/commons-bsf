@@ -178,7 +178,13 @@
       <!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>jardiff-maven-plugin</artifactId> <configuration> <artifacts> 
         <artifact> <version>5.2</version> </artifact> <artifact> <groupId>bcel</groupId> <version>5.1</version> </artifact> </artifacts> 
         </configuration> </plugin> -->
-
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <doclint>none</doclint>
+        </configuration>
+      </plugin>
     </plugins>
   </reporting>
 
