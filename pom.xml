@@ -170,6 +170,15 @@
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
       </plugin>
+      <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <configuration>
+           <excludes>
+             <exclude>.jython_cache/**</exclude>
+           </excludes>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
@@ -210,9 +219,9 @@
       <version>1.7R2</version>
     </dependency>
     <dependency>
-      <groupId>jython</groupId>
-      <artifactId>jython</artifactId>
-      <version>2.1</version>
+      <groupId>org.python</groupId>
+      <artifactId>jython-standalone</artifactId>
+      <version>2.7.3</version>
     </dependency>
     <dependency>
       <groupId>xalan</groupId>

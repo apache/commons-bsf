@@ -52,7 +52,7 @@ public class JythonTest extends BSFEngineTestCase {
             fail(failMessage("exec() test failed", e));
         }
 
-        assertEquals("PASSED", getTmpOutStr());
+        assertEquals("PASSED", getTmpOutStr().trim());
     }
 
     public void testEval() {
@@ -98,7 +98,7 @@ public class JythonTest extends BSFEngineTestCase {
             fail(failMessage("iexec() test failed", e));
         }
 
-        assertEquals("PASSED", getTmpOutStr());
+        assertEquals("PASSED", getTmpOutStr().trim());
     }
 
     public void testBSFManagerEval() {

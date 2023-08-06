@@ -30,7 +30,7 @@ import org.apache.bsf.util.BSFEngineImpl;
 import org.apache.bsf.util.BSFFunctions;
 import org.python.core.Py;
 import org.python.core.PyException;
-import org.python.core.PyJavaInstance;
+import org.python.core.PyJavaType;
 import org.python.core.PyObject;
 import org.python.core.PySystemState;
 import org.python.util.InteractiveInterpreter;
@@ -116,8 +116,8 @@ public class JythonEngine extends BSFEngineImpl {
 
           Object result = interp.eval ("bsf_temp_fn()");
 
-          if (result instanceof PyJavaInstance) {
-            result = ((PyJavaInstance)result).__tojava__(Object.class);
+          if (result instanceof PyJavaType) {
+            result = ((PyJavaType)result).__tojava__(Object.class);
         }
           return result;
       } catch (final PyException e) {
@@ -135,8 +135,8 @@ public class JythonEngine extends BSFEngineImpl {
 	  final String scriptStr = byteify(script.toString ());
 	  importPackage(scriptStr);
 	  Object result = interp.eval (scriptStr);
-	  if (result instanceof PyJavaInstance) {
-        result = ((PyJavaInstance)result).__tojava__(Object.class);
+	  if (result instanceof PyJavaType) {
+        result = ((PyJavaType)result).__tojava__(Object.class);
     }
 	  return result;
 	} catch (final PyException e) {
