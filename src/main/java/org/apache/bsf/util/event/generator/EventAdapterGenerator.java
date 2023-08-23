@@ -217,7 +217,7 @@ public class EventAdapterGenerator
     {
       boolean exceptionable    = false;
       boolean nonExceptionable = false;
-      byte    constantPool[]   = null;
+      byte[] constantPool = null;
       short   cpBaseIndex;
       short   cpCount          = 0;
       short   cpExceptionBaseIndex;
@@ -263,7 +263,7 @@ public class EventAdapterGenerator
       final String eventListenerName = listenerTypeName.replace('.', '/');
 
       /* method stuff */
-      final java.lang.reflect.Method lms[] = listenerType.getMethods();
+      final java.lang.reflect.Method[] lms = listenerType.getMethods();
 
       /* ****************************************************************************************** */
       // Listener interface
@@ -285,7 +285,7 @@ public class EventAdapterGenerator
       // do we have nonExceptionalble event, exceptionable or both
       for (int i = 0 ; i < lms.length ; ++i)
       {
-        final Class exceptionTypes[] = lms[i].getExceptionTypes();
+        final Class[] exceptionTypes = lms[i].getExceptionTypes();
         if( 0 < exceptionTypes.length)
         { exceptionable = true; }
         else
@@ -357,7 +357,7 @@ public class EventAdapterGenerator
         constantPool = Bytecode.addString(constantPool,(short)(BASECPCOUNT+cpCount-3));
       }/* End for*/
 
-      final boolean propertyChangeFlag[] = new boolean[lms.length];
+      final boolean[] propertyChangeFlag = new boolean[lms.length];
       int cpIndexPCE = 0;
       for (int i = 0 ; i < lms.length ; ++i)
       {
@@ -393,7 +393,7 @@ public class EventAdapterGenerator
       final int excpIndex[][] = new int[lms.length][];
       for (int i = 0 ; i < lms.length ; ++i)
       {
-        final Class exceptionTypes[] = lms[i].getExceptionTypes();
+        final Class[] exceptionTypes = lms[i].getExceptionTypes();
         excpIndex[i] = new int[exceptionTypes.length];
         for ( int j = 0 ; j < exceptionTypes.length ; j++)
         {
@@ -409,7 +409,7 @@ public class EventAdapterGenerator
       // put the Class byte array together
 
       /* start */
-      byte newClass[] = CLASSHEADER;                                   // magic, version      (fixed)
+      byte[] newClass = CLASSHEADER;                                   // magic, version      (fixed)
       final short count = (short)(BASECPCOUNT + cpCount);
       newClass = ByteUtility.addBytes(newClass,count);                 // constant_pool_count (variable)
       newClass = ByteUtility.addBytes(newClass,BASECP);                // constant_pool       (fixed)

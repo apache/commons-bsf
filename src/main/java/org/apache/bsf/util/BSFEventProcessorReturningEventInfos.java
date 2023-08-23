@@ -173,7 +173,7 @@ public class BSFEventProcessorReturningEventInfos implements EventProcessor {
             return bRes;
         }
 
-        final String chunks[]=filter.replace('+',' ').split(" ");
+        final String[] chunks =filter.replace('+',' ').split(" ");
         for (int i=0;i<chunks.length;i++)
         {
             bRes=chunks[i].equalsIgnoreCase(inFilter);

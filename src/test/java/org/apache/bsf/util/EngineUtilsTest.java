@@ -84,7 +84,7 @@ public class EngineUtilsTest extends TestCase {
 
     public void testCreateBean() throws BSFException {
 
-        final Object args[] = new Object[]{ "test" };
+        final Object[] args = new Object[]{ "test" };
 
         try {
             result = EngineUtils.createBean("org.apache.bsf.util.TestBean", args);

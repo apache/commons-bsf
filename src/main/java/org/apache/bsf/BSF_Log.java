@@ -48,7 +48,7 @@ public class BSF_Log // implements org.apache.commons.logging.Log
     //NOTUSED final static private Method      oac_LogFactoryGetLog_Clazz;
     final static private Method      oac_LogFactoryGetLog_String;
 
-    final static private Method meths[] = new Method [18];  // store the Log methods
+    final static private Method[] meths = new Method [18];  // store the Log methods
         // define the slots in the array
     final private static int debug1 =  0 ;
     final private static int debug2 =  1 ;

@@ -93,7 +93,7 @@ public class ReflectionUtils {
     // find the event set descriptor for this event
     final BeanInfo bi = Introspector.getBeanInfo (source.getClass ());
 
-    final EventSetDescriptor arrESD[]=bi.getEventSetDescriptors ();
+    final EventSetDescriptor[] arrESD =bi.getEventSetDescriptors ();
     final EventSetDescriptor esd=(EventSetDescriptor) findFeatureByName ("event", eventSetName, arrESD);
 
     if (esd == null)        // no events found, maybe a proxy from OpenOffice.org?
@@ -133,7 +133,7 @@ public class ReflectionUtils {
 
 
                     // iterate over listener methods and display their names in sorted order
-                  final Method m[]=tmpESD.getListenerMethods();
+                  final Method[] m =tmpESD.getListenerMethods();
                   final TreeSet tsM=new TreeSet(new Comparator () {
                           public int    compare(final Object o1, final Object o2) {return ((Method)o1).getName().compareToIgnoreCase(((Method)o2).getName());}
                           public boolean equals(final Object o1, final Object o2) {return ((Method)o1).getName().equalsIgnoreCase   (((Method)o2).getName());}

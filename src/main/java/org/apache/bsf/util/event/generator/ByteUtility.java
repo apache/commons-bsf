@@ -29,7 +29,7 @@ public class ByteUtility
   {
     if( null != array )
     {
-      final byte newarray[] = new byte[array.length + value.length];
+      final byte[] newarray = new byte[array.length + value.length];
       System.arraycopy(array,0,newarray,0,array.length);
       System.arraycopy(value,0,newarray,array.length,value.length);
       array = newarray;
@@ -44,7 +44,7 @@ public class ByteUtility
   {
     if( null != array )
     {
-      final byte newarray[] = new byte[array.length + 1];
+      final byte[] newarray = new byte[array.length + 1];
       System.arraycopy(array,0,newarray,0,array.length);
       newarray[newarray.length-1] = value;
       array = newarray;
@@ -60,7 +60,7 @@ public class ByteUtility
   {
     if( null != array )
     {
-      final byte newarray[] = new byte[array.length + 3];
+      final byte[] newarray = new byte[array.length + 3];
       System.arraycopy(array,0,newarray,0,array.length);
       newarray[newarray.length-3] = (byte) (( value >> 16 ) & 0xFF);
       newarray[newarray.length-2] = (byte) (( value >>  8 ) & 0xFF);
@@ -80,7 +80,7 @@ public class ByteUtility
   {
     if( null != array )
     {
-      final byte newarray[] = new byte[array.length + 4];
+      final byte[] newarray = new byte[array.length + 4];
       System.arraycopy(array,0,newarray,0,array.length);
       newarray[newarray.length-4] = (byte) (( value >> 24 ) & 0xFF);
       newarray[newarray.length-3] = (byte) (( value >> 16 ) & 0xFF);
@@ -104,7 +104,7 @@ public class ByteUtility
     {
       if( null != array)
       {
-        final byte newarray[] = new byte[array.length + value.length()];
+        final byte[] newarray = new byte[array.length + value.length()];
         System.arraycopy(array,0,newarray,0,array.length);
         System.arraycopy(value.getBytes(),0,newarray,array.length,value.length());
         array = newarray;
@@ -120,7 +120,7 @@ public class ByteUtility
   {
     if( null != array)
     {
-      final byte newarray[] = new byte[array.length + 2];
+      final byte[] newarray = new byte[array.length + 2];
       System.arraycopy(array,0,newarray,0,array.length);
       newarray[newarray.length-2] = (byte) (( value >> 8 ) & 0xFF);
       newarray[newarray.length-1] = (byte) (  value        & 0xFF);
@@ -151,8 +151,8 @@ public class ByteUtility
   }
   public static double byteArrayToDouble(final byte value[])
   {
-    final byte high[] = new byte[4];
-    final byte low[] = new byte[4];
+    final byte[] high = new byte[4];
+    final byte[] low = new byte[4];
     high[0] = value[0];
     high[1] = value[1];
     high[2] = value[2];
@@ -183,8 +183,8 @@ public class ByteUtility
   }
   public static long byteArrayToLong(final byte value[])
   {
-    final byte high[] = new byte[4];
-    final byte low[] = new byte[4];
+    final byte[] high = new byte[4];
+    final byte[] low = new byte[4];
     high[0] = value[0];
     high[1] = value[1];
     high[2] = value[2];

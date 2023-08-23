@@ -34,7 +34,7 @@ public class JavaUtils {
 
     public static boolean JDKcompile(final String fileName, final String classPath) {
         final String option = (logger.isDebugEnabled()) ? "-g" : "-O";
-        final String args[] = { "javac", option, "-classpath", classPath, fileName };
+        final String[] args = { "javac", option, "-classpath", classPath, fileName };
 
         logger.debug("JavaEngine: Compiling " + fileName);
         logger.debug("JavaEngine: Classpath is " + classPath);
