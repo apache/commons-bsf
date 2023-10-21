@@ -43,7 +43,6 @@
 Apache Commons BSF (Bean Scripting Framework)
 ===================
 
-[![Travis-CI Status](https://travis-ci.org/apache/commons-bsf.svg)](https://travis-ci.org/apache/commons-bsf)
 [![Java CI](https://github.com/apache/commons-bsf/actions/workflows/maven.yml/badge.svg)](https://github.com/apache/commons-bsf/actions/workflows/maven.yml)
 [![Coverage Status](https://coveralls.io/repos/apache/commons-bsf/badge.svg)](https://coveralls.io/r/apache/commons-bsf)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/bsf/bsf/badge.svg)](https://maven-badges.herokuapp.com/maven-central/bsf/bsf/)
