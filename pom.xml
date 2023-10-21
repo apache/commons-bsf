@@ -38,6 +38,8 @@
   <inceptionYear>2002</inceptionYear>
 
   <properties>
+    <!-- does not yet support moditect -->
+    <moditect.skip>true</moditect.skip> 
     <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <maven.compiler.source>1.7</maven.compiler.source>
@@ -142,7 +144,7 @@
 
   <build>
     <!-- japicmp:cmp detected breaks, TODO fixes for javadoc:javadoc and checkstyles, and ... -->
-    <defaultGoal>clean install apache-rat:check</defaultGoal>
+    <defaultGoal>clean verify apache-rat:check</defaultGoal>
     <plugins>
       <plugin>
         <!-- Temporary hack to allow compilation; remove when engine dependencies have been sorted -->
