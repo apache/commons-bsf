@@ -134,7 +134,7 @@ public class BSFManager {
     protected Vector declaredBeans = new Vector();
 
     // private Log logger = LogFactory.getLog(this.getClass().getName());
-    private BSF_Log logger = null;
+    private BSF_Log logger;
 
     //////////////////////////////////////////////////////////////////////
     //

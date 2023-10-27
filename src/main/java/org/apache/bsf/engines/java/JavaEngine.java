@@ -90,7 +90,7 @@ public class JavaEngine extends BSFEngineImpl {
     String minorPrefix;
 
     // private Log logger = LogFactory.getLog(this.getClass().getName());
-    private BSF_Log logger = null;
+    private BSF_Log logger;
 
     /**
      * Create a scratchfile, open it for writing, return its name.
