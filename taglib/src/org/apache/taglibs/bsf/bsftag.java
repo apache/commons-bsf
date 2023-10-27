@@ -24,7 +24,7 @@ import org.apache.bsf.*;
 public class bsftag extends BodyTagSupport implements BodyTag
 {
     protected static String language;
-    protected static int lineNo = 0;
+    protected static int lineNo;
     protected static BSFManager mgr;
 
     public void setLanguage(String value) { 
