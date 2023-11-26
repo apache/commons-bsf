@@ -266,7 +266,6 @@ public class JythonEngine extends BSFEngineImpl {
       }
   }
 
-
   public void propertyChange(final PropertyChangeEvent e) {
 	  super.propertyChange(e);
 	  final String name = e.getPropertyName();

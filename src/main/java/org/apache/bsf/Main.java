@@ -117,7 +117,6 @@ public class Main {
                 } else { /* eval */
                     final Object obj = mgr.eval(language, inFileName, 0, 0, IOUtils.getStringFromReader(in));
 
-
                     // Try to display the result.
 
                     if (obj instanceof java.awt.Component) {

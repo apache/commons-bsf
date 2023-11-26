@@ -97,7 +97,6 @@ public class BSFManager {
         return definedClassLoader;
     }
 
-
     // table of scripting engine instances created by this manager.
     // only one instance of a given language engine is created by a single
     // manager instance.
@@ -175,7 +174,6 @@ public class BSFManager {
                     final String value = p.getProperty(key);
                     final String className = value.substring(0, value.indexOf(","));
 
-
                     // get the extensions for this language
                     final String exts = value.substring(value.indexOf(",")+1);
                     final StringTokenizer st = new StringTokenizer(exts, "|");
@@ -220,7 +218,6 @@ public class BSFManager {
             // handle logger
         logger = BSF_LogFactory.getLog(this.getClass().getName());
     }
-
 
    /** Returns the version string of BSF.
      *
@@ -883,7 +880,6 @@ public class BSFManager {
         }
     }
 
-
     /**
      * Set the class loader for those that need to use it. Default is he
      * who loaded me or null (i.e., its Class.forName).
@@ -1008,6 +1004,5 @@ public class BSFManager {
 
         objectRegistry.unregister(beanName);
     }
-
 
 }

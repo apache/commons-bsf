@@ -61,7 +61,6 @@ public class XSLTEngine extends BSFEngineImpl {
         logger = BSF_LogFactory.getLog(this.getClass().getName());
     }
 
-
     /**
      * call the named method of the given object.
      */

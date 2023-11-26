@@ -150,13 +150,11 @@ public class BSF_Log // implements org.apache.commons.logging.Log
         oac_LogFactoryGetLog_String = oac_LogFactoryGetLog_String_;
     }
 
-
     /** Name of the BSF_Log instance. */
     final String name;
 
     /** Proxy object for <em>org.apache.commons.logging.Log</em>, if available. */
     private final Object oac_logger;
-
 
     public BSF_Log()
     {
@@ -244,7 +242,6 @@ public class BSF_Log // implements org.apache.commons.logging.Log
         catch (final Exception e) { e.printStackTrace(); }
     }
 
-
     public void fatal(final Object msg)
     {
         if (oac_logger==null)
@@ -273,7 +270,6 @@ public class BSF_Log // implements org.apache.commons.logging.Log
         }
         catch (final Exception e) { e.printStackTrace(); }
     }
-
 
     public void info (final Object msg)
     {
@@ -305,7 +301,6 @@ public class BSF_Log // implements org.apache.commons.logging.Log
         catch (final Exception e) { e.printStackTrace(); }
     }
 
-
     public void trace(final Object msg)
     {
         if (oac_logger==null)
@@ -336,7 +331,6 @@ public class BSF_Log // implements org.apache.commons.logging.Log
         catch (final Exception e) { e.printStackTrace(); }
     }
 
-
     public void warn (final Object msg)
     {
         if (oac_logger==null)
@@ -366,7 +360,6 @@ public class BSF_Log // implements org.apache.commons.logging.Log
         }
         catch (final Exception e) { e.printStackTrace(); }
     }
-
 
     public boolean isDebugEnabled()
     {
@@ -460,7 +453,6 @@ public class BSF_Log // implements org.apache.commons.logging.Log
         catch (final Exception e) {  }
         finally             { return false; }
     }
-
 
         // for development purposes only (to debug this class on its own)
     public static void main (final String args[]) {

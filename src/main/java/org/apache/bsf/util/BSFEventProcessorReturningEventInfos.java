@@ -164,7 +164,6 @@ public class BSFEventProcessorReturningEventInfos implements EventProcessor {
 
     }
 
-
     private static boolean isFilteredEvent(final String filter, final String inFilter)
     {
         boolean bRes=filter.equalsIgnoreCase(inFilter);

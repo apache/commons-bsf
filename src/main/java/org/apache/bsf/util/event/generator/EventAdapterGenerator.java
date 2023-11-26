@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 
-
  /*
      2015-01-15, rgf: take into account that a context thread class loader may be null (not set)
 
@@ -36,7 +35,6 @@ import org.apache.bsf.BSFManager;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-
 
 /** EventAdapterGenerator
   *
@@ -118,7 +116,6 @@ public class EventAdapterGenerator
             System.err.println(ex.getMessage());
             ex.printStackTrace();
         }
-
 
     // start of the Java Class File
     CLASSHEADER = ByteUtility.addBytes(CLASSHEADER,(byte)0xCA);  // magic
@@ -307,7 +304,6 @@ public class EventAdapterGenerator
         // cp item 22
         constantPool = Bytecode.addNameAndType(constantPool,(short)21,(short)8);
 
-
         // cp item 23
         constantPool = Bytecode.addInterfaceMethodRef(constantPool,(short)12,(short)22);
       }
@@ -454,7 +450,6 @@ public class EventAdapterGenerator
         newClass = ByteUtility.addBytes(newClass,(byte)0xB4);                 // getfield                 (fixed)
         newClass = ByteUtility.addBytes(newClass,(short)15);                  // index                    (fixed)
 
-
         if(propertyChangeFlag[i])
         { // the propertyName is passed as the first parameter
           newClass = ByteUtility.addBytes(newClass,(byte)0x2B);               // aload_1                  (fixed)
@@ -541,7 +536,6 @@ public class EventAdapterGenerator
         // attributes on the code attribute (none)
         newClass = ByteUtility.addBytes(newClass,(short)0);                   // attribute_count          (fixed)
         // end code attribute
-
 
       }/* End for*/
       // Class Attributes (none for this)

@@ -247,7 +247,6 @@ public class JavaEngine extends BSFEngineImpl {
             retval = internalCall(this,"BSFJavaEngineEntry",callArgs);
         }
 
-
         catch(final Exception e) {
             e.printStackTrace ();
             throw new BSFException (BSFException.REASON_IO_ERROR, e.getMessage ());
@@ -256,7 +255,6 @@ public class JavaEngine extends BSFEngineImpl {
 
 //          if(gf!=null && gf.file!=null && gf.file.exists())
 //          gf.file.delete();  // .java file
-
 
             if(classname!=null) {
                 // Generated class

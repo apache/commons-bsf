@@ -22,7 +22,6 @@ import java.util.Hashtable;
 import org.apache.bsf.util.event.generator.EventAdapterGenerator;
 import org.apache.bsf.BSFManager;
 
-
 /**
  * The <em>EventAdapterRegistry</em> is the registry of event adapters.
  * If a desired adapter is not found, the adapter will be dynamically
@@ -42,7 +41,6 @@ import org.apache.bsf.BSFManager;
  *
  * @see      EventAdapter
  */
-
 
  /* changed:
     2012-01-29: Rony G. Flatscher, cf. [https://issues.apache.org/jira/browse/BSF-21]:

@@ -66,7 +66,6 @@ public class EngineUtils {
         }
     }
 
-
     /**
      * Add a script as a listener to some event coming out of an object. The
      * first two args identify the src of the event and the event set
@@ -104,7 +103,6 @@ public class EngineUtils {
                                     + e, e);
         }
     }
-
 
     /**
      * Add a script as a listener to some event coming out of an object. The

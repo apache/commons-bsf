@@ -30,7 +30,6 @@ import org.apache.bsf.BSF_LogFactory;
 
 import java.util.Hashtable;
 
-
 public class AdapterClassLoader extends ClassLoader
 {
   private static final Hashtable classCache = new Hashtable();

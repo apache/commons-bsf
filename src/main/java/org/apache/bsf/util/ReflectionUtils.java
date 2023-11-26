@@ -64,7 +64,6 @@ public class ReflectionUtils {
     // rgf, 20070921: class loaders that we might need to load classes
     static ClassLoader bsfManagerDefinedCL=BSFManager.getDefinedClassLoader();
 
-
   //////////////////////////////////////////////////////////////////////////
 
   /**
@@ -130,7 +129,6 @@ public class ReflectionUtils {
                       errMsg=errMsg+", ";
                   }
                   errMsg=errMsg+"\n\t"+'\''+tmpESD.getName()+"'={";  // event set name
-
 
                     // iterate over listener methods and display their names in sorted order
                   final Method[] m =tmpESD.getListenerMethods();
@@ -202,8 +200,6 @@ public class ReflectionUtils {
     addListenerMethod.invoke (source, args);
   }
   //////////////////////////////////////////////////////////////////////////
-
-
 
   /**
    * Create a bean using given class loader and using the appropriate
@@ -329,7 +325,6 @@ public class ReflectionUtils {
     }
     return null;
   }
-
 
   public static Bean getField (final Object target, final String fieldName)
       throws IllegalArgumentException, IllegalAccessException {
@@ -537,5 +532,4 @@ public class ReflectionUtils {
     }
   }
 }
-
 

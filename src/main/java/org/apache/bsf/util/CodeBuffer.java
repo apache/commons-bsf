@@ -51,7 +51,6 @@ public class CodeBuffer
   private ObjInfo      finalStatementInfo;
   private CodeBuffer   parent;
 
-
   {
     symbolTableStack.push(symbolTable);
   }

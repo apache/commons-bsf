@@ -16,7 +16,6 @@
  *
  */
 
-
 package org.apache.bsf.util;
 
 import java.io.File;

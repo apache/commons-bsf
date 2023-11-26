@@ -17,7 +17,6 @@
 
 package org.apache.bsf.util.event;
 
-
 /**
  * <em>EventProcessor</em> is the interface that event adapters use to
  * delegate events they received to be delivered to the appropriate target.

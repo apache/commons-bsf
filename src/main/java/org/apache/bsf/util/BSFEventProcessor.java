@@ -93,7 +93,6 @@ public class BSFEventProcessor implements EventProcessor {
 // System.err.println("returned from engine.exec.");
   }
 
-
   private static boolean isFilteredEvent(final String filter, final String inFilter)
   {
       boolean bRes=filter.equalsIgnoreCase(inFilter);
