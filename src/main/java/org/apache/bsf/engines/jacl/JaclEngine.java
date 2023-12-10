@@ -47,7 +47,7 @@ public class JaclEngine extends BSFEngineImpl {
      * @param args   an array of arguments to be passed to the extension, which may be either Vectors of Nodes, or Strings.
      */
     public Object call(final Object obj, final String method, final Object[] args) throws BSFException {
-        final StringBuffer tclScript = new StringBuffer(method);
+        final StringBuilder tclScript = new StringBuilder(method);
         if (args != null) {
             for (int i = 0; i < args.length; i++) {
                 tclScript.append(" ");

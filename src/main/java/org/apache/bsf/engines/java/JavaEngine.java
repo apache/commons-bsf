@@ -168,7 +168,7 @@ public class JavaEngine extends BSFEngineImpl {
                 int startpoint = script.indexOf(placeholder);
                 int endpoint;
                 if (startpoint >= 0) {
-                    final StringBuffer changed = new StringBuffer();
+                    final StringBuilder changed = new StringBuilder();
                     for (; startpoint >= 0; startpoint = script.indexOf(placeholder, startpoint)) {
                         changed.setLength(0); // Reset for 2nd pass or later
                         if (startpoint > 0) {

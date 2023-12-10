@@ -63,7 +63,7 @@ public class CodeFormatter {
     private int origIndent;
     private boolean inCPP_Comment;
 
-    private void addTok(final StringBuffer targetBuf, final StringBuffer tokBuf, final IndentWriter out) {
+    private void addTok(final StringBuilder targetBuf, final StringBuilder tokBuf, final IndentWriter out) {
         final int tokLength = tokBuf.length(), targetLength = targetBuf.length();
 
         if (indent + targetLength + tokLength > maxLineLength) {
@@ -160,7 +160,7 @@ public class CodeFormatter {
         char quoteChar = ' ';
         boolean inEscapeSequence = false;
         boolean inString = false;
-        final StringBuffer tokBuf = new StringBuffer(), targetBuf = new StringBuffer(hangingIndent + line.length());
+        final StringBuilder tokBuf = new StringBuilder(), targetBuf = new StringBuilder(hangingIndent + line.length());
 
         for (int i = 0; i < source.length; i++) {
             ch = source[i];

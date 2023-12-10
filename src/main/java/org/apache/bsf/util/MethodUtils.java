@@ -82,7 +82,7 @@ public class MethodUtils {
                 return firstElement();
             }
             if (size() > 1) {
-                final StringBuffer buf = new StringBuffer();
+                final StringBuilder buf = new StringBuilder();
                 final Enumeration e = elements();
                 buf.append(e.nextElement());
                 while (e.hasMoreElements()) {
@@ -116,7 +116,7 @@ public class MethodUtils {
      * Internal subroutine for getEntryPoint(): Format arguments as a string describing the function being searched for. Used in verbose exceptions.
      */
     private static String callToString(final Class targetClass, final String methodName, final Class[] argTypes, final boolean isStaticReference) {
-        final StringBuffer buf = new StringBuffer();
+        final StringBuilder buf = new StringBuilder();
         if (isStaticReference) {
             buf.append("static ");
         }

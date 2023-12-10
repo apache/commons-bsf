@@ -63,7 +63,7 @@ public class StringUtils {
             return null;
         } else {
             final char[] charArray = str.toCharArray();
-            final StringBuffer sBuf = new StringBuffer();
+            final StringBuilder sBuf = new StringBuilder();
 
             for (int i = 0; i < charArray.length; i++) {
                 switch (charArray[i]) {
@@ -99,7 +99,7 @@ public class StringUtils {
             return "";
         }
 
-        final StringBuffer sRet = new StringBuffer(numberOfChars);
+        final StringBuilder sRet = new StringBuilder(numberOfChars);
 
         for (int i = 0; i < numberOfChars; i++) {
             sRet.append(theChar);
@@ -122,7 +122,7 @@ public class StringUtils {
     }
 
     public static String getCommaListFromVector(final Vector sourceVector) {
-        final StringBuffer strBuf = new StringBuffer();
+        final StringBuilder strBuf = new StringBuilder();
 
         for (int i = 0; i < sourceVector.size(); i++) {
             strBuf.append((i > 0 ? ", " : "") + sourceVector.elementAt(i));
@@ -175,7 +175,7 @@ public class StringUtils {
     // Handles multi-line strings.
     public static String getSafeString(final String scriptStr) {
         final BufferedReader in = new BufferedReader(new StringReader(scriptStr));
-        final StringBuffer strBuf = new StringBuffer();
+        final StringBuilder strBuf = new StringBuilder();
         String tempLine, previousLine = null;
 
         try {
@@ -241,7 +241,7 @@ public class StringUtils {
             return null;
         }
 
-        final StringBuffer strBuf = new StringBuffer();
+        final StringBuilder strBuf = new StringBuilder();
 
         final char[] chars = identifierName.toCharArray();
 
@@ -327,7 +327,7 @@ public class StringUtils {
             i++;
         }
 
-        final StringBuffer classNameBuf = new StringBuffer();
+        final StringBuilder classNameBuf = new StringBuilder();
 
         switch (classNameChars[i++]) {
         case 'B':

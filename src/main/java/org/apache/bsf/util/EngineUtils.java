@@ -296,7 +296,7 @@ public class EngineUtils {
                 return "V";
             }
         } else {
-            final StringBuffer sb = new StringBuffer("L");
+            final StringBuilder sb = new StringBuilder("L");
             sb.append(cl.getName());
             sb.append(";");
             return sb.toString().replace('.', '/');

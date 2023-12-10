@@ -94,7 +94,7 @@ public class JythonEngine extends BSFEngineImpl {
              * We wrapper the original script in a function definition, and evaluate the function. A hack, no question, but it allows apply() to pretend to work
              * on Jython.
              */
-            final StringBuffer script = new StringBuffer(byteify(funcBody.toString()));
+            final StringBuilder script = new StringBuilder(byteify(funcBody.toString()));
             int index = 0;
             script.insert(0, "def bsf_temp_fn():\n");
 
@@ -227,7 +227,7 @@ public class JythonEngine extends BSFEngineImpl {
     private String byteify(final String orig) {
         // Ugh. Jython likes to be fed bytes, rather than the input string.
         final ByteArrayInputStream bais = new ByteArrayInputStream(orig.getBytes());
-        final StringBuffer s = new StringBuffer();
+        final StringBuilder s = new StringBuilder();
         int c;
 
         while ((c = bais.read()) >= 0) {
