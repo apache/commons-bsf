@@ -27,23 +27,23 @@ import java.io.StringWriter;
  * This file is a collection of input/output utilities.
  */
 public class IOUtils {
-  // debug flag - generates debug stuff if true
-  static boolean debug = false;
+    // debug flag - generates debug stuff if true
+    static boolean debug = false;
 
-  //////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////
 
-  public static String getStringFromReader (final Reader reader) throws IOException {
-    final BufferedReader bufIn = new BufferedReader(reader);
-    final StringWriter   swOut = new StringWriter();
-    final PrintWriter    pwOut = new PrintWriter(swOut);
-    String         tempLine;
+    public static String getStringFromReader(final Reader reader) throws IOException {
+        final BufferedReader bufIn = new BufferedReader(reader);
+        final StringWriter swOut = new StringWriter();
+        final PrintWriter pwOut = new PrintWriter(swOut);
+        String tempLine;
 
-    while ((tempLine = bufIn.readLine()) != null) {
-      pwOut.println(tempLine);
+        while ((tempLine = bufIn.readLine()) != null) {
+            pwOut.println(tempLine);
+        }
+
+        pwOut.flush();
+
+        return swOut.toString();
     }
-
-    pwOut.flush();
-
-    return swOut.toString();
-  }
 }

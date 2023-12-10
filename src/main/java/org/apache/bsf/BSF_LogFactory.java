@@ -17,27 +17,23 @@
 
 package org.apache.bsf;
 
-/** This class is used in BSF as BSF_LogFactory returning a BSF_Log instance, which is
- * a delegator for an <code>org.apache.commons.logging.Log</code> object.
+/**
+ * This class is used in BSF as BSF_LogFactory returning a BSF_Log instance, which is a delegator for an <code>org.apache.commons.logging.Log</code> object.
  *
- It implements the static <code>org.apache.commons.logging.LogFactory.getLog({String|Class} object)</code>
- * methods which return an instance of the class <code>org.apache.bsf.BSF_Log</code>, which in
- * turn implements all the methods of the <code>org.apache.commons.logging.Log</code> interface class.
+ * It implements the static <code>org.apache.commons.logging.LogFactory.getLog({String|Class} object)</code> methods which return an instance of the class
+ * <code>org.apache.bsf.BSF_Log</code>, which in turn implements all the methods of the <code>org.apache.commons.logging.Log</code> interface class.
  *
-*/
+ */
 
-public class BSF_LogFactory
-{
-    protected BSF_LogFactory() {}              // mimickries org.apache.commons.logging.LogFactory
+public class BSF_LogFactory {
+    protected BSF_LogFactory() {
+    } // mimickries org.apache.commons.logging.LogFactory
 
-    static public BSF_Log getLog (final String name)
-    {
+    static public BSF_Log getLog(final String name) {
         return new BSF_Log(name);
     }
 
-    static public BSF_Log getLog (final Class clz)
-    {
+    static public BSF_Log getLog(final Class clz) {
         return new BSF_Log(clz);
     }
 }
-

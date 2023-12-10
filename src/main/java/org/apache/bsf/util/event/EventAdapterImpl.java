@@ -18,17 +18,15 @@
 package org.apache.bsf.util.event;
 
 /**
- * <em>EventAdapterImpl</em> is a default implementation of the EventAdapter
- * interface that specific event adapters may choose to subclass from
- * instead of implementing the interface themselves. Saves 5 lines of code
- * mebbe.
+ * <em>EventAdapterImpl</em> is a default implementation of the EventAdapter interface that specific event adapters may choose to subclass from instead of
+ * implementing the interface themselves. Saves 5 lines of code mebbe.
  *
- * @see      EventAdapter
+ * @see EventAdapter
  */
 public class EventAdapterImpl implements EventAdapter {
-  protected EventProcessor eventProcessor;
+    protected EventProcessor eventProcessor;
 
-  public void setEventProcessor (final EventProcessor eventProcessor) {
-    this.eventProcessor = eventProcessor;
-  }
+    public void setEventProcessor(final EventProcessor eventProcessor) {
+        this.eventProcessor = eventProcessor;
+    }
 }

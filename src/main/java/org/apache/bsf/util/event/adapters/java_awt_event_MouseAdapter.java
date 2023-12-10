@@ -22,22 +22,25 @@ import java.awt.event.MouseListener;
 
 import org.apache.bsf.util.event.EventAdapterImpl;
 
-public class java_awt_event_MouseAdapter extends EventAdapterImpl
-                                            implements MouseListener {
+public class java_awt_event_MouseAdapter extends EventAdapterImpl implements MouseListener {
 
-  public void mouseClicked (final MouseEvent e) {
-    eventProcessor.processEvent ("mouseClicked", new Object[]{e});
-  }
-  public void mouseEntered (final MouseEvent e) {
-    eventProcessor.processEvent ("mouseEntered", new Object[]{e});
-  }
-  public void mouseExited (final MouseEvent e) {
-    eventProcessor.processEvent ("mouseExited", new Object[]{e});
-  }
-  public void mousePressed (final MouseEvent e) {
-    eventProcessor.processEvent ("mousePressed", new Object[]{e});
-  }
-  public void mouseReleased (final MouseEvent e) {
-    eventProcessor.processEvent ("mouseReleased", new Object[]{e});
-  }
+    public void mouseClicked(final MouseEvent e) {
+        eventProcessor.processEvent("mouseClicked", new Object[] { e });
+    }
+
+    public void mouseEntered(final MouseEvent e) {
+        eventProcessor.processEvent("mouseEntered", new Object[] { e });
+    }
+
+    public void mouseExited(final MouseEvent e) {
+        eventProcessor.processEvent("mouseExited", new Object[] { e });
+    }
+
+    public void mousePressed(final MouseEvent e) {
+        eventProcessor.processEvent("mousePressed", new Object[] { e });
+    }
+
+    public void mouseReleased(final MouseEvent e) {
+        eventProcessor.processEvent("mouseReleased", new Object[] { e });
+    }
 }

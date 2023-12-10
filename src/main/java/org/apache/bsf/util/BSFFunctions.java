@@ -22,32 +22,31 @@ import org.apache.bsf.BSFException;
 import org.apache.bsf.BSFManager;
 
 /**
- * This is a utility that engine implementors may use as the Java
- * object they expose in the scripting language as "bsf". This has
- * essentially a subset of the methods in BSFManager plus some
- * stuff from the utils. Currently used by Javascript (Rhino) & BML.
+ * This is a utility that engine implementors may use as the Java object they expose in the scripting language as "bsf". This has essentially a subset of the
+ * methods in BSFManager plus some stuff from the utils. Currently used by Javascript (Rhino) & BML.
  */
 public class BSFFunctions {
-  BSFManager mgr;
-  BSFEngine engine;
+    BSFManager mgr;
+    BSFEngine engine;
 
-  public BSFFunctions (final BSFManager mgr, final BSFEngine engine) {
-    this.mgr = mgr;
-    this.engine = engine;
-  }
-  public void addEventListener (final Object src, final String eventSetName,
-                final String filter, final Object script)
-       throws BSFException {
-    EngineUtils.addEventListener (src, eventSetName, filter, engine,
-                  mgr, "<event-binding>", 0, 0, script);
-  }
-  public  Object lookupBean (final String name) {
-    return mgr.lookupBean (name);
-  }
-  public void registerBean (final String name, final Object bean) {
-    mgr.registerBean (name, bean);
-  }
-  public void unregisterBean (final String name) {
-    mgr.unregisterBean (name);
-  }
+    public BSFFunctions(final BSFManager mgr, final BSFEngine engine) {
+        this.mgr = mgr;
+        this.engine = engine;
+    }
+
+    public void addEventListener(final Object src, final String eventSetName, final String filter, final Object script) throws BSFException {
+        EngineUtils.addEventListener(src, eventSetName, filter, engine, mgr, "<event-binding>", 0, 0, script);
+    }
+
+    public Object lookupBean(final String name) {
+        return mgr.lookupBean(name);
+    }
+
+    public void registerBean(final String name, final Object bean) {
+        mgr.registerBean(name, bean);
+    }
+
+    public void unregisterBean(final String name) {
+        mgr.unregisterBean(name);
+    }
 }

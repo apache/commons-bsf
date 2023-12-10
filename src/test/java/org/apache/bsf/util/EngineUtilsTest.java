@@ -26,7 +26,7 @@ import junit.framework.TestCase;
 
 public class EngineUtilsTest extends TestCase {
 
-    Object result=null;
+    Object result = null;
 
     public EngineUtilsTest(final String name) {
         super(name);
@@ -38,81 +38,74 @@ public class EngineUtilsTest extends TestCase {
 
     public void testCallBeanMethod() {
 
-        Object[] args = new Object[]{"MoreConfirmation"};
+        Object[] args = new Object[] { "MoreConfirmation" };
         final TestBean bean = new TestBean("TestBean");
 
         try {
             result = EngineUtils.callBeanMethod(bean, "getStringValue", null);
-        }
-        catch (final BSFException bsfe) {
-            fail("createBean method failed"+bsfe);
-        }
-
-        assertEquals("TestBean",(String)result);
-
-        try {
-            EngineUtils.callBeanMethod(bean,"setValue",args);
-        }
-        catch (final BSFException bsfe) {
-            fail("createBean method failed"+bsfe);
+        } catch (final BSFException bsfe) {
+            fail("createBean method failed" + bsfe);
         }
 
-        assertEquals("MoreConfirmation",bean.getStringValue());
-
-        args = new Object[]{"aString",new Integer(1)};
+        assertEquals("TestBean", (String) result);
 
         try {
-            EngineUtils.callBeanMethod(bean,"setValue",args);
-        }
-        catch (final BSFException bsfe) {
-            fail("createBean method failed"+bsfe);
+            EngineUtils.callBeanMethod(bean, "setValue", args);
+        } catch (final BSFException bsfe) {
+            fail("createBean method failed" + bsfe);
         }
 
-        assertEquals("aString",bean.getStringValue());
-        assertEquals(new Integer(1),(Integer)bean.getNumericValue());
+        assertEquals("MoreConfirmation", bean.getStringValue());
+
+        args = new Object[] { "aString", new Integer(1) };
+
+        try {
+            EngineUtils.callBeanMethod(bean, "setValue", args);
+        } catch (final BSFException bsfe) {
+            fail("createBean method failed" + bsfe);
+        }
+
+        assertEquals("aString", bean.getStringValue());
+        assertEquals(new Integer(1), (Integer) bean.getNumericValue());
 
         // try to invoke a method which does not exist ...
         // should throw a BSFException
-            try {
-                result= EngineUtils.callBeanMethod(bean, "nonExistentMethod",
-                                                   args);
-                fail();
-            }
-            catch (final BSFException bsfe) {
-            }
+        try {
+            result = EngineUtils.callBeanMethod(bean, "nonExistentMethod", args);
+            fail();
+        } catch (final BSFException bsfe) {
+        }
     }
 
     public void testCreateBean() throws BSFException {
 
-        final Object[] args = new Object[]{ "test" };
+        final Object[] args = new Object[] { "test" };
 
         try {
             result = EngineUtils.createBean("org.apache.bsf.util.TestBean", args);
-        }
-        catch (final BSFException bsfe) {
-            fail("createBean method failed"+bsfe);
+        } catch (final BSFException bsfe) {
+            fail("createBean method failed" + bsfe);
         }
 
         assertNotNull(result);
-        assertEquals("test",((TestBean)result).getStringValue());
+        assertEquals("test", ((TestBean) result).getStringValue());
 
         // try to create a bean by passing a wrong string ...
         // should throw a BSFException
-            try {
-                EngineUtils.createBean("nonExsitentClass",null);
-                fail();
-            }
-            catch (final BSFException bsfe) {
-            }
+        try {
+            EngineUtils.createBean("nonExsitentClass", null);
+            fail();
+        } catch (final BSFException bsfe) {
+        }
 
     }
 
     public void testGetTypeSignatureString() {
-        //test for a non primitive type
+        // test for a non primitive type
         final Integer int1 = new Integer(10);
         final Object obj = EngineUtils.getTypeSignatureString(int1.getClass());
 
-        assertEquals("Ljava/lang/Integer;",(String)obj);
+        assertEquals("Ljava/lang/Integer;", (String) obj);
         assertEquals("I", EngineUtils.getTypeSignatureString(int.class));
     }
 }

@@ -22,13 +22,13 @@ import java.awt.event.MouseMotionListener;
 
 import org.apache.bsf.util.event.EventAdapterImpl;
 
-public class java_awt_event_MouseMotionAdapter extends EventAdapterImpl
-                                                  implements MouseMotionListener {
+public class java_awt_event_MouseMotionAdapter extends EventAdapterImpl implements MouseMotionListener {
 
-  public void mouseDragged(final MouseEvent e) {
-    eventProcessor.processEvent ("mouseDragged", new Object[]{e});
-  }
-  public void mouseMoved(final MouseEvent e) {
-    eventProcessor.processEvent ("mouseMoved", new Object[]{e});
-  }
+    public void mouseDragged(final MouseEvent e) {
+        eventProcessor.processEvent("mouseDragged", new Object[] { e });
+    }
+
+    public void mouseMoved(final MouseEvent e) {
+        eventProcessor.processEvent("mouseMoved", new Object[] { e });
+    }
 }

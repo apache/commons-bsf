@@ -20,25 +20,22 @@ package org.apache.bsf.util;
 import java.util.Hashtable;
 
 /**
- * An <code>ScriptSymbolTable</code> object is used by a <code>CodeBuffer</code>
- * object to implement nested scopes.
+ * An <code>ScriptSymbolTable</code> object is used by a <code>CodeBuffer</code> object to implement nested scopes.
  */
-class ScriptSymbolTable extends Hashtable
-{
+class ScriptSymbolTable extends Hashtable {
     private final Hashtable parentTable;
 
-    ScriptSymbolTable(final Hashtable parentTable)
-  {
-    this.parentTable = parentTable;
-  }
-  public synchronized Object get(final Object key)
-  {
-    Object ret = super.get(key);
-
-    if (ret == null && parentTable != null) {
-        ret = parentTable.get(key);
+    ScriptSymbolTable(final Hashtable parentTable) {
+        this.parentTable = parentTable;
     }
 
-    return ret;
-  }
+    public synchronized Object get(final Object key) {
+        Object ret = super.get(key);
+
+        if (ret == null && parentTable != null) {
+            ret = parentTable.get(key);
+        }
+
+        return ret;
+    }
 }

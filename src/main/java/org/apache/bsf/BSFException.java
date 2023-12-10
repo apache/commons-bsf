@@ -18,51 +18,54 @@
 package org.apache.bsf;
 
 /**
- * If something goes wrong while doing some scripting stuff, one of these
- * is thrown. The integer code indicates what's wrong and the message
- * may give more details. The reason one exception with multiple meanings
- * (via the code) [instead of multiple exception types] is used is due to
- * the interest to keep the run-time size small.
+ * If something goes wrong while doing some scripting stuff, one of these is thrown. The integer code indicates what's wrong and the message may give more
+ * details. The reason one exception with multiple meanings (via the code) [instead of multiple exception types] is used is due to the interest to keep the
+ * run-time size small.
  */
 public class BSFException extends Exception {
-  public static final int REASON_INVALID_ARGUMENT = 0;
-  public static final int REASON_IO_ERROR = 10;
-  public static final int REASON_UNKNOWN_LANGUAGE = 20;
-  public static final int REASON_EXECUTION_ERROR = 100;
-  public static final int REASON_UNSUPPORTED_FEATURE = 499;
-  public static final int REASON_OTHER_ERROR = 500;
+    public static final int REASON_INVALID_ARGUMENT = 0;
+    public static final int REASON_IO_ERROR = 10;
+    public static final int REASON_UNKNOWN_LANGUAGE = 20;
+    public static final int REASON_EXECUTION_ERROR = 100;
+    public static final int REASON_UNSUPPORTED_FEATURE = 499;
+    public static final int REASON_OTHER_ERROR = 500;
 
-  int reason;
-  Throwable targetThrowable;
+    int reason;
+    Throwable targetThrowable;
 
-  public BSFException (final int reason, final String msg) {
-    super (msg);
-    this.reason = reason;
-  }
-  public BSFException (final int reason, final String msg, final Throwable t) {
-    this (reason, msg);
-    targetThrowable = t;
-  }
-  public BSFException (final String msg) {
-    this (REASON_OTHER_ERROR, msg);
-  }
-  public int getReason () {
-    return reason;
-  }
-  public Throwable getTargetException () {
-    return targetThrowable;
-  }
-  public void printStackTrace () {
-    if (targetThrowable != null) {
-      final String msg = getMessage ();
-
-      if (msg != null && !msg.equals (targetThrowable.getMessage ())) {
-        System.err.print (msg + ": ");
-      }
-
-      targetThrowable.printStackTrace ();
-    } else {
-      super.printStackTrace ();
+    public BSFException(final int reason, final String msg) {
+        super(msg);
+        this.reason = reason;
     }
-  }
+
+    public BSFException(final int reason, final String msg, final Throwable t) {
+        this(reason, msg);
+        targetThrowable = t;
+    }
+
+    public BSFException(final String msg) {
+        this(REASON_OTHER_ERROR, msg);
+    }
+
+    public int getReason() {
+        return reason;
+    }
+
+    public Throwable getTargetException() {
+        return targetThrowable;
+    }
+
+    public void printStackTrace() {
+        if (targetThrowable != null) {
+            final String msg = getMessage();
+
+            if (msg != null && !msg.equals(targetThrowable.getMessage())) {
+                System.err.print(msg + ": ");
+            }
+
+            targetThrowable.printStackTrace();
+        } else {
+            super.printStackTrace();
+        }
+    }
 }

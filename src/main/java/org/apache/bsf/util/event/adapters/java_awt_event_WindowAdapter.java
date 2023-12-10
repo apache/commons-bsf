@@ -22,28 +22,33 @@ import java.awt.event.WindowListener;
 
 import org.apache.bsf.util.event.EventAdapterImpl;
 
-public class java_awt_event_WindowAdapter extends EventAdapterImpl
-                                                   implements WindowListener {
+public class java_awt_event_WindowAdapter extends EventAdapterImpl implements WindowListener {
 
-  public void windowActivated (final WindowEvent e) {
-    eventProcessor.processEvent ("windowActivated", new Object[]{e});
-  }
-  public void windowClosed (final WindowEvent e) {
-    eventProcessor.processEvent ("windowClosed", new Object[]{e});
-  }
-  public void windowClosing (final WindowEvent e) {
-    eventProcessor.processEvent ("windowClosing", new Object[]{e});
-  }
-  public void windowDeactivated (final WindowEvent e) {
-    eventProcessor.processEvent ("windowDeactivated", new Object[]{e});
-  }
-  public void windowDeiconified (final WindowEvent e) {
-    eventProcessor.processEvent ("windowDeiconified", new Object[]{e});
-  }
-  public void windowIconified (final WindowEvent e) {
-    eventProcessor.processEvent ("windowIconified", new Object[]{e});
-  }
-  public void windowOpened (final WindowEvent e) {
-    eventProcessor.processEvent ("windowOpened", new Object[]{e});
-  }
+    public void windowActivated(final WindowEvent e) {
+        eventProcessor.processEvent("windowActivated", new Object[] { e });
+    }
+
+    public void windowClosed(final WindowEvent e) {
+        eventProcessor.processEvent("windowClosed", new Object[] { e });
+    }
+
+    public void windowClosing(final WindowEvent e) {
+        eventProcessor.processEvent("windowClosing", new Object[] { e });
+    }
+
+    public void windowDeactivated(final WindowEvent e) {
+        eventProcessor.processEvent("windowDeactivated", new Object[] { e });
+    }
+
+    public void windowDeiconified(final WindowEvent e) {
+        eventProcessor.processEvent("windowDeiconified", new Object[] { e });
+    }
+
+    public void windowIconified(final WindowEvent e) {
+        eventProcessor.processEvent("windowIconified", new Object[] { e });
+    }
+
+    public void windowOpened(final WindowEvent e) {
+        eventProcessor.processEvent("windowOpened", new Object[] { e });
+    }
 }

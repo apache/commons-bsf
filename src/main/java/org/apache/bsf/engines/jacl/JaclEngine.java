@@ -33,107 +33,98 @@ import tcl.lang.TclObject;
 import tcl.lang.TclString;
 
 /**
- * This is the interface to Scriptics's Jacl (Tcl) from the
- * Bean Scripting Framework.
+ * This is the interface to Scriptics's Jacl (Tcl) from the Bean Scripting Framework.
  * <p>
  */
 
 public class JaclEngine extends BSFEngineImpl {
-  /* the Jacl interpretor object */
-  private Interp interp;
+    /* the Jacl interpretor object */
+    private Interp interp;
 
-  /**
-   *
-   * @param method The name of the method to call.
-   * @param args an array of arguments to be
-   * passed to the extension, which may be either
-   * Vectors of Nodes, or Strings.
-   */
-  public Object call (final Object obj, final String method, final Object[] args)
-                                                        throws BSFException {
-    final StringBuffer tclScript = new StringBuffer (method);
-    if (args != null) {
-      for( int i = 0 ; i < args.length ; i++ ) {
-    tclScript.append (" ");
-    tclScript.append (args[i].toString ());
-      }
-    }
-    return eval ("<function call>", 0, 0, tclScript.toString ());
-  }
-  /**
-   * Declare a bean
-   */
-  public void declareBean (final BSFDeclaredBean bean) throws BSFException {
-    final String expr = "set " + bean.name + " [bsf lookupBean \"" + bean.name +
-	  "\"]";
-    eval ("<declare bean>", 0, 0, expr);
-  }
-  /**
-   * This is used by an application to evaluate a string containing
-   * some expression.
-   */
-  public Object eval (final String source, final int lineNo, final int columnNo,
-              final Object oscript) throws BSFException {
-    final String script = oscript.toString ();
-    try {
-      interp.eval (script);
-      final TclObject result = interp.getResult();
-      final Object internalRep = result.getInternalRep();
-
-      // if the object has a corresponding Java type, unwrap it
-      if (internalRep instanceof ReflectObject) {
-        return ReflectObject.get(interp,result);
-    }
-      if (internalRep instanceof TclString) {
-        return result.toString();
-    }
-      if (internalRep instanceof TclDouble) {
-        return new Double(TclDouble.get(interp,result));
-    }
-      if (internalRep instanceof TclInteger) {
-        return new Integer(TclInteger.get(interp,result));
+    /**
+     *
+     * @param method The name of the method to call.
+     * @param args   an array of arguments to be passed to the extension, which may be either Vectors of Nodes, or Strings.
+     */
+    public Object call(final Object obj, final String method, final Object[] args) throws BSFException {
+        final StringBuffer tclScript = new StringBuffer(method);
+        if (args != null) {
+            for (int i = 0; i < args.length; i++) {
+                tclScript.append(" ");
+                tclScript.append(args[i].toString());
+            }
+        }
+        return eval("<function call>", 0, 0, tclScript.toString());
     }
 
-      return result;
-    } catch (final TclException e) {
-      throw new BSFException (BSFException.REASON_EXECUTION_ERROR,
-                  "error while eval'ing Jacl expression: " +
-                  interp.getResult (), e);
+    /**
+     * Declare a bean
+     */
+    public void declareBean(final BSFDeclaredBean bean) throws BSFException {
+        final String expr = "set " + bean.name + " [bsf lookupBean \"" + bean.name + "\"]";
+        eval("<declare bean>", 0, 0, expr);
     }
-  }
-  /**
-   * Initialize the engine.
-   */
-  public void initialize (final BSFManager mgr, final String lang,
-              final Vector declaredBeans) throws BSFException {
-    super.initialize (mgr, lang, declaredBeans);
 
-    // create interpreter
-    interp = new Interp();
-
-    // register the extension that user's can use to get at objects
-    // registered by the app
-    interp.createCommand ("bsf", new BSFCommand (mgr, this));
-
-    // Make java functions be available to Jacl
+    /**
+     * This is used by an application to evaluate a string containing some expression.
+     */
+    public Object eval(final String source, final int lineNo, final int columnNo, final Object oscript) throws BSFException {
+        final String script = oscript.toString();
         try {
-        interp.eval("jaclloadjava");
-    } catch (final TclException e) {
-        throw new BSFException (BSFException.REASON_OTHER_ERROR,
-                    "error while loading java package: " +
-                    interp.getResult (), e);
+            interp.eval(script);
+            final TclObject result = interp.getResult();
+            final Object internalRep = result.getInternalRep();
+
+            // if the object has a corresponding Java type, unwrap it
+            if (internalRep instanceof ReflectObject) {
+                return ReflectObject.get(interp, result);
+            }
+            if (internalRep instanceof TclString) {
+                return result.toString();
+            }
+            if (internalRep instanceof TclDouble) {
+                return new Double(TclDouble.get(interp, result));
+            }
+            if (internalRep instanceof TclInteger) {
+                return new Integer(TclInteger.get(interp, result));
+            }
+
+            return result;
+        } catch (final TclException e) {
+            throw new BSFException(BSFException.REASON_EXECUTION_ERROR, "error while eval'ing Jacl expression: " + interp.getResult(), e);
+        }
     }
 
-    final int size = declaredBeans.size ();
-    for (int i = 0; i < size; i++) {
-      declareBean ((BSFDeclaredBean) declaredBeans.elementAt (i));
-    }
-  }
+    /**
+     * Initialize the engine.
+     */
+    public void initialize(final BSFManager mgr, final String lang, final Vector declaredBeans) throws BSFException {
+        super.initialize(mgr, lang, declaredBeans);
 
-  /**
-   * Undeclare a previously declared bean.
-   */
-  public void undeclareBean (final BSFDeclaredBean bean) throws BSFException {
-    eval ("<undeclare bean>", 0, 0, "set " + bean.name + " \"\"");
-  }
+        // create interpreter
+        interp = new Interp();
+
+        // register the extension that user's can use to get at objects
+        // registered by the app
+        interp.createCommand("bsf", new BSFCommand(mgr, this));
+
+        // Make java functions be available to Jacl
+        try {
+            interp.eval("jaclloadjava");
+        } catch (final TclException e) {
+            throw new BSFException(BSFException.REASON_OTHER_ERROR, "error while loading java package: " + interp.getResult(), e);
+        }
+
+        final int size = declaredBeans.size();
+        for (int i = 0; i < size; i++) {
+            declareBean((BSFDeclaredBean) declaredBeans.elementAt(i));
+        }
+    }
+
+    /**
+     * Undeclare a previously declared bean.
+     */
+    public void undeclareBean(final BSFDeclaredBean bean) throws BSFException {
+        eval("<undeclare bean>", 0, 0, "set " + bean.name + " \"\"");
+    }
 }

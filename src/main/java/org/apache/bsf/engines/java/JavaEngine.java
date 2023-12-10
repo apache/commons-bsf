@@ -37,12 +37,11 @@ import org.apache.bsf.util.MethodUtils;
 import org.apache.bsf.util.ObjInfo;
 
 /**
- * This is the interface to Java from the
- * Bean Scripting Framework.
+ * This is the interface to Java from the Bean Scripting Framework.
  * <p>
- * The Java code must be written script-style -- that is, just the body of
- * the function, without class or method headers or footers.
- * The JavaEngine will generate those via a "boilerplate" wrapper:
+ * The Java code must be written script-style -- that is, just the body of the function, without class or method headers or footers. The JavaEngine will
+ * generate those via a "boilerplate" wrapper:
+ * 
  * <pre>
  * <code>
  * import java.lang.*;
@@ -54,32 +53,24 @@ import org.apache.bsf.util.ObjInfo;
  * }
  * </code>
  * </pre>
- * $$CLASSNAME$$ will be replaced by a generated classname of the form
- * BSFJava*, and the bsf parameter can be used to retrieve application
- * objects registered with the Bean Scripting Framework.
+ * 
+ * $$CLASSNAME$$ will be replaced by a generated classname of the form BSFJava*, and the bsf parameter can be used to retrieve application objects registered
+ * with the Bean Scripting Framework.
  * <p>
- * If you use the placeholder string $$CLASSNAME$$ elsewhere
- * in your script -- including within text strings -- BSFJavaEngine will
- * replace it with the generated name of the class before the Java code
- * is compiled.
+ * If you use the placeholder string $$CLASSNAME$$ elsewhere in your script -- including within text strings -- BSFJavaEngine will replace it with the generated
+ * name of the class before the Java code is compiled.
  * <p>
  * <h2>Hazards:</h2>
  * <p>
- * NOTE that it is your responsibility to convert the code into an acceptable
- * Java string. If you're invoking the JavaEngine directly (as in the
- * JSPLikeInJava example) that means \"quoting\" characters that would
- * otherwise cause trouble.
+ * NOTE that it is your responsibility to convert the code into an acceptable Java string. If you're invoking the JavaEngine directly (as in the JSPLikeInJava
+ * example) that means \"quoting\" characters that would otherwise cause trouble.
  * <p>
- * ALSO NOTE that it is your responsibility to return an object, or null in
- * lieu thereof!
+ * ALSO NOTE that it is your responsibility to return an object, or null in lieu thereof!
  * <p>
- * Since the code has to be compiled to a Java classfile, invoking it involves
- * a fair amount of computation to load and execute the compiler. We are
- * currently making an attempt to manage that by caching the class
- * after it has been loaded, but the indexing is fairly primitive. It has
- * been suggested that the Bean Scripting Framework may want to support
- * preload-and-name-script and execute-preloaded-script-by-name options to
- * provide better control over when and how much overhead occurs.
+ * Since the code has to be compiled to a Java classfile, invoking it involves a fair amount of computation to load and execute the compiler. We are currently
+ * making an attempt to manage that by caching the class after it has been loaded, but the indexing is fairly primitive. It has been suggested that the Bean
+ * Scripting Framework may want to support preload-and-name-script and execute-preloaded-script-by-name options to provide better control over when and how much
+ * overhead occurs.
  * <p>
  */
 public class JavaEngine extends BSFEngineImpl {
@@ -93,11 +84,8 @@ public class JavaEngine extends BSFEngineImpl {
     private BSF_Log logger;
 
     /**
-     * Create a scratchfile, open it for writing, return its name.
-     * Relies on the filesystem to provide us with uniqueness testing.
-     * NOTE THAT uniqueFileOffset continues to count; we don't want to
-     * risk reusing a classname we have previously loaded in this session
-     * even if the classfile has been deleted.
+     * Create a scratchfile, open it for writing, return its name. Relies on the filesystem to provide us with uniqueness testing. NOTE THAT uniqueFileOffset
+     * continues to count; we don't want to risk reusing a classname we have previously loaded in this session even if the classfile has been deleted.
      */
     private int uniqueFileOffset = -1;
 
@@ -105,6 +93,7 @@ public class JavaEngine extends BSFEngineImpl {
         File file = null;
         FileOutputStream fos = null;
         String className = null;
+
         GeneratedFile(final File file, final FileOutputStream fos, final String className) {
             this.file = file;
             this.fos = fos;
@@ -115,51 +104,40 @@ public class JavaEngine extends BSFEngineImpl {
     /**
      * Constructor.
      */
-    public JavaEngine () {
-            // handle logger
+    public JavaEngine() {
+        // handle logger
         logger = BSF_LogFactory.getLog(this.getClass().getName());
         // Do compilation-possible check here??????????????
     }
 
-    public Object call (final Object object, final String method, final Object[] args)
-    throws BSFException
-    {
-        throw new BSFException (BSFException.REASON_UNSUPPORTED_FEATURE,
-        "call() is not currently supported by JavaEngine");
+    public Object call(final Object object, final String method, final Object[] args) throws BSFException {
+        throw new BSFException(BSFException.REASON_UNSUPPORTED_FEATURE, "call() is not currently supported by JavaEngine");
     }
 
-    public void compileScript (final String source, final int lineNo, final int columnNo,
-            final Object script, final CodeBuffer cb) throws BSFException {
-        final ObjInfo oldRet = cb.getFinalServiceMethodStatement ();
+    public void compileScript(final String source, final int lineNo, final int columnNo, final Object script, final CodeBuffer cb) throws BSFException {
+        final ObjInfo oldRet = cb.getFinalServiceMethodStatement();
 
-        if (oldRet != null && oldRet.isExecutable ()) {
-            cb.addServiceMethodStatement (oldRet.objName + ";");
+        if (oldRet != null && oldRet.isExecutable()) {
+            cb.addServiceMethodStatement(oldRet.objName + ";");
         }
 
-        cb.addServiceMethodStatement (script.toString ());
-        cb.setFinalServiceMethodStatement (null);
+        cb.addServiceMethodStatement(script.toString());
+        cb.setFinalServiceMethodStatement(null);
     }
 
     /**
-     * This is used by an application to evaluate a string containing
-     * some expression. It should store the "bsf" handle where the
-     * script can get to it, for callback purposes.
+     * This is used by an application to evaluate a string containing some expression. It should store the "bsf" handle where the script can get to it, for
+     * callback purposes.
      * <p>
-     * Note that Java compilation imposes serious overhead,
-     * but in exchange you get full Java performance
-     * once the classes have been created (minus the cache lookup cost).
+     * Note that Java compilation imposes serious overhead, but in exchange you get full Java performance once the classes have been created (minus the cache
+     * lookup cost).
      * <p>
-     * Nobody knows whether javac is threadsafe.
-     * I'm going to serialize access to protect it.
+     * Nobody knows whether javac is threadsafe. I'm going to serialize access to protect it.
      * <p>
-     * There is no published API for invoking javac as a class. There's a trick
-     * that seems to work for Java 1.1.x, but it stopped working in Java 1.2.
-     * We will attempt to use it, then if necessary fall back on invoking
-     * javac via the command line.
+     * There is no published API for invoking javac as a class. There's a trick that seems to work for Java 1.1.x, but it stopped working in Java 1.2. We will
+     * attempt to use it, then if necessary fall back on invoking javac via the command line.
      */
-    public Object eval (final String source, final int lineNo, final int columnNo,
-            final Object oscript) throws BSFException
-            {
+    public Object eval(final String source, final int lineNo, final int columnNo, final Object oscript) throws BSFException {
         Object retval = null;
         String classname = null;
         GeneratedFile gf = null;
@@ -169,39 +147,36 @@ public class JavaEngine extends BSFEngineImpl {
 
         try {
             // Do we already have a class exactly matching this code?
-            javaclass = (Class)codeToClass.get(basescript);
+            javaclass = (Class) codeToClass.get(basescript);
 
-            if(javaclass != null) {
-                classname=javaclass.getName();
+            if (javaclass != null) {
+                classname = javaclass.getName();
             } else {
-                gf = openUniqueFile(tempDir, "BSFJava",".java");
-                if( gf == null) {
+                gf = openUniqueFile(tempDir, "BSFJava", ".java");
+                if (gf == null) {
                     throw new BSFException("couldn't create JavaEngine scratchfile");
                 }
                 // Obtain classname
                 classname = gf.className;
 
                 // Write the kluge header to the file.
-                gf.fos.write(("import java.lang.*;"+
-                        "import java.util.*;"+
-                        "public class "+classname+" {\n" +
-                "  static public Object BSFJavaEngineEntry(org.apache.bsf.BSFManager bsf) {\n")
-                .getBytes());
+                gf.fos.write(("import java.lang.*;" + "import java.util.*;" + "public class " + classname + " {\n"
+                        + "  static public Object BSFJavaEngineEntry(org.apache.bsf.BSFManager bsf) {\n").getBytes());
 
                 // Edit the script to replace placeholder with the generated
                 // classname. Note that this occurs _after_ the cache was checked!
                 int startpoint = script.indexOf(placeholder);
                 int endpoint;
-                if(startpoint >= 0) {
+                if (startpoint >= 0) {
                     final StringBuffer changed = new StringBuffer();
-                    for(; startpoint >=0; startpoint = script.indexOf(placeholder,startpoint)) {
-                        changed.setLength(0);   // Reset for 2nd pass or later
-                        if(startpoint > 0) {
-                            changed.append(script.substring(0,startpoint));
+                    for (; startpoint >= 0; startpoint = script.indexOf(placeholder, startpoint)) {
+                        changed.setLength(0); // Reset for 2nd pass or later
+                        if (startpoint > 0) {
+                            changed.append(script.substring(0, startpoint));
                         }
                         changed.append(classname);
-                        endpoint = startpoint+placeholder.length();
-                        if(endpoint < script.length()) {
+                        endpoint = startpoint + placeholder.length();
+                        if (endpoint < script.length()) {
                             changed.append(script.substring(endpoint));
                         }
                         script = changed.toString();
@@ -232,7 +207,7 @@ public class JavaEngine extends BSFEngineImpl {
 
                 // Compile through Java to .class file
                 // May not be threadsafe. Serialize access on static object:
-                synchronized(serializeCompilation) {
+                synchronized (serializeCompilation) {
                     JavaUtils.JDKcompile(gf.file.getPath(), classPath);
                 }
 
@@ -243,39 +218,35 @@ public class JavaEngine extends BSFEngineImpl {
                 codeToClass.put(basescript, javaclass);
             }
 
-            final Object[] callArgs = {mgr};
-            retval = internalCall(this,"BSFJavaEngineEntry",callArgs);
+            final Object[] callArgs = { mgr };
+            retval = internalCall(this, "BSFJavaEngineEntry", callArgs);
         }
 
-        catch(final Exception e) {
-            e.printStackTrace ();
-            throw new BSFException (BSFException.REASON_IO_ERROR, e.getMessage ());
+        catch (final Exception e) {
+            e.printStackTrace();
+            throw new BSFException(BSFException.REASON_IO_ERROR, e.getMessage());
         } finally {
             // Cleanup: delete the .java and .class files
 
 //          if(gf!=null && gf.file!=null && gf.file.exists())
 //          gf.file.delete();  // .java file
 
-            if(classname!=null) {
+            if (classname != null) {
                 // Generated class
-                File file = new File(tempDir+File.separatorChar+classname+".class");
+                File file = new File(tempDir + File.separatorChar + classname + ".class");
 //              if(file.exists())
 //              file.delete();
 
                 // Search for and clean up minor classes, classname$xxx.class
-                file = new File(tempDir);  // ***** Is this required?
-                minorPrefix = classname+"$"; // Indirect arg to filter
-                final String[] minorClassfiles = file.list(new FilenameFilter()
-                            {
-                        // Starts with classname$ and ends with .class
-                        public boolean accept(final File dir,final String name) {
-                            return
-                            (0 == name.indexOf(minorPrefix))
-                            &&
-                            (name.lastIndexOf(".class") == name.length()-6);
-                        }
-                            });
-                for(int i = 0; i < minorClassfiles.length; ++i) {
+                file = new File(tempDir); // ***** Is this required?
+                minorPrefix = classname + "$"; // Indirect arg to filter
+                final String[] minorClassfiles = file.list(new FilenameFilter() {
+                    // Starts with classname$ and ends with .class
+                    public boolean accept(final File dir, final String name) {
+                        return (0 == name.indexOf(minorPrefix)) && (name.lastIndexOf(".class") == name.length() - 6);
+                    }
+                });
+                for (int i = 0; i < minorClassfiles.length; ++i) {
                     file = new File(minorClassfiles[i]);
 //                  file.delete();
                 }
@@ -284,70 +255,65 @@ public class JavaEngine extends BSFEngineImpl {
         return retval;
     }
 
-    public void initialize (final BSFManager mgr, final String lang,
-            final Vector declaredBeans) throws BSFException {
-        super.initialize (mgr, lang, declaredBeans);
+    public void initialize(final BSFManager mgr, final String lang, final Vector declaredBeans) throws BSFException {
+        super.initialize(mgr, lang, declaredBeans);
     }
+
     /**
      * Return an object from an extension.
+     * 
      * @param object Object on which to make the internal_call (ignored).
      * @param method The name of the method to internal_call.
-     * @param args an array of arguments to be
-     * passed to the extension, which may be either
-     * Vectors of Nodes, or Strings.
+     * @param args   an array of arguments to be passed to the extension, which may be either Vectors of Nodes, or Strings.
      */
-    Object internalCall (final Object object, final String method, final Object[] args)
-    throws BSFException
-    {
-        //***** ISSUE: Only static methods are currently supported
+    Object internalCall(final Object object, final String method, final Object[] args) throws BSFException {
+        // ***** ISSUE: Only static methods are currently supported
         Object retval = null;
         try {
-            if(javaclass != null) {
-                //***** This should call the lookup used in BML, for typesafety
+            if (javaclass != null) {
+                // ***** This should call the lookup used in BML, for typesafety
                 final Class[] argtypes = new Class[args.length];
-                for(int i=0; i<args.length; ++i) {
-                    argtypes[i]=args[i].getClass();
+                for (int i = 0; i < args.length; ++i) {
+                    argtypes[i] = args[i].getClass();
                 }
                 final Method m = MethodUtils.getMethod(javaclass, method, argtypes);
                 retval = m.invoke(null, args);
             }
-        }
-        catch(final Exception e) {
-            throw new BSFException (BSFException.REASON_IO_ERROR, e.getMessage ());
+        } catch (final Exception e) {
+            throw new BSFException(BSFException.REASON_IO_ERROR, e.getMessage());
         }
         return retval;
     }
 
-    private GeneratedFile openUniqueFile(final String directory,final String prefix,final String suffix) {
+    private GeneratedFile openUniqueFile(final String directory, final String prefix, final String suffix) {
         File file = null;
         FileOutputStream fos = null;
-        final int max = 1000;     // Don't try forever
+        final int max = 1000; // Don't try forever
         GeneratedFile gf = null;
         int i;
         String className = null;
-        for(i=max,++uniqueFileOffset; fos==null && i>0;--i,++uniqueFileOffset) {
+        for (i = max, ++uniqueFileOffset; fos == null && i > 0; --i, ++uniqueFileOffset) {
             // Probably a timing hazard here... ***************
             try {
-                className = prefix+uniqueFileOffset;
-                file = new File(directory+File.separatorChar+className+suffix);
-                if(file != null && !file.exists()) {
+                className = prefix + uniqueFileOffset;
+                file = new File(directory + File.separatorChar + className + suffix);
+                if (file != null && !file.exists()) {
                     fos = new FileOutputStream(file);
                 }
-            }
-            catch(final Exception e) {
+            } catch (final Exception e) {
                 // File could not be opened for write, or Security Exception
                 // was thrown. If someone else created the file before we could
                 // open it, that's probably a threading conflict and we don't
                 // bother reporting it.
-                if(!file.exists()) {
+                if (!file.exists()) {
                     logger.error("openUniqueFile: unexpected ", e);
                 }
             }
         }
-        if(fos==null) {
-            logger.error("openUniqueFile: Failed "+max+"attempts.");
+        if (fos == null) {
+            logger.error("openUniqueFile: Failed " + max + "attempts.");
         } else {
-            gf = new GeneratedFile(file,fos,className);
+            gf = new GeneratedFile(file, fos, className);
         }
         return gf;
     }

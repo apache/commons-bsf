@@ -36,29 +36,24 @@ import org.mozilla.javascript.WrappedException;
 import org.mozilla.javascript.Wrapper;
 
 /**
- * This is the interface to Netscape's Rhino (JavaScript) from the
- * Bean Scripting Framework.
+ * This is the interface to Netscape's Rhino (JavaScript) from the Bean Scripting Framework.
  * <p>
- * The original version of this code was first written by Adam Peller
- * for use in LotusXSL. Sanjiva took his code and adapted it for BSF.
+ * The original version of this code was first written by Adam Peller for use in LotusXSL. Sanjiva took his code and adapted it for BSF.
  */
 public class JavaScriptEngine extends BSFEngineImpl {
     /**
-     * The global script object, where all embedded functions are defined,
-     * as well as the standard ECMA "core" objects.
+     * The global script object, where all embedded functions are defined, as well as the standard ECMA "core" objects.
      */
     private Scriptable global;
 
     /**
      * Return an object from an extension.
+     * 
      * @param object Object on which to make the call (ignored).
      * @param method The name of the method to call.
-     * @param args an array of arguments to be
-     * passed to the extension, which may be either
-     * Vectors of Nodes, or Strings.
+     * @param args   an array of arguments to be passed to the extension, which may be either Vectors of Nodes, or Strings.
      */
-    public Object call(final Object object, final String method, final Object[] args)
-        throws BSFException {
+    public Object call(final Object object, final String method, final Object[] args) throws BSFException {
 
         Object retval = null;
         Context cx;
@@ -70,10 +65,9 @@ public class JavaScriptEngine extends BSFEngineImpl {
 
             final Object fun = global.get(method, global);
             // NOTE: Source and line arguments are nonsense in a call().
-            //       Any way to make these arguments *sensible?
+            // Any way to make these arguments *sensible?
             if (fun == Scriptable.NOT_FOUND) {
-                throw new EvaluatorException("function " + method +
-                                             " not found.", "none", 0);
+                throw new EvaluatorException("function " + method + " not found.", "none", 0);
             }
 
             cx.setOptimizationLevel(-1);
@@ -82,31 +76,25 @@ public class JavaScriptEngine extends BSFEngineImpl {
             cx.setOptimizationLevel(0);
             cx.setDebugger(null, null);
 
-            retval =
-                ((Function) fun).call(cx, global, global, args);
+            retval = ((Function) fun).call(cx, global, global, args);
 
 //                ScriptRuntime.call(cx, fun, global, args, global);
 
             if (retval instanceof Wrapper) {
                 retval = ((Wrapper) retval).unwrap();
             }
-        }
-        catch (final Throwable t) {
+        } catch (final Throwable t) {
             handleError(t);
-        }
-        finally {
+        } finally {
             Context.exit();
         }
         return retval;
     }
 
     public void declareBean(final BSFDeclaredBean bean) throws BSFException {
-        if ((bean.bean instanceof Number) ||
-            (bean.bean instanceof String) ||
-            (bean.bean instanceof Boolean)) {
+        if ((bean.bean instanceof Number) || (bean.bean instanceof String) || (bean.bean instanceof Boolean)) {
             global.put(bean.name, global, bean.bean);
-        }
-        else {
+        } else {
             // Must wrap non-scriptable objects before presenting to Rhino
             final Scriptable wrapped = Context.toObject(bean.bean, global);
             global.put(bean.name, global, wrapped);
@@ -114,11 +102,9 @@ public class JavaScriptEngine extends BSFEngineImpl {
     }
 
     /**
-     * This is used by an application to evaluate a string containing
-     * some expression.
+     * This is used by an application to evaluate a string containing some expression.
      */
-    public Object eval(final String source, final int lineNo, final int columnNo, final Object oscript)
-        throws BSFException {
+    public Object eval(final String source, final int lineNo, final int columnNo, final Object oscript) throws BSFException {
 
         final String scriptText = oscript.toString();
         Object retval = null;
@@ -133,19 +119,15 @@ public class JavaScriptEngine extends BSFEngineImpl {
             cx.setOptimizationLevel(0);
             cx.setDebugger(null, null);
 
-            retval = cx.evaluateString(global, scriptText,
-                                       source, lineNo,
-                                       null);
+            retval = cx.evaluateString(global, scriptText, source, lineNo, null);
 
             if (retval instanceof NativeJavaObject) {
                 retval = ((NativeJavaObject) retval).unwrap();
             }
 
-        }
-        catch (final Throwable t) { // includes JavaScriptException, rethrows Errors
+        } catch (final Throwable t) { // includes JavaScriptException, rethrows Errors
             handleError(t);
-        }
-        finally {
+        } finally {
             Context.exit();
         }
         return retval;
@@ -169,15 +151,11 @@ public class JavaScriptEngine extends BSFEngineImpl {
                 // Display its stack trace as a diagnostic
                 target = (Throwable) value;
             }
-        }
-        else if (t instanceof EvaluatorException ||
-                 t instanceof SecurityException) {
+        } else if (t instanceof EvaluatorException || t instanceof SecurityException) {
             message = t.getLocalizedMessage();
-        }
-        else if (t instanceof RuntimeException) {
+        } else if (t instanceof RuntimeException) {
             message = "Internal Error: " + t.toString();
-        }
-        else if (t instanceof StackOverflowError) {
+        } else if (t instanceof StackOverflowError) {
             message = "Stack Overflow";
         }
 
@@ -191,21 +169,15 @@ public class JavaScriptEngine extends BSFEngineImpl {
             // corrected the situation by aborting the loop and
             // a long stacktrace would end up on the user's console
             throw (Error) t;
-        }
-        else {
-            throw new BSFException(BSFException.REASON_OTHER_ERROR,
-                                   "JavaScript Error: " + message,
-                                   target);
+        } else {
+            throw new BSFException(BSFException.REASON_OTHER_ERROR, "JavaScript Error: " + message, target);
         }
     }
 
     /**
-     * Initialize the engine.
-     * Put the manager into the context-manager
-     * map hashtable too.
+     * Initialize the engine. Put the manager into the context-manager map hashtable too.
      */
-    public void initialize(final BSFManager mgr, final String lang, final Vector declaredBeans)
-        throws BSFException {
+    public void initialize(final BSFManager mgr, final String lang, final Vector declaredBeans) throws BSFException {
 
         super.initialize(mgr, lang, declaredBeans);
 
@@ -216,14 +188,12 @@ public class JavaScriptEngine extends BSFEngineImpl {
             final Scriptable bsf = Context.toObject(new BSFFunctions(mgr, this), global);
             global.put("bsf", global, bsf);
 
-            for(final Iterator it = declaredBeans.iterator(); it.hasNext();) {
+            for (final Iterator it = declaredBeans.iterator(); it.hasNext();) {
                 declareBean((BSFDeclaredBean) it.next());
             }
-        }
-        catch (final Throwable t) {
+        } catch (final Throwable t) {
 
-        }
-        finally {
+        } finally {
             Context.exit();
         }
     }

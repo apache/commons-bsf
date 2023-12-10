@@ -34,8 +34,7 @@ import junit.framework.TestCase;
 
 public class IOUtilsTest extends TestCase {
 
-    static private final String lineSeparator =
-        System.getProperty("line.separator","/n");
+    static private final String lineSeparator = System.getProperty("line.separator", "/n");
 
     public IOUtilsTest(final String name) {
         super(name);
@@ -64,7 +63,6 @@ public class IOUtilsTest extends TestCase {
         final FileReader fr = new FileReader(myFile);
         result = IOUtils.getStringFromReader(fr);
 
-        assertTrue(result.equals(("file name : Test.txt" +
-                                            lineSeparator)));
+        assertTrue(result.equals(("file name : Test.txt" + lineSeparator)));
     }
 }

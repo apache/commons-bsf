@@ -40,8 +40,7 @@ public class NetrexxTest_IGNORE extends BSFEngineTestCase {
 
         try {
             netrexxEngine = bsfManager.loadScriptingEngine("netrexx");
-        }
-        catch (final BSFException bsfe) {
+        } catch (final BSFException bsfe) {
             fail(failMessage("fail while attempting to load netrexx", bsfe));
         }
     }
@@ -56,14 +55,12 @@ public class NetrexxTest_IGNORE extends BSFEngineTestCase {
 
         try {
             bsfManager.declareBean("foo", foo, Integer.class);
-            bar = new Integer((netrexxEngine.eval("Test.nrx", 0, 0,
-                                                  "foo.intValue() + 1")).toString());
-        }
-        catch (final Exception ex) {
+            bar = new Integer((netrexxEngine.eval("Test.nrx", 0, 0, "foo.intValue() + 1")).toString());
+        } catch (final Exception ex) {
             fail(failMessage("declaredBean() test failed", ex));
         }
 
-        assertEquals(bar , new Integer(1));
+        assertEquals(bar, new Integer(1));
     }
 
     public void ignore_testRegisterBean() {
@@ -72,10 +69,8 @@ public class NetrexxTest_IGNORE extends BSFEngineTestCase {
 
         try {
             bsfManager.registerBean("foo", foo);
-            bar = new Integer((netrexxEngine.eval("Test.nrx", 0, 0,
-                                                  "bsf.lookupBean(\"foo\")").toString()));
-        }
-        catch (final Exception ex) {
+            bar = new Integer((netrexxEngine.eval("Test.nrx", 0, 0, "bsf.lookupBean(\"foo\")").toString()));
+        } catch (final Exception ex) {
             fail(failMessage("registerBean() test fail", ex));
         }
 
@@ -84,82 +79,71 @@ public class NetrexxTest_IGNORE extends BSFEngineTestCase {
 
     public void ignore_testExec() {
         try {
-            netrexxEngine.exec("Test.nrx", 0, 0,
-                               "say \"PASSED\"");
-        }
-        catch (final BSFException bsfe) {
+            netrexxEngine.exec("Test.nrx", 0, 0, "say \"PASSED\"");
+        } catch (final BSFException bsfe) {
             fail(failMessage("exec() test fail", bsfe));
         }
 
-        assertEquals("PASSED"+lineSeparatorStr, getTmpOutStr());
+        assertEquals("PASSED" + lineSeparatorStr, getTmpOutStr());
     }
 
     public void ignore_testUndeclareBean() {
         // FIXME: Netrexx is a little chatty about the missing variable...
         final Integer foo = new Integer(0);
-        Object  bar = null;
+        Object bar = null;
 
         try {
             bsfManager.declareBean("foo", foo, Integer.class);
             bsfManager.undeclareBean("foo");
-            bar = netrexxEngine.eval("Test.nrx", 0, 0,
-                                     "foo + 1");
-        }
-        catch (final BSFException bsfe) {
+            bar = netrexxEngine.eval("Test.nrx", 0, 0, "foo + 1");
+        } catch (final BSFException bsfe) {
             // don't do anything .. this is the expected case
-        }
-        catch (final Exception ex) {
+        } catch (final Exception ex) {
             fail(failMessage("undeclareBean() test failed", ex));
         }
 
         assertNull(bar);
     }
 
-    public void ignore_testUnregisterBean(){
+    public void ignore_testUnregisterBean() {
         final Integer foo = new Integer(0);
-        Object retValue  = null;
+        Object retValue = null;
 
         try {
             bsfManager.registerBean("foo", foo);
             bsfManager.unregisterBean("foo");
-            retValue = netrexxEngine.eval("Test.nrx", 0, 0,
-                                          "bsf.lookupBean(\"foo\")");
-        }
-        catch (final Exception ex) {
+            retValue = netrexxEngine.eval("Test.nrx", 0, 0, "bsf.lookupBean(\"foo\")");
+        } catch (final Exception ex) {
             fail(failMessage("unregisterBean() test fail", ex));
         }
 
         assertNull(retValue);
     }
 
-    public void ignore_testBSFManagerAvailability(){
+    public void ignore_testBSFManagerAvailability() {
         Object retValue = null;
 
         try {
-            retValue = bsfManager.eval("netrexx", "Test.nrx", 0, 0,
-                                       "bsf.lookupBean(\"foo\")");
-        }
-        catch (final Exception ex) {
+            retValue = bsfManager.eval("netrexx", "Test.nrx", 0, 0, "bsf.lookupBean(\"foo\")");
+        } catch (final Exception ex) {
             fail(failMessage("BSFManagerAvailability() test failed", ex));
         }
 
         assertNull(retValue);
     }
 
-    public void ignore_testBSFManagerEval(){
+    public void ignore_testBSFManagerEval() {
         Object retValue = null;
 
         try {
-            retValue = new Integer((bsfManager.eval("netrexx", "Test.nrx", 0, 0,
-                                                    "1 + (-1)")).toString());
-        }
-        catch (final Exception ex) {
+            retValue = new Integer((bsfManager.eval("netrexx", "Test.nrx", 0, 0, "1 + (-1)")).toString());
+        } catch (final Exception ex) {
             fail(failMessage("BSFManagerEval() test failed", ex));
         }
 
         assertEquals(retValue, new Integer(0));
     }
-    
+
     public void testAllIgnoredUntilNetrexxIsSetUp() {
         // empty
     }

@@ -22,53 +22,53 @@ import java.io.FileInputStream;
 import java.util.Hashtable;
 
 /**
- * This class loader knows to load a class from the tempDir dir
- * of the environment of the given manager.
+ * This class loader knows to load a class from the tempDir dir of the environment of the given manager.
  */
 class BSFClassLoader extends ClassLoader {
-  Hashtable cache = new Hashtable ();
-  String tempDir = ".";
+    Hashtable cache = new Hashtable();
+    String tempDir = ".";
 
-  // note the non-public constructor - this is only avail within
-  // this package.
-  BSFClassLoader () {
-  }
-  public synchronized Class loadClass (final String name, final boolean resolve)
-                                               throws ClassNotFoundException {
-    Class c = (Class) cache.get (name);
-    if (c == null) {
-      // is it a system class
-      try {
-    c = findSystemClass (name);
-    cache.put (name, c);
-    return c;
-      } catch (final ClassNotFoundException e) {
-    // nope
-      }
-      try {
-    final byte[] data = loadClassData (name);
-    c = defineClass (name, data, 0, data.length);
-    cache.put (name, c);
-      } catch (final Exception e) {
-    e.printStackTrace ();
-    throw new ClassNotFoundException ("unable to resolve class '" +
-                      name + "'");
-      }
+    // note the non-public constructor - this is only avail within
+    // this package.
+    BSFClassLoader() {
     }
-    if (resolve) {
-        resolveClass (c);
+
+    public synchronized Class loadClass(final String name, final boolean resolve) throws ClassNotFoundException {
+        Class c = (Class) cache.get(name);
+        if (c == null) {
+            // is it a system class
+            try {
+                c = findSystemClass(name);
+                cache.put(name, c);
+                return c;
+            } catch (final ClassNotFoundException e) {
+                // nope
+            }
+            try {
+                final byte[] data = loadClassData(name);
+                c = defineClass(name, data, 0, data.length);
+                cache.put(name, c);
+            } catch (final Exception e) {
+                e.printStackTrace();
+                throw new ClassNotFoundException("unable to resolve class '" + name + "'");
+            }
+        }
+        if (resolve) {
+            resolveClass(c);
+        }
+        return c;
     }
-    return c;
-  }
-  private byte[] loadClassData (final String name) throws Exception {
-    final String fileName = tempDir + File.separatorChar + name + ".class";
-    final FileInputStream fi = new FileInputStream (fileName);
-    final byte[] data = new byte[fi.available ()];
-    fi.read (data);
-    fi.close();
-    return data;
-  }
-  public void setTempDir (final String tempDir) {
-    this.tempDir = tempDir;
-  }
+
+    private byte[] loadClassData(final String name) throws Exception {
+        final String fileName = tempDir + File.separatorChar + name + ".class";
+        final FileInputStream fi = new FileInputStream(fileName);
+        final byte[] data = new byte[fi.available()];
+        fi.read(data);
+        fi.close();
+        return data;
+    }
+
+    public void setTempDir(final String tempDir) {
+        this.tempDir = tempDir;
+    }
 }

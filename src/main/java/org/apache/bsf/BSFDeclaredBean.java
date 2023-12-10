@@ -18,8 +18,7 @@
 package org.apache.bsf;
 
 /**
- * BSFDeclaredBeans are used internally by BSF to encapsulate information being
- * passed between a BSFManager and its various BSFEngines. Note that the
+ * BSFDeclaredBeans are used internally by BSF to encapsulate information being passed between a BSFManager and its various BSFEngines. Note that the
  * constructor is not public because this is not a public class.
  */
 public class BSFDeclaredBean {

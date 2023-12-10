@@ -20,42 +20,43 @@ package org.apache.bsf.util;
 import java.util.Hashtable;
 
 /**
- * The <em>ObjectRegistry</em> is used to do name-to-object reference lookups.
- * If an <em>ObjectRegistry</em> is passed as a constructor argument, then this
- * <em>ObjectRegistry</em> will be a cascading registry: when a lookup is
- * invoked, it will first look in its own table for a name, and if it's not
- * there, it will cascade to the parent <em>ObjectRegistry</em>.
- * All registration is always local. [??]
+ * The <em>ObjectRegistry</em> is used to do name-to-object reference lookups. If an <em>ObjectRegistry</em> is passed as a constructor argument, then this
+ * <em>ObjectRegistry</em> will be a cascading registry: when a lookup is invoked, it will first look in its own table for a name, and if it's not there, it
+ * will cascade to the parent <em>ObjectRegistry</em>. All registration is always local. [??]
  */
 public class ObjectRegistry {
-  Hashtable      reg    = new Hashtable ();
-  ObjectRegistry parent = null;
+    Hashtable reg = new Hashtable();
+    ObjectRegistry parent = null;
 
-  public ObjectRegistry () {
-  }
-  public ObjectRegistry (final ObjectRegistry parent) {
-	this.parent = parent;
-  }
-  // lookup an object: cascade up if needed
-  public Object lookup (final String name) throws IllegalArgumentException {
-	Object obj = reg.get (name);
+    public ObjectRegistry() {
+    }
 
-	if (obj == null && parent != null) {
-	  obj = parent.lookup (name);
-	}
+    public ObjectRegistry(final ObjectRegistry parent) {
+        this.parent = parent;
+    }
 
-	if (obj == null) {
-	  throw new IllegalArgumentException ("object '" + name + "' not in registry");
-	}
+    // lookup an object: cascade up if needed
+    public Object lookup(final String name) throws IllegalArgumentException {
+        Object obj = reg.get(name);
 
-	return obj;
-  }
-  // register an object
-  public void register (final String name, final Object obj) {
-	reg.put (name, obj);
-  }
-  // unregister an object (silent if unknown name)
-  public void unregister (final String name) {
-	reg.remove (name);
-  }
+        if (obj == null && parent != null) {
+            obj = parent.lookup(name);
+        }
+
+        if (obj == null) {
+            throw new IllegalArgumentException("object '" + name + "' not in registry");
+        }
+
+        return obj;
+    }
+
+    // register an object
+    public void register(final String name, final Object obj) {
+        reg.put(name, obj);
+    }
+
+    // unregister an object (silent if unknown name)
+    public void unregister(final String name) {
+        reg.remove(name);
+    }
 }

@@ -32,8 +32,7 @@ import org.apache.commons.jexl.Script;
 import org.apache.commons.jexl.ScriptFactory;
 
 /**
- * {@link BSFEngine} for Commons JEXL.
- * Requires Commons JEXL version 1.1 or later.
+ * {@link BSFEngine} for Commons JEXL. Requires Commons JEXL version 1.1 or later.
  *
  * @see <a href="http://commons.apache.org/jexl/">Commons JEXL</a>
  *
@@ -44,18 +43,15 @@ public class JEXLEngine extends BSFEngineImpl {
     private JexlContext jc;
 
     /**
-     * Initialize the JEXL engine by creating a JexlContext and populating it
-     * with the declared beans.
+     * Initialize the JEXL engine by creating a JexlContext and populating it with the declared beans.
      *
-     * @param mgr The {@link BSFManager}.
-     * @param lang The language.
+     * @param mgr           The {@link BSFManager}.
+     * @param lang          The language.
      * @param declaredBeans The vector of the initially declared beans.
      *
-     * @throws BSFException For any exception that occurs while trying to
-     *                      initialize the engine.
+     * @throws BSFException For any exception that occurs while trying to initialize the engine.
      */
-    public void initialize(final BSFManager mgr, final String lang, final Vector declaredBeans)
-            throws BSFException {
+    public void initialize(final BSFManager mgr, final String lang, final Vector declaredBeans) throws BSFException {
         super.initialize(mgr, lang, declaredBeans);
         jc = JexlHelper.createContext();
         for (int i = 0; i < declaredBeans.size(); i++) {
@@ -65,8 +61,7 @@ public class JEXLEngine extends BSFEngineImpl {
     }
 
     /**
-     * Terminate the JEXL engine by clearing and destroying the backing
-     * JEXLContext.
+     * Terminate the JEXL engine by clearing and destroying the backing JEXLContext.
      */
     public void terminate() {
         if (jc != null) {
@@ -78,11 +73,9 @@ public class JEXLEngine extends BSFEngineImpl {
     /**
      * Adds this bean to the backing JexlContext.
      *
-     * @param bean The {@link BSFDeclaredBean} to be added to the backing
-     *             context.
+     * @param bean The {@link BSFDeclaredBean} to be added to the backing context.
      *
-     * @throws BSFException For any exception that occurs while trying to
-     *                      declare the bean.
+     * @throws BSFException For any exception that occurs while trying to declare the bean.
      */
     public void declareBean(final BSFDeclaredBean bean) throws BSFException {
         jc.getVars().put(bean.name, bean.bean);
@@ -91,11 +84,9 @@ public class JEXLEngine extends BSFEngineImpl {
     /**
      * Removes this bean from the backing JexlContext.
      *
-     * @param bean The {@link BSFDeclaredBean} to be removed from the backing
-     *             context.
+     * @param bean The {@link BSFDeclaredBean} to be removed from the backing context.
      *
-     * @throws BSFException For any exception that occurs while trying to
-     *                      undeclare the bean.
+     * @throws BSFException For any exception that occurs while trying to undeclare the bean.
      */
     public void undeclareBean(final BSFDeclaredBean bean) throws BSFException {
         jc.getVars().remove(bean.name);
@@ -105,15 +96,13 @@ public class JEXLEngine extends BSFEngineImpl {
      * Evaluates the expression as a JEXL Script.
      *
      * @param fileName The file name, if it is available.
-     * @param lineNo The line number, if it is available.
-     * @param colNo The column number, if it is available.
-     * @param expr The expression to be evaluated.
+     * @param lineNo   The line number, if it is available.
+     * @param colNo    The column number, if it is available.
+     * @param expr     The expression to be evaluated.
      *
-     * @throws BSFException For any exception that occurs while
-     *                      evaluating the expression.
+     * @throws BSFException For any exception that occurs while evaluating the expression.
      */
-    public Object eval(final String fileName, final int lineNo, final int colNo, final Object expr)
-            throws BSFException {
+    public Object eval(final String fileName, final int lineNo, final int colNo, final Object expr) throws BSFException {
         if (expr == null) {
             return null;
         }
@@ -128,8 +117,7 @@ public class JEXLEngine extends BSFEngineImpl {
             }
             return jExpr.execute(jc);
         } catch (final Exception e) {
-            throw new BSFException(BSFException.REASON_EXECUTION_ERROR,
-                "Exception from Commons JEXL:\n" + e.getMessage(), e);
+            throw new BSFException(BSFException.REASON_EXECUTION_ERROR, "Exception from Commons JEXL:\n" + e.getMessage(), e);
         }
     }
 
@@ -137,15 +125,13 @@ public class JEXLEngine extends BSFEngineImpl {
      * Executes the script as a JEXL {@link Script}.
      *
      * @param fileName The file name, if it is available.
-     * @param lineNo The line number, if it is available.
-     * @param colNo The column number, if it is available.
-     * @param script The script to be executed.
+     * @param lineNo   The line number, if it is available.
+     * @param colNo    The column number, if it is available.
+     * @param script   The script to be executed.
      *
-     * @throws BSFException For any exception that occurs while
-     *                      executing the script.
+     * @throws BSFException For any exception that occurs while executing the script.
      */
-    public void exec(final String fileName, final int lineNo, final int colNo, final Object script)
-            throws BSFException {
+    public void exec(final String fileName, final int lineNo, final int colNo, final Object script) throws BSFException {
         if (script == null) {
             return;
         }
@@ -160,25 +146,21 @@ public class JEXLEngine extends BSFEngineImpl {
             }
             jExpr.execute(jc);
         } catch (final Exception e) {
-            throw new BSFException(BSFException.REASON_EXECUTION_ERROR,
-                "Exception from Commons JEXL:\n" + e.getMessage(), e);
+            throw new BSFException(BSFException.REASON_EXECUTION_ERROR, "Exception from Commons JEXL:\n" + e.getMessage(), e);
         }
     }
 
     /**
-     * Same behavior as {@link #exec(String, int, int, Object)} for
-     * JEXLEngine.
+     * Same behavior as {@link #exec(String, int, int, Object)} for JEXLEngine.
      *
      * @param fileName The file name, if it is available.
-     * @param lineNo The line number, if it is available.
-     * @param colNo The column number, if it is available.
-     * @param script The script to be executed.
+     * @param lineNo   The line number, if it is available.
+     * @param colNo    The column number, if it is available.
+     * @param script   The script to be executed.
      *
-     * @throws BSFException For any exception that occurs while interactively
-     *                      executing the script.
+     * @throws BSFException For any exception that occurs while interactively executing the script.
      */
-    public void iexec(final String fileName, final int lineNo, final int colNo, final Object script)
-            throws BSFException {
+    public void iexec(final String fileName, final int lineNo, final int colNo, final Object script) throws BSFException {
         exec(fileName, lineNo, colNo, script);
     }
 
@@ -186,16 +168,14 @@ public class JEXLEngine extends BSFEngineImpl {
      * Uses reflection to make the call.
      *
      * @param object The object to make the call on.
-     * @param name The call to make.
-     * @param args The arguments to pass.
+     * @param name   The call to make.
+     * @param args   The arguments to pass.
      *
      * @return The result of the call.
      *
-     * @throws BSFException For any exception that occurs while making
-     *                      the call.
+     * @throws BSFException For any exception that occurs while making the call.
      */
-    public Object call(final Object object, final String name, final Object[] args)
-            throws BSFException {
+    public Object call(final Object object, final String name, final Object[] args) throws BSFException {
         try {
             final Class[] types = new Class[args.length];
             for (int i = 0; i < args.length; i++) {
@@ -204,10 +184,8 @@ public class JEXLEngine extends BSFEngineImpl {
             final Method m = object.getClass().getMethod(name, types);
             return m.invoke(object, args);
         } catch (final Exception e) {
-            throw new BSFException(BSFException.REASON_EXECUTION_ERROR,
-                "Exception from JEXLEngine:\n" + e.getMessage(), e);
+            throw new BSFException(BSFException.REASON_EXECUTION_ERROR, "Exception from JEXLEngine:\n" + e.getMessage(), e);
         }
     }
 
 }
-

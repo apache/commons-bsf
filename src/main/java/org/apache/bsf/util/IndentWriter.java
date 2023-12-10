@@ -22,63 +22,55 @@ import java.io.PrintWriter;
 import java.io.Writer;
 
 /**
- * An <code>IndentWriter</code> object behaves the same as a
- * <code>PrintWriter</code> object, with the additional capability
- * of being able to print strings that are prepended with a specified
- * amount of spaces.
+ * An <code>IndentWriter</code> object behaves the same as a <code>PrintWriter</code> object, with the additional capability of being able to print strings that
+ * are prepended with a specified amount of spaces.
  */
-public class IndentWriter extends PrintWriter
-{
-  /**
-   * Forwards its arguments to the <code>PrintWriter</code> constructor
-   * with the same signature.
-   */
-  public IndentWriter(final OutputStream out)
-  {
-    super(out);
-  }
-  /**
-   * Forwards its arguments to the <code>PrintWriter</code> constructor
-   * with the same signature.
-   */
-  public IndentWriter(final OutputStream out, final boolean autoFlush)
-  {
-    super(out, autoFlush);
-  }
-  /**
-   * Forwards its arguments to the <code>PrintWriter</code> constructor
-   * with the same signature.
-   */
-  public IndentWriter(final Writer out)
-  {
-    super(out);
-  }
-  /**
-   * Forwards its arguments to the <code>PrintWriter</code> constructor
-   * with the same signature.
-   */
-  public IndentWriter(final Writer out, final boolean autoFlush)
-  {
-    super(out, autoFlush);
-  }
-  /**
-   * Print the text (indented the specified amount) without inserting a linefeed.
-   *
-   * @param numberOfSpaces the number of spaces to indent the text.
-   * @param text the text to print.
-   */
-  public void print(final int numberOfSpaces, final String text)
-  {
-    super.print(StringUtils.getChars(numberOfSpaces, ' ') + text);
-  }
-  /**
-   * Print the text (indented the specified amount) and insert a linefeed.
-   *
-   * @param numberOfSpaces the number of spaces to indent the text.
-   * @param text the text to print.
-   */
-  public void println(final int numberOfSpaces, final String text)
-  {
-    super.println(StringUtils.getChars(numberOfSpaces, ' ') + text);
-  }
+public class IndentWriter extends PrintWriter {
+    /**
+     * Forwards its arguments to the <code>PrintWriter</code> constructor with the same signature.
+     */
+    public IndentWriter(final OutputStream out) {
+        super(out);
+    }
+
+    /**
+     * Forwards its arguments to the <code>PrintWriter</code> constructor with the same signature.
+     */
+    public IndentWriter(final OutputStream out, final boolean autoFlush) {
+        super(out, autoFlush);
+    }
+
+    /**
+     * Forwards its arguments to the <code>PrintWriter</code> constructor with the same signature.
+     */
+    public IndentWriter(final Writer out) {
+        super(out);
+    }
+
+    /**
+     * Forwards its arguments to the <code>PrintWriter</code> constructor with the same signature.
+     */
+    public IndentWriter(final Writer out, final boolean autoFlush) {
+        super(out, autoFlush);
+    }
+
+    /**
+     * Print the text (indented the specified amount) without inserting a linefeed.
+     *
+     * @param numberOfSpaces the number of spaces to indent the text.
+     * @param text           the text to print.
+     */
+    public void print(final int numberOfSpaces, final String text) {
+        super.print(StringUtils.getChars(numberOfSpaces, ' ') + text);
+    }
+
+    /**
+     * Print the text (indented the specified amount) and insert a linefeed.
+     *
+     * @param numberOfSpaces the number of spaces to indent the text.
+     * @param text           the text to print.
+     */
+    public void println(final int numberOfSpaces, final String text) {
+        super.println(StringUtils.getChars(numberOfSpaces, ' ') + text);
+    }
 }

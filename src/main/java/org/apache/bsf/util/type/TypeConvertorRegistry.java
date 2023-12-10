@@ -22,182 +22,162 @@ import java.awt.Font;
 import java.util.Hashtable;
 
 /**
- * The <em>TypeConvertorRegistry</em> is the registry of type convertors.
- * It has lookup and register capabilities based on the types to be
- * converted as well as by some object key.
+ * The <em>TypeConvertorRegistry</em> is the registry of type convertors. It has lookup and register capabilities based on the types to be converted as well as
+ * by some object key.
  *
- * @see      TypeConvertorRegistry
+ * @see TypeConvertorRegistry
  */
 public class TypeConvertorRegistry {
-  Hashtable reg = new Hashtable ();
-  Hashtable keyedReg = new Hashtable ();
+    Hashtable reg = new Hashtable();
+    Hashtable keyedReg = new Hashtable();
 
-  // register some standard convertors at construction time
-  public TypeConvertorRegistry () {
-    // no-op convertors: cvt from primitive wrappers to the object wrapper
-    TypeConvertor tc = new TypeConvertor () {
-      public Object convert (final Class from, final Class to, final Object obj) {
-          return obj;
-      }
+    // register some standard convertors at construction time
+    public TypeConvertorRegistry() {
+        // no-op convertors: cvt from primitive wrappers to the object wrapper
+        TypeConvertor tc = new TypeConvertor() {
+            public Object convert(final Class from, final Class to, final Object obj) {
+                return obj;
+            }
 
-      public String getCodeGenString() {
-        return "(Class from, Class to, Object obj) {\n" +
-               "return obj;\n" +
-               "}";
-      }
-    };
-    register (Boolean.class, boolean.class, tc);
-    register (boolean.class, Boolean.class, tc);
-    register (Byte.class, byte.class, tc);
-    register (byte.class, Byte.class, tc);
-    register (Character.class, char.class, tc);
-    register (char.class, Character.class, tc);
-    register (Short.class, short.class, tc);
-    register (short.class, Short.class, tc);
-    register (Integer.class, int.class, tc);
-    register (int.class, Integer.class, tc);
-    register (Long.class, long.class, tc);
-    register (long.class, Long.class, tc);
-    register (Float.class, float.class, tc);
-    register (float.class, Float.class, tc);
-    register (Double.class, double.class, tc);
-    register (double.class, Double.class, tc);
+            public String getCodeGenString() {
+                return "(Class from, Class to, Object obj) {\n" + "return obj;\n" + "}";
+            }
+        };
+        register(Boolean.class, boolean.class, tc);
+        register(boolean.class, Boolean.class, tc);
+        register(Byte.class, byte.class, tc);
+        register(byte.class, Byte.class, tc);
+        register(Character.class, char.class, tc);
+        register(char.class, Character.class, tc);
+        register(Short.class, short.class, tc);
+        register(short.class, Short.class, tc);
+        register(Integer.class, int.class, tc);
+        register(int.class, Integer.class, tc);
+        register(Long.class, long.class, tc);
+        register(long.class, Long.class, tc);
+        register(Float.class, float.class, tc);
+        register(float.class, Float.class, tc);
+        register(Double.class, double.class, tc);
+        register(double.class, Double.class, tc);
 
-    // object to string: the registry special cases this one as the backup
-    // if the target is string and there is no special convertor available
-    // otherwise
-    tc = new TypeConvertor () {
-      public Object convert (final Class from, final Class to, final Object obj) {
-          return (obj == null) ? "(null)" : obj.toString ();
-      }
+        // object to string: the registry special cases this one as the backup
+        // if the target is string and there is no special convertor available
+        // otherwise
+        tc = new TypeConvertor() {
+            public Object convert(final Class from, final Class to, final Object obj) {
+                return (obj == null) ? "(null)" : obj.toString();
+            }
 
-        public String getCodeGenString() {
-        return "(Class from, Class to, Object obj) {\n" +
-               "return (obj == null) ? \"(null)\" : obj.toString ();\n" +
-               "}";
+            public String getCodeGenString() {
+                return "(Class from, Class to, Object obj) {\n" + "return (obj == null) ? \"(null)\" : obj.toString ();\n" + "}";
+            }
+        };
+        register(Object.class, String.class, tc);
+
+        // convert strings to various primitives (both their object versions
+        // and wrappers for primitive versions)
+        tc = new TypeConvertor() {
+            public Object convert(final Class from, final Class to, final Object obj) {
+                final String str = (String) obj;
+                if (to == Boolean.class || to == boolean.class) {
+                    return Boolean.valueOf(str);
+                } else if (to == Byte.class || to == byte.class) {
+                    return Byte.valueOf(str);
+                } else if (to == Character.class || to == char.class) {
+                    return Character.valueOf(str.charAt(0));
+                } else if (to == Short.class || to == short.class) {
+                    return Short.valueOf(str);
+                } else if (to == Integer.class || to == int.class) {
+                    return Integer.valueOf(str);
+                } else if (to == Long.class || to == long.class) {
+                    return Long.valueOf(str);
+                } else if (to == Float.class || to == float.class) {
+                    return Float.valueOf(str);
+                } else if (to == Double.class || to == double.class) {
+                    return Double.valueOf(str);
+                } else {
+                    return null;
+                }
+            }
+
+            public String getCodeGenString() {
+                return "(Class from, Class to, Object obj) {\n" + "String str = (String) obj;\n" + "if (to == Boolean.class || to == boolean.class) {\n"
+                        + "return Boolean.valueOf (str);\n" + "} else if (to == Byte.class || to == byte.class) {\n" + "return Byte.valueOf (str);\n"
+                        + "} else if (to == Character.class || to == char.class) {\n" + "return Character.valueOf (str.charAt (0));\n"
+                        + "} else if (to == Short.class || to == short.class) {\n" + "return Short.valueOf (str);\n"
+                        + "} else if (to == Integer.class || to == int.class) {\n" + "return Integer.valueOf (str);\n"
+                        + "} else if (to == Long.class || to == long.class) {\n" + "return Long.valueOf (str);\n"
+                        + "} else if (to == Float.class || to == float.class) {\n" + "return Float.valueOf (str);\n"
+                        + "} else if (to == Double.class || to == double.class) {\n" + "return Double.valueOf (str);\n" + "} else {\n" + "return null;\n"
+                        + "}\n" + "}";
+            }
+        };
+        register(String.class, boolean.class, tc);
+        register(String.class, Boolean.class, tc);
+        register(String.class, byte.class, tc);
+        register(String.class, Byte.class, tc);
+        register(String.class, char.class, tc);
+        register(String.class, Character.class, tc);
+        register(String.class, short.class, tc);
+        register(String.class, Short.class, tc);
+        register(String.class, int.class, tc);
+        register(String.class, Integer.class, tc);
+        register(String.class, long.class, tc);
+        register(String.class, Long.class, tc);
+        register(String.class, float.class, tc);
+        register(String.class, Float.class, tc);
+        register(String.class, double.class, tc);
+        register(String.class, Double.class, tc);
+
+        // strings to fonts
+        tc = new TypeConvertor() {
+            public Object convert(final Class from, final Class to, final Object obj) {
+                return Font.decode((String) obj);
+            }
+
+            public String getCodeGenString() {
+                return "(Class from, Class to, Object obj) {\n" + "return Font.decode ((String) obj);\n" + "}";
+            }
+        };
+        register(String.class, Font.class, tc);
+
+        // strings to colors
+        tc = new TypeConvertor() {
+            public Object convert(final Class from, final Class to, final Object obj) {
+                return Color.decode((String) obj);
+            }
+
+            public String getCodeGenString() {
+                return "(Class from, Class to, Object obj) {\n" + "return Color.decode ((String) obj);\n" + "}";
+            }
+        };
+        register(String.class, Color.class, tc);
+    }
+
+    // lookup a convertor
+    public TypeConvertor lookup(final Class from, final Class to) {
+        final String key = from.getName() + " -> " + to.getName();
+        final TypeConvertor tc = (TypeConvertor) reg.get(key);
+        if ((tc == null) && (from != void.class && from != Void.class && to == String.class)) {
+            // find the object -> string convertor
+            return lookup(Object.class, String.class);
         }
-    };
-    register (Object.class, String.class, tc);
+        return tc;
+    }
 
-    // convert strings to various primitives (both their object versions
-    // and wrappers for primitive versions)
-    tc = new TypeConvertor () {
-      public Object convert (final Class from, final Class to, final Object obj) {
-        final String str = (String) obj;
-        if (to == Boolean.class || to == boolean.class) {
-          return Boolean.valueOf (str);
-        } else if (to == Byte.class || to == byte.class) {
-          return Byte.valueOf (str);
-        } else if (to == Character.class || to == char.class) {
-          return Character.valueOf (str.charAt (0));
-        } else if (to == Short.class || to == short.class) {
-          return Short.valueOf (str);
-        } else if (to == Integer.class || to == int.class) {
-          return Integer.valueOf (str);
-        } else if (to == Long.class || to == long.class) {
-          return Long.valueOf (str);
-        } else if (to == Float.class || to == float.class) {
-          return Float.valueOf (str);
-        } else if (to == Double.class || to == double.class) {
-          return Double.valueOf (str);
-        } else {
-          return null;
-        }
-      }
+    // lookup a convertor by key
+    public TypeConvertor lookupByKey(final Object key) {
+        return (TypeConvertor) keyedReg.get(key);
+    }
 
-        public String getCodeGenString() {
-        return "(Class from, Class to, Object obj) {\n" +
-               "String str = (String) obj;\n" +
-               "if (to == Boolean.class || to == boolean.class) {\n" +
-               "return Boolean.valueOf (str);\n" +
-               "} else if (to == Byte.class || to == byte.class) {\n" +
-               "return Byte.valueOf (str);\n" +
-               "} else if (to == Character.class || to == char.class) {\n" +
-               "return Character.valueOf (str.charAt (0));\n" +
-               "} else if (to == Short.class || to == short.class) {\n" +
-               "return Short.valueOf (str);\n" +
-               "} else if (to == Integer.class || to == int.class) {\n" +
-               "return Integer.valueOf (str);\n" +
-               "} else if (to == Long.class || to == long.class) {\n" +
-               "return Long.valueOf (str);\n" +
-               "} else if (to == Float.class || to == float.class) {\n" +
-               "return Float.valueOf (str);\n" +
-               "} else if (to == Double.class || to == double.class) {\n" +
-               "return Double.valueOf (str);\n" +
-               "} else {\n" +
-               "return null;\n" +
-               "}\n" +
-               "}";
-      }
-    };
-    register (String.class, boolean.class, tc);
-    register (String.class, Boolean.class, tc);
-    register (String.class, byte.class, tc);
-    register (String.class, Byte.class, tc);
-    register (String.class, char.class, tc);
-    register (String.class, Character.class, tc);
-    register (String.class, short.class, tc);
-    register (String.class, Short.class, tc);
-    register (String.class, int.class, tc);
-    register (String.class, Integer.class, tc);
-    register (String.class, long.class, tc);
-    register (String.class, Long.class, tc);
-    register (String.class, float.class, tc);
-    register (String.class, Float.class, tc);
-    register (String.class, double.class, tc);
-    register (String.class, Double.class, tc);
+    // register a convertor
+    public void register(final Class from, final Class to, final TypeConvertor convertor) {
+        final String key = from.getName() + " -> " + to.getName();
+        reg.put(key, convertor);
+    }
 
-    // strings to fonts
-    tc = new TypeConvertor () {
-      public Object convert (final Class from, final Class to, final Object obj) {
-          return Font.decode ((String) obj);
-      }
-
-      public String getCodeGenString() {
-        return "(Class from, Class to, Object obj) {\n" +
-               "return Font.decode ((String) obj);\n" +
-               "}";
-      }
-    };
-    register (String.class, Font.class, tc);
-
-    // strings to colors
-    tc = new TypeConvertor () {
-      public Object convert (final Class from, final Class to, final Object obj) {
-          return Color.decode ((String) obj);
-      }
-
-        public String getCodeGenString() {
-        return "(Class from, Class to, Object obj) {\n" +
-               "return Color.decode ((String) obj);\n" +
-               "}";
-        }
-    };
-    register (String.class, Color.class, tc);
-  }
-  // lookup a convertor
-  public TypeConvertor lookup (final Class from, final Class to) {
-    final String key = from.getName () + " -> " + to.getName ();
-    final TypeConvertor tc = (TypeConvertor) reg.get (key);
-    if ((tc == null) && (from != void.class
-          && from != Void.class
-          && to == String.class)) {
-        // find the object -> string convertor
-        return lookup (Object.class, String.class);
-      }
-    return tc;
-  }
-  // lookup a convertor by key
-  public TypeConvertor lookupByKey (final Object key) {
-    return (TypeConvertor) keyedReg.get (key);
-  }
-  // register a convertor
-  public void register (final Class from, final Class to, final TypeConvertor convertor) {
-    final String key = from.getName () + " -> " + to.getName ();
-    reg.put (key, convertor);
-  }
-  // register a convertor by key
-  public void registerByKey (final Object key, final TypeConvertor convertor) {
-    keyedReg.put (key, convertor);
-  }
+    // register a convertor by key
+    public void registerByKey(final Object key, final TypeConvertor convertor) {
+        keyedReg.put(key, convertor);
+    }
 }

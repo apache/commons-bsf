@@ -38,9 +38,8 @@ import org.apache.bsf.util.event.EventProcessor;
 
 /**
  *
- * This is used to support binding scripts to be run when an event occurs,
- * forwarding the arguments supplied to the event listener. It is an adapted
- * version of org.apache.bsf.util.BSFEventProcessor.
+ * This is used to support binding scripts to be run when an event occurs, forwarding the arguments supplied to the event listener. It is an adapted version of
+ * org.apache.bsf.util.BSFEventProcessor.
  */
 public class BSFEventProcessorReturningEventInfos implements EventProcessor {
     BSFEngine engine;
@@ -63,18 +62,13 @@ public class BSFEventProcessorReturningEventInfos implements EventProcessor {
     // e.g. an object reference to forward event with received arguments to
 
     /**
-     * Package-protected constructor makes this class unavailable for public
-     * use.
+     * Package-protected constructor makes this class unavailable for public use.
      *
-     * @param dataFromScriptingEngine
-     *            this contains any object supplied by the scripting engine and
-     *            gets sent back with the supplied script. This could be used
-     *            e.g. for indicating which scripting engine object should be
-     *            ultimately informed of the event occurrence.
+     * @param dataFromScriptingEngine this contains any object supplied by the scripting engine and gets sent back with the supplied script. This could be used
+     *                                e.g. for indicating which scripting engine object should be ultimately informed of the event occurrence.
      */
-    BSFEventProcessorReturningEventInfos(final BSFEngine engine, final BSFManager manager,
-            final String filter, final String source, final int lineNo, final int columnNo,
-            final Object script, final Object dataFromScriptingEngine) throws BSFException {
+    BSFEventProcessorReturningEventInfos(final BSFEngine engine, final BSFManager manager, final String filter, final String source, final int lineNo,
+            final int columnNo, final Object script, final Object dataFromScriptingEngine) throws BSFException {
         this.engine = engine;
         this.manager = manager;
         this.filter = filter;
@@ -102,8 +96,7 @@ public class BSFEventProcessorReturningEventInfos implements EventProcessor {
             throw re;
         } catch (final Exception e) {
             // should not occur
-            System.err.println("BSFError: non-exceptionable event delivery "
-                    + "threw exception (that's not nice): " + e);
+            System.err.println("BSFError: non-exceptionable event delivery " + "threw exception (that's not nice): " + e);
             e.printStackTrace();
         }
     }
@@ -114,12 +107,11 @@ public class BSFEventProcessorReturningEventInfos implements EventProcessor {
     // an exception which must go all the way back to the source (as in
     // the vetoableChange case)
 
-    public void processExceptionableEvent(final String inFilter, final Object[] evtInfo)
-            throws Exception {
+    public void processExceptionableEvent(final String inFilter, final Object[] evtInfo) throws Exception {
 
         // System.err.println(this+": inFilter=["+inFilter+"],
         // filter=["+filter+"]");
-            if ((filter != null) && !isFilteredEvent(filter, inFilter)) {
+        if ((filter != null) && !isFilteredEvent(filter, inFilter)) {
             // ignore this event
             return;
         }
@@ -158,26 +150,21 @@ public class BSFEventProcessorReturningEventInfos implements EventProcessor {
         paramNames.add("BSFManager");
         paramValues.add(this.manager);
 
-        engine.apply(source, lineNo, columnNo, this.script, paramNames,
-                paramValues);
+        engine.apply(source, lineNo, columnNo, this.script, paramNames, paramValues);
 // System.err.println("returned from engine.exec.");
 
     }
 
-    private static boolean isFilteredEvent(final String filter, final String inFilter)
-    {
-        boolean bRes=filter.equalsIgnoreCase(inFilter);
-        if (bRes)
-        {
+    private static boolean isFilteredEvent(final String filter, final String inFilter) {
+        boolean bRes = filter.equalsIgnoreCase(inFilter);
+        if (bRes) {
             return bRes;
         }
 
-        final String[] chunks =filter.replace('+',' ').split(" ");
-        for (int i=0;i<chunks.length;i++)
-        {
-            bRes=chunks[i].equalsIgnoreCase(inFilter);
-            if (bRes)
-            {
+        final String[] chunks = filter.replace('+', ' ').split(" ");
+        for (int i = 0; i < chunks.length; i++) {
+            bRes = chunks[i].equalsIgnoreCase(inFilter);
+            if (bRes) {
                 return bRes;
             }
         }

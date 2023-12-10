@@ -47,10 +47,7 @@ public class BSFTest extends BSFEngineTestCase {
         for (int i = 0; i < suite.testCount(); i++) {
             System.out.print(testNames[i]);
             results = runner.doRun(suite.testAt(i), false);
-            System.out.println("Results: " + results.runCount() +
-                               " tests run, " + results.failureCount() +
-                               " failures, " + results.errorCount() +
-                               " errors.");
+            System.out.println("Results: " + results.runCount() + " tests run, " + results.failureCount() + " failures, " + results.errorCount() + " errors.");
             System.out.print("\n----------------------------------------\n");
         }
     }
@@ -60,7 +57,7 @@ public class BSFTest extends BSFEngineTestCase {
          * Please add testcases here as needed.
          */
         final TestSuite suite = new TestSuite();
-        testNames = new String [7];
+        testNames = new String[7];
 
         suite.addTestSuite(BSFTest.class);
         testNames[0] = "BSFManager Base Tests";
@@ -82,9 +79,7 @@ public class BSFTest extends BSFEngineTestCase {
 
     public void setUp() {
         super.setUp();
-        BSFManager.registerScriptingEngine("fakeEngine",
-                                           FakeEngine.class.getName(),
-                                           new String[] { "fakeEng", "fE" });
+        BSFManager.registerScriptingEngine("fakeEngine", FakeEngine.class.getName(), new String[] { "fakeEng", "fE" });
     }
 
     public void testRegisterEngine() {
@@ -93,10 +88,8 @@ public class BSFTest extends BSFEngineTestCase {
 
     public void testGetLangFromFileName() {
         try {
-            assertEquals("fakeEngine",
-                         BSFManager.getLangFromFilename("Test.fE"));
-        }
-        catch (final Exception e) {
+            assertEquals("fakeEngine", BSFManager.getLangFromFilename("Test.fE"));
+        } catch (final Exception e) {
             fail(failMessage("getLangFromFilename() test failed", e));
         }
     }
@@ -104,8 +97,7 @@ public class BSFTest extends BSFEngineTestCase {
     public void testExec() {
         try {
             bsfManager.exec("fakeEngine", "Test.fE", 0, 0, "Fake syntax");
-        }
-        catch (final Exception e) {
+        } catch (final Exception e) {
             fail(failMessage("exec() test failed", e));
         }
 
@@ -116,11 +108,8 @@ public class BSFTest extends BSFEngineTestCase {
         Boolean retval = Boolean.FALSE;
 
         try {
-            retval = (Boolean) bsfManager.eval("fakeEngine",
-                                               "Test.fE", 0, 0,
-                                               "Fake Syntax");
-        }
-        catch (final Exception e) {
+            retval = (Boolean) bsfManager.eval("fakeEngine", "Test.fE", 0, 0, "Fake Syntax");
+        } catch (final Exception e) {
             fail(failMessage("eval() test failed", e));
         }
 
@@ -130,8 +119,7 @@ public class BSFTest extends BSFEngineTestCase {
     public void testIexec() {
         try {
             bsfManager.iexec("fakeEngine", "Test.fE", 0, 0, "Fake syntax");
-        }
-        catch (final Exception e) {
+        } catch (final Exception e) {
             fail(failMessage("iexec() test failed", e));
         }
 
@@ -141,8 +129,7 @@ public class BSFTest extends BSFEngineTestCase {
     public void testDeclareBean() {
         try {
             bsfManager.declareBean("foo", new Integer(1), Integer.class);
-        }
-        catch (final Exception e) {
+        } catch (final Exception e) {
             fail(failMessage("declareBean() test failed", e));
         }
 
@@ -153,8 +140,7 @@ public class BSFTest extends BSFEngineTestCase {
         try {
             bsfManager.declareBean("foo", new Integer(1), Integer.class);
             bsfManager.undeclareBean("foo");
-        }
-        catch (final Exception e) {
+        } catch (final Exception e) {
             fail(failMessage("undeclareBean() test failed", e));
         }
 
@@ -165,8 +151,7 @@ public class BSFTest extends BSFEngineTestCase {
         try {
             bsfManager.loadScriptingEngine("fakeEngine");
             bsfManager.terminate();
-        }
-        catch (final Exception e) {
+        } catch (final Exception e) {
             fail(failMessage("terminate() test failed", e));
         }
 

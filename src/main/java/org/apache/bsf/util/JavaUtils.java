@@ -25,11 +25,11 @@ import java.io.IOException;
 public class JavaUtils {
     // Temporarily copied from JavaEngine...
 
-    private static BSF_Log logger=null;
+    private static BSF_Log logger = null;
 
     static {
-                    // handle logger
-                logger = BSF_LogFactory.getLog((org.apache.bsf.util.JavaUtils.class).getName());
+        // handle logger
+        logger = BSF_LogFactory.getLog((org.apache.bsf.util.JavaUtils.class).getName());
     }
 
     public static boolean JDKcompile(final String fileName, final String classPath) {
@@ -46,8 +46,7 @@ public class JavaUtils {
         } catch (final IOException e) {
             logger.error("ERROR: IO exception during exec(javac).", e);
         } catch (final SecurityException e) {
-            logger.error("ERROR: Unable to create subprocess to exec(javac).",
-                    e);
+            logger.error("ERROR: Unable to create subprocess to exec(javac).", e);
         } catch (final InterruptedException e) {
             logger.error("ERROR: Wait for exec(javac) was interrupted.", e);
         }

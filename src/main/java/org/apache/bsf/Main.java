@@ -32,8 +32,7 @@ import org.apache.bsf.util.CodeBuffer;
 import org.apache.bsf.util.IOUtils;
 
 /**
- * This is the main driver for BSF to be run on the command line
- * to eval/exec/compile scripts directly.
+ * This is the main driver for BSF to be run on the command line to eval/exec/compile scripts directly.
  */
 public class Main {
     private static final String ARG_IN = "-in";
@@ -77,9 +76,7 @@ public class Main {
                 if (inFileName != null) {
                     language = BSFManager.getLangFromFilename(inFileName);
                 } else {
-                    throw new BSFException(
-                        BSFException.REASON_OTHER_ERROR,
-                        "unable to determine language");
+                    throw new BSFException(BSFException.REASON_OTHER_ERROR, "unable to determine language");
                 }
             }
 
@@ -102,13 +99,7 @@ public class Main {
 
                 final CodeBuffer cb = new CodeBuffer();
                 cb.setClassName(outClassName);
-                mgr.compileScript(
-                    language,
-                    inFileName,
-                    0,
-                    0,
-                    IOUtils.getStringFromReader(in),
-                    cb);
+                mgr.compileScript(language, inFileName, 0, 0, IOUtils.getStringFromReader(in), cb);
                 cb.print(pw, true);
                 out.close();
             } else {
@@ -124,20 +115,18 @@ public class Main {
                         if (obj instanceof Frame) {
                             f = (Frame) obj;
                         } else {
-                            f = new Frame ("BSF Result: " + inFileName);
-                            f.add ((java.awt.Component) obj);
+                            f = new Frame("BSF Result: " + inFileName);
+                            f.add((java.awt.Component) obj);
                         }
                         // Add a window listener to quit on closing.
-                        f.addWindowListener(
-                                new WindowAdapter () {
-                                    public void windowClosing (final WindowEvent e) {
-                                        System.exit (0);
-                                    }
-                                }
-                        );
-                        f.pack ();
-                        // f.show(); // javac 1.5 warns to use f.show(), Apache build scripts abort as a result  :(
-                        f.setVisible(true);     // available since Java 1.1
+                        f.addWindowListener(new WindowAdapter() {
+                            public void windowClosing(final WindowEvent e) {
+                                System.exit(0);
+                            }
+                        });
+                        f.pack();
+                        // f.show(); // javac 1.5 warns to use f.show(), Apache build scripts abort as a result :(
+                        f.setVisible(true); // available since Java 1.1
                     } else {
                         System.err.println("Result: " + obj);
 
@@ -158,27 +147,15 @@ public class Main {
         System.err.println();
         System.err.println("    args:");
         System.err.println();
-        System.err.println(
-            "      [-in                fileName]   default: " + DEFAULT_IN_FILE_NAME);
-        System.err.println(
-            "      [-lang          languageName]   default: "
-                + "<If -in is specified and -lang");
-        System.err.println(
-            "                                               "
-                + " is not, attempt to determine");
-        System.err.println(
-            "                                               "
-                + " language from file extension;");
-        System.err.println(
-            "                                               "
-                + " otherwise, -lang is required.>");
-        System.err.println(
-            "      [-mode   (eval|exec|compile)]   default: " + DEFAULT_MODE);
+        System.err.println("      [-in                fileName]   default: " + DEFAULT_IN_FILE_NAME);
+        System.err.println("      [-lang          languageName]   default: " + "<If -in is specified and -lang");
+        System.err.println("                                               " + " is not, attempt to determine");
+        System.err.println("                                               " + " language from file extension;");
+        System.err.println("                                               " + " otherwise, -lang is required.>");
+        System.err.println("      [-mode   (eval|exec|compile)]   default: " + DEFAULT_MODE);
         System.err.println();
-        System.err.println(
-            "    Additional args used only if -mode is " + "set to \"compile\":");
+        System.err.println("    Additional args used only if -mode is " + "set to \"compile\":");
         System.err.println();
-        System.err.println(
-            "      [-out              className]   default: " + DEFAULT_CLASS_NAME);
+        System.err.println("      [-out              className]   default: " + DEFAULT_CLASS_NAME);
     }
 }

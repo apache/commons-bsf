@@ -21,35 +21,34 @@ package org.apache.bsf.util;
 import java.io.Serializable;
 
 /**
- * This is the org.apache.bsf.test.utilTests.TestBean.java used in
- * EngineUtils.java
+ * This is the org.apache.bsf.test.utilTests.TestBean.java used in EngineUtils.java
  */
 
-public class TestBean implements Serializable{
+public class TestBean implements Serializable {
     private String strValue;
     private Number numValue;
 
-    public TestBean(){
+    public TestBean() {
     }
 
-    public TestBean(final String value){
+    public TestBean(final String value) {
         this.strValue = value;
     }
 
-    public void setValue(final String value){
+    public void setValue(final String value) {
         this.strValue = value;
     }
 
-    public void setValue(final String sValue, final Number nValue){
+    public void setValue(final String sValue, final Number nValue) {
         this.strValue = sValue;
         this.numValue = nValue;
     }
 
-    public String getStringValue(){
+    public String getStringValue() {
         return strValue;
     }
 
-    public Number getNumericValue(){
+    public Number getNumericValue() {
         return numValue;
     }
 }

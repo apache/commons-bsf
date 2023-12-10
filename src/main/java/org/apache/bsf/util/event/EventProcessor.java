@@ -18,16 +18,14 @@
 package org.apache.bsf.util.event;
 
 /**
- * <em>EventProcessor</em> is the interface that event adapters use to
- * delegate events they received to be delivered to the appropriate target.
- * They can simply deliver the event using processEvent or, if the event
- * can be excepted to, via processExceptionableEvent (in which case the
- * adapter is expected to forward on an exception to the source bean).
+ * <em>EventProcessor</em> is the interface that event adapters use to delegate events they received to be delivered to the appropriate target. They can simply
+ * deliver the event using processEvent or, if the event can be excepted to, via processExceptionableEvent (in which case the adapter is expected to forward on
+ * an exception to the source bean).
  *
- * @see      EventAdapter
+ * @see EventAdapter
  */
 public interface EventProcessor {
-  void processEvent (String filter, Object[] eventInfo);
-  void processExceptionableEvent (String filter, Object[] eventInfo)
-       throws Exception;
+    void processEvent(String filter, Object[] eventInfo);
+
+    void processExceptionableEvent(String filter, Object[] eventInfo) throws Exception;
 }

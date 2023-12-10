@@ -18,17 +18,13 @@
 package org.apache.bsf.util.event;
 
 /**
- * <em>EventAdapter</em> is the interface that all event adapters must
- * implement in order to work with the automatic event adapter generation
- * model. This interface requires that the adapter implement a method
- * that allows setting the event processor delegated to process the event
- * after the adapter has received the event from the event source. The
- * task of any event adapter is to receive the event and then delegate it
- * to the event processor assigned to it, using either
- * eventProcessor.processEvent or eventProcessor.processExceptionableEvent.
+ * <em>EventAdapter</em> is the interface that all event adapters must implement in order to work with the automatic event adapter generation model. This
+ * interface requires that the adapter implement a method that allows setting the event processor delegated to process the event after the adapter has received
+ * the event from the event source. The task of any event adapter is to receive the event and then delegate it to the event processor assigned to it, using
+ * either eventProcessor.processEvent or eventProcessor.processExceptionableEvent.
  *
- * @see      EventProcessor
+ * @see EventProcessor
  */
 public interface EventAdapter {
-  void setEventProcessor (EventProcessor eventProcessor);
+    void setEventProcessor(EventProcessor eventProcessor);
 }

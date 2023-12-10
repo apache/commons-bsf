@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
- /* changes:
+/* changes:
 
-    2012-01-15, Rony G. Flatscher: take into account that the current context class loader may be null, JIRA [BSF-21]
+   2012-01-15, Rony G. Flatscher: take into account that the current context class loader may be null, JIRA [BSF-21]
 
-    2008-07-04, rgf: if classes cannot be defined or found, try to use the current Thread's
-                     content class loader using a new inner class "LocalThreadClassLoader"
- */
+   2008-07-04, rgf: if classes cannot be defined or found, try to use the current Thread's
+                    content class loader using a new inner class "LocalThreadClassLoader"
+*/
 
 package org.apache.bsf.util.event.generator;
 
@@ -30,172 +30,135 @@ import org.apache.bsf.BSF_LogFactory;
 
 import java.util.Hashtable;
 
-public class AdapterClassLoader extends ClassLoader
-{
-  private static final Hashtable classCache = new Hashtable();
-  private Class c;
+public class AdapterClassLoader extends ClassLoader {
+    private static final Hashtable classCache = new Hashtable();
+    private Class c;
 
-  // private Log logger = LogFactory.getLog(this.getClass().getName());
-  private BSF_Log logger;
+    // private Log logger = LogFactory.getLog(this.getClass().getName());
+    private BSF_Log logger;
 
-  public AdapterClassLoader()
-  {
-    logger = BSF_LogFactory.getLog(this.getClass().getName());
-  }
-
-  public synchronized Class defineClass(final String name, final byte[] b)
-  {
-    if ((c = getLoadedClass(name)) == null)
-    {
-       final String tmpName=name.replace('/','.');
-
-       try
-       {
-          c = defineClass(tmpName, b, 0, b.length);   // rgf, 2006-02-03
-       }
-       catch (final NoClassDefFoundError e)  // note "Error": Java thread would be killed otherwise!
-       {
-          // now try the Thread's current context class loader, but don't cache it
-          final ClassLoader tccl=Thread.currentThread().getContextClassLoader();
-          if (tccl!=null)
-          {
-             try
-             {
-                final LocalThreadClassLoader ltcl=new LocalThreadClassLoader(tccl);
-                return ltcl.defineClass(tmpName,b);
-             }
-             catch (final NoClassDefFoundError e1) // (NoClassDefFoundError e1)
-             {
-                logger.error("AdapterClassLoader: NoClassDefFoundError ERROR for class ["+tmpName+"]!");
-                throw e1;      // rethrow error
-             }
-          }
-          else
-          {
-             logger.error("AdapterClassLoader: NoClassDefFoundError ERROR for class ["+tmpName+"] (info: Thread context class loader is 'null'.)!");
-             throw e;      // rethrow error
-          }
-       }
-
-      put(name, c);
-    }
-    else
-    {
-      logger.error("AdapterClassLoader: " + c +
-                                 " previously loaded. Can not redefine class.");
+    public AdapterClassLoader() {
+        logger = BSF_LogFactory.getLog(this.getClass().getName());
     }
 
-    return c;
-  }
+    public synchronized Class defineClass(final String name, final byte[] b) {
+        if ((c = getLoadedClass(name)) == null) {
+            final String tmpName = name.replace('/', '.');
 
-  final protected Class findClass(final String name)
-  {
-    return get(name);
-  }
-
-  final protected Class get(final String name)
-  {
-    return (Class)classCache.get(name);
-  }
-
-  public synchronized Class getLoadedClass(final String name)
-  {
-    Class c = findLoadedClass(name);
-
-    if (c == null)
-    {
-      try
-      {
-        c = findSystemClass(name);
-      }
-      catch (final ClassNotFoundException e)
-      {
-      }
-    }
-
-    if (c == null)
-    {
-      c = findClass(name);
-    }
-
-        // rgf, 2008-07-04
-        if (c==null)        // not found so far, try to use the current Thread's context class loader instead
-        {
-            final LocalThreadClassLoader ltcl=new LocalThreadClassLoader(Thread.currentThread().getContextClassLoader());
-
-            c = ltcl.findLoadedClass(name,'0');
-
-            if (c == null)
+            try {
+                c = defineClass(tmpName, b, 0, b.length); // rgf, 2006-02-03
+            } catch (final NoClassDefFoundError e) // note "Error": Java thread would be killed otherwise!
             {
-              try
-              {
-                    c = ltcl.findSystemClass(name,'0');
-              }
-              catch (final ClassNotFoundException e)
-              {
-                  try
-                  {
-                      c = ltcl.findClass(name,'0');
-                  }
-                  catch (final ClassNotFoundException e1)
-                  {}
-              }
+                // now try the Thread's current context class loader, but don't cache it
+                final ClassLoader tccl = Thread.currentThread().getContextClassLoader();
+                if (tccl != null) {
+                    try {
+                        final LocalThreadClassLoader ltcl = new LocalThreadClassLoader(tccl);
+                        return ltcl.defineClass(tmpName, b);
+                    } catch (final NoClassDefFoundError e1) // (NoClassDefFoundError e1)
+                    {
+                        logger.error("AdapterClassLoader: NoClassDefFoundError ERROR for class [" + tmpName + "]!");
+                        throw e1; // rethrow error
+                    }
+                } else {
+                    logger.error("AdapterClassLoader: NoClassDefFoundError ERROR for class [" + tmpName + "] (info: Thread context class loader is 'null'.)!");
+                    throw e; // rethrow error
+                }
+            }
+
+            put(name, c);
+        } else {
+            logger.error("AdapterClassLoader: " + c + " previously loaded. Can not redefine class.");
+        }
+
+        return c;
+    }
+
+    final protected Class findClass(final String name) {
+        return get(name);
+    }
+
+    final protected Class get(final String name) {
+        return (Class) classCache.get(name);
+    }
+
+    public synchronized Class getLoadedClass(final String name) {
+        Class c = findLoadedClass(name);
+
+        if (c == null) {
+            try {
+                c = findSystemClass(name);
+            } catch (final ClassNotFoundException e) {
             }
         }
 
-    return c;
-  }
+        if (c == null) {
+            c = findClass(name);
+        }
 
-  protected synchronized Class loadClass(final String name, final boolean resolve)
-    throws ClassNotFoundException
-  {
-    final Class c = getLoadedClass(name);
+        // rgf, 2008-07-04
+        if (c == null) // not found so far, try to use the current Thread's context class loader instead
+        {
+            final LocalThreadClassLoader ltcl = new LocalThreadClassLoader(Thread.currentThread().getContextClassLoader());
 
-    if (c != null && resolve)
-    {
-      resolveClass(c);
+            c = ltcl.findLoadedClass(name, '0');
+
+            if (c == null) {
+                try {
+                    c = ltcl.findSystemClass(name, '0');
+                } catch (final ClassNotFoundException e) {
+                    try {
+                        c = ltcl.findClass(name, '0');
+                    } catch (final ClassNotFoundException e1) {
+                    }
+                }
+            }
+        }
+
+        return c;
     }
 
-    return c;
-  }
+    protected synchronized Class loadClass(final String name, final boolean resolve) throws ClassNotFoundException {
+        final Class c = getLoadedClass(name);
 
-  final protected void put(final String name, final Class c)
-  {
-    classCache.put(name, c);
-  }
+        if (c != null && resolve) {
+            resolveClass(c);
+        }
 
-  /** Inner class to create a ClassLoader with the current Thread's class loader as parent.
-  */
-  class LocalThreadClassLoader extends ClassLoader
-  {
-     // public LocalThreadClassLoader(){super (Thread.currentThread().getContextClassLoader());};
-     public LocalThreadClassLoader (final ClassLoader cl)
-     {
-         super (cl);
-     }
+        return c;
+    }
 
-     public Class defineClass(final String name, final byte[] b)
-     {
-         return defineClass(name, b, 0, b.length);     // protected in ClassLoader, hence invoking it this way
-     }
+    final protected void put(final String name, final Class c) {
+        classCache.put(name, c);
+    }
 
-           // use a signature that allows invoking super's protected method via inheritance resolution
-     Class findLoadedClass(final String name, final char nixi)
-     {
-         return findLoadedClass(name);
-     }
+    /**
+     * Inner class to create a ClassLoader with the current Thread's class loader as parent.
+     */
+    class LocalThreadClassLoader extends ClassLoader {
+        // public LocalThreadClassLoader(){super (Thread.currentThread().getContextClassLoader());};
+        public LocalThreadClassLoader(final ClassLoader cl) {
+            super(cl);
+        }
 
-           // use a signature that allows invoking super's protected method via inheritance resolution
-     Class findClass(final String name, final char nixi)          throws ClassNotFoundException
-     {
-         return findClass(name);
-     }
+        public Class defineClass(final String name, final byte[] b) {
+            return defineClass(name, b, 0, b.length); // protected in ClassLoader, hence invoking it this way
+        }
 
-           // use a signature that allows invoking super's protected method via inheritance resolution
-     Class findSystemClass(final String name, final char nixi)    throws ClassNotFoundException
-     {
-         return findSystemClass(name);
-     }
-  }
+        // use a signature that allows invoking super's protected method via inheritance resolution
+        Class findLoadedClass(final String name, final char nixi) {
+            return findLoadedClass(name);
+        }
+
+        // use a signature that allows invoking super's protected method via inheritance resolution
+        Class findClass(final String name, final char nixi) throws ClassNotFoundException {
+            return findClass(name);
+        }
+
+        // use a signature that allows invoking super's protected method via inheritance resolution
+        Class findSystemClass(final String name, final char nixi) throws ClassNotFoundException {
+            return findSystemClass(name);
+        }
+    }
 
 }

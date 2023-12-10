@@ -36,243 +36,229 @@ import org.python.core.PySystemState;
 import org.python.util.InteractiveInterpreter;
 
 /**
- * This is the interface to Jython (http://www.jython.org/) from BSF.
- * It's derived from the JPython 1.x engine
+ * This is the interface to Jython (http://www.jython.org/) from BSF. It's derived from the JPython 1.x engine
  */
 
 public class JythonEngine extends BSFEngineImpl {
-  BSFPythonInterpreter interp;
-  private final static Pattern fromRegExp = Pattern.compile("from ([.^\\S]*)");
+    BSFPythonInterpreter interp;
+    private final static Pattern fromRegExp = Pattern.compile("from ([.^\\S]*)");
 
-  /**
-   * call the named method of the given object.
-   */
-  public Object call (final Object object, final String method, final Object[] args)
-      throws BSFException {
-      try {
-          PyObject[] pyargs = Py.EmptyObjects;
+    /**
+     * call the named method of the given object.
+     */
+    public Object call(final Object object, final String method, final Object[] args) throws BSFException {
+        try {
+            PyObject[] pyargs = Py.EmptyObjects;
 
-          if (args != null) {
-              pyargs = new PyObject[args.length];
-              for (int i = 0; i < pyargs.length; i++) {
-                pyargs[i] = Py.java2py(args[i]);
+            if (args != null) {
+                pyargs = new PyObject[args.length];
+                for (int i = 0; i < pyargs.length; i++) {
+                    pyargs[i] = Py.java2py(args[i]);
+                }
             }
-          }
 
-          if (object != null) {
-              final PyObject o = Py.java2py(object);
-              return unwrap(o.invoke(method, pyargs));
-          }
+            if (object != null) {
+                final PyObject o = Py.java2py(object);
+                return unwrap(o.invoke(method, pyargs));
+            }
 
-          PyObject m = interp.get(method);
+            PyObject m = interp.get(method);
 
-          if (m == null) {
-            m = interp.eval(method);
+            if (m == null) {
+                m = interp.eval(method);
+            }
+            if (m != null) {
+                return unwrap(m.__call__(pyargs));
+            }
+
+            return null;
+        } catch (final PyException e) {
+            throw new BSFException(BSFException.REASON_EXECUTION_ERROR, "exception from Jython:\n" + e, e);
         }
-          if (m != null) {
-              return unwrap(m.__call__(pyargs));
-          }
-
-          return null;
-      } catch (final PyException e) {
-          throw new BSFException (BSFException.REASON_EXECUTION_ERROR,
-                                  "exception from Jython:\n" + e, e);
-      }
-  }
-
-  /**
-   * Declare a bean
-   */
-  public void declareBean (final BSFDeclaredBean bean) throws BSFException {
-	interp.set (bean.name, bean.bean);
-  }
-
-  /**
-   * Evaluate an anonymous function (differs from eval() in that apply()
-   * handles multiple lines).
-   */
-  public Object apply (final String source, final int lineNo, final int columnNo,
-                       final Object funcBody, final Vector paramNames,
-                       final Vector arguments) throws BSFException {
-      try {
-          /* We wrapper the original script in a function definition, and
-           * evaluate the function. A hack, no question, but it allows
-           * apply() to pretend to work on Jython.
-           */
-          final StringBuffer script = new StringBuffer(byteify(funcBody.toString()));
-          int index = 0;
-          script.insert(0, "def bsf_temp_fn():\n");
-
-          while (index < script.length()) {
-              if (script.charAt(index) == '\n') {
-                  script.insert(index+1, '\t');
-              }
-              index++;
-          }
-
-          final String scriptStr = script.toString ();
-          importPackage(scriptStr);
-          interp.exec (scriptStr);
-
-          Object result = interp.eval ("bsf_temp_fn()");
-
-          if (result instanceof PyJavaInstance) {
-            result = ((PyJavaInstance)result).__tojava__(Object.class);
-        }
-          return result;
-      } catch (final PyException e) {
-          throw new BSFException (BSFException.REASON_EXECUTION_ERROR,
-                                  "exception from Jython:\n" + e, e);
-      }
-  }
-
-  /**
-   * Evaluate an expression.
-   */
-  public Object eval (final String source, final int lineNo, final int columnNo,
-		      final Object script) throws BSFException {
-	try {
-	  final String scriptStr = byteify(script.toString ());
-	  importPackage(scriptStr);
-	  Object result = interp.eval (scriptStr);
-	  if (result instanceof PyJavaInstance) {
-        result = ((PyJavaInstance)result).__tojava__(Object.class);
-    }
-	  return result;
-	} catch (final PyException e) {
-	  throw new BSFException (BSFException.REASON_EXECUTION_ERROR,
-			      "exception from Jython:\n" + e, e);
-	}
-  }
-
-  /**
-   * Execute a script.
-   */
-  public void exec (final String source, final int lineNo, final int columnNo,
-		    final Object script) throws BSFException {
-	try {
-	  final String scriptStr = byteify(script.toString());
-	  importPackage(scriptStr);
-	  interp.exec (scriptStr);
-	} catch (final PyException e) {
-	  throw new BSFException (BSFException.REASON_EXECUTION_ERROR,
-			      "exception from Jython:\n" + e, e);
-	}
-  }
-
-  private void importPackage(final String script) {
-	final Matcher matcher = fromRegExp.matcher(script);
-	while (matcher.find()) {
-		final String packageName = matcher.group(1);
-		PySystemState.add_package(packageName);
-	}
-  }
-
-  /**
-   * Execute script code, emulating console interaction.
-   */
-  public void iexec (final String source, final int lineNo, final int columnNo,
-                     final Object script) throws BSFException {
-      String scriptStr = byteify(script.toString());
-      importPackage(scriptStr);
-      final int newline = scriptStr.indexOf("\n");
-
-      if (newline > -1) {
-        scriptStr = scriptStr.substring(0, newline);
     }
 
-      try {
-          if (interp.buffer.length() > 0) {
-            interp.buffer.append("\n");
+    /**
+     * Declare a bean
+     */
+    public void declareBean(final BSFDeclaredBean bean) throws BSFException {
+        interp.set(bean.name, bean.bean);
+    }
+
+    /**
+     * Evaluate an anonymous function (differs from eval() in that apply() handles multiple lines).
+     */
+    public Object apply(final String source, final int lineNo, final int columnNo, final Object funcBody, final Vector paramNames, final Vector arguments)
+            throws BSFException {
+        try {
+            /*
+             * We wrapper the original script in a function definition, and evaluate the function. A hack, no question, but it allows apply() to pretend to work
+             * on Jython.
+             */
+            final StringBuffer script = new StringBuffer(byteify(funcBody.toString()));
+            int index = 0;
+            script.insert(0, "def bsf_temp_fn():\n");
+
+            while (index < script.length()) {
+                if (script.charAt(index) == '\n') {
+                    script.insert(index + 1, '\t');
+                }
+                index++;
+            }
+
+            final String scriptStr = script.toString();
+            importPackage(scriptStr);
+            interp.exec(scriptStr);
+
+            Object result = interp.eval("bsf_temp_fn()");
+
+            if (result instanceof PyJavaInstance) {
+                result = ((PyJavaInstance) result).__tojava__(Object.class);
+            }
+            return result;
+        } catch (final PyException e) {
+            throw new BSFException(BSFException.REASON_EXECUTION_ERROR, "exception from Jython:\n" + e, e);
         }
-          interp.buffer.append(scriptStr);
-          if (!(interp.runsource(interp.buffer.toString()))) {
+    }
+
+    /**
+     * Evaluate an expression.
+     */
+    public Object eval(final String source, final int lineNo, final int columnNo, final Object script) throws BSFException {
+        try {
+            final String scriptStr = byteify(script.toString());
+            importPackage(scriptStr);
+            Object result = interp.eval(scriptStr);
+            if (result instanceof PyJavaInstance) {
+                result = ((PyJavaInstance) result).__tojava__(Object.class);
+            }
+            return result;
+        } catch (final PyException e) {
+            throw new BSFException(BSFException.REASON_EXECUTION_ERROR, "exception from Jython:\n" + e, e);
+        }
+    }
+
+    /**
+     * Execute a script.
+     */
+    public void exec(final String source, final int lineNo, final int columnNo, final Object script) throws BSFException {
+        try {
+            final String scriptStr = byteify(script.toString());
+            importPackage(scriptStr);
+            interp.exec(scriptStr);
+        } catch (final PyException e) {
+            throw new BSFException(BSFException.REASON_EXECUTION_ERROR, "exception from Jython:\n" + e, e);
+        }
+    }
+
+    private void importPackage(final String script) {
+        final Matcher matcher = fromRegExp.matcher(script);
+        while (matcher.find()) {
+            final String packageName = matcher.group(1);
+            PySystemState.add_package(packageName);
+        }
+    }
+
+    /**
+     * Execute script code, emulating console interaction.
+     */
+    public void iexec(final String source, final int lineNo, final int columnNo, final Object script) throws BSFException {
+        String scriptStr = byteify(script.toString());
+        importPackage(scriptStr);
+        final int newline = scriptStr.indexOf("\n");
+
+        if (newline > -1) {
+            scriptStr = scriptStr.substring(0, newline);
+        }
+
+        try {
+            if (interp.buffer.length() > 0) {
+                interp.buffer.append("\n");
+            }
+            interp.buffer.append(scriptStr);
+            if (!(interp.runsource(interp.buffer.toString()))) {
+                interp.resetbuffer();
+            }
+        } catch (final PyException e) {
             interp.resetbuffer();
+            throw new BSFException(BSFException.REASON_EXECUTION_ERROR, "exception from Jython:\n" + e, e);
         }
-      } catch (final PyException e) {
-          interp.resetbuffer();
-          throw new BSFException(BSFException.REASON_EXECUTION_ERROR,
-                                 "exception from Jython:\n" + e, e);
-      }
-  }
-
-  /**
-   * Initialize the engine.
-   */
-  public void initialize (final BSFManager mgr, final String lang,
-						  final Vector declaredBeans) throws BSFException {
-	super.initialize (mgr, lang, declaredBeans);
-
-	// create an interpreter
-	interp = new BSFPythonInterpreter ();
-
-    // ensure that output and error streams are re-directed correctly
-    interp.setOut(System.out);
-    interp.setErr(System.err);
-
-	// register the mgr with object name "bsf"
-	interp.set ("bsf", new BSFFunctions (mgr, this));
-
-    // Declare all declared beans to the interpreter
-	final int size = declaredBeans.size ();
-	for (int i = 0; i < size; i++) {
-	  declareBean ((BSFDeclaredBean) declaredBeans.elementAt (i));
-	}
-  }
-
-  /**
-   * Undeclare a previously declared bean.
-   */
-  public void undeclareBean (final BSFDeclaredBean bean) throws BSFException {
-	interp.set (bean.name, null);
-  }
-
-  public Object unwrap(final PyObject result) {
-	if (result != null) {
-	   final Object ret = result.__tojava__(Object.class);
-	   if (ret != Py.NoConversion) {
-        return ret;
     }
-	}
-	return result;
-  }
 
-  private String byteify (final String orig) {
-      // Ugh. Jython likes to be fed bytes, rather than the input string.
-      final ByteArrayInputStream bais =
-          new ByteArrayInputStream(orig.getBytes());
-      final StringBuffer s = new StringBuffer();
-      int c;
+    /**
+     * Initialize the engine.
+     */
+    public void initialize(final BSFManager mgr, final String lang, final Vector declaredBeans) throws BSFException {
+        super.initialize(mgr, lang, declaredBeans);
 
-      while ((c = bais.read()) >= 0) {
-          s.append((char)c);
-      }
+        // create an interpreter
+        interp = new BSFPythonInterpreter();
 
-      return s.toString();
-  }
+        // ensure that output and error streams are re-directed correctly
+        interp.setOut(System.out);
+        interp.setErr(System.err);
 
-  private class BSFPythonInterpreter extends InteractiveInterpreter {
+        // register the mgr with object name "bsf"
+        interp.set("bsf", new BSFFunctions(mgr, this));
 
-      public BSFPythonInterpreter() {
-      }
+        // Declare all declared beans to the interpreter
+        final int size = declaredBeans.size();
+        for (int i = 0; i < size; i++) {
+            declareBean((BSFDeclaredBean) declaredBeans.elementAt(i));
+        }
+    }
 
-      // Override runcode so as not to print the stack dump
-      public void runcode(final PyObject code) {
-          try {
-              this.exec(code);
-          } catch (final PyException exc) {
-              throw exc;
-          }
-      }
-  }
+    /**
+     * Undeclare a previously declared bean.
+     */
+    public void undeclareBean(final BSFDeclaredBean bean) throws BSFException {
+        interp.set(bean.name, null);
+    }
 
-  public void propertyChange(final PropertyChangeEvent e) {
-	  super.propertyChange(e);
-	  final String name = e.getPropertyName();
-      final Object value = e.getNewValue();
-      if (name.equals("classLoader")) {
-		Py.getSystemState().setClassLoader((ClassLoader) value);
-      }
+    public Object unwrap(final PyObject result) {
+        if (result != null) {
+            final Object ret = result.__tojava__(Object.class);
+            if (ret != Py.NoConversion) {
+                return ret;
+            }
+        }
+        return result;
+    }
 
-  }
+    private String byteify(final String orig) {
+        // Ugh. Jython likes to be fed bytes, rather than the input string.
+        final ByteArrayInputStream bais = new ByteArrayInputStream(orig.getBytes());
+        final StringBuffer s = new StringBuffer();
+        int c;
+
+        while ((c = bais.read()) >= 0) {
+            s.append((char) c);
+        }
+
+        return s.toString();
+    }
+
+    private class BSFPythonInterpreter extends InteractiveInterpreter {
+
+        public BSFPythonInterpreter() {
+        }
+
+        // Override runcode so as not to print the stack dump
+        public void runcode(final PyObject code) {
+            try {
+                this.exec(code);
+            } catch (final PyException exc) {
+                throw exc;
+            }
+        }
+    }
+
+    public void propertyChange(final PropertyChangeEvent e) {
+        super.propertyChange(e);
+        final String name = e.getPropertyName();
+        final Object value = e.getNewValue();
+        if (name.equals("classLoader")) {
+            Py.getSystemState().setClassLoader((ClassLoader) value);
+        }
+
+    }
 }

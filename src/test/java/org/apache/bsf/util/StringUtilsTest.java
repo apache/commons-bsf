@@ -1,20 +1,20 @@
- /*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- *
- */
+/*
+* Licensed to the Apache Software Foundation (ASF) under one or more
+* contributor license agreements.  See the NOTICE file distributed with
+* this work for additional information regarding copyright ownership.
+* The ASF licenses this file to You under the Apache License, Version 2.0
+* (the "License"); you may not use this file except in compliance with
+* the License.  You may obtain a copy of the License at
+*
+*      http://www.apache.org/licenses/LICENSE-2.0
+*
+*  Unless required by applicable law or agreed to in writing, software
+*  distributed under the License is distributed on an "AS IS" BASIS,
+*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+*  See the License for the specific language governing permissions and
+*  limitations under the License.
+*
+*/
 
 package org.apache.bsf.util;
 
@@ -34,14 +34,14 @@ import junit.framework.TestCase;
  */
 public class StringUtilsTest extends TestCase {
 
-    static private final String lineSeparator =
-        System.getProperty("line.separator", "\n");
+    static private final String lineSeparator = System.getProperty("line.separator", "\n");
 
     /**
      * Constructor for StringUtilsTest.
+     * 
      * @param arg0
      */
-    public StringUtilsTest (final String arg0) {
+    public StringUtilsTest(final String arg0) {
         super(arg0);
     }
 
@@ -121,26 +121,24 @@ public class StringUtilsTest extends TestCase {
 
     }
 
-    public void testGetContentAsReader()
-        throws MalformedURLException, IOException {
+    public void testGetContentAsReader() throws MalformedURLException, IOException {
 
-            Reader reader;
+        Reader reader;
 
-            final File myFile = File.createTempFile("Test", "txt");
+        final File myFile = File.createTempFile("Test", "txt");
 
-            final FileWriter fw = new FileWriter(myFile);
-            final PrintWriter pw = new PrintWriter(fw);
-            pw.println("file name : Test.txt");
-            pw.flush();
+        final FileWriter fw = new FileWriter(myFile);
+        final PrintWriter pw = new PrintWriter(fw);
+        pw.println("file name : Test.txt");
+        pw.flush();
 
-            reader = StringUtils.getContentAsReader(myFile.toURL());
-            final BufferedReader bf = new BufferedReader(reader);
-            assertTrue(bf.readLine().equals(
-                                            "file name : Test.txt"));
+        reader = StringUtils.getContentAsReader(myFile.toURL());
+        final BufferedReader bf = new BufferedReader(reader);
+        assertTrue(bf.readLine().equals("file name : Test.txt"));
 
-        }
+    }
 
-    public void testGetContentAsString() throws IOException{
+    public void testGetContentAsString() throws IOException {
 
         String result;
 
@@ -152,8 +150,7 @@ public class StringUtilsTest extends TestCase {
         pw.flush();
 
         result = StringUtils.getContentAsString(myFile.toURL());
-        assertTrue(result.equals(("file name : Test.txt" +
-                                            lineSeparator)));
+        assertTrue(result.equals(("file name : Test.txt" + lineSeparator)));
 
     }
 
@@ -161,53 +158,40 @@ public class StringUtilsTest extends TestCase {
         String result;
 
         result = StringUtils.getSafeString("test-string");
-        assertTrue(result.equals(("\"test-string\"" +
-                                            lineSeparator)));
-        //checks for an empty string ..
+        assertTrue(result.equals(("\"test-string\"" + lineSeparator)));
+        // checks for an empty string ..
         result = StringUtils.getSafeString("");
-        assertTrue(result.equals(("\"\"" +
-                                            lineSeparator)));
+        assertTrue(result.equals(("\"\"" + lineSeparator)));
 
         result = StringUtils.getSafeString("\n");
-        assertTrue(result.equals(("\"\"" +
-                                            lineSeparator)));
+        assertTrue(result.equals(("\"\"" + lineSeparator)));
 
         result = StringUtils.getSafeString("\r");
-        assertTrue(result.equals(("\"\"" +
-                                            lineSeparator)));
+        assertTrue(result.equals(("\"\"" + lineSeparator)));
 
         result = StringUtils.getSafeString("\\n");
-        assertTrue(result.equals(("\"\\\\n\"" +
-                                            lineSeparator)));
+        assertTrue(result.equals(("\"\\\\n\"" + lineSeparator)));
 
         result = StringUtils.getSafeString("\\r");
-        assertTrue(result.equals(("\"\\\\r\"" +
-                                            lineSeparator)));
+        assertTrue(result.equals(("\"\\\\r\"" + lineSeparator)));
 
     }
 
-    public void testGetValidIdentifierName(){
+    public void testGetValidIdentifierName() {
 
-        assertTrue((StringUtils.getValidIdentifierName("identifier")).equals(
-                                                                             "identifier"));
+        assertTrue((StringUtils.getValidIdentifierName("identifier")).equals("identifier"));
 
-        assertTrue((StringUtils.getValidIdentifierName("0identifier")).equals(
-                                                                              "_identifier"));
+        assertTrue((StringUtils.getValidIdentifierName("0identifier")).equals("_identifier"));
 
-        assertTrue((StringUtils.getValidIdentifierName("i0dentifier")).equals(
-                                                                              "i0dentifier"));
+        assertTrue((StringUtils.getValidIdentifierName("i0dentifier")).equals("i0dentifier"));
 
-        assertTrue((StringUtils.getValidIdentifierName("$identifier")).equals(
-                                                                              "$identifier"));
+        assertTrue((StringUtils.getValidIdentifierName("$identifier")).equals("$identifier"));
 
-        assertTrue((StringUtils.getValidIdentifierName("identi$fier")).equals(
-                                                                              "identi$fier"));
+        assertTrue((StringUtils.getValidIdentifierName("identi$fier")).equals("identi$fier"));
 
-        assertTrue((StringUtils.getValidIdentifierName(" identifier")).equals(
-                                                                              "_identifier"));
+        assertTrue((StringUtils.getValidIdentifierName(" identifier")).equals("_identifier"));
 
-        assertTrue((StringUtils.getValidIdentifierName("identi fier")).equals(
-                                                                              "identi_fier"));
+        assertTrue((StringUtils.getValidIdentifierName("identi fier")).equals("identi_fier"));
 
         // checks for a empty string which should return null
         assertNull(StringUtils.getValidIdentifierName(""));

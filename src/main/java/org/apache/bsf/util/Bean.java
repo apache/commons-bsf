@@ -18,20 +18,18 @@
 package org.apache.bsf.util;
 
 /**
- * A <em>Bean</em> is the class used to represent a bean: it holds a
- * type and a value. This is needed because otherwise we can't represent
- * the types of null-valued beans (or primitives) correctly. This was
- * originally in the BML player.
+ * A <em>Bean</em> is the class used to represent a bean: it holds a type and a value. This is needed because otherwise we can't represent the types of
+ * null-valued beans (or primitives) correctly. This was originally in the BML player.
  */
 public class Bean {
-  // type of this bean
-  public Class type;
+    // type of this bean
+    public Class type;
 
-  // its current value (mebbe null)
-  public Object value;
+    // its current value (mebbe null)
+    public Object value;
 
-  public Bean (final Class type, final Object value) {
-	this.type = type;
-	this.value = value;
-  }
+    public Bean(final Class type, final Object value) {
+        this.type = type;
+        this.value = value;
+    }
 }

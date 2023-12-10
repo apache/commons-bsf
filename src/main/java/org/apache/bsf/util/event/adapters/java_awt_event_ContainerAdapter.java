@@ -22,13 +22,13 @@ import java.awt.event.ContainerListener;
 
 import org.apache.bsf.util.event.EventAdapterImpl;
 
-public class java_awt_event_ContainerAdapter extends EventAdapterImpl
-                                                implements ContainerListener {
+public class java_awt_event_ContainerAdapter extends EventAdapterImpl implements ContainerListener {
 
-  public void componentAdded (final ContainerEvent e) {
-    eventProcessor.processEvent ("componentAdded", new Object[]{e});
-  }
-  public void componentRemoved (final ContainerEvent e) {
-    eventProcessor.processEvent ("componentRemoved", new Object[]{e});
-  }
+    public void componentAdded(final ContainerEvent e) {
+        eventProcessor.processEvent("componentAdded", new Object[] { e });
+    }
+
+    public void componentRemoved(final ContainerEvent e) {
+        eventProcessor.processEvent("componentRemoved", new Object[] { e });
+    }
 }

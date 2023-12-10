@@ -19,16 +19,14 @@ package org.apache.bsf.engines.xslt;
 
 import org.w3c.dom.Node;
 
-public class XSLTResultNode
-{
-  Node node;
+public class XSLTResultNode {
+    Node node;
 
-  public XSLTResultNode(final Node node)
-  {
-    this.node = node;
-  }
-  public Node getNode()
-  {
-    return node;
-  }
+    public XSLTResultNode(final Node node) {
+        this.node = node;
+    }
+
+    public Node getNode() {
+        return node;
+    }
 }

@@ -18,14 +18,13 @@
 package org.apache.bsf.util.type;
 
 /**
- * A <em>TypeConvertor</em> is used to convert an object of one type to
- * one of another type. The convertor is invoked with the class of the
- * from object, the desired class, and the from object itself. The
- * convertor must return a new object of the desired class.
+ * A <em>TypeConvertor</em> is used to convert an object of one type to one of another type. The convertor is invoked with the class of the from object, the
+ * desired class, and the from object itself. The convertor must return a new object of the desired class.
  *
- * @see      TypeConvertorRegistry
+ * @see TypeConvertorRegistry
  */
 public interface TypeConvertor {
-  Object convert (Class from, Class to, Object obj);
-  String getCodeGenString ();
+    Object convert(Class from, Class to, Object obj);
+
+    String getCodeGenString();
 }

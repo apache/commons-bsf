@@ -18,70 +18,53 @@
 package org.apache.bsf.util;
 
 /**
- * An <code>ObjInfo</code> object is used by a compiler to track the name and
- * type of a bean.
+ * An <code>ObjInfo</code> object is used by a compiler to track the name and type of a bean.
  */
-public class ObjInfo
-{
-     static private final String QUOTE_CHARS = "\'\"";
-     static private final String EXEC_CHARS  = "(=";
-		 public  String objName;
-		 public  Class  objClass;
+public class ObjInfo {
+    static private final String QUOTE_CHARS = "\'\"";
+    static private final String EXEC_CHARS = "(=";
+    public String objName;
+    public Class objClass;
 
-  public ObjInfo(final Class objClass, final String objName)
-  {
-	this.objClass = objClass;
-	this.objName  = objName;
-  }
-  public boolean isExecutable()
-  {
-	final char[]  chars            = objName.toCharArray();
-	char    openingChar      = ' ';
-	boolean inString         = false,
-			inEscapeSequence = false;
+    public ObjInfo(final Class objClass, final String objName) {
+        this.objClass = objClass;
+        this.objName = objName;
+    }
 
-	for (int i = 0; i < chars.length; i++)
-	{
-	  if (inEscapeSequence)
-	  {
-		inEscapeSequence = false;
-	  }
-	  else if (QUOTE_CHARS.indexOf(chars[i]) != -1)
-	  {
-		if (!inString)
-		{
-		  openingChar = chars[i];
-		  inString = true;
-		}
-		else
-		{
-		  if (chars[i] == openingChar)
-		  {
-			inString = false;
-		  }
-		}
-	  }
-	  else if (EXEC_CHARS.indexOf(chars[i]) != -1)
-	  {
-		if (!inString)
-		{
-		  return true;
-		}
-	  }
-	  else if (inString && chars[i] == '\\')
-	  {
-		inEscapeSequence = true;
-	  }
-	}
+    public boolean isExecutable() {
+        final char[] chars = objName.toCharArray();
+        char openingChar = ' ';
+        boolean inString = false, inEscapeSequence = false;
 
-	return false;
-  }
-  public boolean isValueReturning()
-  {
-	return (objClass != void.class && objClass != Void.class);
-  }
-  public String toString()
-  {
-	return StringUtils.getClassName(objClass) + " " + objName;
-  }
+        for (int i = 0; i < chars.length; i++) {
+            if (inEscapeSequence) {
+                inEscapeSequence = false;
+            } else if (QUOTE_CHARS.indexOf(chars[i]) != -1) {
+                if (!inString) {
+                    openingChar = chars[i];
+                    inString = true;
+                } else {
+                    if (chars[i] == openingChar) {
+                        inString = false;
+                    }
+                }
+            } else if (EXEC_CHARS.indexOf(chars[i]) != -1) {
+                if (!inString) {
+                    return true;
+                }
+            } else if (inString && chars[i] == '\\') {
+                inEscapeSequence = true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean isValueReturning() {
+        return (objClass != void.class && objClass != Void.class);
+    }
+
+    public String toString() {
+        return StringUtils.getClassName(objClass) + " " + objName;
+    }
 }

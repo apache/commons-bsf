@@ -22,10 +22,9 @@ import java.awt.event.ItemListener;
 
 import org.apache.bsf.util.event.EventAdapterImpl;
 
-public class java_awt_event_ItemAdapter extends EventAdapterImpl
-                                           implements ItemListener {
+public class java_awt_event_ItemAdapter extends EventAdapterImpl implements ItemListener {
 
-  public void itemStateChanged (final ItemEvent e) {
-    eventProcessor.processEvent ("itemStateChanged", new Object[]{e});
-  }
+    public void itemStateChanged(final ItemEvent e) {
+        eventProcessor.processEvent("itemStateChanged", new Object[] { e });
+    }
 }
