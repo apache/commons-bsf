@@ -45,7 +45,6 @@ import org.w3c.dom.Node;
  * This integration uses the BSF registry to pass in any src document and stylesheet base URI that the user may wish to set.
  *
  * Re-implemented for the Xalan 2 codebase
- *
  */
 public class XSLTEngine extends BSFEngineImpl {
     TransformerFactory tFactory;

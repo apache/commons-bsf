@@ -35,7 +35,6 @@ import org.apache.commons.jexl.ScriptFactory;
  * {@link BSFEngine} for Commons JEXL. Requires Commons JEXL version 1.1 or later.
  *
  * @see <a href="http://commons.apache.org/jexl/">Commons JEXL</a>
- *
  */
 public class JEXLEngine extends BSFEngineImpl {
 

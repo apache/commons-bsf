@@ -22,7 +22,6 @@ package org.apache.bsf;
  *
  * It implements the static <code>org.apache.commons.logging.LogFactory.getLog({String|Class} object)</code> methods which return an instance of the class
  * <code>org.apache.bsf.BSF_Log</code>, which in turn implements all the methods of the <code>org.apache.commons.logging.Log</code> interface class.
- *
  */
 
 public class BSF_LogFactory {
