@@ -27,11 +27,12 @@
       <!-- FIX -->
       <action type="fix" dev="ggregory" due-to="Gary Gregory">Replace internal StringBuffer with StringBuilder.</action>
       <!-- ADD -->
+      <action type="add" dev="ggregory" due-to="Gary Gregory">Add Maven property project.build.outputTimestamp for build reproducibility.</action>
       <!-- UPDATS -->
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump actions/cache from 2 to current.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump actions/checkout 2.3.4 to current.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump actions/setup-java from 1.4.3 to current.</action>
-      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-parent from 55 to 65 #75, #57, #94, #109.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-parent from 55 to 66.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump xalan from 2.7.0 to 2.7.3 #3 #93.</action>
       <action type="update" dev="ggregory" due-to="Dependabot">Bump org.apache.commons:commons-lang3 from 3.12.0 to 3.14.0 #110.</action>
     </release>
