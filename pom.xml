@@ -25,7 +25,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>65</version>
+    <version>66</version>
   </parent>
 
   <groupId>bsf</groupId>
@@ -42,6 +42,7 @@
     <moditect.skip>true</moditect.skip> 
     <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <project.build.outputTimestamp>2024-01-29T13:15:17Z</project.build.outputTimestamp>
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
     <commons.componentid>bsf</commons.componentid>
