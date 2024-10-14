@@ -44,8 +44,7 @@ Apache Commons BSF (Bean Scripting Framework)
 ===================
 
 [![Java CI](https://github.com/apache/commons-bsf/actions/workflows/maven.yml/badge.svg)](https://github.com/apache/commons-bsf/actions/workflows/maven.yml)
-[![Coverage Status](https://coveralls.io/repos/apache/commons-bsf/badge.svg)](https://coveralls.io/r/apache/commons-bsf)
-[![Maven Central](https://img.shields.io/maven-central/v/bsf/bsf/badge.svg)?label=Maven%20Central)](https://search.maven.org/artifact/bsf/bsf/badge.svg)
+[![Maven Central](https://img.shields.io/maven-central/v/bsf/bsf/badge.svg?label=Maven%20Central)](https://search.maven.org/artifact/bsf/bsf)
 [![Javadocs](https://javadoc.io/badge/bsf/bsf/2.5.0.svg)](https://javadoc.io/doc/bsf/bsf/2.5.0)
 
 The Apache Commons Parent POM provides common settings for all Apache Commons components.
