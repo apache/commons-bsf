@@ -102,7 +102,7 @@ public class JavaEngine extends BSFEngineImpl {
     }
 
     /**
-     * Constructor.
+     * Constructs a new instance.
      */
     public JavaEngine() {
         // handle logger

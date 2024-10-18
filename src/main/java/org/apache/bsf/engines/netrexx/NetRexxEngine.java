@@ -119,7 +119,7 @@ public class NetRexxEngine extends BSFEngineImpl
     // Class rexxclass;
 
     /**
-     * Constructor.
+     * Constructs a new instance.
      */
     public NetRexxEngine ()
     {
