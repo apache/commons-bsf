@@ -256,7 +256,7 @@ public class MethodUtils {
             if (
             // 15.11.2.1 ACCESSIBLE: Method is public.
             Modifier.isPublic(entryGetModifiers(mi)) &&
-            // 15.11.2.1 APPLICABLE: Right method name (or c'tor)
+            // 15.11.2.1 APPLICABLE: Right method name (or constructor)
                     (methodName == null || entryGetName(mi).equals(methodName)) &&
                     // 15.11.2.1 APPLICABLE: Parameters match arguments
                     areMethodConvertable(entryGetParameterTypes(mi), argTypes)) {
