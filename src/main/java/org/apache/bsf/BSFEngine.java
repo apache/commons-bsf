@@ -47,7 +47,6 @@ public interface BSFEngine extends PropertyChangeListener {
      * @param funcBody   the multi-line, value returning script to evaluate
      * @param paramNames the names of the parameters above assumes
      * @param arguments  values of the above parameters
-     *
      * @exception BSFException if anything goes wrong while doin' it.
      */
     Object apply(String source, int lineNo, int columnNo, Object funcBody, Vector paramNames, Vector arguments) throws BSFException;
@@ -60,7 +59,6 @@ public interface BSFEngine extends PropertyChangeListener {
      * @param object object on which to make the call
      * @param name   name of the method / procedure to call
      * @param args   the arguments to be given to the procedure
-     *
      * @exception BSFException if anything goes wrong while eval'ing a BSFException is thrown. The reason indicates the problem.
      */
     Object call(Object object, String name, Object[] args) throws BSFException;
@@ -75,7 +73,6 @@ public interface BSFEngine extends PropertyChangeListener {
      * @param paramNames the names of the parameters above assumes
      * @param arguments  values of the above parameters
      * @param cb         the CodeBuffer to compile into
-     *
      * @exception BSFException if anything goes wrong while doin' it.
      */
     void compileApply(String source, int lineNo, int columnNo, Object funcBody, Vector paramNames, Vector arguments, CodeBuffer cb) throws BSFException;
@@ -89,7 +86,6 @@ public interface BSFEngine extends PropertyChangeListener {
      * @param columnNo (context info) the column number in source for expr
      * @param expr     the expression to compile
      * @param cb       the CodeBuffer to compile into
-     *
      * @exception BSFException if anything goes wrong while compiling a BSFException is thrown. The reason indicates the problem.
      */
     void compileExpr(String source, int lineNo, int columnNo, Object expr, CodeBuffer cb) throws BSFException;
@@ -103,7 +99,6 @@ public interface BSFEngine extends PropertyChangeListener {
      * @param columnNo (context info) the column number in source for script
      * @param script   the script to compile
      * @param cb       the CodeBuffer to compile into
-     *
      * @exception BSFException if anything goes wrong while compiling a BSFException is thrown. The reason indicates the problem.
      */
     void compileScript(String source, int lineNo, int columnNo, Object script, CodeBuffer cb) throws BSFException;
@@ -113,7 +108,6 @@ public interface BSFEngine extends PropertyChangeListener {
      * in the most first class way possible.
      *
      * @param bean the bean to declare
-     *
      * @exception BSFException if the engine cannot do this operation
      */
     void declareBean(BSFDeclaredBean bean) throws BSFException;
@@ -126,7 +120,6 @@ public interface BSFEngine extends PropertyChangeListener {
      * @param lineNo   (context info) the line number in source for expr
      * @param columnNo (context info) the column number in source for expr
      * @param expr     the expression to evaluate
-     *
      * @exception BSFException if anything goes wrong while eval'ing a BSFException is thrown. The reason indicates the problem.
      */
     Object eval(String source, int lineNo, int columnNo, Object expr) throws BSFException;
@@ -139,7 +132,6 @@ public interface BSFEngine extends PropertyChangeListener {
      * @param lineNo   (context info) the line number in source for expr
      * @param columnNo (context info) the column number in source for expr
      * @param script   the script to execute
-     *
      * @exception BSFException if anything goes wrong while exec'ing a BSFException is thrown. The reason indicates the problem.
      */
     void exec(String source, int lineNo, int columnNo, Object script) throws BSFException;
@@ -152,7 +144,6 @@ public interface BSFEngine extends PropertyChangeListener {
      * @param lineNo   (context info) the line number in source for expr
      * @param columnNo (context info) the column number in source for expr
      * @param script   the script to execute
-     *
      * @exception BSFException if anything goes wrong while exec'ing a BSFException is thrown. The reason indicates the problem.
      */
     void iexec(String source, int lineNo, int columnNo, Object script) throws BSFException;
@@ -165,7 +156,6 @@ public interface BSFEngine extends PropertyChangeListener {
      * @param mgr           The BSFManager that's hosting this engine.
      * @param lang          Language string which this engine is handling.
      * @param declaredBeans Vector of BSFDeclaredObject containing beans that should be declared into the language runtime at init time as best as possible.
-     *
      * @exception BSFException if anything goes wrong while init'ing a BSFException is thrown. The reason indicates the problem.
      */
     void initialize(BSFManager mgr, String lang, Vector declaredBeans) throws BSFException;
@@ -179,7 +169,6 @@ public interface BSFEngine extends PropertyChangeListener {
      * Undeclare a previously declared bean.
      *
      * @param bean the bean to undeclare
-     *
      * @exception BSFException if the engine cannot do this operation
      */
     void undeclareBean(BSFDeclaredBean bean) throws BSFException;

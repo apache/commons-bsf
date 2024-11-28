@@ -47,7 +47,6 @@ public class JEXLEngine extends BSFEngineImpl {
      * @param mgr           The {@link BSFManager}.
      * @param lang          The language.
      * @param declaredBeans The vector of the initially declared beans.
-     *
      * @throws BSFException For any exception that occurs while trying to initialize the engine.
      */
     public void initialize(final BSFManager mgr, final String lang, final Vector declaredBeans) throws BSFException {
@@ -73,7 +72,6 @@ public class JEXLEngine extends BSFEngineImpl {
      * Adds this bean to the backing JexlContext.
      *
      * @param bean The {@link BSFDeclaredBean} to be added to the backing context.
-     *
      * @throws BSFException For any exception that occurs while trying to declare the bean.
      */
     public void declareBean(final BSFDeclaredBean bean) throws BSFException {
@@ -84,7 +82,6 @@ public class JEXLEngine extends BSFEngineImpl {
      * Removes this bean from the backing JexlContext.
      *
      * @param bean The {@link BSFDeclaredBean} to be removed from the backing context.
-     *
      * @throws BSFException For any exception that occurs while trying to undeclare the bean.
      */
     public void undeclareBean(final BSFDeclaredBean bean) throws BSFException {
@@ -98,7 +95,6 @@ public class JEXLEngine extends BSFEngineImpl {
      * @param lineNo   The line number, if it is available.
      * @param colNo    The column number, if it is available.
      * @param expr     The expression to be evaluated.
-     *
      * @throws BSFException For any exception that occurs while evaluating the expression.
      */
     public Object eval(final String fileName, final int lineNo, final int colNo, final Object expr) throws BSFException {
@@ -127,7 +123,6 @@ public class JEXLEngine extends BSFEngineImpl {
      * @param lineNo   The line number, if it is available.
      * @param colNo    The column number, if it is available.
      * @param script   The script to be executed.
-     *
      * @throws BSFException For any exception that occurs while executing the script.
      */
     public void exec(final String fileName, final int lineNo, final int colNo, final Object script) throws BSFException {
@@ -156,7 +151,6 @@ public class JEXLEngine extends BSFEngineImpl {
      * @param lineNo   The line number, if it is available.
      * @param colNo    The column number, if it is available.
      * @param script   The script to be executed.
-     *
      * @throws BSFException For any exception that occurs while interactively executing the script.
      */
     public void iexec(final String fileName, final int lineNo, final int colNo, final Object script) throws BSFException {
@@ -169,9 +163,7 @@ public class JEXLEngine extends BSFEngineImpl {
      * @param object The object to make the call on.
      * @param name   The call to make.
      * @param args   The arguments to pass.
-     *
      * @return The result of the call.
-     *
      * @throws BSFException For any exception that occurs while making the call.
      */
     public Object call(final Object object, final String name, final Object[] args) throws BSFException {

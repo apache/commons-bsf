@@ -201,9 +201,7 @@ public class MethodUtils {
      *                          classes -- Integer.TYPE rather than Integer. "null" may be passed in as an indication that you intend to invoke the method with
      *                          a literal null argument and therefore can accept any object type in this position.
      * @param isStaticReference If true, and if the target is a Class object, only static methods will be accepted as valid matches.
-     *
      * @return a Method or Constructor of the appropriate signature
-     *
      * @exception SecurityException     if security violation
      * @exception NoSuchMethodException if no such method
      */
@@ -311,9 +309,7 @@ public class MethodUtils {
      * @param target     object on which call is to be made
      * @param methodName name of method I'm lookin' for
      * @param argTypes   array of argument types of method
-     *
      * @return the desired method
-     *
      * @exception SecurityException     if security violation
      * @exception NoSuchMethodException if no such method
      */

@@ -72,7 +72,6 @@ public class EngineUtils {
      * @param lineNo       (context info) the line number in source for expr
      * @param columnNo     (context info) the column number in source for expr
      * @param script       the script to execute when the event occurs
-     *
      * @exception BSFException if anything goes wrong while running the script
      */
     public static void addEventListener(final Object bean, final String eventSetName, final String filter, final BSFEngine engine, final BSFManager manager,
@@ -129,9 +128,7 @@ public class EngineUtils {
      * @param bean       the object on which to invoke the method
      * @param methodName name of the method
      * @param args       arguments to be given to the method
-     *
      * @return the result of invoking the method, if any
-     *
      * @exception BSFException if something goes wrong
      */
     public static Object callBeanMethod(final Object bean, final String methodName, final Object[] args) throws BSFException {
@@ -220,9 +217,7 @@ public class EngineUtils {
      *
      * @param className fully qualified name of class to instantiate
      * @param args      array of constructor args (or null if none)
-     *
      * @return the created bean
-     *
      * @exception BSFException if something goes wrong (@see org.apache.cs.util.MethodUtils for the real exceptions that can occur).
      */
     public static Object createBean(final String className, final Object args[]) throws BSFException {
@@ -271,7 +266,6 @@ public class EngineUtils {
      * Given a class return the type signature string fragment for it. That is, return "I" for int, "J" for long, ... etc..
      *
      * @param cl class object for whom the signature fragment is needed.
-     *
      * @return the string representing the type signature
      */
     public static String getTypeSignatureString(final Class cl) {
@@ -313,9 +307,7 @@ public class EngineUtils {
      *
      * @param mgr  BSFManager who's classLoader and tempDir props are consulted
      * @param name name of the class to load
-     *
      * @return the loaded class
-     *
      * @exception BSFException if something goes wrong.
      */
     public static Class loadClass(final BSFManager mgr, final String name) throws BSFException {

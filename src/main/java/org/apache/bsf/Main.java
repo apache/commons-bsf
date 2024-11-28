@@ -50,7 +50,6 @@ public class Main {
      * Static driver to be able to run BSF scripts from the command line.
      *
      * @param args command line arguments
-     *
      * @exception IOException if any I/O error while loading script
      */
     public static void main(final String[] args) throws IOException {

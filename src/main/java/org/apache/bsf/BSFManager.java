@@ -237,7 +237,6 @@ public class BSFManager {
      * @param funcBody   the multi-line, value returning script to evaluate
      * @param paramNames the names of the parameters above assumes
      * @param arguments  values of the above parameters
-     *
      * @exception BSFException if anything goes wrong while running the script
      */
     public Object apply(final String lang, final String source, final int lineNo, final int columnNo, final Object funcBody, final Vector paramNames,
@@ -279,7 +278,6 @@ public class BSFManager {
      * @param paramNames the names of the parameters above assumes
      * @param arguments  values of the above parameters
      * @param cb         code buffer to compile into
-     *
      * @exception BSFException if anything goes wrong while running the script
      */
     public void compileApply(final String lang, final String source, final int lineNo, final int columnNo, final Object funcBody, final Vector paramNames,
@@ -317,7 +315,6 @@ public class BSFManager {
      * @param columnNo (context info) the column number in source for expr
      * @param expr     the expression to compile
      * @param cb       code buffer to compile into
-     *
      * @exception BSFException if any error while compiling the expression
      */
     public void compileExpr(final String lang, final String source, final int lineNo, final int columnNo, final Object expr, final CodeBuffer cb)
@@ -353,7 +350,6 @@ public class BSFManager {
      * @param columnNo (context info) the column number in source for script
      * @param script   the script to compile
      * @param cb       code buffer to compile into
-     *
      * @exception BSFException if any error while compiling the script
      */
     public void compileScript(final String lang, final String source, final int lineNo, final int columnNo, final Object script, final CodeBuffer cb)
@@ -396,7 +392,6 @@ public class BSFManager {
      * @param beanName name to declare bean as
      * @param bean     the bean that's being declared
      * @param type     the type to represent the bean as
-     *
      * @exception BSFException if any of the languages that are already running decides to throw an exception when asked to declare this bean.
      */
     public void declareBean(final String beanName, final Object bean, final Class type) throws BSFException {
@@ -423,7 +418,6 @@ public class BSFManager {
      * @param lineNo   (context info) the line number in source for expr
      * @param columnNo (context info) the column number in source for expr
      * @param expr     the expression to evaluate
-     *
      * @exception BSFException if anything goes wrong while running the script
      */
     public Object eval(final String lang, final String source, final int lineNo, final int columnNo, final Object expr) throws BSFException {
@@ -466,7 +460,6 @@ public class BSFManager {
      * @param lineNo   (context info) the line number in source for expr
      * @param columnNo (context info) the column number in source for expr
      * @param script   the script to execute
-     *
      * @exception BSFException if anything goes wrong while running the script
      */
     public void exec(final String lang, final String source, final int lineNo, final int columnNo, final Object script) throws BSFException {
@@ -499,7 +492,6 @@ public class BSFManager {
      * @param lineNo   (context info) the line number in source for expr
      * @param columnNo (context info) the column number in source for expr
      * @param script   the script to execute
-     *
      * @exception BSFException if anything goes wrong while running the script
      */
     public void iexec(final String lang, final String source, final int lineNo, final int columnNo, final Object script) throws BSFException {
@@ -553,9 +545,7 @@ public class BSFManager {
      * Determine the language of a script file by looking at the file extension.
      *
      * @param fileName the name of the file
-     *
      * @return the scripting language the file is in if the file extension is known to me (must have been registered via registerScriptingEngine).
-     *
      * @exception BSFException if file's extension is unknown.
      */
     public static String getLangFromFilename(final String fileName) throws BSFException {
@@ -639,7 +629,6 @@ public class BSFManager {
      * Determine whether a language is registered.
      *
      * @param lang string identifying a language
-     *
      * @return true iff it is
      */
     public static boolean isLanguageRegistered(final String lang) {
@@ -724,7 +713,6 @@ public class BSFManager {
      * return a handle to a bean registered in the bean registry by the application or a scripting engine. Returns null if bean is not found.
      *
      * @param beanName name of bean to look up
-     *
      * @return the bean if its found or null
      */
     public Object lookupBean(final String beanName) {
@@ -850,7 +838,6 @@ public class BSFManager {
      * the bean is unknown.
      *
      * @param beanName name of bean to undeclare
-     *
      * @exception BSFException if any of the languages that are already running decides to throw an exception when asked to undeclare this bean.
      */
     public void undeclareBean(final String beanName) throws BSFException {

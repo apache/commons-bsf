@@ -34,7 +34,6 @@ import java.io.Writer;
  * can also be used as a filter.
  *
  * @see CodeFormatter
- *
  * @version 1.0
  */
 public class CFDriver {

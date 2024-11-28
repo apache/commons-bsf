@@ -68,7 +68,6 @@ public class ReflectionUtils {
      * @param source       event source
      * @param eventSetName name of event set from event src to bind to
      * @param processor    event processor the event should be delegated to when it occurs; either via processEvent or processExceptionableEvent.
-     *
      * @exception IntrospectionException    if unable to introspect
      * @exception IllegalArgumentException  if event set is unknown
      * @exception IllegalAccessException    if the event adapter class or initializer is not accessible.
@@ -194,9 +193,7 @@ public class ReflectionUtils {
      * @param className name of class to instantiate
      * @param argTypes  array of argument types
      * @param args      array of arguments
-     *
      * @return the newly created bean
-     *
      * @exception ClassNotFoundException    if class is not loaded
      * @exception NoSuchMethodException     if constructor can't be found
      * @exception InstantiationException    if class can't be instantiated
@@ -261,9 +258,7 @@ public class ReflectionUtils {
      * @param cld       the class loader to use. If null, Class.forName is used.
      * @param className name of class to instantiate
      * @param args      array of arguments
-     *
      * @return the newly created bean
-     *
      * @exception ClassNotFoundException    if class is not loaded
      * @exception NoSuchMethodException     if constructor can't be found
      * @exception InstantiationException    if class can't be instantiated
@@ -320,7 +315,6 @@ public class ReflectionUtils {
      * @param target   the object whose prop is to be gotten
      * @param propName name of the property to set
      * @param index    index to get (if property is indexed)
-     *
      * @exception IntrospectionException    if unable to introspect
      * @exception IllegalArgumentException  if problems with args: if the property is unknown, or if the property is given an index when its not, or if the
      *                                      property is not writeable, or if the given value cannot be assigned to the it (type mismatch).
@@ -411,7 +405,6 @@ public class ReflectionUtils {
      * @param value     the property value
      * @param valueType the type of the above (needed when its null)
      * @param tcr       type convertor registry to use to convert value type to property type if necessary
-     *
      * @exception IntrospectionException    if unable to introspect
      * @exception IllegalArgumentException  if problems with args: if the property is unknown, or if the property is given an index when its not, or if the
      *                                      property is not writeable, or if the given value cannot be assigned to the it (type mismatch).
