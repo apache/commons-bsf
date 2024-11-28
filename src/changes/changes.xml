@@ -28,7 +28,7 @@
       <action type="fix" dev="ggregory" due-to="Gary Gregory">Replace internal StringBuffer with StringBuilder.</action>
       <!-- ADD -->
       <action type="add" dev="ggregory" due-to="Gary Gregory">Add Maven property project.build.outputTimestamp for build reproducibility.</action>
-      <!-- UPDATS -->
+      <!-- UPDATE -->
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump actions/cache from 2 to current.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump actions/checkout 2.3.4 to current.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump actions/setup-java from 1.4.3 to current.</action>
