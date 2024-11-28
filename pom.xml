@@ -43,8 +43,8 @@
     <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <project.build.outputTimestamp>2024-01-29T13:15:17Z</project.build.outputTimestamp>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
     <commons.componentid>bsf</commons.componentid>
     <commons.module.name>org.apache.commons.bsf</commons.module.name>
     <commons.release.version>2.5.0</commons.release.version>
