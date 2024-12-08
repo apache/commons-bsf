@@ -27,7 +27,7 @@ import java.lang.reflect.*;
  * available, then this class is used to get an <code>org.apache.commons.logging.Log</code> instance to which to forward the message.
  * 
  * Therefore, if Apache's common logging is available, then it is employed. If Apache's commons logging is <em>not</em> available then a <em>no-op</em> behavior
- * is employed, modelled after <code>org.apache.commons.logging.impl.NoOpLog</code>.
+ * is employed, modeled after <code>org.apache.commons.logging.impl.NoOpLog</code>.
  * 
  */
 
