@@ -231,7 +231,7 @@ public class BSFManager {
      * Apply the given anonymous function of the given language to the given parameters and return the resulting value.
      *
      * @param lang       language identifier
-     * @param source     (context info) the source of this expression (e.g., filename)
+     * @param source     (context info) the source of this expression (for example, filename)
      * @param lineNo     (context info) the line number in source for expr
      * @param columnNo   (context info) the column number in source for expr
      * @param funcBody   the multi-line, value returning script to evaluate
@@ -271,7 +271,7 @@ public class BSFManager {
      * Compile the application of the given anonymous function of the given language to the given parameters into the given {@code CodeBuffer}.
      *
      * @param lang       language identifier
-     * @param source     (context info) the source of this expression (e.g., filename)
+     * @param source     (context info) the source of this expression (for example, filename)
      * @param lineNo     (context info) the line number in source for expr
      * @param columnNo   (context info) the column number in source for expr
      * @param funcBody   the multi-line, value returning script to evaluate
@@ -310,7 +310,7 @@ public class BSFManager {
      * Compile the given expression of the given language into the given {@code CodeBuffer}.
      *
      * @param lang     language identifier
-     * @param source   (context info) the source of this expression (e.g., filename)
+     * @param source   (context info) the source of this expression (for example, filename)
      * @param lineNo   (context info) the line number in source for expr
      * @param columnNo (context info) the column number in source for expr
      * @param expr     the expression to compile
@@ -345,7 +345,7 @@ public class BSFManager {
      * Compile the given script of the given language into the given {@code CodeBuffer}.
      *
      * @param lang     language identifier
-     * @param source   (context info) the source of this script (e.g., filename)
+     * @param source   (context info) the source of this script (for example, filename)
      * @param lineNo   (context info) the line number in source for script
      * @param columnNo (context info) the column number in source for script
      * @param script   the script to compile
@@ -414,7 +414,7 @@ public class BSFManager {
      * Evaluate the given expression of the given language and return the resulting value.
      *
      * @param lang     language identifier
-     * @param source   (context info) the source of this expression (e.g., filename)
+     * @param source   (context info) the source of this expression (for example, filename)
      * @param lineNo   (context info) the line number in source for expr
      * @param columnNo (context info) the column number in source for expr
      * @param expr     the expression to evaluate
@@ -456,7 +456,7 @@ public class BSFManager {
      * Execute the given script of the given language.
      *
      * @param lang     language identifier
-     * @param source   (context info) the source of this expression (e.g., filename)
+     * @param source   (context info) the source of this expression (for example, filename)
      * @param lineNo   (context info) the line number in source for expr
      * @param columnNo (context info) the column number in source for expr
      * @param script   the script to execute
@@ -488,7 +488,7 @@ public class BSFManager {
      * Execute the given script of the given language, attempting to emulate an interactive session w/ the language.
      *
      * @param lang     language identifier
-     * @param source   (context info) the source of this expression (e.g., filename)
+     * @param source   (context info) the source of this expression (for example, filename)
      * @param lineNo   (context info) the line number in source for expr
      * @param columnNo (context info) the column number in source for expr
      * @param script   the script to execute

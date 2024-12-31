@@ -58,13 +58,13 @@ public class BSFEventProcessorReturningEventInfos implements EventProcessor {
     Object dataFromScriptingEngine; // ---rgf, 2006-02-24: data coming from the
                                     // script engine, could be
 
-    // e.g. an object reference to forward event with received arguments to
+    // for example an object reference to forward event with received arguments to
 
     /**
      * Package-protected constructor makes this class unavailable for public use.
      *
      * @param dataFromScriptingEngine this contains any object supplied by the scripting engine and gets sent back with the supplied script. This could be used
-     *                                e.g. for indicating which scripting engine object should be ultimately informed of the event occurrence.
+     *                                for example for indicating which scripting engine object should be ultimately informed of the event occurrence.
      */
     BSFEventProcessorReturningEventInfos(final BSFEngine engine, final BSFManager manager, final String filter, final String source, final int lineNo,
             final int columnNo, final Object script, final Object dataFromScriptingEngine) throws BSFException {
@@ -145,7 +145,7 @@ public class BSFEventProcessorReturningEventInfos implements EventProcessor {
         paramValues.add(this.filter); // can be null as well
 
         // parameter # 5
-        // BSF manager instance (e.g. allows access to its registry)
+        // BSF manager instance (for example allows access to its registry)
         paramNames.add("BSFManager");
         paramValues.add(this.manager);
 

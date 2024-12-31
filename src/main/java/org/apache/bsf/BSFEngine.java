@@ -41,7 +41,7 @@ public interface BSFEngine extends PropertyChangeListener {
      * These are separated from expressions and scripts because the prior are spsed to be good 'ol expressions and scripts are not value returning. We allow
      * anonymous functions to have parameters as well for completeness.
      *
-     * @param source     (context info) the source of this expression (e.g., filename)
+     * @param source     (context info) the source of this expression (for example, filename)
      * @param lineNo     (context info) the line number in source for expr
      * @param columnNo   (context info) the column number in source for expr
      * @param funcBody   the multi-line, value returning script to evaluate
@@ -66,7 +66,7 @@ public interface BSFEngine extends PropertyChangeListener {
     /**
      * This is used by an application to compile an anonymous function. See comments in apply for more hdetails.
      *
-     * @param source     (context info) the source of this expression (e.g., filename)
+     * @param source     (context info) the source of this expression (for example, filename)
      * @param lineNo     (context info) the line number in source for expr
      * @param columnNo   (context info) the column number in source for expr
      * @param funcBody   the multi-line, value returning script to evaluate
@@ -81,7 +81,7 @@ public interface BSFEngine extends PropertyChangeListener {
      * This is used by an application to compile a value-returning expression. The expr may be string or some other type, depending on the language. The
      * generated code is dumped into the {@code CodeBuffer}.
      *
-     * @param source   (context info) the source of this expression (e.g., filename)
+     * @param source   (context info) the source of this expression (for example, filename)
      * @param lineNo   (context info) the line number in source for expr
      * @param columnNo (context info) the column number in source for expr
      * @param expr     the expression to compile
@@ -94,7 +94,7 @@ public interface BSFEngine extends PropertyChangeListener {
      * This is used by an application to compile some script. The script may be string or some other type, depending on the language. The generated code is
      * dumped into the {@code CodeBuffer}.
      *
-     * @param source   (context info) the source of this script (e.g., filename)
+     * @param source   (context info) the source of this script (for example, filename)
      * @param lineNo   (context info) the line number in source for script
      * @param columnNo (context info) the column number in source for script
      * @param script   the script to compile
@@ -116,7 +116,7 @@ public interface BSFEngine extends PropertyChangeListener {
      * This is used by an application to evaluate an expression. The expression may be string or some other type, depending on the language. (For example, for
      * BML it'll be an org.w3c.dom.Element object.)
      *
-     * @param source   (context info) the source of this expression (e.g., filename)
+     * @param source   (context info) the source of this expression (for example, filename)
      * @param lineNo   (context info) the line number in source for expr
      * @param columnNo (context info) the column number in source for expr
      * @param expr     the expression to evaluate
@@ -128,7 +128,7 @@ public interface BSFEngine extends PropertyChangeListener {
      * This is used by an application to execute some script. The expression may be string or some other type, depending on the language. Returns nothing but if
      * something goes wrong it excepts (of course).
      *
-     * @param source   (context info) the source of this expression (e.g., filename)
+     * @param source   (context info) the source of this expression (for example, filename)
      * @param lineNo   (context info) the line number in source for expr
      * @param columnNo (context info) the column number in source for expr
      * @param script   the script to execute
@@ -140,7 +140,7 @@ public interface BSFEngine extends PropertyChangeListener {
      * This is used by an application to execute some script, as though one were interacting with the language in an interactive session. The expression may be
      * string or some other type, depending on the language. Returns nothing but if something goes wrong it excepts (of course).
      *
-     * @param source   (context info) the source of this expression (e.g., filename)
+     * @param source   (context info) the source of this expression (for example, filename)
      * @param lineNo   (context info) the line number in source for expr
      * @param columnNo (context info) the column number in source for expr
      * @param script   the script to execute

@@ -34,7 +34,7 @@ import java.lang.reflect.*;
 /*
  * ---rgf, 2007-01-29, loading and invoking all methods via reflection ---rgf, 2007-09-17, adjusted for using default class loader, if system class loader fails
  * ---rgf, 2011-01-08, cf. [https://issues.apache.org/jira/browse/BSF-37] - context class loader may not be set, account for it (2009-09-10) - fix logic error
- * if context class loader is not set (e.g. observed on MacOSX, 2011-01-08)
+ * if context class loader is not set (for example observed on MacOSX, 2011-01-08)
  */
 
 //@Immutable

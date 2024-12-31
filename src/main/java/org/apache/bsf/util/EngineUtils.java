@@ -68,7 +68,7 @@ public class EngineUtils {
      * @param filter       filter for events
      * @param engine       BSFEngine which can run this script
      * @param manager      BSFManager of the above engine
-     * @param source       (context info) the source of this expression (e.g., filename)
+     * @param source       (context info) the source of this expression (for example, filename)
      * @param lineNo       (context info) the line number in source for expr
      * @param columnNo     (context info) the column number in source for expr
      * @param script       the script to execute when the event occurs
@@ -95,12 +95,12 @@ public class EngineUtils {
      * @param filter                  filter for events
      * @param engine                  BSFEngine which can run this script
      * @param manager                 BSFManager of the above engine
-     * @param source                  (context info) the source of this expression (e.g., filename)
+     * @param source                  (context info) the source of this expression (for example, filename)
      * @param lineNo                  (context info) the line number in source for expr
      * @param columnNo                (context info) the column number in source for expr
      * @param script                  the script to execute when the event occurs
      * @param dataFromScriptingEngine this contains any object supplied by the scripting engine and gets sent back with the supplied script, if the event
-     *                                occurs. This could be used e.g. for indicating to the scripting engine which scripting engine
+     *                                occurs. This could be used for example for indicating to the scripting engine which scripting engine
      *                                object/routine/function/procedure should be ultimately informed of the event occurrence.
      *
      * @exception BSFException if anything goes wrong while running the script
