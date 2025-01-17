@@ -1,44 +1,52 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!--
-    * Licensed to the Apache Software Foundation (ASF) under one
-    * or more contributor license agreements.  See the NOTICE file
-    * distributed with this work for additional information
-    * regarding copyright ownership.  The ASF licenses this file
-    * to you under the Apache License, Version 2.0 (the
-    * "License"); you may not use this file except in compliance
-    * with the License.  You may obtain a copy of the License at
-    * 
-    *   http://www.apache.org/licenses/LICENSE-2.0
-    * 
-    * Unless required by applicable law or agreed to in writing,
-    * software distributed under the License is distributed on an
-    * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    * KIND, either express or implied.  See the License for the
-    * specific language governing permissions and limitations
-    * under the License.    
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
 -->
-<project name="Apache Commons BSF&amp;trade;">
-
-    <bannerRight>
-        <name>Commons BSF</name>
-        <src>/images/bsf_logo.jpg</src>
-        <href>/index.html</href>
-    </bannerRight>
-
-  <publishDate format="dd MMM yyyy" />
-
+<site xmlns="http://maven.apache.org/SITE/2.0.0" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SITE/2.0.0 https://maven.apache.org/xsd/site-2.0.0.xsd"
+  name="Apache Commons BCEL">
+  <bannerRight name="Commons BCEL" href="/index.html">
+    <image src="/images/logo.png"/>
+  </bannerRight>
   <body>
-
-    <menu name="BSF">
-      <item name="About" href="index.html"/>
+    <menu name="Commons BCEL">
+      <!-- Start: For all components. -->
+      <item name="About" href="index.html" />
+      <item name="Asking Questions" href="/mail-lists.html" />
+      <item name="Release History" href="/changes.html" />
+      <item name="Issue Tracking" href="/issue-management.html" />
+      <item name="Dependency Management" href="/dependency-info.html" />
+      <item name="Javadoc" href="apidocs/index.html" />
+      <item name="Javadoc Archive" href="https://javadoc.io/doc/org.apache.bcel/bcel/" />
+      <item name="Sources" href="/scm.html" />
+      <item name="Security" href="security.html" />
+      <item name="License" href="https://www.apache.org/licenses/LICENSE-2.0" />
+      <item name="Code of Conduct" href="https://www.apache.org/foundation/policies/conduct.html" />
+      <item name="Download" href="https://commons.apache.org/proper/commons-bcel/download_bcel.cgi" />
+      <!-- End: For all components. -->
+      <!-- Specific to this component: -->
       <item name="News" href="bsfnews.html"/>
-      <item name="Download" href="download_bsf.cgi"/>
-      <item name="Documentation" href="manual.html"/>
+      <item name="Manual" href="manual.html"/>
       <item name="FAQ" href="faq.html"/>
       <item name="Related projects" href="projects.html"/>
       <item name="Resources" href="resources.html"/>
       <item name="Having a problem?" href="problems.html"/>
     </menu>
-
   </body>
-</project>
+</site>
