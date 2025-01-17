@@ -23,7 +23,7 @@ import org.apache.bsf.BSFManager;
 
 /**
  * This is a utility that engine implementors may use as the Java object they expose in the scripting language as "bsf". This has essentially a subset of the
- * methods in BSFManager plus some stuff from the utils. Currently used by Javascript (Rhino) & BML.
+ * methods in BSFManager plus some stuff from the utils. Currently used by Javascript (Rhino) and BML.
  */
 public class BSFFunctions {
     BSFManager mgr;

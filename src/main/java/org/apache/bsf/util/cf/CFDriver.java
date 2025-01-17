@@ -46,18 +46,22 @@ public class CFDriver {
     /**
      * A driver for <code>CodeFormatter</code>.
      * <p>
-     * Usage: <code><pre>
+     * Usage:
+     * </p> 
+     * <pre>
      *  java org.apache.cf.CFDriver [args]
-     *<p>
+     *  </pre>
+     * <p>
      *    args:
-     *<p>
+     * </p>
+     * <pre>
      *      [-in      fileName]   default: &lt;STDIN&gt;
      *      [-out     fileName]   default: &lt;STDOUT&gt;
      *      [-maxLine   length]   default: 74
      *      [-step        size]   default: 2
      *      [-delim      group]   default: (+
      *      [-sdelim     group]   default: ,
-     *</pre></code>
+     * </pre>
      */
     public static void main(final String[] argv) {
         if (argv.length % 2 == 0) {

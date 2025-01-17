@@ -304,6 +304,7 @@ public class EngineUtils {
      * <li>settable class loader stored with BSFManager,
      * <li>BSFManager's defining class loader,
      * <li>BSF customized class loader (from the BSFManager's temporary directory).
+     * </ul>
      *
      * @param mgr  BSFManager who's classLoader and tempDir props are consulted
      * @param name name of the class to load
