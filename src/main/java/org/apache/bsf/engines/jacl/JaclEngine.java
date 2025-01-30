@@ -83,10 +83,10 @@ public class JaclEngine extends BSFEngineImpl {
                 return result.toString();
             }
             if (internalRep instanceof TclDouble) {
-                return new Double(TclDouble.get(interp, result));
+                return Double.valueOf(TclDouble.get(interp, result));
             }
             if (internalRep instanceof TclInteger) {
-                return new Integer(TclInteger.get(interp, result));
+                return Integer.valueOf(TclInteger.get(interp, result));
             }
 
             return result;

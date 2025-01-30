@@ -55,26 +55,26 @@ public class JavascriptTest extends BSFEngineTestCase {
         Double retval = null;
 
         try {
-            retval = new Double((javascriptEngine.eval("Test.js", 0, 0, "1 + 1;").toString()));
+            retval = Double.valueOf((javascriptEngine.eval("Test.js", 0, 0, "1 + 1;").toString()));
         } catch (final Exception e) {
             fail(failMessage("eval() test failed", e));
         }
 
-        assertEquals(new Double(2), retval);
+        assertEquals(Double.valueOf(2), retval);
     }
 
     public void testCall() {
-        final Object[] args = { new Double(1) };
+        final Object[] args = { Double.valueOf(1) };
         Double retval = null;
 
         try {
             javascriptEngine.exec("Test.js", 0, 0, "function addOne (f) {\n return f + 1;\n}");
-            retval = new Double((javascriptEngine.call(null, "addOne", args).toString()));
+            retval = Double.valueOf((javascriptEngine.call(null, "addOne", args).toString()));
         } catch (final Exception e) {
             fail(failMessage("call() test failed", e));
         }
 
-        assertEquals(new Double(2), retval);
+        assertEquals(Double.valueOf(2), retval);
     }
 
     public void testIexec() {
@@ -91,12 +91,12 @@ public class JavascriptTest extends BSFEngineTestCase {
         Double retval = null;
 
         try {
-            retval = new Double((bsfManager.eval("javascript", "Test.js", 0, 0, "1 + 1;")).toString());
+            retval = Double.valueOf((bsfManager.eval("javascript", "Test.js", 0, 0, "1 + 1;")).toString());
         } catch (final Exception e) {
             fail(failMessage("BSFManager eval() test failed", e));
         }
 
-        assertEquals(new Double(2), retval);
+        assertEquals(Double.valueOf(2), retval);
     }
 
     public void testBSFManagerAvailability() {
@@ -112,7 +112,7 @@ public class JavascriptTest extends BSFEngineTestCase {
     }
 
     public void testRegisterBean() {
-        final Double foo = new Double(1);
+        final Double foo = Double.valueOf(1);
         Double bar = null;
 
         try {
@@ -126,7 +126,7 @@ public class JavascriptTest extends BSFEngineTestCase {
     }
 
     public void testUnregisterBean() {
-        final Double foo = new Double(1);
+        final Double foo = Double.valueOf(1);
         Double bar = null;
 
         try {
@@ -141,7 +141,7 @@ public class JavascriptTest extends BSFEngineTestCase {
     }
 
     public void testDeclareBean() {
-        final Double foo = new Double(1);
+        final Double foo = Double.valueOf(1);
         Double bar = null;
 
         try {
@@ -151,11 +151,11 @@ public class JavascriptTest extends BSFEngineTestCase {
             fail(failMessage("declareBean() test failed", e));
         }
 
-        assertEquals(new Double(2), bar);
+        assertEquals(Double.valueOf(2), bar);
     }
 
     public void testUndeclareBean() {
-        final Double foo = new Double(1);
+        final Double foo = Double.valueOf(1);
         Double bar = null;
 
         try {
