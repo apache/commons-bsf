@@ -91,7 +91,7 @@ public class StringUtilsTest extends TestCase {
     public void testGetClassName() {
         String result;
 
-        result = StringUtils.getClassName((new Byte("0")).getClass());
+        result = StringUtils.getClassName((Byte.valueOf("0")).getClass());
         assertTrue(result.equals("java.lang.Byte"));
 
         result = StringUtils.getClassName((new Byte[0][0][0]).getClass());
