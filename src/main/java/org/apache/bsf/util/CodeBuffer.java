@@ -119,7 +119,7 @@ public class CodeBuffer {
         Integer nextNum = getSymbolIndex(prefix);
 
         if (nextNum == null) {
-            nextNum = new Integer(0);
+            nextNum = Integer.valueOf(0);
         }
 
         int iNextNum = nextNum.intValue();
@@ -130,7 +130,7 @@ public class CodeBuffer {
             symbol = prefix + "_" + iNextNum;
         }
 
-        putSymbolIndex(prefix, new Integer(iNextNum + 1));
+        putSymbolIndex(prefix, Integer.valueOf(iNextNum + 1));
 
         return symbol;
     }

@@ -67,12 +67,12 @@ public class JaclTest extends AbstractBSFEngineTest {
             fail(failMessage("eval() test failed", e));
         }
 
-        assertEquals(new Integer(2), retval);
+        assertEquals(Integer.valueOf(2), retval);
     }
 
     @Test
     public void testCall() {
-        final Object[] args = { new Integer(1) };
+        final Object[] args = { Integer.valueOf(1) };
         Integer retval = null;
 
         try {
@@ -82,7 +82,7 @@ public class JaclTest extends AbstractBSFEngineTest {
             fail(failMessage("call() test failed", e));
         }
 
-        assertEquals(new Integer(2), retval);
+        assertEquals(Integer.valueOf(2), retval);
     }
 
     @Test
@@ -106,12 +106,12 @@ public class JaclTest extends AbstractBSFEngineTest {
             fail(failMessage("BSFManager eval() test failed", e));
         }
 
-        assertEquals(new Integer(2), retval);
+        assertEquals(Integer.valueOf(2), retval);
     }
 
     @Test
     public void testRegisterBean() {
-        final Integer foo = new Integer(1);
+        final Integer foo = Integer.valueOf(1);
         Integer bar = null;
 
         try {
@@ -126,7 +126,7 @@ public class JaclTest extends AbstractBSFEngineTest {
 
     @Test
     public void testUnregisterBean() {
-        final Integer foo = new Integer(1);
+        final Integer foo = Integer.valueOf(1);
         Integer bar = null;
 
         try {
@@ -144,7 +144,7 @@ public class JaclTest extends AbstractBSFEngineTest {
 
     @Test
     public void testDeclareBean() {
-        final Integer foo = new Integer(1);
+        final Integer foo = Integer.valueOf(1);
         Integer bar = null;
 
         try {
@@ -159,7 +159,7 @@ public class JaclTest extends AbstractBSFEngineTest {
 
     @Test
     public void testUndeclareBean() {
-        final Integer foo = new Integer(1);
+        final Integer foo = Integer.valueOf(1);
         Integer bar = null;
 
         try {

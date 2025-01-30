@@ -49,31 +49,31 @@ public class NetrexxTest_IGNORE extends BSFEngineTestCase {
     }
 
     public void ignore_testDeclareBean() {
-        final Integer foo = new Integer(0);
+        final Integer foo = Integer.valueOf(0);
         Integer bar = null;
 
         try {
             bsfManager.declareBean("foo", foo, Integer.class);
-            bar = new Integer((netrexxEngine.eval("Test.nrx", 0, 0, "foo.intValue() + 1")).toString());
+            bar = Integer.valueOf((netrexxEngine.eval("Test.nrx", 0, 0, "foo.intValue() + 1")).toString());
         } catch (final Exception ex) {
             fail(failMessage("declaredBean() test failed", ex));
         }
 
-        assertEquals(bar, new Integer(1));
+        assertEquals(bar, Integer.valueOf(1));
     }
 
     public void ignore_testRegisterBean() {
-        final Integer foo = new Integer(0);
+        final Integer foo = Integer.valueOf(0);
         Integer bar = null;
 
         try {
             bsfManager.registerBean("foo", foo);
-            bar = new Integer((netrexxEngine.eval("Test.nrx", 0, 0, "bsf.lookupBean(\"foo\")").toString()));
+            bar = Integer.valueOf((netrexxEngine.eval("Test.nrx", 0, 0, "bsf.lookupBean(\"foo\")").toString()));
         } catch (final Exception ex) {
             fail(failMessage("registerBean() test fail", ex));
         }
 
-        assertEquals(bar, new Integer(0));
+        assertEquals(bar, Integer.valueOf(0));
     }
 
     public void ignore_testExec() {
@@ -88,7 +88,7 @@ public class NetrexxTest_IGNORE extends BSFEngineTestCase {
 
     public void ignore_testUndeclareBean() {
         // FIXME: Netrexx is a little chatty about the missing variable...
-        final Integer foo = new Integer(0);
+        final Integer foo = Integer.valueOf(0);
         Object bar = null;
 
         try {
@@ -105,7 +105,7 @@ public class NetrexxTest_IGNORE extends BSFEngineTestCase {
     }
 
     public void ignore_testUnregisterBean() {
-        final Integer foo = new Integer(0);
+        final Integer foo = Integer.valueOf(0);
         Object retValue = null;
 
         try {
@@ -135,12 +135,12 @@ public class NetrexxTest_IGNORE extends BSFEngineTestCase {
         Object retValue = null;
 
         try {
-            retValue = new Integer((bsfManager.eval("netrexx", "Test.nrx", 0, 0, "1 + (-1)")).toString());
+            retValue = Integer.valueOf((bsfManager.eval("netrexx", "Test.nrx", 0, 0, "1 + (-1)")).toString());
         } catch (final Exception ex) {
             fail(failMessage("BSFManagerEval() test failed", ex));
         }
 
-        assertEquals(retValue, new Integer(0));
+        assertEquals(retValue, Integer.valueOf(0));
     }
 
     public void testAllIgnoredUntilNetrexxIsSetUp() {

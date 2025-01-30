@@ -128,17 +128,17 @@ public class BSFTest extends BSFEngineTestCase {
 
     public void testDeclareBean() {
         try {
-            bsfManager.declareBean("foo", new Integer(1), Integer.class);
+            bsfManager.declareBean("foo", Integer.valueOf(1), Integer.class);
         } catch (final Exception e) {
             fail(failMessage("declareBean() test failed", e));
         }
 
-        assertEquals(new Integer(1), (Integer) bsfManager.lookupBean("foo"));
+        assertEquals(Integer.valueOf(1), (Integer) bsfManager.lookupBean("foo"));
     }
 
     public void testUndeclareBean() {
         try {
-            bsfManager.declareBean("foo", new Integer(1), Integer.class);
+            bsfManager.declareBean("foo", Integer.valueOf(1), Integer.class);
             bsfManager.undeclareBean("foo");
         } catch (final Exception e) {
             fail(failMessage("undeclareBean() test failed", e));

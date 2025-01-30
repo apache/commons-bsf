@@ -55,26 +55,26 @@ public class JythonTest extends BSFEngineTestCase {
         Integer retval = null;
 
         try {
-            retval = new Integer((jythonEngine.eval("Test.py", 0, 0, "1 + 1")).toString());
+            retval = Integer.valueOf((jythonEngine.eval("Test.py", 0, 0, "1 + 1")).toString());
         } catch (final Exception e) {
             fail(failMessage("eval() test failed", e));
         }
 
-        assertEquals(new Integer(2), retval);
+        assertEquals(Integer.valueOf(2), retval);
     }
 
     public void testCall() {
-        final Object[] args = { new Integer(1) };
+        final Object[] args = { Integer.valueOf(1) };
         Integer retval = null;
 
         try {
             jythonEngine.exec("Test.py", 0, 0, "def addOne(f):\n\t return f + 1\n");
-            retval = new Integer((jythonEngine.call(null, "addOne", args).toString()));
+            retval = Integer.valueOf((jythonEngine.call(null, "addOne", args).toString()));
         } catch (final Exception e) {
             fail(failMessage("call() test failed", e));
         }
 
-        assertEquals(new Integer(2), retval);
+        assertEquals(Integer.valueOf(2), retval);
     }
 
     public void testIexec() {
@@ -93,12 +93,12 @@ public class JythonTest extends BSFEngineTestCase {
         Integer retval = null;
 
         try {
-            retval = new Integer((bsfManager.eval("jython", "Test.py", 0, 0, "1 + 1")).toString());
+            retval = Integer.valueOf((bsfManager.eval("jython", "Test.py", 0, 0, "1 + 1")).toString());
         } catch (final Exception e) {
             fail(failMessage("BSFManager eval() test failed", e));
         }
 
-        assertEquals(new Integer(2), retval);
+        assertEquals(Integer.valueOf(2), retval);
     }
 
     public void testBSFManagerAvailability() {
@@ -114,12 +114,12 @@ public class JythonTest extends BSFEngineTestCase {
     }
 
     public void testRegisterBean() {
-        final Integer foo = new Integer(1);
+        final Integer foo = Integer.valueOf(1);
         Integer bar = null;
 
         try {
             bsfManager.registerBean("foo", foo);
-            bar = new Integer((jythonEngine.eval("Test.py", 0, 0, "bsf.lookupBean(\"foo\")")).toString());
+            bar = Integer.valueOf((jythonEngine.eval("Test.py", 0, 0, "bsf.lookupBean(\"foo\")")).toString());
         } catch (final Exception e) {
             fail(failMessage("registerBean() test failed", e));
         }
@@ -128,7 +128,7 @@ public class JythonTest extends BSFEngineTestCase {
     }
 
     public void testUnregisterBean() {
-        final Integer foo = new Integer(1);
+        final Integer foo = Integer.valueOf(1);
         Object bar = null;
 
         try {
@@ -143,27 +143,27 @@ public class JythonTest extends BSFEngineTestCase {
     }
 
     public void testDeclareBean() {
-        final Integer foo = new Integer(1);
+        final Integer foo = Integer.valueOf(1);
         Integer bar = null;
 
         try {
             bsfManager.declareBean("foo", foo, Integer.class);
-            bar = new Integer((jythonEngine.eval("Test.py", 0, 0, "foo + 1")).toString());
+            bar = Integer.valueOf((jythonEngine.eval("Test.py", 0, 0, "foo + 1")).toString());
         } catch (final Exception e) {
             fail(failMessage("declareBean() test failed", e));
         }
 
-        assertEquals(new Integer(2), bar);
+        assertEquals(Integer.valueOf(2), bar);
     }
 
     public void testUndeclareBean() {
-        final Integer foo = new Integer(1);
+        final Integer foo = Integer.valueOf(1);
         Integer bar = null;
 
         try {
             bsfManager.declareBean("foo", foo, Integer.class);
             bsfManager.undeclareBean("foo");
-            bar = new Integer((jythonEngine.eval("Test.py", 0, 0, "foo + 1")).toString());
+            bar = Integer.valueOf((jythonEngine.eval("Test.py", 0, 0, "foo + 1")).toString());
         } catch (final BSFException bsfE) {
             // Do nothing. This is the expected case.
         } catch (final Exception e) {

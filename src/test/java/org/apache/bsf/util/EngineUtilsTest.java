@@ -57,7 +57,7 @@ public class EngineUtilsTest extends TestCase {
 
         assertEquals("MoreConfirmation", bean.getStringValue());
 
-        args = new Object[] { "aString", new Integer(1) };
+        args = new Object[] { "aString", Integer.valueOf(1) };
 
         try {
             EngineUtils.callBeanMethod(bean, "setValue", args);
@@ -66,7 +66,7 @@ public class EngineUtilsTest extends TestCase {
         }
 
         assertEquals("aString", bean.getStringValue());
-        assertEquals(new Integer(1), (Integer) bean.getNumericValue());
+        assertEquals(Integer.valueOf(1), (Integer) bean.getNumericValue());
 
         // try to invoke a method which does not exist ...
         // should throw a BSFException
@@ -102,7 +102,7 @@ public class EngineUtilsTest extends TestCase {
 
     public void testGetTypeSignatureString() {
         // test for a non primitive type
-        final Integer int1 = new Integer(10);
+        final Integer int1 = Integer.valueOf(10);
         final Object obj = EngineUtils.getTypeSignatureString(int1.getClass());
 
         assertEquals("Ljava/lang/Integer;", (String) obj);
