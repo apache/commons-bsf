@@ -59,7 +59,6 @@
     <!-- TODO this is probably wrong -->
     <commons.osgi.symbolicName>bsf</commons.osgi.symbolicName>
     <commons.osgi.export>bsf.*;version=${project.version};-noimport:=true</commons.osgi.export>
-    <commons.osgi.import>*</commons.osgi.import>
     <commons.osgi.dynamicImport />
     <commons.osgi.private />
   </properties>
