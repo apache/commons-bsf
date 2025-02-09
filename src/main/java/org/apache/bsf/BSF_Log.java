@@ -41,11 +41,11 @@ import java.lang.reflect.*;
 public class BSF_Log // implements org.apache.commons.logging.Log
 {
     final private static int iDebug = 0; // don't show any debug-info
-    final static private Class oac_LogFactory;
-    // NOTUSED final static private Method oac_LogFactoryGetLog_Clazz;
-    final static private Method oac_LogFactoryGetLog_String;
+    static final private Class oac_LogFactory;
+    // NOTUSED static final private Method oac_LogFactoryGetLog_Clazz;
+    static final private Method oac_LogFactoryGetLog_String;
 
-    final static private Method[] meths = new Method[18]; // store the Log methods
+    static final private Method[] meths = new Method[18]; // store the Log methods
     // define the slots in the array
     final private static int debug1 = 0;
     final private static int debug2 = 1;

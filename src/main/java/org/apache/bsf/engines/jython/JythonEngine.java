@@ -41,7 +41,7 @@ import org.python.util.InteractiveInterpreter;
 
 public class JythonEngine extends BSFEngineImpl {
     BSFPythonInterpreter interp;
-    private final static Pattern fromRegExp = Pattern.compile("from ([.^\\S]*)");
+    private static final Pattern fromRegExp = Pattern.compile("from ([.^\\S]*)");
 
     /**
      * call the named method of the given object.
