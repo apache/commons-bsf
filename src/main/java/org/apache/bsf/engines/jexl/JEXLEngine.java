@@ -65,30 +65,31 @@ public class JEXLEngine extends BSFEngineImpl {
         BSF_PERMISSIONS = permissions;
     }
 
-    public static class BSFContext implements JexlContext {
+    /**
+     * A context sharing the variables.
+     */
+    private static class BSFContext implements JexlContext {
         private final Map<String, Object> map;
 
         BSFContext(Map<String, Object> vars) {
             this.map = vars;
         }
 
-        public void clear() {
-            this.map.clear();
-        }
-
+        @Override
         public Object get(String name) {
-            return this.map.get(name);
+            return map.get(name);
         }
 
+        @Override
         public boolean has(String name) {
-            return this.map.containsKey(name);
+            return map.containsKey(name);
         }
 
+        @Override
         public void set(String name, Object value) {
-                this.map.put(name, value);
-            }
+            map.put(name, value);
+        }
     }
-
 
     /**
      * Initialize the JEXL engine by creating a JexlContext and populating it with the declared beans.

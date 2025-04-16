@@ -17,6 +17,7 @@
 
 package org.apache.bsf.engines;
 
+import org.apache.bsf.BSFEngine;
 import org.apache.bsf.engines.jexl.JEXLEngine;
 import org.apache.commons.jexl3.introspection.JexlPermissions;
 
@@ -25,19 +26,14 @@ public class JexlTest extends JavascriptTest {
     super(name);
   }
 
-  public void setUp() {
-  super.setUp();
-  try {
-    JEXLEngine.setPermissions(JexlPermissions.UNRESTRICTED);
-    engine = bsfManager.loadScriptingEngine("jexl");
-  } catch (final Exception e) {
-    fail(failMessage("Failure attempting to load jexl engine", e));
+  protected BSFEngine createEngine() throws Exception {
+      JEXLEngine.setPermissions(JexlPermissions.UNRESTRICTED);
+      return  bsfManager.loadScriptingEngine("jexl");
   }
-}
 
-
+  @Override
   public void testCall() {
-    final Object[] args = { Double.valueOf(1) };
+    final Object[] args = {1.0};
     Double retval = null;
 
     try {
@@ -46,7 +42,6 @@ public class JexlTest extends JavascriptTest {
     } catch (final Exception e) {
       fail(failMessage("call() test failed", e));
     }
-
-    assertEquals(Double.valueOf(2), retval);
+    assertEquals(2.0, retval);
   }
 }
