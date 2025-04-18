@@ -16,20 +16,32 @@
  */
 package org.apache.bsf.engines.jexl;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.lang.reflect.Method;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Vector;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.bsf.BSFDeclaredBean;
 import org.apache.bsf.BSFEngine;
 import org.apache.bsf.BSFException;
 import org.apache.bsf.BSFManager;
 import org.apache.bsf.util.BSFEngineImpl;
-import org.apache.commons.jexl.JexlContext;
-import org.apache.commons.jexl.JexlHelper;
-import org.apache.commons.jexl.Script;
-import org.apache.commons.jexl.ScriptFactory;
+import org.apache.bsf.util.BSFFunctions;
+import org.apache.commons.jexl3.JexlContext;
+import org.apache.commons.jexl3.JexlEngine;
+import org.apache.commons.jexl3.JexlException;
+import org.apache.commons.jexl3.JexlExpression;
+import org.apache.commons.jexl3.JexlInfo;
+import org.apache.commons.jexl3.JexlScript;
+import org.apache.commons.jexl3.JexlBuilder;
+import org.apache.commons.jexl3.introspection.JexlPermissions;
 
 /**
  * {@link BSFEngine} for Commons JEXL. Requires Commons JEXL version 1.1 or later.
@@ -37,9 +49,47 @@ import org.apache.commons.jexl.ScriptFactory;
  * @see <a href="http://commons.apache.org/jexl/">Commons JEXL</a>
  */
 public class JEXLEngine extends BSFEngineImpl {
-
+    private static JexlPermissions BSF_PERMISSIONS = JexlPermissions.RESTRICTED;
+    /** The engine. */
+    private JexlEngine engine;
+    /** The declared bean */
+    private Map<String, Object> vars;
     /** The backing JexlContext for this engine. */
     private JexlContext jc;
+
+    /**
+     * Sets the JEXL engine permissions.
+     * @param permissions the permissions
+     */
+    public static void setPermissions(JexlPermissions permissions) {
+        BSF_PERMISSIONS = permissions;
+    }
+
+    /**
+     * A context sharing the variables.
+     */
+    private static class BSFContext implements JexlContext {
+        private final Map<String, Object> map;
+
+        BSFContext(Map<String, Object> vars) {
+            this.map = vars;
+        }
+
+        @Override
+        public Object get(String name) {
+            return map.get(name);
+        }
+
+        @Override
+        public boolean has(String name) {
+            return map.containsKey(name);
+        }
+
+        @Override
+        public void set(String name, Object value) {
+            map.put(name, value);
+        }
+    }
 
     /**
      * Initialize the JEXL engine by creating a JexlContext and populating it with the declared beans.
@@ -51,11 +101,17 @@ public class JEXLEngine extends BSFEngineImpl {
      */
     public void initialize(final BSFManager mgr, final String lang, final Vector declaredBeans) throws BSFException {
         super.initialize(mgr, lang, declaredBeans);
-        jc = JexlHelper.createContext();
+        vars = new ConcurrentHashMap<>();
+        jc = new BSFContext(vars);
         for (int i = 0; i < declaredBeans.size(); i++) {
             final BSFDeclaredBean bean = (BSFDeclaredBean) declaredBeans.elementAt(i);
-            jc.getVars().put(bean.name, bean.bean);
+            vars.put(bean.name, bean.bean);
         }
+        vars.put("java.lang.System.out", java.lang.System.out);
+        vars.put("java.lang.System.in", java.lang.System.in);
+        vars.put("java.lang.System.err", java.lang.System.err);
+        vars.put("bsf", new BSFFunctions(mgr, this));
+        engine = new JexlBuilder().cache(32).permissions(BSF_PERMISSIONS).create();
     }
 
     /**
@@ -63,8 +119,9 @@ public class JEXLEngine extends BSFEngineImpl {
      */
     public void terminate() {
         if (jc != null) {
-            jc.getVars().clear();
+            vars.clear();
             jc = null;
+            engine = null;
         }
     }
 
@@ -75,7 +132,7 @@ public class JEXLEngine extends BSFEngineImpl {
      * @throws BSFException For any exception that occurs while trying to declare the bean.
      */
     public void declareBean(final BSFDeclaredBean bean) throws BSFException {
-        jc.getVars().put(bean.name, bean.bean);
+        vars.put(bean.name, bean.bean);
     }
 
     /**
@@ -85,7 +142,7 @@ public class JEXLEngine extends BSFEngineImpl {
      * @throws BSFException For any exception that occurs while trying to undeclare the bean.
      */
     public void undeclareBean(final BSFDeclaredBean bean) throws BSFException {
-        jc.getVars().remove(bean.name);
+        vars.remove(bean.name);
     }
 
     /**
@@ -101,23 +158,27 @@ public class JEXLEngine extends BSFEngineImpl {
         if (expr == null) {
             return null;
         }
+        final JexlInfo info = new JexlInfo(
+                fileName != null ? fileName : expr.toString(),
+                Math.max(lineNo, 1),
+                Math.max(colNo, 1));
         try {
-            Script jExpr = null;
+            JexlExpression jExpr;
             if (expr instanceof File) {
-                jExpr = ScriptFactory.createScript((File) expr);
+                jExpr = engine.createExpression(info, readSource(info, (File) expr));
             } else if (expr instanceof URL) {
-                jExpr = ScriptFactory.createScript((URL) expr);
+                jExpr = engine.createExpression(info, readSource(info, (URL) expr));
             } else {
-                jExpr = ScriptFactory.createScript((String) expr);
+                jExpr = engine.createExpression(info, (String) expr);
             }
-            return jExpr.execute(jc);
+            return jExpr.evaluate(jc);
         } catch (final Exception e) {
             throw new BSFException(BSFException.REASON_EXECUTION_ERROR, "Exception from Commons JEXL:\n" + e.getMessage(), e);
         }
     }
 
     /**
-     * Executes the script as a JEXL {@link Script}.
+     * Executes the script as a JEXL {@link JexlScript}.
      *
      * @param fileName The file name, if it is available.
      * @param lineNo   The line number, if it is available.
@@ -129,14 +190,18 @@ public class JEXLEngine extends BSFEngineImpl {
         if (script == null) {
             return;
         }
+        final JexlInfo info = new JexlInfo(
+                fileName != null ? fileName : script.toString(),
+                Math.max(lineNo, 1),
+                Math.max(colNo, 1));
         try {
-            Script jExpr = null;
+            JexlScript jExpr;
             if (script instanceof File) {
-                jExpr = ScriptFactory.createScript((File) script);
+                jExpr = engine.createScript(info, readSource(info, (File) script));
             } else if (script instanceof URL) {
-                jExpr = ScriptFactory.createScript((URL) script);
+                jExpr = engine.createScript(info, readSource(info, (URL) script));
             } else {
-                jExpr = ScriptFactory.createScript((String) script);
+                jExpr = engine.createScript(info, (String) script);
             }
             jExpr.execute(jc);
         } catch (final Exception e) {
@@ -166,17 +231,64 @@ public class JEXLEngine extends BSFEngineImpl {
      * @return The result of the call.
      * @throws BSFException For any exception that occurs while making the call.
      */
-    public Object call(final Object object, final String name, final Object[] args) throws BSFException {
+    public Object call(Object object, final String name, final Object[] args) throws BSFException {
         try {
-            final Class[] types = new Class[args.length];
-            for (int i = 0; i < args.length; i++) {
-                types[i] = args[i].getClass();
+            if (object == null) {
+                object = vars.get(name);
             }
-            final Method m = object.getClass().getMethod(name, types);
-            return m.invoke(object, args);
+            if (object instanceof JexlScript) {
+               return ((JexlScript) object).execute(jc, args);
+            }
+            return engine.invokeMethod(object, name, args);
         } catch (final Exception e) {
             throw new BSFException(BSFException.REASON_EXECUTION_ERROR, "Exception from JEXLEngine:\n" + e.getMessage(), e);
         }
     }
 
+    /**
+     * Reads a JEXL source from a File.
+     *
+     * @param info the script source info
+     * @param file the script file
+     * @return the source
+     */
+    protected String readSource(JexlInfo info, final File file) {
+        Objects.requireNonNull(file, "file");
+        try (BufferedReader reader = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8)) {
+            return toString(reader);
+        } catch (final IOException xio) {
+            throw new JexlException(info, "could not read source File", xio);
+        }
+    }
+
+    /**
+     * Reads a JEXL source from an URL.
+     *
+     * @param info the script source info
+     * @param url the script url
+     * @return the source
+     */
+    protected String readSource(JexlInfo info, final URL url) {
+        Objects.requireNonNull(url, "url");
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8))) {
+            return toString(reader);
+        } catch (final IOException xio) {
+            throw new JexlException(info, "could not read source URL", xio);
+        }
+    }
+    /**
+     * Creates a string from a reader.
+     *
+     * @param reader to be read.
+     * @return the contents of the reader as a String.
+     * @throws IOException on any error reading the reader.
+     */
+    protected static String toString(final BufferedReader reader) throws IOException {
+        final StringBuilder buffer = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            buffer.append(line).append('\n');
+        }
+        return buffer.toString();
+    }
 }
