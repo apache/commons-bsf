@@ -55,7 +55,7 @@ public class TableFiller {
     // make the panel available for playing in XSL
     mgr.declareBean ("panel", panel, panel.getClass ());
 
-    // tell lotusxsl what the input xml file is
+    // tell lotusxsl what the input XML file is
     mgr.registerBean ("xslt:src", new FileReader (xmlfilename));
 
     // load and run the xsl file to fill in the table. Note that we're
