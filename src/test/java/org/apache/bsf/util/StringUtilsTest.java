@@ -122,20 +122,15 @@ public class StringUtilsTest extends TestCase {
     }
 
     public void testGetContentAsReader() throws MalformedURLException, IOException {
-
-        Reader reader;
-
         final File myFile = File.createTempFile("Test", "txt");
-
         final FileWriter fw = new FileWriter(myFile);
         final PrintWriter pw = new PrintWriter(fw);
         pw.println("file name : Test.txt");
         pw.flush();
-
-        reader = StringUtils.getContentAsReader(myFile.toURL());
-        final BufferedReader bf = new BufferedReader(reader);
-        assertTrue(bf.readLine().equals("file name : Test.txt"));
-
+        try (Reader reader = StringUtils.getContentAsReader(myFile.toURL())) {
+            final BufferedReader bf = new BufferedReader(reader);
+            assertTrue(bf.readLine().equals("file name : Test.txt"));
+        }
     }
 
     public void testGetContentAsString() throws IOException {
