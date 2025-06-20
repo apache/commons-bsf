@@ -127,7 +127,7 @@ public class StringUtilsTest extends TestCase {
         final PrintWriter pw = new PrintWriter(fw);
         pw.println("file name : Test.txt");
         pw.flush();
-        try (Reader reader = StringUtils.getContentAsReader(myFile.toURL())) {
+        try (Reader reader = StringUtils.getContentAsReader(myFile.toURI().toURL())) {
             final BufferedReader bf = new BufferedReader(reader);
             assertTrue(bf.readLine().equals("file name : Test.txt"));
         }
@@ -144,7 +144,7 @@ public class StringUtilsTest extends TestCase {
         pw.println("file name : Test.txt");
         pw.flush();
 
-        result = StringUtils.getContentAsString(myFile.toURL());
+        result = StringUtils.getContentAsString(myFile.toURI().toURL());
         assertTrue(result.equals(("file name : Test.txt" + lineSeparator)));
 
     }
