@@ -68,6 +68,10 @@
       <url>scp://people.apache.org/www/commons.apache.org/${commons.componentid}/</url>
     </site>
   </distributionManagement>
+  <ciManagement>
+    <system>GitHub</system>
+    <url>https://github.com/apache/commons-bsf/actions</url>
+  </ciManagement>
 
   <licenses>
     <license>
