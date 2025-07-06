@@ -19,24 +19,19 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
-
   <modelVersion>4.0.0</modelVersion>
-
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
     <version>85</version>
   </parent>
-
   <groupId>bsf</groupId>
   <artifactId>bsf</artifactId>
   <version>2.5.0-SNAPSHOT</version>
   <name>Apache Commons BSF (Bean Scripting Framework)</name>
   <url>https://commons.apache.org/proper/commons-bsf</url>
   <packaging>jar</packaging>
-
   <inceptionYear>2002</inceptionYear>
-
   <properties>
     <!-- does not yet support moditect -->
     <moditect.skip>true</moditect.skip> 
@@ -52,7 +47,6 @@
     <commons.release.isDistModule>true</commons.release.isDistModule>
     <commons.rc.version>RC1</commons.rc.version>
     <commons.bc.version>2.4.0</commons.bc.version>
-
     <commons.jira.id>BSF</commons.jira.id>
     <commons.jira.pid>12310621</commons.jira.pid>
     <!-- Configuration properties for the OSGi maven-bundle-plugin -->
@@ -60,7 +54,6 @@
     <commons.osgi.symbolicName>bsf</commons.osgi.symbolicName>
     <commons.osgi.export>bsf.*;version=${project.version};-noimport:=true</commons.osgi.export>
   </properties>
-
   <distributionManagement>
     <site>
       <id>apache.website</id>
@@ -72,7 +65,6 @@
     <system>GitHub</system>
     <url>https://github.com/apache/commons-bsf/actions</url>
   </ciManagement>
-
   <licenses>
     <license>
       <name>Apache License, Version 2.0</name>
@@ -80,12 +72,10 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-
   <organization>
     <name>The Apache Software Foundation</name>
     <url>https://www.apache.org/</url>
   </organization>
-
   <developers>
     <developer>
       <id>chuck</id>
@@ -103,12 +93,8 @@
       <email>rony@apache.org</email>
     </developer>
   </developers>
-
   <contributors>
-
-
   </contributors>
-
   <mailingLists>
     <mailingList>
       <name>BSF User List</name>
@@ -133,18 +119,15 @@
             </archive>
     </mailingList>
   </mailingLists>
-
   <issueManagement>
     <system>JIRA</system>
     <url>https://issues.apache.org/jira/browse/BSF</url>
   </issueManagement>
-
   <scm>
     <connection>scm:git:https://gitbox.apache.org/repos/asf/commons-bsf</connection>
     <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/commons-bsf</developerConnection>
     <url>https://gitbox.apache.org/repos/asf/commons-bsf</url>
   </scm>
-
   <build>
     <!-- japicmp:cmp detected breaks, TODO fixes for javadoc:javadoc and checkstyles, and ... -->
     <defaultGoal>clean verify apache-rat:check</defaultGoal>
@@ -177,16 +160,13 @@
       </plugin>
     </plugins>
   </build>
-
   <reporting>
     <plugins>
       <!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>jardiff-maven-plugin</artifactId> <configuration> <artifacts> 
         <artifact> <version>5.2</version> </artifact> <artifact> <groupId>bcel</groupId> <version>5.1</version> </artifact> </artifacts> 
         </configuration> </plugin> -->
-
     </plugins>
   </reporting>
-
   <dependencies>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -235,5 +215,4 @@
       <version>1.2.6</version>
     </dependency>
   </dependencies>
-
 </project>
