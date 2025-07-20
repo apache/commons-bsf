@@ -40,7 +40,7 @@ public class TypeConvertorRegistry {
             }
 
             public String getCodeGenString() {
-                return "(Class from, Class to, Object obj) {\n" + "return obj;\n" + "}";
+                return "(Class from, Class to, Object obj) {\nreturn obj;\n}";
             }
         };
         register(Boolean.class, boolean.class, tc);
@@ -69,7 +69,7 @@ public class TypeConvertorRegistry {
             }
 
             public String getCodeGenString() {
-                return "(Class from, Class to, Object obj) {\n" + "return (obj == null) ? \"(null)\" : obj.toString ();\n" + "}";
+                return "(Class from, Class to, Object obj) {\nreturn (obj == null) ? \"(null)\" : obj.toString ();\n}";
             }
         };
         register(Object.class, String.class, tc);
@@ -101,15 +101,30 @@ public class TypeConvertorRegistry {
             }
 
             public String getCodeGenString() {
-                return "(Class from, Class to, Object obj) {\n" + "String str = (String) obj;\n" + "if (to == Boolean.class || to == boolean.class) {\n"
-                        + "return Boolean.valueOf (str);\n" + "} else if (to == Byte.class || to == byte.class) {\n" + "return Byte.valueOf (str);\n"
-                        + "} else if (to == Character.class || to == char.class) {\n" + "return Character.valueOf (str.charAt (0));\n"
-                        + "} else if (to == Short.class || to == short.class) {\n" + "return Short.valueOf (str);\n"
-                        + "} else if (to == Integer.class || to == int.class) {\n" + "return Integer.valueOf (str);\n"
-                        + "} else if (to == Long.class || to == long.class) {\n" + "return Long.valueOf (str);\n"
-                        + "} else if (to == Float.class || to == float.class) {\n" + "return Float.valueOf (str);\n"
-                        + "} else if (to == Double.class || to == double.class) {\n" + "return Double.valueOf (str);\n" + "} else {\n" + "return null;\n"
-                        + "}\n" + "}";
+                // @formatter:off
+                return "(Class from, Class to, Object obj) {\n"
+                        + "String str = (String) obj;\n"
+                        + "if (to == Boolean.class || to == boolean.class) {\n"
+                        + "return Boolean.valueOf (str);\n"
+                        + "} else if (to == Byte.class || to == byte.class) {\n"
+                        + "return Byte.valueOf (str);\n"
+                        + "} else if (to == Character.class || to == char.class) {\n"
+                        + "return Character.valueOf (str.charAt (0));\n"
+                        + "} else if (to == Short.class || to == short.class) {\n"
+                        + "return Short.valueOf (str);\n"
+                        + "} else if (to == Integer.class || to == int.class) {\n"
+                        + "return Integer.valueOf (str);\n"
+                        + "} else if (to == Long.class || to == long.class) {\n"
+                        + "return Long.valueOf (str);\n"
+                        + "} else if (to == Float.class || to == float.class) {\n"
+                        + "return Float.valueOf (str);\n"
+                        + "} else if (to == Double.class || to == double.class) {\n"
+                        + "return Double.valueOf (str);\n"
+                        + "} else {\n"
+                        + "return null;\n"
+                        + "}\n"
+                        + "}";
+                // @formatter:on
             }
         };
         register(String.class, boolean.class, tc);
@@ -136,7 +151,7 @@ public class TypeConvertorRegistry {
             }
 
             public String getCodeGenString() {
-                return "(Class from, Class to, Object obj) {\n" + "return Font.decode ((String) obj);\n" + "}";
+                return "(Class from, Class to, Object obj) {\nreturn Font.decode ((String) obj);\n}";
             }
         };
         register(String.class, Font.class, tc);
@@ -148,7 +163,7 @@ public class TypeConvertorRegistry {
             }
 
             public String getCodeGenString() {
-                return "(Class from, Class to, Object obj) {\n" + "return Color.decode ((String) obj);\n" + "}";
+                return "(Class from, Class to, Object obj) {\nreturn Color.decode ((String) obj);\n}";
             }
         };
         register(String.class, Color.class, tc);

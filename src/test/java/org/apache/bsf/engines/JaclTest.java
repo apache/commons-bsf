@@ -149,7 +149,7 @@ public class JaclTest extends AbstractBSFEngineTest {
 
         try {
             bsfManager.declareBean("foo", foo, Integer.class);
-            bar = (Integer) jaclEngine.eval("Test.jacl", 0, 0, "proc ret {} {\n upvar 1 foo lfoo\n " + "return $lfoo\n }\n ret");
+            bar = (Integer) jaclEngine.eval("Test.jacl", 0, 0, "proc ret {} {\n upvar 1 foo lfoo\n return $lfoo\n }\n ret");
         } catch (final Exception e) {
             fail(failMessage("declareBean() test failed", e));
         }

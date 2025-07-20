@@ -41,7 +41,7 @@ class BSFCommand implements Command {
 
     public void cmdProc(final Interp interp, final TclObject argv[]) throws TclException {
         if (argv.length < 2) {
-            interp.setResult("invalid # of args; usage: bsf " + "lookupBean|registerBean|unregisterBean|addEventListener args");
+            interp.setResult("invalid # of args; usage: bsf lookupBean|registerBean|unregisterBean|addEventListener args");
             throw new TclException(TCL.ERROR);
         }
 
@@ -49,7 +49,7 @@ class BSFCommand implements Command {
 
         if (op.equals("lookupBean")) {
             if (argv.length != 3) {
-                interp.setResult("invalid # of args; usage: bsf " + "lookupBean name-of-bean");
+                interp.setResult("invalid # of args; usage: bsf lookupBean name-of-bean");
                 throw new TclException(TCL.ERROR);
             }
 
@@ -63,7 +63,7 @@ class BSFCommand implements Command {
 
         } else if (op.equals("registerBean")) {
             if (argv.length != 4) {
-                interp.setResult("invalid # of args; usage: bsf " + "registerBean name-of-bean bean");
+                interp.setResult("invalid # of args; usage: bsf registerBean name-of-bean bean");
                 throw new TclException(TCL.ERROR);
             }
             mgr.registerBean(argv[2].toString(), ReflectObject.get(interp, argv[3]));
@@ -71,7 +71,7 @@ class BSFCommand implements Command {
 
         } else if (op.equals("unregisterBean")) {
             if (argv.length != 3) {
-                interp.setResult("invalid # of args; usage: bsf " + "unregisterBean name-of-bean");
+                interp.setResult("invalid # of args; usage: bsf unregisterBean name-of-bean");
                 throw new TclException(TCL.ERROR);
             }
             mgr.unregisterBean(argv[2].toString());
@@ -79,7 +79,7 @@ class BSFCommand implements Command {
 
         } else if (op.equals("addEventListener")) {
             if (argv.length != 6) {
-                interp.setResult("invalid # of args; usage: bsf " + "addEventListener object event-set-name filter " + "script-to-run");
+                interp.setResult("invalid # of args; usage: bsf addEventListener object event-set-name filter script-to-run");
                 throw new TclException(TCL.ERROR);
             }
             try {

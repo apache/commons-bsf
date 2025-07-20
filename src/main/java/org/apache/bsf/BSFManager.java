@@ -606,7 +606,7 @@ public class BSFManager {
             }
         }
         throw new BSFException(BSFException.REASON_OTHER_ERROR,
-                "[BSFManager.getLangFromFilename] file extension missing or unknown: " + "unable to determine language for '" + fileName + "'");
+                "[BSFManager.getLangFromFilename] file extension missing or unknown: unable to determine language for '" + fileName + "'");
     }
 
     /**

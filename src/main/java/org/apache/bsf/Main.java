@@ -147,13 +147,13 @@ public class Main {
         System.err.println("    args:");
         System.err.println();
         System.err.println("      [-in                fileName]   default: " + DEFAULT_IN_FILE_NAME);
-        System.err.println("      [-lang          languageName]   default: " + "<If -in is specified and -lang");
-        System.err.println("                                               " + " is not, attempt to determine");
-        System.err.println("                                               " + " language from file extension;");
-        System.err.println("                                               " + " otherwise, -lang is required.>");
+        System.err.println("      [-lang          languageName]   default: <If -in is specified and -lang");
+        System.err.println("                                                is not, attempt to determine");
+        System.err.println("                                                language from file extension;");
+        System.err.println("                                                otherwise, -lang is required.>");
         System.err.println("      [-mode   (eval|exec|compile)]   default: " + DEFAULT_MODE);
         System.err.println();
-        System.err.println("    Additional args used only if -mode is " + "set to \"compile\":");
+        System.err.println("    Additional args used only if -mode is set to \"compile\":");
         System.err.println();
         System.err.println("      [-out              className]   default: " + DEFAULT_CLASS_NAME);
     }

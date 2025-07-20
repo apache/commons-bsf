@@ -158,7 +158,7 @@ public class ReflectionUtils {
         // find an event adapter class of the right type
         final Class adapterClass = EventAdapterRegistry.lookup(listenerType);
         if (adapterClass == null) {
-            throw new IllegalArgumentException("event adapter for listener type " + "'" + listenerType + "' (eventset " + "'" + eventSetName + "') unknown");
+            throw new IllegalArgumentException("event adapter for listener type '" + listenerType + "' (eventset '" + eventSetName + "') unknown");
         }
 
         // create the event adapter and give it the event processor
@@ -304,7 +304,7 @@ public class ReflectionUtils {
             final Object value = f.get(target);
             return new Bean(fieldType, value);
         } catch (final NoSuchFieldException e) {
-            throw new IllegalArgumentException("field '" + fieldName + "' is " + "unknown for '" + target + "'");
+            throw new IllegalArgumentException("field '" + fieldName + "' is unknown for '" + target + "'");
         }
     }
     //////////////////////////////////////////////////////////////////////////
@@ -327,7 +327,7 @@ public class ReflectionUtils {
         final BeanInfo bi = Introspector.getBeanInfo(target.getClass());
         final PropertyDescriptor pd = (PropertyDescriptor) findFeatureByName("property", propName, bi.getPropertyDescriptors());
         if (pd == null) {
-            throw new IllegalArgumentException("property '" + propName + "' is " + "unknown for '" + target + "'");
+            throw new IllegalArgumentException("property '" + propName + "' is unknown for '" + target + "'");
         }
 
         // get read method and type of property
@@ -336,7 +336,7 @@ public class ReflectionUtils {
         if (index != null) {
             // if index != null, then property is indexed - pd better be so too
             if (!(pd instanceof IndexedPropertyDescriptor)) {
-                throw new IllegalArgumentException("attempt to get non-indexed " + "property '" + propName + "' as being indexed");
+                throw new IllegalArgumentException("attempt to get non-indexed property '" + propName + "' as being indexed");
             }
             final IndexedPropertyDescriptor ipd = (IndexedPropertyDescriptor) pd;
             rm = ipd.getIndexedReadMethod();
@@ -391,7 +391,7 @@ public class ReflectionUtils {
             // now set the value
             f.set(target, fieldVal);
         } catch (final NoSuchFieldException e) {
-            throw new IllegalArgumentException("field '" + fieldName + "' is " + "unknown for '" + target + "'");
+            throw new IllegalArgumentException("field '" + fieldName + "' is unknown for '" + target + "'");
         }
     }
     //////////////////////////////////////////////////////////////////////////
@@ -417,7 +417,7 @@ public class ReflectionUtils {
         final BeanInfo bi = Introspector.getBeanInfo(target.getClass());
         final PropertyDescriptor pd = (PropertyDescriptor) findFeatureByName("property", propName, bi.getPropertyDescriptors());
         if (pd == null) {
-            throw new IllegalArgumentException("property '" + propName + "' is " + "unknown for '" + target + "'");
+            throw new IllegalArgumentException("property '" + propName + "' is unknown for '" + target + "'");
         }
 
         // get write method and type of property
@@ -426,7 +426,7 @@ public class ReflectionUtils {
         if (index != null) {
             // if index != null, then property is indexed - pd better be so too
             if (!(pd instanceof IndexedPropertyDescriptor)) {
-                throw new IllegalArgumentException("attempt to set non-indexed " + "property '" + propName + "' as being indexed");
+                throw new IllegalArgumentException("attempt to set non-indexed property '" + propName + "' as being indexed");
             }
             final IndexedPropertyDescriptor ipd = (IndexedPropertyDescriptor) pd;
             wm = ipd.getIndexedWriteMethod();

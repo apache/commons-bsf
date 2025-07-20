@@ -63,7 +63,7 @@ public abstract class BSFEngineImpl implements BSFEngine {
 
         if (bsfInfo == null) {
             bsfInfo = new ObjInfo(BSFManager.class, "bsf");
-            cb.addFieldDeclaration("org.apache.bsf.BSFManager bsf = " + "new org.apache.bsf.BSFManager();");
+            cb.addFieldDeclaration("org.apache.bsf.BSFManager bsf = new org.apache.bsf.BSFManager();");
             cb.putSymbol("bsf", bsfInfo);
         }
 
@@ -91,7 +91,7 @@ public abstract class BSFEngineImpl implements BSFEngine {
 
         if (bsfInfo == null) {
             bsfInfo = new ObjInfo(BSFManager.class, "bsf");
-            cb.addFieldDeclaration("org.apache.bsf.BSFManager bsf = " + "new org.apache.bsf.BSFManager();");
+            cb.addFieldDeclaration("org.apache.bsf.BSFManager bsf = new org.apache.bsf.BSFManager();");
             cb.putSymbol("bsf", bsfInfo);
         }
 

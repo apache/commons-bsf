@@ -67,7 +67,7 @@ public class BSFEventProcessor implements EventProcessor {
             throw re;
         } catch (final Exception e) {
             // should not occur
-            System.err.println("BSFError: non-exceptionable event delivery " + "threw exception (that's not nice): " + e);
+            System.err.println("BSFError: non-exceptionable event delivery threw exception (that's not nice): " + e);
             e.printStackTrace();
         }
     }

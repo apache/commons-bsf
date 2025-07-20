@@ -81,7 +81,7 @@ public class JythonTest extends BSFEngineTestCase {
         // iexec() differs from exec() in this engine, primarily
         // in that it only executes up to the first newline.
         try {
-            jythonEngine.iexec("Test.py", 0, 0, "print \"PASSED\"," + "\n" + "print \"FAILED\",");
+            jythonEngine.iexec("Test.py", 0, 0, "print \"PASSED\",\nprint \"FAILED\",");
         } catch (final Exception e) {
             fail(failMessage("iexec() test failed", e));
         }

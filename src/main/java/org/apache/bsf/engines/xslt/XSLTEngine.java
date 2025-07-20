@@ -131,7 +131,7 @@ public class XSLTEngine extends BSFEngineImpl {
                         throw new Exception("Unable to get input from '" + srcObj + "' " + mesg);
                     }
                 } catch (final Exception e) {
-                    throw new BSFException(BSFException.REASON_EXECUTION_ERROR, "BSF:XSLTEngine: unable to get " + "input from '" + srcObj + "' as XML", e);
+                    throw new BSFException(BSFException.REASON_EXECUTION_ERROR, "BSF:XSLTEngine: unable to get input from '" + srcObj + "' as XML", e);
                 }
             }
         } else {

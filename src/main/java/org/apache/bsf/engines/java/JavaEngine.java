@@ -160,7 +160,7 @@ public class JavaEngine extends BSFEngineImpl {
                 classname = gf.className;
 
                 // Write the kluge header to the file.
-                gf.fos.write(("import java.lang.*;" + "import java.util.*;" + "public class " + classname + " {\n"
+                gf.fos.write(("import java.lang.*;import java.util.*;public class " + classname + " {\n"
                         + "  static public Object BSFJavaEngineEntry(org.apache.bsf.BSFManager bsf) {\n").getBytes());
 
                 // Edit the script to replace placeholder with the generated

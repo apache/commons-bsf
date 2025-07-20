@@ -46,7 +46,7 @@ public class JavascriptTest extends BSFEngineTestCase {
 
     public void testExec() {
         try {
-            engine.exec("Test.js", 0, 0, "java.lang.System.out.print " + "(\"PASSED\");");
+            engine.exec("Test.js", 0, 0, "java.lang.System.out.print (\"PASSED\");");
         } catch (final Exception e) {
             fail(failMessage("exec() test failed", e));
         }
@@ -77,7 +77,7 @@ public class JavascriptTest extends BSFEngineTestCase {
 
     public void testIexec() {
         try {
-            engine.iexec("Test.js", 0, 0, "java.lang.System.out.print " + "(\"PASSED\")");
+            engine.iexec("Test.js", 0, 0, "java.lang.System.out.print (\"PASSED\")");
         } catch (final Exception e) {
             fail(failMessage("iexec() test failed", e));
         }
