@@ -18,10 +18,10 @@
 package org.apache.bsf;
 
 /**
- * This class is used in BSF as BSF_LogFactory returning a BSF_Log instance, which is a delegator for an <code>org.apache.commons.logging.Log</code> object.
+ * This class is used in BSF as BSF_LogFactory returning a BSF_Log instance, which is a delegator for an {@code org.apache.commons.logging.Log} object.
  *
- * It implements the static <code>org.apache.commons.logging.LogFactory.getLog({String|Class} object)</code> methods which return an instance of the class
- * <code>org.apache.bsf.BSF_Log</code>, which in turn implements all the methods of the <code>org.apache.commons.logging.Log</code> interface class.
+ * It implements the static {@code org.apache.commons.logging.LogFactory.getLog({String|Class} object)} methods which return an instance of the class
+ * {@code org.apache.bsf.BSF_Log}, which in turn implements all the methods of the {@code org.apache.commons.logging.Log} interface class.
  */
 
 public class BSF_LogFactory {

@@ -18,7 +18,7 @@
 package org.apache.bsf.util;
 
 /**
- * An <code>ObjInfo</code> object is used by a compiler to track the name and type of a bean.
+ * An {@code ObjInfo} object is used by a compiler to track the name and type of a bean.
  */
 public class ObjInfo {
     static private final String QUOTE_CHARS = "\'\"";

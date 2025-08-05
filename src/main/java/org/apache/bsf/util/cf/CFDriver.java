@@ -27,10 +27,10 @@ import java.io.Reader;
 import java.io.Writer;
 
 /**
- * This is an example of how a <code>CodeFormatter</code> bean can be used.
+ * This is an example of how a {@code CodeFormatter} bean can be used.
  * <p>
- * The CFDriver is a stand-alone tool that will instantiate a <code>CodeFormatter</code> bean, configure it according to your command-line arguments, and invoke
- * the formatting. Since the default source of input is <code>stdin</code>, and the default target for output is <code>stdout</code>, a <code>CFDriver</code>
+ * The CFDriver is a stand-alone tool that will instantiate a {@code CodeFormatter} bean, configure it according to your command-line arguments, and invoke
+ * the formatting. Since the default source of input is {@code stdin}, and the default target for output is {@code stdout}, a {@code CFDriver}
  * can also be used as a filter.
  *
  * @see CodeFormatter
@@ -44,7 +44,7 @@ public class CFDriver {
     }
 
     /**
-     * A driver for <code>CodeFormatter</code>.
+     * A driver for {@code CodeFormatter}.
      * <p>
      * Usage:
      * </p> 

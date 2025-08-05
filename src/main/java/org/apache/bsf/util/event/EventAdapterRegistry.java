@@ -24,12 +24,12 @@ import org.apache.bsf.BSFManager;
 
 /**
  * The <em>EventAdapterRegistry</em> is the registry of event adapters. If a desired adapter is not found, the adapter will be dynamically generated when lookup
- * is attempted. Set the <code>dynamic</code> property to <code>false</code> to disable this feature.
+ * is attempted. Set the {@code dynamic} property to {@code false} to disable this feature.
  * <p>
  * This implementation first looks for an adapter in its lookup table and if it doesn't find one looks for a standard implementation of that adapter in the
  * org.apache.bsf.util.event.adapters package with a standard naming convention. The naming convention it assumes is the following: for event listener type
  * {@code a.b.c.FooListener}, it loads an adapter of type {@code org.apache.bsf.util.event.adapters.a_b_c_FooAdapter}. If both the loading and the dynamic
- * generation fail, then a <code>null</code> is returned.
+ * generation fail, then a {@code null} is returned.
  * <p>
  *
  * @see EventAdapter
@@ -110,9 +110,9 @@ public class EventAdapterRegistry {
     }
 
     /**
-     * Indicates whether or not to dynamically generate adapters; default is <code>true</code>.
+     * Indicates whether or not to dynamically generate adapters; default is {@code true}.
      * <p>
-     * If the <code>dynamic</code> property is set to true, and the <code>ClassLoader</code> is unable to resolve an adapter, one will be dynamically generated.
+     * If the {@code dynamic} property is set to true, and the {@code ClassLoader} is unable to resolve an adapter, one will be dynamically generated.
      *
      * @param dynamic whether or not to dynamically generate adapters.
      */

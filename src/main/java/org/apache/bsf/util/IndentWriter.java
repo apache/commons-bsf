@@ -22,33 +22,33 @@ import java.io.PrintWriter;
 import java.io.Writer;
 
 /**
- * An <code>IndentWriter</code> object behaves the same as a <code>PrintWriter</code> object, with the additional capability of being able to print strings that
+ * An {@code IndentWriter} object behaves the same as a {@code PrintWriter} object, with the additional capability of being able to print strings that
  * are prepended with a specified amount of spaces.
  */
 public class IndentWriter extends PrintWriter {
     /**
-     * Forwards its arguments to the <code>PrintWriter</code> constructor with the same signature.
+     * Forwards its arguments to the {@code PrintWriter} constructor with the same signature.
      */
     public IndentWriter(final OutputStream out) {
         super(out);
     }
 
     /**
-     * Forwards its arguments to the <code>PrintWriter</code> constructor with the same signature.
+     * Forwards its arguments to the {@code PrintWriter} constructor with the same signature.
      */
     public IndentWriter(final OutputStream out, final boolean autoFlush) {
         super(out, autoFlush);
     }
 
     /**
-     * Forwards its arguments to the <code>PrintWriter</code> constructor with the same signature.
+     * Forwards its arguments to the {@code PrintWriter} constructor with the same signature.
      */
     public IndentWriter(final Writer out) {
         super(out);
     }
 
     /**
-     * Forwards its arguments to the <code>PrintWriter</code> constructor with the same signature.
+     * Forwards its arguments to the {@code PrintWriter} constructor with the same signature.
      */
     public IndentWriter(final Writer out, final boolean autoFlush) {
         super(out, autoFlush);

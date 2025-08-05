@@ -217,7 +217,7 @@ public class BSFManager {
      *         and &quot;yyyy&quot; a four digit year, &quot;mm&quot; a two digit month, &quot;dd&quot; a two digit day.
      *
      *         <br>
-     *         Example: &quot;<code>250.20120129</code>&quot; stands for: BSF version <code>2.5.0</code> as of <code>2012-01-29</code>.
+     *         Example: &quot;{@code 250.20120129}&quot; stands for: BSF version {@code 2.5.0} as of {@code 2012-01-29}.
      *
      *
      * @since 2006-01-17

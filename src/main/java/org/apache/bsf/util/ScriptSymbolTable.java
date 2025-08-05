@@ -20,7 +20,7 @@ package org.apache.bsf.util;
 import java.util.Hashtable;
 
 /**
- * An <code>ScriptSymbolTable</code> object is used by a <code>CodeBuffer</code> object to implement nested scopes.
+ * An {@code ScriptSymbolTable} object is used by a {@code CodeBuffer} object to implement nested scopes.
  */
 class ScriptSymbolTable extends Hashtable {
     private final Hashtable parentTable;

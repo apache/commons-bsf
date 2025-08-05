@@ -21,13 +21,13 @@ import java.lang.reflect.*;
 
 /**
  * This class is used in BSF for logging (a delegator for <em>org.apache.commons.logging</em>, which is needed for compilation) using the
- * <code>org.apache.commons.logging.Log</code> methods.
+ * {@code org.apache.commons.logging.Log} methods.
  * 
- * Therefore this class implements all the <code>org.apache.commons.logging.Log</code> methods. If <code>org.apache.commons.logging.LogFactory</code> is
- * available, then this class is used to get an <code>org.apache.commons.logging.Log</code> instance to which to forward the message.
+ * Therefore this class implements all the {@code org.apache.commons.logging.Log} methods. If {@code org.apache.commons.logging.LogFactory} is
+ * available, then this class is used to get an {@code org.apache.commons.logging.Log} instance to which to forward the message.
  * 
  * Therefore, if Apache's common logging is available, then it is employed. If Apache's commons logging is <em>not</em> available then a <em>no-op</em> behavior
- * is employed, modeled after <code>org.apache.commons.logging.impl.NoOpLog</code>.
+ * is employed, modeled after {@code org.apache.commons.logging.impl.NoOpLog}.
  * 
  */
 

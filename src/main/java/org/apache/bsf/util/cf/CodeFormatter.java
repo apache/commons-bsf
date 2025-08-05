@@ -27,9 +27,9 @@ import org.apache.bsf.util.IndentWriter;
 import org.apache.bsf.util.StringUtils;
 
 /**
- * A <code>CodeFormatter</code> bean is used to format raw Java code. It indents, word-wraps, and replaces tab characters with an amount of space characters
- * equal to the size of the <code>indentationStep</code> property. To create and use a <code>CodeFormatter</code>, you simply instantiate a new
- * <code>CodeFormatter</code> bean, and invoke <code>formatCode(Reader source, Writer target)</code> with appropriate arguments.
+ * A {@code CodeFormatter} bean is used to format raw Java code. It indents, word-wraps, and replaces tab characters with an amount of space characters
+ * equal to the size of the {@code indentationStep} property. To create and use a {@code CodeFormatter}, you simply instantiate a new
+ * {@code CodeFormatter} bean, and invoke {@code formatCode(Reader source, Writer target)} with appropriate arguments.
  *
  * @version 1.0
  */
@@ -84,7 +84,7 @@ public class CodeFormatter {
     }
 
     /**
-     * Formats the code read from <code>source</code>, and writes the formatted code to <code>target</code>.
+     * Formats the code read from {@code source}, and writes the formatted code to {@code target}.
      *
      * @param source where to read the unformatted code from.
      * @param target where to write the formatted code to.
@@ -278,10 +278,10 @@ public class CodeFormatter {
     }
 
     /**
-     * Sets the set of delimiters; default set is <code>"(+"</code>.
+     * Sets the set of delimiters; default set is {@code "(+"}.
      * <p>
      * Each character represents one delimiter. If a line is ready to be word-wrapped and a delimiter is encountered, the delimiter will appear as the <em>first
-     * character on the following line</em>. A quotation mark, <code>"</code> or <code>'</code>, opening a string is always a delimiter, whether you specify it
+     * character on the following line</em>. A quotation mark, {@code "} or {@code '}, opening a string is always a delimiter, whether you specify it
      * or not.
      *
      * @param newDelimiters the new set of delimiters.
@@ -292,7 +292,7 @@ public class CodeFormatter {
     }
 
     /**
-     * Sets the size of the indentation step; default size is <code>2</code>.
+     * Sets the size of the indentation step; default size is {@code 2}.
      * <p>
      * This is the number of spaces that lines will be indented (when appropriate).
      *
@@ -304,7 +304,7 @@ public class CodeFormatter {
     }
 
     /**
-     * Sets the (desired) maximum line length; default length is <code>74</code>.
+     * Sets the (desired) maximum line length; default length is {@code 74}.
      * <p>
      * If a token is longer than the requested maximum line length, then the line containing that token will obviously be longer than the desired maximum.
      *
@@ -316,10 +316,10 @@ public class CodeFormatter {
     }
 
     /**
-     * Sets the set of sticky delimiters; default set is <code>","</code>.
+     * Sets the set of sticky delimiters; default set is {@code ","}.
      * <p>
      * Each character represents one sticky delimiter. If a line is ready to be word-wrapped and a sticky delimiter is encountered, the sticky delimiter will
-     * appear as the <em>last character on the current line</em>. A quotation mark, <code>"</code> or <code>'</code>, closing a string is always a sticky
+     * appear as the <em>last character on the current line</em>. A quotation mark, {@code "} or {@code '}, closing a string is always a sticky
      * delimiter, whether you specify it or not.
      *
      * @param newStickyDelimiters the new set of sticky delimiters.
