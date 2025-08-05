@@ -40,7 +40,7 @@ public class JavaUtils {
         logger.debug("JavaEngine: Classpath is " + classPath);
 
         try {
-            final Process p = java.lang.Runtime.getRuntime().exec(args);
+            final Process p = Runtime.getRuntime().exec(args);
             p.waitFor();
             return (p.exitValue() != 0);
         } catch (final IOException e) {
