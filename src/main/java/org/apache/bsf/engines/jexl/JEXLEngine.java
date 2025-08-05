@@ -107,9 +107,9 @@ public class JEXLEngine extends BSFEngineImpl {
             final BSFDeclaredBean bean = (BSFDeclaredBean) declaredBeans.elementAt(i);
             vars.put(bean.name, bean.bean);
         }
-        vars.put("java.lang.System.out", java.lang.System.out);
-        vars.put("java.lang.System.in", java.lang.System.in);
-        vars.put("java.lang.System.err", java.lang.System.err);
+        vars.put("java.lang.System.out", System.out);
+        vars.put("java.lang.System.in", System.in);
+        vars.put("java.lang.System.err", System.err);
         vars.put("bsf", new BSFFunctions(mgr, this));
         engine = new JexlBuilder().cache(32).permissions(BSF_PERMISSIONS).create();
     }
