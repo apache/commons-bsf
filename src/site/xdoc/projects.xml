@@ -52,7 +52,7 @@
           </tr>
           <tr>
             <th>URL:</th>
-            <td><a href="http://www.beanshell.org/">http://www.beanshell.org/</a></td>
+            <td><a href="http://www.beanshell.org/">https://www.beanshell.org/</a></td>
           </tr>
           <tr>
             <th>Contact:</th>
@@ -82,7 +82,7 @@
           </tr>
           <tr>
             <th>URL:</th>
-            <td><a href="http://groovy.codehaus.org/">http://groovy.codehaus.org/</a></td>
+            <td><a href="http://groovy.codehaus.org/">https://groovy.codehaus.org/</a></td>
           </tr>
           <tr>
             <th>Contact:</th>
@@ -114,7 +114,7 @@
           </tr>
           <tr>
             <th>URL:</th>
-            <td><a href="http://groovy.codehaus.org/Groovy+Monkey">http://groovy.codehaus.org/Groovy+Monkey</a></td>
+            <td><a href="http://groovy.codehaus.org/Groovy+Monkey">https://groovy.codehaus.org/Groovy+Monkey</a></td>
           </tr>
 
         </table>
@@ -134,7 +134,7 @@
           </tr>
           <tr>
             <th>URL:</th>
-            <td><a href="http://tcl.activestate.com/software/java/">http://tcl.activestate.com/software/java/</a></td>
+            <td><a href="http://tcl.activestate.com/software/java/">https://tcl.activestate.com/software/java/</a></td>
           </tr>
           <tr>
             <th>Contact:</th>
@@ -193,7 +193,7 @@
           </tr>
           <tr>
             <th>URL:</th>
-            <td><a href="http://www.mozilla.org/rhino/">http://www.mozilla.org/rhino/</a></td>
+            <td><a href="http://www.mozilla.org/rhino/">https://www.mozilla.org/rhino/</a></td>
           </tr>
           <tr>
             <th>Contact:</th>
@@ -215,7 +215,7 @@
 		  express in it than in Java, and for these cases a Prolog BSF engine comes in handy.
 		  It is also useful for adding a GUI to Prolog programs.
 		  The underlying Prolog interpreter is JLog, which can be run as an applet, an application
-		  or embedded through an API, and can be found at <a href="http://sf.net/projects/jlogic/">http://sf.net/projects/jlogic/</a>.&quot;
+		  or embedded through an API, and can be found at <a href="http://sf.net/projects/jlogic/">https://sf.net/projects/jlogic/</a>.&quot;
         </p>
         <table>
           <tr>
@@ -224,7 +224,7 @@
           </tr>
           <tr>
             <th>URL:</th>
-            <td><a href="http://www.ulfdittmer.com/jlog/">http://www.ulfdittmer.com/jlog/</a></td>
+            <td><a href="http://www.ulfdittmer.com/jlog/">https://www.ulfdittmer.com/jlog/</a></td>
           </tr>
           <tr>
             <th>Contact:</th>
@@ -251,7 +251,7 @@
           </tr>
           <tr>
             <th>URL:</th>
-            <td><a href="http://jruby.sourceforge.net/">http://jruby.sourceforge.net/</a></td>
+            <td><a href="http://jruby.sourceforge.net/">https://jruby.sourceforge.net/</a></td>
           </tr>
           <tr>
             <th>Contact:</th>
@@ -280,7 +280,7 @@
           </tr>
           <tr>
             <th>URL:</th>
-            <td><a href="http://www.judoscript.com/">http://www.judoscript.com/</a></td>
+            <td><a href="http://www.judoscript.com/">https://www.judoscript.com/</a></td>
           </tr>
           <tr>
             <th>Contact:</th>
@@ -309,7 +309,7 @@
           </tr>
           <tr>
             <th>URL:</th>
-            <td><a href="http://www.jython.org/">http://www.jython.org/</a></td>
+            <td><a href="http://www.jython.org/">https://www.jython.org/</a></td>
           </tr>
           <tr>
             <th>Contact:</th>
@@ -336,7 +336,7 @@
           </tr>
           <tr>
             <th>URL:</th>
-            <td><a href="http://www2.hursley.ibm.com/netrexx/">http://www2.hursley.ibm.com/netrexx/</a></td>
+            <td><a href="http://www2.hursley.ibm.com/netrexx/">https://www2.hursley.ibm.com/netrexx/</a></td>
           </tr>
           <tr>
             <th>Contact:</th>
@@ -351,12 +351,12 @@
 
       <subsection name="ObjectRexx/Rexx">
         <p>
-        &quot;Open Object Rexx (ooRexx, <a  href="http://www.ooRexx.org">http://www.ooRexx.org</a>) is a free
+        &quot;Open Object Rexx (ooRexx, <a  href="http://www.ooRexx.org">https://www.ooRexx.org</a>) is a free
         and opensource language, which was originally developed by IBM, and made available for opensourcing and further
         developing it.
         <br></br>
 
-        The non-profit SIG  Rexx Language Association (<a href="http://www.RexxLA.org">http://www.RexxLA.org</a>)
+        The non-profit SIG  Rexx Language Association (<a href="http://www.RexxLA.org">https://www.RexxLA.org</a>)
         received the source code from IBM at the end of 2004 and released an opensource version
         to the community in the spring of 2005.
 
@@ -383,7 +383,7 @@
 
                   <tr>
                     <th>URL:</th>
-                     <td><a href="http://www.ooRexx.org">http://www.ooRexx.org</a></td>
+                     <td><a href="http://www.ooRexx.org">https://www.ooRexx.org</a></td>
                   </tr>
 
                   <tr>
@@ -406,12 +406,12 @@
 
                   <tr>
                     <th>URL:</th>
-                     <td><a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4oorexx/current/">http://wi.wu-wien.ac.at/rgf/rexx/bsf4oorexx/current/</a> (temporary home)</td>
+                     <td><a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4oorexx/current/">https://wi.wu-wien.ac.at/rgf/rexx/bsf4oorexx/current/</a> (temporary home)</td>
                   </tr>
 
                   <tr>
                     <th>(future) URL:</th>
-                     <td><a href="http://bsf4rexx.sourceforge.net/">http://bsf4rexx.sourceforge.net</a>  (planned home)</td>
+                     <td><a href="http://bsf4rexx.sourceforge.net/">https://bsf4rexx.sourceforge.net</a>  (planned home)</td>
                   </tr>
 
                   <tr>
@@ -444,7 +444,7 @@
           </tr>
           <tr>
             <th>URL:</th>
-            <td><a href="http://objectscript.sourceforge.net/">http://objectscript.sourceforge.net/</a></td>
+            <td><a href="http://objectscript.sourceforge.net/">https://objectscript.sourceforge.net/</a></td>
           </tr>
           <tr>
             <th>Contact:</th>

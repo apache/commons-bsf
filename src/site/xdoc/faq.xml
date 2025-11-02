@@ -243,7 +243,7 @@
       <question>Javadoc failed: java.io.IOException: javadoc: cannot execute</question>
       <answer>
         <p>There is a bug in the Solaris reference implementation of
-        the JDK (see <a href="http://developer.java.sun.com/developer/bugParade/bugs/4230399.html">http://developer.java.sun.com/developer/bugParade/bugs/4230399.html</a>).
+        the JDK (see <a href="http://developer.java.sun.com/developer/bugParade/bugs/4230399.html">https://developer.java.sun.com/developer/bugParade/bugs/4230399.html</a>).
         This also appears to be true under Linux. Moving the JDK to
         the front of the PATH fixes the problem.</p>
       </answer>
