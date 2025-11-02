@@ -30,7 +30,7 @@
   </description>
 
   <taglib>
-    <taglib-uri>http://jakarta.apache.org/taglibs/bsf-2.0</taglib-uri>
+    <taglib-uri>https://jakarta.apache.org/taglibs/bsf-2.0</taglib-uri>
     <taglib-location>/WEB-INF/bsf.tld</taglib-location>
   </taglib>
 
