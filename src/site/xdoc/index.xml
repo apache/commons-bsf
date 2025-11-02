@@ -66,27 +66,27 @@ BSF 2.x supports several scripting languages currently:
 
 <ul>
    <li>
-       <a href="http://www.mozilla.org/rhino/">Javascript (using Rhino ECMAScript, from the Mozilla project)</a>
+       <a href="https://www.mozilla.org/rhino/">Javascript (using Rhino ECMAScript, from the Mozilla project)</a>
    </li>
 
    <li>
-       <a href="http://www-306.ibm.com/software/awdtools/netrexx/">NetRexx</a> (an extension of the IBM REXX scripting language in Java)
+       <a href="https://www-306.ibm.com/software/awdtools/netrexx/">NetRexx</a> (an extension of the IBM REXX scripting language in Java)
    </li>
 
    <li>
-       <a href="http://commons.apache.org/jexl/">Commons JEXL</a>
+       <a href="https://commons.apache.org/jexl/">Commons JEXL</a>
    </li>
 
    <li>
-       <a href="http://jython.sourceforge.net/">Python (using Jython) </a>
+       <a href="https://jython.sourceforge.net/">Python (using Jython) </a>
    </li>
 
    <li>
-       <a href="http://tcljava.sourceforge.net/">Tcl (using Jacl)</a>
+       <a href="https://tcljava.sourceforge.net/">Tcl (using Jacl)</a>
    </li>
 
    <li>
-       <a href="http://xalan.apache.org">XSLT Stylesheets (as a component of Apache XML project's Xalan and Xerces)</a>
+       <a href="https://xalan.apache.org">XSLT Stylesheets (as a component of Apache XML project's Xalan and Xerces)</a>
    </li>
 </ul>
 </p>
@@ -95,36 +95,36 @@ BSF 2.x supports several scripting languages currently:
 
 <ul>
    <li>
-       Java (using <a href="http://www.beanshell.org/">BeanShell</a>, from the BeanShell project)
+       Java (using <a href="https://www.beanshell.org/">BeanShell</a>, from the BeanShell project)
    </li>
 
    <li>
-       <a href="http://groovy.codehaus.org/">Groovy</a>
+       <a href="https://groovy.codehaus.org/">Groovy</a>
    </li>
 
    <li>
-       <a href="http://groovy.codehaus.org/Groovy+Monkey">Groovy Monkey</a>
+       <a href="https://groovy.codehaus.org/Groovy+Monkey">Groovy Monkey</a>
    </li>
 
    <li>
-       <a href="http://www.ulfdittmer.com/jlog/index.html">JLog</a> (<a href="http://jlogic.sourceforge.net/">PROLOG implemented in Java</a>)
+       <a href="https://www.ulfdittmer.com/jlog/index.html">JLog</a> (<a href="https://jlogic.sourceforge.net/">PROLOG implemented in Java</a>)
    </li>
 
    <li>
-       <a href="http://jruby.codehaus.org/">JRuby</a>
+       <a href="https://jruby.codehaus.org/">JRuby</a>
    </li>
 
    <li>
-       <a href="http://www.judoscript.org">JudoScript</a>
+       <a href="https://www.judoscript.org">JudoScript</a>
    </li>
 
    <li>
-       <a href="http://objectscript.sourceforge.net/">ObjectScript</a>
+       <a href="https://objectscript.sourceforge.net/">ObjectScript</a>
    </li>
 
    <li>
-       	<a href="http://www.oorexx.org/">ooRexx (Open Object Rexx)</a>, using
-    	<a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4oorexx/current/">BSF4ooRexx</a>.
+       	<a href="https://www.oorexx.org/">ooRexx (Open Object Rexx)</a>, using
+    	<a href="https://wi.wu-wien.ac.at/rgf/rexx/bsf4oorexx/current/">BSF4ooRexx</a>.
    </li>
 
 </ul>
@@ -154,9 +154,9 @@ Documentation and examples are included in the source and binary distributions.
 <p>
 The following references describe the standard API (javax.script) which is implemented by BSF 3.x:
 <ul>
-<li><a href="http://jcp.org/aboutJava/communityprocess/final/jsr223/index.html">JSR-223 Scripting for the Java Platform</a> - specification (PDF)</li>
-<li><a href="http://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Javadoc for javax.script classes</a> in Java 6</li>
-<li><a href="http://java.sun.com/developer/technicalArticles/J2SE/Desktop/scripting/">Scripting for the Java platform (Sun technical article)</a></li>
+<li><a href="https://jcp.org/aboutJava/communityprocess/final/jsr223/index.html">JSR-223 Scripting for the Java Platform</a> - specification (PDF)</li>
+<li><a href="https://java.sun.com/javase/6/docs/api/javax/script/package-summary.html">Javadoc for javax.script classes</a> in Java 6</li>
+<li><a href="https://java.sun.com/developer/technicalArticles/J2SE/Desktop/scripting/">Scripting for the Java platform (Sun technical article)</a></li>
 </ul>
 </p>
 <p>
@@ -188,9 +188,9 @@ with some implementations of javax.script (e.g. Sun Java 6) this may prevent any
 </p>
 <p>
 An example language which includes the necessary engine factory is:
-<a href="http://commons.apache.org/jexl/">Apache Jexl 2.0</a> (requires Java 5).
+<a href="https://commons.apache.org/jexl/">Apache Jexl 2.0</a> (requires Java 5).
 Some other scripting languages also come with their own factories already included.
-For example <a href="http://groovy.codehaus.org/">Groovy</a> and <a href="http://jruby.org/">JRuby</a>.  
+For example <a href="https://groovy.codehaus.org/">Groovy</a> and <a href="https://jruby.org/">JRuby</a>.  
 </p>
 <p>
 Many other languages are supported by the 3rd party engine factories available at 

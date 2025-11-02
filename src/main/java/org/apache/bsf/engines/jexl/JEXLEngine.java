@@ -46,7 +46,7 @@ import org.apache.commons.jexl3.introspection.JexlPermissions;
 /**
  * {@link BSFEngine} for Commons JEXL. Requires Commons JEXL version 1.1 or later.
  *
- * @see <a href="http://commons.apache.org/jexl/">Commons JEXL</a>
+ * @see <a href="https://commons.apache.org/jexl/">Commons JEXL</a>
  */
 public class JEXLEngine extends BSFEngineImpl {
     private static JexlPermissions BSF_PERMISSIONS = JexlPermissions.RESTRICTED;

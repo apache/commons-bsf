@@ -82,7 +82,7 @@
   #if ($value.startsWith("http://"))
     <a href="$value">$name</a>
   #elseif ($value.startsWith("/site"))
-    <a href="http://jakarta.apache.org$value">$name</a>
+    <a href="https://jakarta.apache.org$value">$name</a>
   #else
     <a href="$relativePath$value">$name</a>
   #end
@@ -145,7 +145,7 @@
 #macro (getProjectImage)
   #if ($project.getChild("logo"))
     <td align="left">
-    <a href="http://jakarta.apache.org"><img src="images/jakarta-logo.gif" border="0"/></a>
+    <a href="https://jakarta.apache.org"><img src="images/jakarta-logo.gif" border="0"/></a>
     </td>
     <td align="right">
     #set ( $logoString = $project.getChild("logo").getAttributeValue("href") )
@@ -157,7 +157,7 @@
     </td>
   #else
     <td colspan="2">
-    <a href="http://jakarta.apache.org"><img src="http://jakarta.apache.org/images/jakarta-logo.gif" align="left" border="0"/></a>
+    <a href="https://jakarta.apache.org"><img src="http://jakarta.apache.org/images/jakarta-logo.gif" align="left" border="0"/></a>
     </td>
   #end
 #end

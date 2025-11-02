@@ -71,16 +71,16 @@
             been fixed. The next step, therefore, may be to try a nightly build
             of BSF to see if the problem has been fixed. Nightly builds for BSF
             are available from the
-            <a href="http://www.apache.org/dist/jakarta/jakarta-bsf/nightly/">
+            <a href="https://www.apache.org/dist/jakarta/jakarta-bsf/nightly/">
             Jakarta web site</a>. While BSF nightly builds are typically quite
             stable and are used by
-            <a href="http://www.apache.org/dist/jakarta/gump/latest/">Gump</a>
+            <a href="https://www.apache.org/dist/jakarta/gump/latest/">Gump</a>
             to build many other Jakarta projects, these builds should
             nonetheless be treated as experimental. Note that nightly builds
             do not build many of the optional tasks the come with BSF.
             A snapshot of these optional tasks is occasionally uploaded to
             the nightly download
-            <a href="http://www.apache.org/dist/jakarta/jakarta-bsf/nightly/optional/">
+            <a href="https://www.apache.org/dist/jakarta/jakarta-bsf/nightly/optional/">
             area</a>. However, even this snapshot does not contain every
             optional task.
         </p>
@@ -91,7 +91,7 @@
             It is
             possible that someone else has reported the issue. It is time to
 	    look at the 
-	    <a href="http://issues.apache.org/jira/browse/BSF">
+	    <a href="https://issues.apache.org/jira/browse/BSF">
             Apache Bug Database (JIRA)</a>.  This system is easy to use, and it will 
             let you search the 
             <a href="https://issues.apache.org/jira/secure/IssueNavigator.jspa?mode=hide&amp;requestId=12312131">

@@ -35,7 +35,7 @@
         document?</question>
       <answer>
         <p>The latest version can always be found at BSF&apos;s homepage 
-          <a href="http://commons.apache.org/bsf/faq.html">https://commons.apache.org/bsf/faq.html</a>.</p>
+          <a href="https://commons.apache.org/bsf/faq.html">https://commons.apache.org/bsf/faq.html</a>.</p>
       </answer>
     </subsection>
 
@@ -43,13 +43,13 @@
       <question>How can I contribute to this FAQ?</question>
       <answer>
         <p>The page you are looking it is generated from 
-          <a href="http://cvs.apache.org/viewcvs.cgi/~checkout~/jakarta-bsf/xdocs/faq.xml">this</a>
+          <a href="https://cvs.apache.org/viewcvs.cgi/~checkout~/jakarta-bsf/xdocs/faq.xml">this</a>
           document.  If you want to add a new question, please submit
           a patch against this document to one of BSF&apos;s mailing lists;
           hopefully, the structure is self-explanatory.</p>
         
         <p>If you don&apos;t know how to create a patch, see the patches
-          section of <a href="http://jakarta.apache.org/site/source.html">this
+          section of <a href="https://jakarta.apache.org/site/source.html">this
           page</a>.</p>
       </answer>
     </subsection>
@@ -60,7 +60,7 @@
 
       <answer>
         <p>We use 
-        <a href="http://jakarta.apache.org/velocity/anakia.html">Anakia</a>
+        <a href="https://jakarta.apache.org/velocity/anakia.html">Anakia</a>
         to render the HTML version from the original XML file.</p>
 
         <p>The Velocity stylesheets used to process the XML files can
@@ -164,7 +164,7 @@
         you cannot use it to extract the archive.</p>
 
         <p>The solution is to either install GNU tar, which can be
-        found <a href="http://www.gnu.org/software/tar/tar.html">here</a>,
+        found <a href="https://www.gnu.org/software/tar/tar.html">here</a>,
         or use the zip archive instead (you can extract it using
         <code>jar xf</code>).</p>
       </answer>
@@ -181,14 +181,14 @@
         application server. In order to be used as a class library or as
         a standalone system, one simply downloads a copy of the bsf.jar
         file from the
-        <a href="http://commons.apache.org/bsf/index.html">BSF web site</a>
+        <a href="https://commons.apache.org/bsf/index.html">BSF web site</a>
         and includes it in their classpath, along with any required classes
         or jar files for the desired languages.    
         </p>
         
         <p>
         In order to use BSF as part of the
-        <a href="http://tomcat.apache.org/tomcat/">Tomcat</a>
+        <a href="https://tomcat.apache.org/tomcat/">Tomcat</a>
         servlet engine, one must currently download patches from the BSF
         web site that permit Jasper to call BSF. Instructions for this will be
         posted on the website, and will be accompanied by prebuilt binaries.
@@ -243,7 +243,7 @@
       <question>Javadoc failed: java.io.IOException: javadoc: cannot execute</question>
       <answer>
         <p>There is a bug in the Solaris reference implementation of
-        the JDK (see <a href="http://developer.java.sun.com/developer/bugParade/bugs/4230399.html">https://developer.java.sun.com/developer/bugParade/bugs/4230399.html</a>).
+        the JDK (see <a href="https://developer.java.sun.com/developer/bugParade/bugs/4230399.html">https://developer.java.sun.com/developer/bugParade/bugs/4230399.html</a>).
         This also appears to be true under Linux. Moving the JDK to
         the front of the PATH fixes the problem.</p>
       </answer>

@@ -52,16 +52,16 @@
           </tr>
           <tr>
             <th>URL:</th>
-            <td><a href="http://www.beanshell.org/">https://www.beanshell.org/</a></td>
+            <td><a href="https://www.beanshell.org/">https://www.beanshell.org/</a></td>
           </tr>
           <tr>
             <th>Contact:</th>
-            <td><a href="http://www.beanshell.org/contact.html">project mailing lists</a></td>
+            <td><a href="https://www.beanshell.org/contact.html">project mailing lists</a></td>
           </tr>
           <tr>
             <th>License:</th>
-            <td>Dual Licensed: <a href="http://www.opensource.org/licenses/sunpublic.php">Sun Public License</a> /
-                                          <a href="http://www.opensource.org/licenses/lgpl-license.php">Gnu Lesser Public License</a></td>
+            <td>Dual Licensed: <a href="https://www.opensource.org/licenses/sunpublic.php">Sun Public License</a> /
+                                          <a href="https://www.opensource.org/licenses/lgpl-license.php">Gnu Lesser Public License</a></td>
           </tr>
         </table>
       </subsection>
@@ -82,15 +82,15 @@
           </tr>
           <tr>
             <th>URL:</th>
-            <td><a href="http://groovy.codehaus.org/">https://groovy.codehaus.org/</a></td>
+            <td><a href="https://groovy.codehaus.org/">https://groovy.codehaus.org/</a></td>
           </tr>
           <tr>
             <th>Contact:</th>
-            <td><a href="http://groovy.codehaus.org/mail-lists.html">Mailing lists</a></td>
+            <td><a href="https://groovy.codehaus.org/mail-lists.html">Mailing lists</a></td>
           </tr>
           <tr>
             <th>License:</th>
-            <td><a href="http://www.opensource.org/licenses/bsd-license.php">BSD</a> (Apache-like) License</td>
+            <td><a href="https://www.opensource.org/licenses/bsd-license.php">BSD</a> (Apache-like) License</td>
           </tr>
         </table>
       </subsection>
@@ -98,7 +98,7 @@
 
       <subsection name="Groovy Monkey">
         <p>
-        &quot;<a href="http://groovy.codehaus.org/Groovy+Monkey">Groovy Monkey</a> is a
+        &quot;<a href="https://groovy.codehaus.org/Groovy+Monkey">Groovy Monkey</a> is a
         dynamic scripting tool for the Eclipse Platform/RCP that enables you to
         automate tasks, explore the Eclipse API and engage in rapid prototyping.
         Groovy Monkey makes use of the BSF framework to allow users to write scripts
@@ -114,7 +114,7 @@
           </tr>
           <tr>
             <th>URL:</th>
-            <td><a href="http://groovy.codehaus.org/Groovy+Monkey">https://groovy.codehaus.org/Groovy+Monkey</a></td>
+            <td><a href="https://groovy.codehaus.org/Groovy+Monkey">https://groovy.codehaus.org/Groovy+Monkey</a></td>
           </tr>
 
         </table>
@@ -134,7 +134,7 @@
           </tr>
           <tr>
             <th>URL:</th>
-            <td><a href="http://tcl.activestate.com/software/java/">https://tcl.activestate.com/software/java/</a></td>
+            <td><a href="https://tcl.activestate.com/software/java/">https://tcl.activestate.com/software/java/</a></td>
           </tr>
           <tr>
             <th>Contact:</th>
@@ -161,7 +161,7 @@
           </tr>
           <tr>
             <th>URL:</th>
-            <td><a href="http://commons.apache.org/jexl/">https://commons.apache.org/jexl/</a></td>
+            <td><a href="https://commons.apache.org/jexl/">https://commons.apache.org/jexl/</a></td>
           </tr>
           <tr>
             <th>Contact:</th>
@@ -169,7 +169,7 @@
           </tr>
           <tr>
             <th>License:</th>
-            <td><a href="http://www.opensource.org/licenses/apache2.0.php">Apache v2.0</a></td>
+            <td><a href="https://www.opensource.org/licenses/apache2.0.php">Apache v2.0</a></td>
           </tr>
         </table>
       </subsection>
@@ -193,15 +193,15 @@
           </tr>
           <tr>
             <th>URL:</th>
-            <td><a href="http://www.mozilla.org/rhino/">https://www.mozilla.org/rhino/</a></td>
+            <td><a href="https://www.mozilla.org/rhino/">https://www.mozilla.org/rhino/</a></td>
           </tr>
           <tr>
             <th>Contact:</th>
-            <td><a href="http://www.mozilla.org/rhino/help.html">Rhino Contact Page</a></td>
+            <td><a href="https://www.mozilla.org/rhino/help.html">Rhino Contact Page</a></td>
           </tr>
           <tr>
             <th>License:</th>
-            <td><a href="http://www.opensource.org/licenses/mozilla1.1.php">Mozilla Public License, version 1.1</a></td>
+            <td><a href="https://www.opensource.org/licenses/mozilla1.1.php">Mozilla Public License, version 1.1</a></td>
           </tr>
         </table>
       </subsection>
@@ -215,7 +215,7 @@
 		  express in it than in Java, and for these cases a Prolog BSF engine comes in handy.
 		  It is also useful for adding a GUI to Prolog programs.
 		  The underlying Prolog interpreter is JLog, which can be run as an applet, an application
-		  or embedded through an API, and can be found at <a href="http://sf.net/projects/jlogic/">https://sf.net/projects/jlogic/</a>.&quot;
+		  or embedded through an API, and can be found at <a href="https://sf.net/projects/jlogic/">https://sf.net/projects/jlogic/</a>.&quot;
         </p>
         <table>
           <tr>
@@ -224,7 +224,7 @@
           </tr>
           <tr>
             <th>URL:</th>
-            <td><a href="http://www.ulfdittmer.com/jlog/">https://www.ulfdittmer.com/jlog/</a></td>
+            <td><a href="https://www.ulfdittmer.com/jlog/">https://www.ulfdittmer.com/jlog/</a></td>
           </tr>
           <tr>
             <th>Contact:</th>
@@ -232,7 +232,7 @@
           </tr>
           <tr>
             <th>License:</th>
-            <td><a href="http://www.opensource.org/licenses/gpl-license.php">GPL</a> (same as JLog itself)</td>
+            <td><a href="https://www.opensource.org/licenses/gpl-license.php">GPL</a> (same as JLog itself)</td>
           </tr>
         </table>
       </subsection>
@@ -251,7 +251,7 @@
           </tr>
           <tr>
             <th>URL:</th>
-            <td><a href="http://jruby.sourceforge.net/">https://jruby.sourceforge.net/</a></td>
+            <td><a href="https://jruby.sourceforge.net/">https://jruby.sourceforge.net/</a></td>
           </tr>
           <tr>
             <th>Contact:</th>
@@ -259,7 +259,7 @@
           </tr>
           <tr>
             <th>License:</th>
-            <td>dual <a href="http://www.opensource.org/licenses/gpl-license.php">GPL</a>/<a href="http://www.opensource.org/licenses/lgpl-license.php">LGPL</a></td>
+            <td>dual <a href="https://www.opensource.org/licenses/gpl-license.php">GPL</a>/<a href="https://www.opensource.org/licenses/lgpl-license.php">LGPL</a></td>
           </tr>
         </table>
       </subsection>
@@ -280,7 +280,7 @@
           </tr>
           <tr>
             <th>URL:</th>
-            <td><a href="http://www.judoscript.com/">https://www.judoscript.com/</a></td>
+            <td><a href="https://www.judoscript.com/">https://www.judoscript.com/</a></td>
           </tr>
           <tr>
             <th>Contact:</th>
@@ -288,7 +288,7 @@
           </tr>
           <tr>
             <th>License:</th>
-            <td><a href="http://www.opensource.org/licenses/lgpl-license.php">LGPL</a></td>
+            <td><a href="https://www.opensource.org/licenses/lgpl-license.php">LGPL</a></td>
           </tr>
         </table>
       </subsection>
@@ -309,7 +309,7 @@
           </tr>
           <tr>
             <th>URL:</th>
-            <td><a href="http://www.jython.org/">https://www.jython.org/</a></td>
+            <td><a href="https://www.jython.org/">https://www.jython.org/</a></td>
           </tr>
           <tr>
             <th>Contact:</th>
@@ -336,11 +336,11 @@
           </tr>
           <tr>
             <th>URL:</th>
-            <td><a href="http://www2.hursley.ibm.com/netrexx/">https://www2.hursley.ibm.com/netrexx/</a></td>
+            <td><a href="https://www2.hursley.ibm.com/netrexx/">https://www2.hursley.ibm.com/netrexx/</a></td>
           </tr>
           <tr>
             <th>Contact:</th>
-            <td><a href="http://www-306.ibm.com/software/awdtools/netrexx/mailinglist.html">NetRexx 2 mailing list</a></td>
+            <td><a href="https://www-306.ibm.com/software/awdtools/netrexx/mailinglist.html">NetRexx 2 mailing list</a></td>
           </tr>
           <tr>
             <th>License:</th>
@@ -351,16 +351,16 @@
 
       <subsection name="ObjectRexx/Rexx">
         <p>
-        &quot;Open Object Rexx (ooRexx, <a  href="http://www.ooRexx.org">https://www.ooRexx.org</a>) is a free
+        &quot;Open Object Rexx (ooRexx, <a  href="https://www.ooRexx.org">https://www.ooRexx.org</a>) is a free
         and opensource language, which was originally developed by IBM, and made available for opensourcing and further
         developing it.
         <br></br>
 
-        The non-profit SIG  Rexx Language Association (<a href="http://www.RexxLA.org">https://www.RexxLA.org</a>)
+        The non-profit SIG  Rexx Language Association (<a href="https://www.RexxLA.org">https://www.RexxLA.org</a>)
         received the source code from IBM at the end of 2004 and released an opensource version
         to the community in the spring of 2005.
 
-        <br></br><a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4oorexx/current/">The BSF engine for ooRexx (BSF4ooRexx) </a> comes with an ooRexx wrapper
+        <br></br><a href="https://wi.wu-wien.ac.at/rgf/rexx/bsf4oorexx/current/">The BSF engine for ooRexx (BSF4ooRexx) </a> comes with an ooRexx wrapper
         program (BSF.CLS) which camouflages Java as ooRexx, easying programming
         considerably (e.g. no need for type information/casting).&quot;
         </p>
@@ -383,12 +383,12 @@
 
                   <tr>
                     <th>URL:</th>
-                     <td><a href="http://www.ooRexx.org">https://www.ooRexx.org</a></td>
+                     <td><a href="https://www.ooRexx.org">https://www.ooRexx.org</a></td>
                   </tr>
 
                   <tr>
                     <th>License:</th>
-                    <td><a href="http://www.opensource.org/licenses/cpl1.0.php">IBM's opensource license CPL v 1.0</a> (hence you can bundle this freely with commercial software as well)
+                    <td><a href="https://www.opensource.org/licenses/cpl1.0.php">IBM's opensource license CPL v 1.0</a> (hence you can bundle this freely with commercial software as well)
                     </td>
                   </tr>
 
@@ -406,12 +406,12 @@
 
                   <tr>
                     <th>URL:</th>
-                     <td><a href="http://wi.wu-wien.ac.at/rgf/rexx/bsf4oorexx/current/">https://wi.wu-wien.ac.at/rgf/rexx/bsf4oorexx/current/</a> (temporary home)</td>
+                     <td><a href="https://wi.wu-wien.ac.at/rgf/rexx/bsf4oorexx/current/">https://wi.wu-wien.ac.at/rgf/rexx/bsf4oorexx/current/</a> (temporary home)</td>
                   </tr>
 
                   <tr>
                     <th>(future) URL:</th>
-                     <td><a href="http://bsf4rexx.sourceforge.net/">https://bsf4rexx.sourceforge.net</a>  (planned home)</td>
+                     <td><a href="https://bsf4rexx.sourceforge.net/">https://bsf4rexx.sourceforge.net</a>  (planned home)</td>
                   </tr>
 
                   <tr>
@@ -421,7 +421,7 @@
 
                     <tr>
                       <th>License:</th>
-                      <td><a href="http://www.opensource.org/licenses/apache2.0.php">Apache v2.0</a>  (hence you can bundle this freely with commercial software as well)
+                      <td><a href="https://www.opensource.org/licenses/apache2.0.php">Apache v2.0</a>  (hence you can bundle this freely with commercial software as well)
                       </td>
                   </tr>
 
@@ -444,7 +444,7 @@
           </tr>
           <tr>
             <th>URL:</th>
-            <td><a href="http://objectscript.sourceforge.net/">https://objectscript.sourceforge.net/</a></td>
+            <td><a href="https://objectscript.sourceforge.net/">https://objectscript.sourceforge.net/</a></td>
           </tr>
           <tr>
             <th>Contact:</th>
@@ -452,7 +452,7 @@
           </tr>
           <tr>
             <th>License:</th>
-            <td><a href="http://www.opensource.org/licenses/lgpl-license.php">LGPL</a></td>
+            <td><a href="https://www.opensource.org/licenses/lgpl-license.php">LGPL</a></td>
           </tr>
         </table>
       </subsection>
@@ -476,7 +476,7 @@
             environment variable or alternatively, copy it into the Java <em><code>endorsed</code></em> or
             <em><code>ext</code></em>ension directory of your
             Java distribution (usually in <code>$(JAVA_JRE_HOME)/jre/lib/{endorsed|ext}</code>). The download
-            site of Xalan (Java version) is at: <a href="http://xml.apache.org/xalan-j/downloads.html">https://xml.apache.org/xalan-j/downloads.html</a>
+            site of Xalan (Java version) is at: <a href="https://xml.apache.org/xalan-j/downloads.html">https://xml.apache.org/xalan-j/downloads.html</a>
             <br></br>
             (You can determine quite easily whether you need to do that: just try to run the <code>xslt</code> sample
             of the BSF distribution. If you encounter the error <code> 'Could not compile stylesheet'</code>, then
@@ -490,15 +490,15 @@
           </tr>
           <tr>
             <th>URL:</th>
-            <td><a href="http://xml.apache.org/xalan-j/index.html">https://xml.apache.org/xalan-j/index.html</a></td>
+            <td><a href="https://xml.apache.org/xalan-j/index.html">https://xml.apache.org/xalan-j/index.html</a></td>
           </tr>
           <tr>
             <th>Contact:</th>
-            <td><a href="http://xml.apache.org/overview.html">Apache XML Project "Get Involved" page</a></td>
+            <td><a href="https://xml.apache.org/overview.html">Apache XML Project "Get Involved" page</a></td>
           </tr>
           <tr>
             <th>License:</th>
-            <td><a href="http://www.opensource.org/licenses/apache2.0.php">Apache v2.0</a></td>
+            <td><a href="https://www.opensource.org/licenses/apache2.0.php">Apache v2.0</a></td>
           </tr>
         </table>
       </subsection>

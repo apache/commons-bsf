@@ -80,14 +80,14 @@
     application server. In order to be used as a class library or as
     a standalone system, you simply download a copy of the bsf.jar
     file from the
-    <a href="http://commons.apache.org/bsf/index.html">BSF web site</a>
+    <a href="https://commons.apache.org/bsf/index.html">BSF web site</a>
     and include it in your classpath, along with any required classes
     or jar files for desired languages.
     </p>
 
     <p>
     In order to use BSF as part of the
-    <a href="http://tomcat.apache.org/tomcat/">Tomcat</a>
+    <a href="https://tomcat.apache.org/tomcat/">Tomcat</a>
     servlet engine, you must currently download patches from the BSF
     web site that permit Jasper to call BSF. Instructions for this will be
     posted on the website, and will soon be accompanied by prebuilt binaries.
@@ -135,7 +135,7 @@
     <p>
     Multiple languages can be supported within a given JSP; this is
     accomplished by using the BSF taglibs, which are available from the
-    <a href="http://tomcat.apache.org/taglibs/index.html">Jakarta Taglibs</a>
+    <a href="https://tomcat.apache.org/taglibs/index.html">Jakarta Taglibs</a>
     project. BSF taglib provides two tags: <code>scriptlet</code> and
     <code>expression</code>. Both of these have a required language attribute,
     which is used to specify the language used on a per <code>scriptlet</code>

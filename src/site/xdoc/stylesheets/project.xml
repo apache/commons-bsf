@@ -19,7 +19,7 @@
 -->
 
 <project name="Apache Commons BSF"
-         href="http://commons.apache.org/bsf/">
+         href="https://commons.apache.org/bsf/">
 
     <title>Jakarta BSF</title>
     <logo href="images/bsf_logo.jpg">Jakarta BSF</logo>
@@ -57,11 +57,11 @@
     <menu name="Get Involved">
         <item name="Overview"              href="/site/getinvolved.html"/>
         <item name="Source Repositories"   href="/site/cvsindex.html"/>
-        <item name="Netiquette"            href="http://www.faqs.org/rfcs/rfc1855.html"/>
+        <item name="Netiquette"            href="https://www.faqs.org/rfcs/rfc1855.html"/>
         <item name="Mailing Lists"         href="/site/mail.html"/>
         <item name="Reference Library"     href="/site/library.html"/>
-        <item name="Bug Database"          href="http://issues.apache.org/jira/browse/BSF"/>
-        <item name="Enhancement Requests"  href="http://issues.apache.org/jira/secure/IssueNavigator.jspa?reset=true&amp;type=4&amp;pid=12310621&amp;resolution=-1&amp;sorter/field=issuekey&amp;sorter/order=ASC"/>
+        <item name="Bug Database"          href="https://issues.apache.org/jira/browse/BSF"/>
+        <item name="Enhancement Requests"  href="https://issues.apache.org/jira/secure/IssueNavigator.jspa?reset=true&amp;type=4&amp;pid=12310621&amp;resolution=-1&amp;sorter/field=issuekey&amp;sorter/order=ASC"/>
     </menu>
     </body>
 </project>

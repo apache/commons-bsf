@@ -62,10 +62,10 @@
     <table border="0" width="100%" cellspacing="5">
 
       <tr><td colspan="2">
-        <a href="http://jakarta.apache.org">
+        <a href="https://jakarta.apache.org">
           <img src="{$prefix}images/jakarta-logo.gif" align="left" border="0"/>
         </a>
-        <a href="http://jakarta.apache.org/taglibs/index.html">
+        <a href="https://jakarta.apache.org/taglibs/index.html">
           <img src="{$prefix}images/taglibs.gif" align="right" border="0"/>
         </a>
       </td></tr>
