@@ -476,7 +476,7 @@
             environment variable or alternatively, copy it into the Java <em><code>endorsed</code></em> or
             <em><code>ext</code></em>ension directory of your
             Java distribution (usually in <code>$(JAVA_JRE_HOME)/jre/lib/{endorsed|ext}</code>). The download
-            site of Xalan (Java version) is at: <a href="http://xml.apache.org/xalan-j/downloads.html">http://xml.apache.org/xalan-j/downloads.html</a>
+            site of Xalan (Java version) is at: <a href="http://xml.apache.org/xalan-j/downloads.html">https://xml.apache.org/xalan-j/downloads.html</a>
             <br></br>
             (You can determine quite easily whether you need to do that: just try to run the <code>xslt</code> sample
             of the BSF distribution. If you encounter the error <code> 'Could not compile stylesheet'</code>, then
@@ -490,7 +490,7 @@
           </tr>
           <tr>
             <th>URL:</th>
-            <td><a href="http://xml.apache.org/xalan-j/index.html">http://xml.apache.org/xalan-j/index.html</a></td>
+            <td><a href="http://xml.apache.org/xalan-j/index.html">https://xml.apache.org/xalan-j/index.html</a></td>
           </tr>
           <tr>
             <th>Contact:</th>
