@@ -5,3 +5,7 @@
 /bsf.iml
 /cachedir/
 /cachedir/**
+
+# NetBeans files
+nb-configuration.xml
+nbactions.xml
