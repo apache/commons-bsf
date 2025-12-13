@@ -300,10 +300,10 @@ public class EngineUtils {
     /**
      * Loads a class using the following sequence of class loaders:
      * <ul>
-     * <li>Thread's context class loader,
-     * <li>settable class loader stored with BSFManager,
-     * <li>BSFManager's defining class loader,
-     * <li>BSF customized class loader (from the BSFManager's temporary directory).
+     * <li>Thread's context class loader,</li>
+     * <li>settable class loader stored with BSFManager,</li>
+     * <li>BSFManager's defining class loader,</li>
+     * <li>BSF customized class loader (from the BSFManager's temporary directory).</li>
      * </ul>
      *
      * @param mgr  BSFManager who's classLoader and tempDir props are consulted
