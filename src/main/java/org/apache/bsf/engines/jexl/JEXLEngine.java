@@ -59,6 +59,7 @@ public class JEXLEngine extends BSFEngineImpl {
 
     /**
      * Sets the JEXL engine permissions.
+     *
      * @param permissions the permissions
      */
     public static void setPermissions(JexlPermissions permissions) {

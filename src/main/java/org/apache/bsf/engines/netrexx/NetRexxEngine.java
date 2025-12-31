@@ -140,6 +140,7 @@ public class NetRexxEngine extends BSFEngineImpl
     }
     /**
      * Return an object from an extension.
+     *
      * @param object object from which to call our static method
      * @param method The name of the method to call.
      * @param args an array of arguments to be
@@ -155,6 +156,7 @@ public class NetRexxEngine extends BSFEngineImpl
     }
     /**
      * Invoke a static method.
+     *
      * @param rexxclass Class to invoke the method against
      * @param method The name of the method to call.
      * @param args an array of arguments to be
