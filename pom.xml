@@ -23,7 +23,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>93</version>
+    <version>94</version>
   </parent>
   <groupId>bsf</groupId>
   <artifactId>bsf</artifactId>
