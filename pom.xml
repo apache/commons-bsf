@@ -130,7 +130,7 @@
   </scm>
   <build>
     <!-- japicmp:cmp detected breaks, TODO fixes for javadoc:javadoc and checkstyles, and ... -->
-    <defaultGoal>clean verify apache-rat:check</defaultGoal>
+    <defaultGoal>clean verify apache-rat:check javadoc:javadoc</defaultGoal>
     <plugins>
       <plugin>
         <!-- Temporary hack to allow compilation; remove when engine dependencies have been sorted -->
