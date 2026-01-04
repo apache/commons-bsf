@@ -50,10 +50,13 @@ import org.apache.commons.jexl3.introspection.JexlPermissions;
  */
 public class JEXLEngine extends BSFEngineImpl {
     private static JexlPermissions BSF_PERMISSIONS = JexlPermissions.RESTRICTED;
+
     /** The engine. */
     private JexlEngine engine;
+
     /** The declared bean */
     private Map<String, Object> vars;
+
     /** The backing JexlContext for this engine. */
     private JexlContext jc;
 
@@ -277,6 +280,7 @@ public class JEXLEngine extends BSFEngineImpl {
             throw new JexlException(info, "could not read source URL", xio);
         }
     }
+
     /**
      * Creates a string from a reader.
      *

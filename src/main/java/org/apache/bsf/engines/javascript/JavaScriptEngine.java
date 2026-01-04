@@ -41,6 +41,7 @@ import org.mozilla.javascript.Wrapper;
  * The original version of this code was first written by Adam Peller for use in LotusXSL. Sanjiva took his code and adapted it for BSF.
  */
 public class JavaScriptEngine extends BSFEngineImpl {
+
     /**
      * The global script object, where all embedded functions are defined, as well as the standard ECMA "core" objects.
      */

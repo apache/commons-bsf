@@ -28,6 +28,7 @@ import org.apache.bsf.util.MethodUtils;
  * This is the interface to scripts consisting of Java objects from the Bean Scripting Framework.
  */
 public class JavaClassEngine extends BSFEngineImpl {
+
     /**
      * call the named method of the given object. If object is an instance of Class, then the call is a static call on that object. If not, its an instance
      * method call or a static call (as per Java) on the given object.

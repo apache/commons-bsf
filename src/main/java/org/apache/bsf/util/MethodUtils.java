@@ -43,6 +43,7 @@ public class MethodUtils {
      * method.
      */
     private static class MoreSpecific extends Vector {
+
         /**
          * Submit an entry-point to the list. May be discarded if a past entry is more specific, or may cause others to be discarded it if is more specific.
          * 

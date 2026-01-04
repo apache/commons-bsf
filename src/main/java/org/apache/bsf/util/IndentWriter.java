@@ -26,6 +26,7 @@ import java.io.Writer;
  * are prepended with a specified amount of spaces.
  */
 public class IndentWriter extends PrintWriter {
+
     /**
      * Forwards its arguments to the {@code PrintWriter} constructor with the same signature.
      */

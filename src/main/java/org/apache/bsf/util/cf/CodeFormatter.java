@@ -34,18 +34,22 @@ import org.apache.bsf.util.StringUtils;
  * @version 1.0
  */
 public class CodeFormatter {
+
     /**
      * The default maximum line length.
      */
     public static final int DEFAULT_MAX = 74;
+
     /**
      * The default size of the indentation step.
      */
     public static final int DEFAULT_STEP = 2;
+
     /**
      * The default set of delimiters.
      */
     public static final String DEFAULT_DELIM = "(+";
+
     /**
      * The default set of sticky delimiters.
      */

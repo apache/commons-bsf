@@ -138,6 +138,7 @@ public class NetRexxEngine extends BSFEngineImpl
 
         new netrexx.lang.BadArgumentException();
     }
+
     /**
      * Return an object from an extension.
      *
@@ -154,6 +155,7 @@ public class NetRexxEngine extends BSFEngineImpl
                                "NetRexx doesn't currently support call()",
                                null);
     }
+
     /**
      * Invoke a static method.
      *
@@ -200,6 +202,7 @@ public class NetRexxEngine extends BSFEngineImpl
         return retval;
     }
     public void declareBean (BSFDeclaredBean bean) throws BSFException {}
+
     /**
      * Override impl of execute. In NetRexx, methods which do not wish
      * to return a value should be invoked via exec, which will cause them
@@ -218,6 +221,7 @@ public class NetRexxEngine extends BSFEngineImpl
     {
         return execEvalShared(source, lineNo, columnNo, script,true);
     }
+
     /**
      * Override impl of execute. In NetRexx, methods which do not wish
      * to return a value should be invoked via exec, which will cause them
@@ -231,6 +235,7 @@ public class NetRexxEngine extends BSFEngineImpl
     {
          execEvalShared(source, lineNo, columnNo, script,false);
     }
+
     /**
      * This is shared code for the exec() and eval() operations. It will
      * evaluate a string containing a NetRexx method body -- which may be
