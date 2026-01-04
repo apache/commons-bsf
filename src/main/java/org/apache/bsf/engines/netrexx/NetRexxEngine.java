@@ -166,13 +166,13 @@ public class NetRexxEngine extends BSFEngineImpl
     Object callStatic(Class rexxclass, String method, Object[] args)
     throws BSFException
     {
-        //***** ISSUE: Currently supports only static methods
+        // ISSUE: Currently supports only static methods
         Object retval = null;
         try
         {
             if (rexxclass != null)
             {
-                //***** This should call the lookup used in BML, for typesafety
+                // This should call the lookup used in BML, for typesafety
                 Class[] argtypes=new Class[args.length];
                 for(int i=0;i<args.length;++i)
                     argtypes[i]=args[i].getClass();
