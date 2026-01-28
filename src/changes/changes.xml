@@ -41,6 +41,7 @@
       <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.apache.commons:commons-lang3 from 3.12.0 to 3.20.0 #110, #157, #162, #171, #236.</action>
       <action type="update" dev="ggregory" due-to="Henri Biestro, Gary Gregory">Migrate from Commons JEXL 1.1 to 3.5.0 #224.</action>
       <action type="update" dev="ggregory" due-to="Dependabot, Gary Gregory">Bump org.apache.commons:commons-jexl3 from 3.5.0 to 3.6.1 #268, #271.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">JavaUtils now restores the current thread's interrupt flag when catching InterruptedException.</action>
     </release>
   </body>
 </document>

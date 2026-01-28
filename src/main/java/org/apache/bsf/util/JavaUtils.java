@@ -48,6 +48,7 @@ public class JavaUtils {
         } catch (final SecurityException e) {
             logger.error("ERROR: Unable to create subprocess to exec(javac).", e);
         } catch (final InterruptedException e) {
+            Thread.currentThread().interrupt();
             logger.error("ERROR: Wait for exec(javac) was interrupted.", e);
         }
         return false;
