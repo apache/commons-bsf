@@ -246,7 +246,7 @@ public class MethodUtils {
             methods = targetClass.getConstructors();
         }
         if (0 == methods.length) {
-            throw new NoSuchMethodException("No methods!");
+            throw new NoSuchMethodException("No methods.");
         }
 
         final MoreSpecific best = new MoreSpecific();
