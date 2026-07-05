@@ -24,7 +24,7 @@ package org.apache.bsf.util.event.generator;
  */
 public class ByteUtility {
     public static byte[] addBytes(byte[] array, final byte[] value) {
-        if (null != array) {
+        if (array != null) {
             final byte[] newarray = new byte[array.length + value.length];
             System.arraycopy(array, 0, newarray, 0, array.length);
             System.arraycopy(value, 0, newarray, array.length, value.length);
@@ -36,7 +36,7 @@ public class ByteUtility {
     }
 
     public static byte[] addBytes(byte[] array, final byte value) {
-        if (null != array) {
+        if (array != null) {
             final byte[] newarray = new byte[array.length + 1];
             System.arraycopy(array, 0, newarray, 0, array.length);
             newarray[newarray.length - 1] = value;
@@ -49,7 +49,7 @@ public class ByteUtility {
     }
 
     public static byte[] addBytes(byte[] array, final int value) {
-        if (null != array) {
+        if (array != null) {
             final byte[] newarray = new byte[array.length + 3];
             System.arraycopy(array, 0, newarray, 0, array.length);
             newarray[newarray.length - 3] = (byte) ((value >> 16) & 0xFF);
@@ -66,7 +66,7 @@ public class ByteUtility {
     }
 
     public static byte[] addBytes(byte[] array, final long value) {
-        if (null != array) {
+        if (array != null) {
             final byte[] newarray = new byte[array.length + 4];
             System.arraycopy(array, 0, newarray, 0, array.length);
             newarray[newarray.length - 4] = (byte) ((value >> 24) & 0xFF);
@@ -85,8 +85,8 @@ public class ByteUtility {
     }
 
     public static byte[] addBytes(byte[] array, final String value) {
-        if (null != value) {
-            if (null != array) {
+        if (value != null) {
+            if (array != null) {
                 final byte[] newarray = new byte[array.length + value.length()];
                 System.arraycopy(array, 0, newarray, 0, array.length);
                 System.arraycopy(value.getBytes(), 0, newarray, array.length, value.length());
@@ -99,7 +99,7 @@ public class ByteUtility {
     }
 
     public static byte[] addBytes(byte[] array, final short value) {
-        if (null != array) {
+        if (array != null) {
             final byte[] newarray = new byte[array.length + 2];
             System.arraycopy(array, 0, newarray, 0, array.length);
             newarray[newarray.length - 2] = (byte) ((value >> 8) & 0xFF);

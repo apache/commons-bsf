@@ -37,7 +37,7 @@ public class TestCalc extends Frame {
 
      System.out.println("exception: " + e.getMessage());
      Throwable oe= e.getTargetException();
-     if(null != oe) System.out.println("\nOriginal Exception:"+ oe.getMessage());
+     if(oe != null) System.out.println("\nOriginal Exception:"+ oe.getMessage());
               e.printStackTrace();
 
     }
