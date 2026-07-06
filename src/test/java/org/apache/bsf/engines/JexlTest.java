@@ -26,8 +26,13 @@ public class JexlTest extends JavascriptTest {
     super(name);
   }
 
+  private static final JexlPermissions testPermissions = JexlPermissions.RESTRICTED.compose(
+      "org.apache.bsf.*",
+      "java.io +{ PrintStream { -PrintStream(); } }");
+
+
   protected BSFEngine createEngine() throws Exception {
-      JEXLEngine.setPermissions(JexlPermissions.UNRESTRICTED);
+      JEXLEngine.setPermissions(testPermissions);
       return  bsfManager.loadScriptingEngine("jexl");
   }
 
