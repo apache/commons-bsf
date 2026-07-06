@@ -38,9 +38,11 @@ import org.apache.commons.jexl3.JexlContext;
 import org.apache.commons.jexl3.JexlEngine;
 import org.apache.commons.jexl3.JexlException;
 import org.apache.commons.jexl3.JexlExpression;
+import org.apache.commons.jexl3.JexlFeatures;
 import org.apache.commons.jexl3.JexlInfo;
 import org.apache.commons.jexl3.JexlScript;
 import org.apache.commons.jexl3.JexlBuilder;
+import org.apache.commons.jexl3.MapContext;
 import org.apache.commons.jexl3.introspection.JexlPermissions;
 
 /**
@@ -50,7 +52,7 @@ import org.apache.commons.jexl3.introspection.JexlPermissions;
  */
 public class JEXLEngine extends BSFEngineImpl {
     private static JexlPermissions BSF_PERMISSIONS = JexlPermissions.RESTRICTED;
-
+    private static JexlFeatures BSF_FEATURES = JexlFeatures.createDefault();
     /** The engine. */
     private JexlEngine engine;
 
@@ -70,28 +72,19 @@ public class JEXLEngine extends BSFEngineImpl {
     }
 
     /**
+     * Sets the JEXL engine features.
+     * @param features the features
+     */
+    public static void setFeatures(JexlFeatures features) {
+        BSF_FEATURES = features;
+    }
+
+    /**
      * A context sharing the variables.
      */
-    private static class BSFContext implements JexlContext {
-        private final Map<String, Object> map;
-
+    private static class BSFContext extends MapContext {
         BSFContext(Map<String, Object> vars) {
-            this.map = vars;
-        }
-
-        @Override
-        public Object get(String name) {
-            return map.get(name);
-        }
-
-        @Override
-        public boolean has(String name) {
-            return map.containsKey(name);
-        }
-
-        @Override
-        public void set(String name, Object value) {
-            map.put(name, value);
+            super(vars);
         }
     }
 
@@ -115,7 +108,7 @@ public class JEXLEngine extends BSFEngineImpl {
         vars.put("java.lang.System.in", System.in);
         vars.put("java.lang.System.err", System.err);
         vars.put("bsf", new BSFFunctions(mgr, this));
-        engine = new JexlBuilder().cache(32).permissions(BSF_PERMISSIONS).create();
+        engine = new JexlBuilder().cache(32).permissions(BSF_PERMISSIONS).features(BSF_FEATURES).create();
     }
 
     /**
