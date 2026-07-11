@@ -92,7 +92,7 @@ public class StringUtils {
     /**
      * Get a string consisting of {@code numberOfChars} theChars.
      *
-     * @return a string consisting of {@code numberOfChars} theChars.
+     * @return A string consisting of {@code numberOfChars} theChars.
      */
     public static String getChars(final int numberOfChars, final char theChar) {
         if (numberOfChars <= 0) {
