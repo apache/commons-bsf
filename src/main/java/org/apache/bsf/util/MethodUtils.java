@@ -310,7 +310,7 @@ public class MethodUtils {
      * @param target     object on which call is to be made
      * @param methodName name of method I'm lookin' for
      * @param argTypes   array of argument types of method
-     * @return the desired method
+     * @return The desired method
      * @exception SecurityException     if security violation
      * @exception NoSuchMethodException if no such method
      */

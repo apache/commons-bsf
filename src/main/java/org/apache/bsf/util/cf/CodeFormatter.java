@@ -121,7 +121,7 @@ public class CodeFormatter {
     /**
      * Gets the set of delimiters.
      *
-     * @return the set of delimiters.
+     * @return The set of delimiters.
      * @see #setDelimiters
      */
     public String getDelimiters() {
@@ -131,7 +131,7 @@ public class CodeFormatter {
     /**
      * Gets the size of the indentation step.
      *
-     * @return the size of the indentation step.
+     * @return The size of the indentation step.
      * @see #setIndentationStep
      */
     public int getIndentationStep() {
@@ -141,7 +141,7 @@ public class CodeFormatter {
     /**
      * Gets the maximum line length.
      *
-     * @return the maximum line length.
+     * @return The maximum line length.
      * @see #setMaxLineLength
      */
     public int getMaxLineLength() {
@@ -151,7 +151,7 @@ public class CodeFormatter {
     /**
      * Gets the set of sticky delimiters.
      *
-     * @return the set of sticky delimiters.
+     * @return The set of sticky delimiters.
      * @see #setStickyDelimiters
      */
     public String getStickyDelimiters() {

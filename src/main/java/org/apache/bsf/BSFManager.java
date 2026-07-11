@@ -82,7 +82,7 @@ public class BSFManager {
     /**
      * Returns the defined ClassLoader (the ClassLoader that got used to define the org.apache.bsf.BSFManager class object).
      * 
-     * @return the defined ClassLoader instance
+     * @return The defined ClassLoader instance
      */
     public static ClassLoader getDefinedClassLoader() // rgf, 20070917
     {
@@ -545,7 +545,7 @@ public class BSFManager {
      * Determine the language of a script file by looking at the file extension.
      *
      * @param fileName the name of the file
-     * @return the scripting language the file is in if the file extension is known to me (must have been registered via registerScriptingEngine).
+     * @return The scripting language the file is in if the file extension is known to me (must have been registered via registerScriptingEngine).
      * @exception BSFException if file's extension is unknown.
      */
     public static String getLangFromFilename(final String fileName) throws BSFException {
@@ -612,7 +612,7 @@ public class BSFManager {
     /**
      * Return the current object registry of the manager.
      *
-     * @return the current registry.
+     * @return The current registry.
      */
     public ObjectRegistry getObjectRegistry() {
         return objectRegistry;
@@ -713,7 +713,7 @@ public class BSFManager {
      * return a handle to a bean registered in the bean registry by the application or a scripting engine. Returns null if bean is not found.
      *
      * @param beanName name of bean to look up
-     * @return the bean if its found or null
+     * @return The bean if its found or null
      */
     public Object lookupBean(final String beanName) {
         logger.debug("BSFManager:lookupBean");

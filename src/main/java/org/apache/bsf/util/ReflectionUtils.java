@@ -193,7 +193,7 @@ public class ReflectionUtils {
      * @param className name of class to instantiate
      * @param argTypes  array of argument types
      * @param args      array of arguments
-     * @return the newly created bean
+     * @return The newly created bean
      * @exception ClassNotFoundException    if class is not loaded
      * @exception NoSuchMethodException     if constructor can't be found
      * @exception InstantiationException    if class can't be instantiated
@@ -258,7 +258,7 @@ public class ReflectionUtils {
      * @param cld       the class loader to use. If null, Class.forName is used.
      * @param className name of class to instantiate
      * @param args      array of arguments
-     * @return the newly created bean
+     * @return The newly created bean
      * @exception ClassNotFoundException    if class is not loaded
      * @exception NoSuchMethodException     if constructor can't be found
      * @exception InstantiationException    if class can't be instantiated

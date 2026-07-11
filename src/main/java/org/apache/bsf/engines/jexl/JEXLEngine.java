@@ -247,7 +247,7 @@ public class JEXLEngine extends BSFEngineImpl {
      *
      * @param info the script source info
      * @param file the script file
-     * @return the source
+     * @return The source
      */
     protected String readSource(JexlInfo info, final File file) {
         Objects.requireNonNull(file, "file");
@@ -263,7 +263,7 @@ public class JEXLEngine extends BSFEngineImpl {
      *
      * @param info the script source info
      * @param url the script url
-     * @return the source
+     * @return The source
      */
     protected String readSource(JexlInfo info, final URL url) {
         Objects.requireNonNull(url, "url");
@@ -278,7 +278,7 @@ public class JEXLEngine extends BSFEngineImpl {
      * Creates a string from a reader.
      *
      * @param reader to be read.
-     * @return the contents of the reader as a String.
+     * @return The contents of the reader as a String.
      * @throws IOException on any error reading the reader.
      */
     protected static String toString(final BufferedReader reader) throws IOException {
