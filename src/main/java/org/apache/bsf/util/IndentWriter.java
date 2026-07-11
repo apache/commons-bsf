@@ -58,8 +58,8 @@ public class IndentWriter extends PrintWriter {
     /**
      * Print the text (indented the specified amount) without inserting a linefeed.
      *
-     * @param numberOfSpaces the number of spaces to indent the text.
-     * @param text           the text to print.
+     * @param numberOfSpaces The number of spaces to indent the text.
+     * @param text           The text to print.
      */
     public void print(final int numberOfSpaces, final String text) {
         super.print(StringUtils.getChars(numberOfSpaces, ' ') + text);
@@ -68,8 +68,8 @@ public class IndentWriter extends PrintWriter {
     /**
      * Print the text (indented the specified amount) and insert a linefeed.
      *
-     * @param numberOfSpaces the number of spaces to indent the text.
-     * @param text           the text to print.
+     * @param numberOfSpaces The number of spaces to indent the text.
+     * @param text           The text to print.
      */
     public void println(final int numberOfSpaces, final String text) {
         super.println(StringUtils.getChars(numberOfSpaces, ' ') + text);

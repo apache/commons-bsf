@@ -65,7 +65,7 @@ public class JEXLEngine extends BSFEngineImpl {
     /**
      * Sets the JEXL engine permissions.
      *
-     * @param permissions the permissions
+     * @param permissions The permissions
      */
     public static void setPermissions(JexlPermissions permissions) {
         BSF_PERMISSIONS = permissions;
@@ -73,7 +73,7 @@ public class JEXLEngine extends BSFEngineImpl {
 
     /**
      * Sets the JEXL engine features.
-     * @param features the features
+     * @param features The features
      */
     public static void setFeatures(JexlFeatures features) {
         BSF_FEATURES = features;
@@ -245,8 +245,8 @@ public class JEXLEngine extends BSFEngineImpl {
     /**
      * Reads a JEXL source from a File.
      *
-     * @param info the script source info
-     * @param file the script file
+     * @param info The script source info
+     * @param file The script file
      * @return The source
      */
     protected String readSource(JexlInfo info, final File file) {
@@ -261,8 +261,8 @@ public class JEXLEngine extends BSFEngineImpl {
     /**
      * Reads a JEXL source from an URL.
      *
-     * @param info the script source info
-     * @param url the script url
+     * @param info The script source info
+     * @param url The script url
      * @return The source
      */
     protected String readSource(JexlInfo info, final URL url) {

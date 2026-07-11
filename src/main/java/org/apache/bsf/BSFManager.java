@@ -234,8 +234,8 @@ public class BSFManager {
      * @param source     (context info) the source of this expression (for example, filename)
      * @param lineNo     (context info) the line number in source for expr
      * @param columnNo   (context info) the column number in source for expr
-     * @param funcBody   the multi-line, value returning script to evaluate
-     * @param paramNames the names of the parameters above assumes
+     * @param funcBody   The multi-line, value returning script to evaluate
+     * @param paramNames The names of the parameters above assumes
      * @param arguments  values of the above parameters
      * @exception BSFException if anything goes wrong while running the script
      */
@@ -274,8 +274,8 @@ public class BSFManager {
      * @param source     (context info) the source of this expression (for example, filename)
      * @param lineNo     (context info) the line number in source for expr
      * @param columnNo   (context info) the column number in source for expr
-     * @param funcBody   the multi-line, value returning script to evaluate
-     * @param paramNames the names of the parameters above assumes
+     * @param funcBody   The multi-line, value returning script to evaluate
+     * @param paramNames The names of the parameters above assumes
      * @param arguments  values of the above parameters
      * @param cb         code buffer to compile into
      * @exception BSFException if anything goes wrong while running the script
@@ -313,7 +313,7 @@ public class BSFManager {
      * @param source   (context info) the source of this expression (for example, filename)
      * @param lineNo   (context info) the line number in source for expr
      * @param columnNo (context info) the column number in source for expr
-     * @param expr     the expression to compile
+     * @param expr     The expression to compile
      * @param cb       code buffer to compile into
      * @exception BSFException if any error while compiling the expression
      */
@@ -348,7 +348,7 @@ public class BSFManager {
      * @param source   (context info) the source of this script (for example, filename)
      * @param lineNo   (context info) the line number in source for script
      * @param columnNo (context info) the column number in source for script
-     * @param script   the script to compile
+     * @param script   The script to compile
      * @param cb       code buffer to compile into
      * @exception BSFException if any error while compiling the script
      */
@@ -390,8 +390,8 @@ public class BSFManager {
      * rejects it. Also, its much more likely that an engine can declare a bean at start time than it can at any time.
      *
      * @param beanName name to declare bean as
-     * @param bean     the bean that's being declared
-     * @param type     the type to represent the bean as
+     * @param bean     The bean that's being declared
+     * @param type     The type to represent the bean as
      * @exception BSFException if any of the languages that are already running decides to throw an exception when asked to declare this bean.
      */
     public void declareBean(final String beanName, final Object bean, final Class type) throws BSFException {
@@ -417,7 +417,7 @@ public class BSFManager {
      * @param source   (context info) the source of this expression (for example, filename)
      * @param lineNo   (context info) the line number in source for expr
      * @param columnNo (context info) the column number in source for expr
-     * @param expr     the expression to evaluate
+     * @param expr     The expression to evaluate
      * @exception BSFException if anything goes wrong while running the script
      */
     public Object eval(final String lang, final String source, final int lineNo, final int columnNo, final Object expr) throws BSFException {
@@ -459,7 +459,7 @@ public class BSFManager {
      * @param source   (context info) the source of this expression (for example, filename)
      * @param lineNo   (context info) the line number in source for expr
      * @param columnNo (context info) the column number in source for expr
-     * @param script   the script to execute
+     * @param script   The script to execute
      * @exception BSFException if anything goes wrong while running the script
      */
     public void exec(final String lang, final String source, final int lineNo, final int columnNo, final Object script) throws BSFException {
@@ -491,7 +491,7 @@ public class BSFManager {
      * @param source   (context info) the source of this expression (for example, filename)
      * @param lineNo   (context info) the line number in source for expr
      * @param columnNo (context info) the column number in source for expr
-     * @param script   the script to execute
+     * @param script   The script to execute
      * @exception BSFException if anything goes wrong while running the script
      */
     public void iexec(final String lang, final String source, final int lineNo, final int columnNo, final Object script) throws BSFException {
@@ -544,7 +544,7 @@ public class BSFManager {
     /**
      * Determine the language of a script file by looking at the file extension.
      *
-     * @param fileName the name of the file
+     * @param fileName The name of the file
      * @return The scripting language the file is in if the file extension is known to me (must have been registered via registerScriptingEngine).
      * @exception BSFException if file's extension is unknown.
      */
@@ -731,7 +731,7 @@ public class BSFManager {
      * Registering a bean allows a scripting engine or the application to access that bean by name and to manipulate it.
      *
      * @param beanName name to register under
-     * @param bean     the bean to register
+     * @param bean     The bean to register
      */
     public void registerBean(final String beanName, final Object bean) {
         logger.debug("BSFManager:registerBean");
@@ -768,7 +768,7 @@ public class BSFManager {
     /**
      * Set the class loader for those that need to use it. Default is he who loaded me or null (i.e., its Class.forName).
      *
-     * @param classLoader the class loader to use.
+     * @param classLoader The class loader to use.
      */
     public void setClassLoader(final ClassLoader classLoader) {
         logger.debug("BSFManager:setClassLoader");
@@ -780,7 +780,7 @@ public class BSFManager {
     /**
      * Set the classpath for those that need to use it. Default is the value of the java.class.path property.
      *
-     * @param classPath the classpath to use
+     * @param classPath The classpath to use
      */
     public void setClassPath(final String classPath) {
         logger.debug("BSFManager:setClassPath");
@@ -792,7 +792,7 @@ public class BSFManager {
     /**
      * Set the object registry used by this manager. By default a new one is created when the manager is new'ed and this overwrites that one.
      *
-     * @param objectRegistry the registry to use
+     * @param objectRegistry The registry to use
      */
     public void setObjectRegistry(final ObjectRegistry objectRegistry) {
         logger.debug("BSFManager:setObjectRegistry");
@@ -806,7 +806,7 @@ public class BSFManager {
      * class loader property or, if that fails, a class loader which knows to load from the tempdir to try to load the class. Default value of tempDir is "."
      * (current working dir).
      *
-     * @param tempDir the temporary directory
+     * @param tempDir The temporary directory
      */
     public void setTempDir(final String tempDir) {
         logger.debug("BSFManager:setTempDir");

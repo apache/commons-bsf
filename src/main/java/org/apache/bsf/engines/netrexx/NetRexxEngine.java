@@ -144,7 +144,7 @@ public class NetRexxEngine extends BSFEngineImpl
      *
      * @param object object from which to call our static method
      * @param method The name of the method to call.
-     * @param args an array of arguments to be
+     * @param args An array of arguments to be
      * passed to the extension, which may be either
      * Vectors of Nodes, or Strings.
      */
@@ -161,7 +161,7 @@ public class NetRexxEngine extends BSFEngineImpl
      *
      * @param rexxclass Class to invoke the method against
      * @param method The name of the method to call.
-     * @param args an array of arguments to be
+     * @param args An array of arguments to be
      * passed to the extension, which may be either
      * Vectors of Nodes, or Strings.
      */

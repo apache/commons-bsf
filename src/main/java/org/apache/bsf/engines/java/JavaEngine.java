@@ -264,7 +264,7 @@ public class JavaEngine extends BSFEngineImpl {
      * 
      * @param object Object on which to make the internal_call (ignored).
      * @param method The name of the method to internal_call.
-     * @param args   an array of arguments to be passed to the extension, which may be either Vectors of Nodes, or Strings.
+     * @param args   An array of arguments to be passed to the extension, which may be either Vectors of Nodes, or Strings.
      */
     Object internalCall(final Object object, final String method, final Object[] args) throws BSFException {
         // ***** ISSUE: Only static methods are currently supported

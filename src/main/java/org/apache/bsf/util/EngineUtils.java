@@ -71,7 +71,7 @@ public class EngineUtils {
      * @param source       (context info) the source of this expression (for example, filename)
      * @param lineNo       (context info) the line number in source for expr
      * @param columnNo     (context info) the column number in source for expr
-     * @param script       the script to execute when the event occurs
+     * @param script       The script to execute when the event occurs
      * @exception BSFException if anything goes wrong while running the script
      */
     public static void addEventListener(final Object bean, final String eventSetName, final String filter, final BSFEngine engine, final BSFManager manager,
@@ -98,7 +98,7 @@ public class EngineUtils {
      * @param source                  (context info) the source of this expression (for example, filename)
      * @param lineNo                  (context info) the line number in source for expr
      * @param columnNo                (context info) the column number in source for expr
-     * @param script                  the script to execute when the event occurs
+     * @param script                  The script to execute when the event occurs
      * @param dataFromScriptingEngine this contains any object supplied by the scripting engine and gets sent back with the supplied script, if the event
      *                                occurs. This could be used for example for indicating to the scripting engine which scripting engine
      *                                object/routine/function/procedure should be ultimately informed of the event occurrence.
@@ -125,7 +125,7 @@ public class EngineUtils {
      * args, but if that fails, this tries to convert any primitive wrapper type args to their primitive counterparts to see whether a method exists that way.
      * If it does, done.
      *
-     * @param bean       the object on which to invoke the method
+     * @param bean       The object on which to invoke the method
      * @param methodName name of the method
      * @param args       arguments to be given to the method
      * @return The result of invoking the method, if any

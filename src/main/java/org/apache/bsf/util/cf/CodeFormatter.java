@@ -288,7 +288,7 @@ public class CodeFormatter {
      * character on the following line</em>. A quotation mark, {@code "} or {@code '}, opening a string is always a delimiter, whether you specify it
      * or not.
      *
-     * @param newDelimiters the new set of delimiters.
+     * @param newDelimiters The new set of delimiters.
      * @see #getDelimiters
      */
     public void setDelimiters(final String newDelimiters) {
@@ -300,7 +300,7 @@ public class CodeFormatter {
      * <p>
      * This is the number of spaces that lines will be indented (when appropriate).
      *
-     * @param newIndentationStep the new size of the indentation step.
+     * @param newIndentationStep The new size of the indentation step.
      * @see #getIndentationStep
      */
     public void setIndentationStep(final int newIndentationStep) {
@@ -312,7 +312,7 @@ public class CodeFormatter {
      * <p>
      * If a token is longer than the requested maximum line length, then the line containing that token will obviously be longer than the desired maximum.
      *
-     * @param newMaxLineLength the new maximum line length.
+     * @param newMaxLineLength The new maximum line length.
      * @see #getMaxLineLength
      */
     public void setMaxLineLength(final int newMaxLineLength) {
@@ -326,7 +326,7 @@ public class CodeFormatter {
      * appear as the <em>last character on the current line</em>. A quotation mark, {@code "} or {@code '}, closing a string is always a sticky
      * delimiter, whether you specify it or not.
      *
-     * @param newStickyDelimiters the new set of sticky delimiters.
+     * @param newStickyDelimiters The new set of sticky delimiters.
      * @see #getStickyDelimiters
      */
     public void setStickyDelimiters(final String newStickyDelimiters) {

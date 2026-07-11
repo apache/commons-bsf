@@ -189,7 +189,7 @@ public class ReflectionUtils {
     /**
      * Create a bean using given class loader and using the appropriate constructor for the given args of the given arg types.
      * 
-     * @param cld       the class loader to use. If null, Class.forName is used.
+     * @param cld       The class loader to use. If null, Class.forName is used.
      * @param className name of class to instantiate
      * @param argTypes  array of argument types
      * @param args      array of arguments
@@ -255,7 +255,7 @@ public class ReflectionUtils {
     /**
      * Create a bean using given class loader and using the appropriate constructor for the given args. Figures out the arg types and calls above.
      * 
-     * @param cld       the class loader to use. If null, Class.forName is used.
+     * @param cld       The class loader to use. If null, Class.forName is used.
      * @param className name of class to instantiate
      * @param args      array of arguments
      * @return The newly created bean
@@ -312,7 +312,7 @@ public class ReflectionUtils {
     /**
      * Get a property of a bean.
      *
-     * @param target   the object whose prop is to be gotten
+     * @param target   The object whose prop is to be gotten
      * @param propName name of the property to set
      * @param index    index to get (if property is indexed)
      * @exception IntrospectionException    if unable to introspect
@@ -399,11 +399,11 @@ public class ReflectionUtils {
     /**
      * Set a property of a bean to a given value.
      *
-     * @param target    the object whose prop is to be set
+     * @param target    The object whose prop is to be set
      * @param propName  name of the property to set
      * @param index     index to set (if property is indexed)
-     * @param value     the property value
-     * @param valueType the type of the above (needed when its null)
+     * @param value     The property value
+     * @param valueType The type of the above (needed when its null)
      * @param tcr       type convertor registry to use to convert value type to property type if necessary
      * @exception IntrospectionException    if unable to introspect
      * @exception IllegalArgumentException  if problems with args: if the property is unknown, or if the property is given an index when its not, or if the
