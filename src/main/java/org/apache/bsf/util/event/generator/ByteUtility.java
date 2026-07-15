@@ -23,18 +23,6 @@ package org.apache.bsf.util.event.generator;
  * 5 April 1999 - functions to append standard types to byte arrays functions to produce standard types from byte arrays
  */
 public class ByteUtility {
-    public static byte[] addBytes(byte[] array, final byte[] value) {
-        if (array != null) {
-            final byte[] newarray = new byte[array.length + value.length];
-            System.arraycopy(array, 0, newarray, 0, array.length);
-            System.arraycopy(value, 0, newarray, array.length, value.length);
-            array = newarray;
-        } else {
-            array = value;
-        }
-        return array;
-    }
-
     public static byte[] addBytes(byte[] array, final byte value) {
         if (array != null) {
             final byte[] newarray = new byte[array.length + 1];
@@ -44,6 +32,18 @@ public class ByteUtility {
         } else {
             array = new byte[1];
             array[0] = value;
+        }
+        return array;
+    }
+
+    public static byte[] addBytes(byte[] array, final byte[] value) {
+        if (array != null) {
+            final byte[] newarray = new byte[array.length + value.length];
+            System.arraycopy(array, 0, newarray, 0, array.length);
+            System.arraycopy(value, 0, newarray, array.length, value.length);
+            array = newarray;
+        } else {
+            array = value;
         }
         return array;
     }
@@ -84,20 +84,6 @@ public class ByteUtility {
         return array;
     }
 
-    public static byte[] addBytes(byte[] array, final String value) {
-        if (value != null) {
-            if (array != null) {
-                final byte[] newarray = new byte[array.length + value.length()];
-                System.arraycopy(array, 0, newarray, 0, array.length);
-                System.arraycopy(value.getBytes(), 0, newarray, array.length, value.length());
-                array = newarray;
-            } else {
-                array = value.getBytes();
-            }
-        }
-        return array;
-    }
-
     public static byte[] addBytes(byte[] array, final short value) {
         if (array != null) {
             final byte[] newarray = new byte[array.length + 2];
@@ -113,19 +99,18 @@ public class ByteUtility {
         return array;
     }
 
-    public static double byteArrayToDouble(final byte high[], final byte low[]) {
-        double temp = 0;
-        // high bytes
-        temp += (((long) high[0]) & 0xFF) << 56;
-        temp += (((long) high[1]) & 0xFF) << 48;
-        temp += (((long) high[2]) & 0xFF) << 40;
-        temp += (((long) high[3]) & 0xFF) << 32;
-        // low bytes
-        temp += (((long) low[0]) & 0xFF) << 24;
-        temp += (((long) low[1]) & 0xFF) << 16;
-        temp += (((long) low[2]) & 0xFF) << 8;
-        temp += (((long) low[3]) & 0xFF);
-        return temp;
+    public static byte[] addBytes(byte[] array, final String value) {
+        if (value != null) {
+            if (array != null) {
+                final byte[] newarray = new byte[array.length + value.length()];
+                System.arraycopy(array, 0, newarray, 0, array.length);
+                System.arraycopy(value.getBytes(), 0, newarray, array.length, value.length());
+                array = newarray;
+            } else {
+                array = value.getBytes();
+            }
+        }
+        return array;
     }
 
     public static double byteArrayToDouble(final byte value[]) {
@@ -140,6 +125,21 @@ public class ByteUtility {
         low[2] = value[6];
         low[3] = value[7];
         return byteArrayToDouble(high, low);
+    }
+
+    public static double byteArrayToDouble(final byte high[], final byte low[]) {
+        double temp = 0;
+        // high bytes
+        temp += (((long) high[0]) & 0xFF) << 56;
+        temp += (((long) high[1]) & 0xFF) << 48;
+        temp += (((long) high[2]) & 0xFF) << 40;
+        temp += (((long) high[3]) & 0xFF) << 32;
+        // low bytes
+        temp += (((long) low[0]) & 0xFF) << 24;
+        temp += (((long) low[1]) & 0xFF) << 16;
+        temp += (((long) low[2]) & 0xFF) << 8;
+        temp += (((long) low[3]) & 0xFF);
+        return temp;
     }
 
     public static float byteArrayToFloat(final byte value[]) {

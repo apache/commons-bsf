@@ -41,6 +41,22 @@ import org.apache.bsf.util.event.EventProcessor;
  * org.apache.bsf.util.BSFEventProcessor.
  */
 public class BSFEventProcessorReturningEventInfos implements EventProcessor {
+    private static boolean isFilteredEvent(final String filter, final String inFilter) {
+        boolean bRes = filter.equalsIgnoreCase(inFilter);
+        if (bRes) {
+            return bRes;
+        }
+
+        final String[] chunks = filter.replace('+', ' ').split(" ");
+        for (int i = 0; i < chunks.length; i++) {
+            bRes = chunks[i].equalsIgnoreCase(inFilter);
+            if (bRes) {
+                return bRes;
+            }
+        }
+        return bRes;
+    }
+
     BSFEngine engine;
 
     BSFManager manager;
@@ -55,10 +71,18 @@ public class BSFEventProcessorReturningEventInfos implements EventProcessor {
 
     Object script;
 
+    // for example an object reference to forward event with received arguments to
+
     Object dataFromScriptingEngine; // ---rgf, 2006-02-24: data coming from the
                                     // script engine, could be
 
-    // for example an object reference to forward event with received arguments to
+    // ////////////////////////////////////////////////////////////////////////
+    //
+    // event is delegated to me by the adapters using this. inFilter is
+    // in general the name of the method via which the event was received
+    // at the adapter. For prop/veto change events, inFilter is the name
+    // of the property. In any case, in the event processor, I only forward
+    // those events if for which the filters match (if one is specified).
 
     /**
      * Package-protected constructor makes this class unavailable for public use.
@@ -80,11 +104,9 @@ public class BSFEventProcessorReturningEventInfos implements EventProcessor {
 
     // ////////////////////////////////////////////////////////////////////////
     //
-    // event is delegated to me by the adapters using this. inFilter is
-    // in general the name of the method via which the event was received
-    // at the adapter. For prop/veto change events, inFilter is the name
-    // of the property. In any case, in the event processor, I only forward
-    // those events if for which the filters match (if one is specified).
+    // same as above, but used when the method event method may generate
+    // an exception which must go all the way back to the source (as in
+    // the vetoableChange case)
 
     public void processEvent(final String inFilter, final Object[] evtInfo) {
         try {
@@ -99,12 +121,6 @@ public class BSFEventProcessorReturningEventInfos implements EventProcessor {
             e.printStackTrace();
         }
     }
-
-    // ////////////////////////////////////////////////////////////////////////
-    //
-    // same as above, but used when the method event method may generate
-    // an exception which must go all the way back to the source (as in
-    // the vetoableChange case)
 
     public void processExceptionableEvent(final String inFilter, final Object[] evtInfo) throws Exception {
 
@@ -152,21 +168,5 @@ public class BSFEventProcessorReturningEventInfos implements EventProcessor {
         engine.apply(source, lineNo, columnNo, this.script, paramNames, paramValues);
 // System.err.println("returned from engine.exec.");
 
-    }
-
-    private static boolean isFilteredEvent(final String filter, final String inFilter) {
-        boolean bRes = filter.equalsIgnoreCase(inFilter);
-        if (bRes) {
-            return bRes;
-        }
-
-        final String[] chunks = filter.replace('+', ' ').split(" ");
-        for (int i = 0; i < chunks.length; i++) {
-            bRes = chunks[i].equalsIgnoreCase(inFilter);
-            if (bRes) {
-                return bRes;
-            }
-        }
-        return bRes;
     }
 }

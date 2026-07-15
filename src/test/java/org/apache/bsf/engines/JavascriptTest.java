@@ -44,21 +44,22 @@ public class JavascriptTest extends BSFEngineTestCase {
         }
     }
 
-    public void testExec() {
+    public void testBSFManagerAvailability() {
+        Object retval = null;
         try {
-            engine.exec("Test.js", 0, 0, "java.lang.System.out.print (\"PASSED\");");
+            retval = engine.eval("Test.js", 0, 0, "bsf.lookupBean(\"foo\")");
         } catch (final Exception e) {
-            fail(failMessage("exec() test failed", e));
+            fail(failMessage("Test of BSFManager availability failed", e));
         }
-        assertEquals("PASSED", getTmpOutStr());
+        assertNull(retval);
     }
 
-    public void testEval() {
+    public void testBSFManagerEval() {
         Double retval = null;
         try {
-            retval = Double.valueOf((engine.eval("Test.js", 0, 0, "1 + 1").toString()));
+            retval = Double.valueOf((bsfManager.eval("javascript", "Test.js", 0, 0, "1 + 1")).toString());
         } catch (final Exception e) {
-            fail(failMessage("eval() test failed", e));
+            fail(failMessage("BSFManager eval() test failed", e));
         }
         assertEquals(2.0, retval);
     }
@@ -75,6 +76,37 @@ public class JavascriptTest extends BSFEngineTestCase {
         assertEquals(2.0, retval);
     }
 
+    public void testDeclareBean() {
+        final Double foo = 1.0;
+        Double bar = null;
+        try {
+            bsfManager.declareBean("foo", foo, Double.class);
+            bar = (Double) engine.eval("Test.js", 0, 0, "foo + 1");
+        } catch (final Exception e) {
+            fail(failMessage("declareBean() test failed", e));
+        }
+        assertEquals(2.0, bar);
+    }
+
+    public void testEval() {
+        Double retval = null;
+        try {
+            retval = Double.valueOf((engine.eval("Test.js", 0, 0, "1 + 1").toString()));
+        } catch (final Exception e) {
+            fail(failMessage("eval() test failed", e));
+        }
+        assertEquals(2.0, retval);
+    }
+
+    public void testExec() {
+        try {
+            engine.exec("Test.js", 0, 0, "java.lang.System.out.print (\"PASSED\");");
+        } catch (final Exception e) {
+            fail(failMessage("exec() test failed", e));
+        }
+        assertEquals("PASSED", getTmpOutStr());
+    }
+
     public void testIexec() {
         try {
             engine.iexec("Test.js", 0, 0, "java.lang.System.out.print (\"PASSED\")");
@@ -82,26 +114,6 @@ public class JavascriptTest extends BSFEngineTestCase {
             fail(failMessage("iexec() test failed", e));
         }
         assertEquals("PASSED", getTmpOutStr());
-    }
-
-    public void testBSFManagerEval() {
-        Double retval = null;
-        try {
-            retval = Double.valueOf((bsfManager.eval("javascript", "Test.js", 0, 0, "1 + 1")).toString());
-        } catch (final Exception e) {
-            fail(failMessage("BSFManager eval() test failed", e));
-        }
-        assertEquals(2.0, retval);
-    }
-
-    public void testBSFManagerAvailability() {
-        Object retval = null;
-        try {
-            retval = engine.eval("Test.js", 0, 0, "bsf.lookupBean(\"foo\")");
-        } catch (final Exception e) {
-            fail(failMessage("Test of BSFManager availability failed", e));
-        }
-        assertNull(retval);
     }
 
     public void testRegisterBean() {
@@ -116,31 +128,6 @@ public class JavascriptTest extends BSFEngineTestCase {
         assertEquals(foo, bar);
     }
 
-    public void testUnregisterBean() {
-        final Double foo = 1.0;
-        Double bar = null;
-        try {
-            bsfManager.registerBean("foo", foo);
-            bsfManager.unregisterBean("foo");
-            bar = (Double) engine.eval("Test.js", 0, 0, "bsf.lookupBean(\"foo\")");
-        } catch (final Exception e) {
-            fail(failMessage("unregisterBean() test failed", e));
-        }
-        assertNull(bar);
-    }
-
-    public void testDeclareBean() {
-        final Double foo = 1.0;
-        Double bar = null;
-        try {
-            bsfManager.declareBean("foo", foo, Double.class);
-            bar = (Double) engine.eval("Test.js", 0, 0, "foo + 1");
-        } catch (final Exception e) {
-            fail(failMessage("declareBean() test failed", e));
-        }
-        assertEquals(2.0, bar);
-    }
-
     public void testUndeclareBean() {
         final Double foo = 1.0;
         Double bar = null;
@@ -152,6 +139,19 @@ public class JavascriptTest extends BSFEngineTestCase {
             // Do nothing. This is the expected case.
         } catch (final Exception e) {
             fail(failMessage("undeclareBean() test failed", e));
+        }
+        assertNull(bar);
+    }
+
+    public void testUnregisterBean() {
+        final Double foo = 1.0;
+        Double bar = null;
+        try {
+            bsfManager.registerBean("foo", foo);
+            bsfManager.unregisterBean("foo");
+            bar = (Double) engine.eval("Test.js", 0, 0, "bsf.lookupBean(\"foo\")");
+        } catch (final Exception e) {
+            fail(failMessage("unregisterBean() test failed", e));
         }
         assertNull(bar);
     }

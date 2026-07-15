@@ -31,7 +31,36 @@ import org.apache.bsf.BSF_LogFactory;
 import java.util.Hashtable;
 
 public class AdapterClassLoader extends ClassLoader {
+    /**
+     * Inner class to create a ClassLoader with the current Thread's class loader as parent.
+     */
+    class LocalThreadClassLoader extends ClassLoader {
+        // public LocalThreadClassLoader(){super (Thread.currentThread().getContextClassLoader());};
+        public LocalThreadClassLoader(final ClassLoader cl) {
+            super(cl);
+        }
+
+        public Class defineClass(final String name, final byte[] b) {
+            return defineClass(name, b, 0, b.length); // protected in ClassLoader, hence invoking it this way
+        }
+
+        // use a signature that allows invoking super's protected method via inheritance resolution
+        Class findClass(final String name, final char nixi) throws ClassNotFoundException {
+            return findClass(name);
+        }
+
+        // use a signature that allows invoking super's protected method via inheritance resolution
+        Class findLoadedClass(final String name, final char nixi) {
+            return findLoadedClass(name);
+        }
+
+        // use a signature that allows invoking super's protected method via inheritance resolution
+        Class findSystemClass(final String name, final char nixi) throws ClassNotFoundException {
+            return findSystemClass(name);
+        }
+    }
     private static final Hashtable classCache = new Hashtable();
+
     private Class c;
 
     // private Log logger = LogFactory.getLog(this.getClass().getName());
@@ -130,35 +159,6 @@ public class AdapterClassLoader extends ClassLoader {
 
     final protected void put(final String name, final Class c) {
         classCache.put(name, c);
-    }
-
-    /**
-     * Inner class to create a ClassLoader with the current Thread's class loader as parent.
-     */
-    class LocalThreadClassLoader extends ClassLoader {
-        // public LocalThreadClassLoader(){super (Thread.currentThread().getContextClassLoader());};
-        public LocalThreadClassLoader(final ClassLoader cl) {
-            super(cl);
-        }
-
-        public Class defineClass(final String name, final byte[] b) {
-            return defineClass(name, b, 0, b.length); // protected in ClassLoader, hence invoking it this way
-        }
-
-        // use a signature that allows invoking super's protected method via inheritance resolution
-        Class findLoadedClass(final String name, final char nixi) {
-            return findLoadedClass(name);
-        }
-
-        // use a signature that allows invoking super's protected method via inheritance resolution
-        Class findClass(final String name, final char nixi) throws ClassNotFoundException {
-            return findClass(name);
-        }
-
-        // use a signature that allows invoking super's protected method via inheritance resolution
-        Class findSystemClass(final String name, final char nixi) throws ClassNotFoundException {
-            return findSystemClass(name);
-        }
     }
 
 }

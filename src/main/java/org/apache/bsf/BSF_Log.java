@@ -141,6 +141,74 @@ public class BSF_Log // implements org.apache.commons.logging.Log
         oac_LogFactoryGetLog_String = oac_LogFactoryGetLog_String_;
     }
 
+    static void dump(final BSF_Log bl) {
+        System.out.println("\n\tbl=[" + bl + "] --->>>   --->>>   --->>>");
+        System.err.print("/debug **/");
+        bl.debug("debug message. ");
+        System.err.println("\\** debug.\\");
+        System.err.print("/error **/");
+        bl.error("error message. ");
+        System.err.println("\\** error.\\");
+        System.err.print("/fatal **/");
+        bl.fatal("fatal message. ");
+        System.err.println("\\** fatal.\\");
+        System.err.print("/info  **/");
+        bl.info("info  message. ");
+        System.err.println("\\** info .\\");
+        System.err.print("/trace **/");
+        bl.trace("trace message. ");
+        System.err.println("\\** trace.\\");
+        System.err.print("/warn  **/");
+        bl.warn("warn  message. ");
+        System.err.println("\\** warn .\\");
+        System.err.println();
+
+        final Throwable t = new Throwable("Test from Rony for: " + bl);
+        System.err.print("/debug **/");
+        bl.debug("debug message. ", t);
+        System.err.println("\\** debug.\\");
+        System.err.print("/error **/");
+        bl.error("error message. ", t);
+        System.err.println("\\** error.\\");
+        System.err.print("/fatal **/");
+        bl.fatal("fatal message. ", t);
+        System.err.println("\\** fatal.\\");
+        System.err.print("/info  **/");
+        bl.info("info  message. ", t);
+        System.err.println("\\** info .\\");
+        System.err.print("/trace **/");
+        bl.trace("trace message. ", t);
+        System.err.println("\\** trace.\\");
+        System.err.print("/warn  **/");
+        bl.warn("warn  message. ", t);
+        System.err.println("\\** warn .\\");
+        System.err.println();
+
+        System.out.println("\tisDebugEnabled: " + bl.isDebugEnabled());
+        System.out.println("\tisErrorEnabled: " + bl.isErrorEnabled());
+        System.out.println("\tisFatalEnabled: " + bl.isFatalEnabled());
+        System.out.println("\tisInfo Enabled: " + bl.isInfoEnabled());
+        System.out.println("\tisTraceEnabled: " + bl.isTraceEnabled());
+        System.out.println("\tisWarn Enabled: " + bl.isWarnEnabled());
+
+        System.out.println("\tbl=[" + bl + "] <<<---   <<<---   <<<---");
+        System.out.println("--------------------------------------------------------");
+    }
+
+    // for development purposes only (to debug this class on its own)
+    public static void main(final String args[]) {
+        System.out.println("in BSF_Log ...");
+        System.out.println("--------------------------------------------------------");
+        System.out.println("--------------------------------------------------------");
+        BSF_Log bl = new BSF_Log();
+        dump(bl);
+        bl = new BSF_Log(Class.class);
+        dump(bl);
+        bl = new BSF_Log("Rony was here...");
+        dump(bl);
+
+    }
+
     /** Name of the BSF_Log instance. */
     final String name;
 
@@ -149,6 +217,10 @@ public class BSF_Log // implements org.apache.commons.logging.Log
 
     public BSF_Log() {
         this("<?>");
+    }
+
+    public BSF_Log(final Class clazz) {
+        this(clazz.getName());
     }
 
     public BSF_Log(final String name) {
@@ -163,10 +235,6 @@ public class BSF_Log // implements org.apache.commons.logging.Log
             }
         }
         oac_logger = oac_logger_;
-    }
-
-    public BSF_Log(final Class clazz) {
-        this(clazz.getName());
     }
 
     public void debug(final Object msg) {
@@ -273,58 +341,6 @@ public class BSF_Log // implements org.apache.commons.logging.Log
         }
     }
 
-    public void trace(final Object msg) {
-        if (oac_logger == null) {
-            return; // no org.apache.commons.logging.Log object ?
-        }
-
-        try {
-            // ((org.apache.commons.logging.Log) oac_logger).trace(msg);
-            meths[trace1].invoke(oac_logger, new Object[] { msg });
-        } catch (final Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void trace(final Object msg, final Throwable t) {
-        if (oac_logger == null) {
-            return; // no org.apache.commons.logging.Log object ?
-        }
-
-        try {
-            // ((org.apache.commons.logging.Log) oac_logger).trace(msg, t);
-            meths[trace2].invoke(oac_logger, new Object[] { msg, t });
-        } catch (final Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void warn(final Object msg) {
-        if (oac_logger == null) {
-            return; // no org.apache.commons.logging.Log object ?
-        }
-
-        try {
-            // ((org.apache.commons.logging.Log) oac_logger).warn(msg);
-            meths[warn1].invoke(oac_logger, new Object[] { msg });
-        } catch (final Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void warn(final Object msg, final Throwable t) {
-        if (oac_logger == null) {
-            return; // no org.apache.commons.logging.Log object ?
-        }
-
-        try {
-            // ((org.apache.commons.logging.Log) oac_logger).warn(msg, t);
-            meths[warn2].invoke(oac_logger, new Object[] { msg, t });
-        } catch (final Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public boolean isDebugEnabled() {
         if (oac_logger == null) {
             return false;
@@ -409,71 +425,55 @@ public class BSF_Log // implements org.apache.commons.logging.Log
         }
     }
 
-    // for development purposes only (to debug this class on its own)
-    public static void main(final String args[]) {
-        System.out.println("in BSF_Log ...");
-        System.out.println("--------------------------------------------------------");
-        System.out.println("--------------------------------------------------------");
-        BSF_Log bl = new BSF_Log();
-        dump(bl);
-        bl = new BSF_Log(Class.class);
-        dump(bl);
-        bl = new BSF_Log("Rony was here...");
-        dump(bl);
+    public void trace(final Object msg) {
+        if (oac_logger == null) {
+            return; // no org.apache.commons.logging.Log object ?
+        }
 
+        try {
+            // ((org.apache.commons.logging.Log) oac_logger).trace(msg);
+            meths[trace1].invoke(oac_logger, new Object[] { msg });
+        } catch (final Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    static void dump(final BSF_Log bl) {
-        System.out.println("\n\tbl=[" + bl + "] --->>>   --->>>   --->>>");
-        System.err.print("/debug **/");
-        bl.debug("debug message. ");
-        System.err.println("\\** debug.\\");
-        System.err.print("/error **/");
-        bl.error("error message. ");
-        System.err.println("\\** error.\\");
-        System.err.print("/fatal **/");
-        bl.fatal("fatal message. ");
-        System.err.println("\\** fatal.\\");
-        System.err.print("/info  **/");
-        bl.info("info  message. ");
-        System.err.println("\\** info .\\");
-        System.err.print("/trace **/");
-        bl.trace("trace message. ");
-        System.err.println("\\** trace.\\");
-        System.err.print("/warn  **/");
-        bl.warn("warn  message. ");
-        System.err.println("\\** warn .\\");
-        System.err.println();
+    public void trace(final Object msg, final Throwable t) {
+        if (oac_logger == null) {
+            return; // no org.apache.commons.logging.Log object ?
+        }
 
-        final Throwable t = new Throwable("Test from Rony for: " + bl);
-        System.err.print("/debug **/");
-        bl.debug("debug message. ", t);
-        System.err.println("\\** debug.\\");
-        System.err.print("/error **/");
-        bl.error("error message. ", t);
-        System.err.println("\\** error.\\");
-        System.err.print("/fatal **/");
-        bl.fatal("fatal message. ", t);
-        System.err.println("\\** fatal.\\");
-        System.err.print("/info  **/");
-        bl.info("info  message. ", t);
-        System.err.println("\\** info .\\");
-        System.err.print("/trace **/");
-        bl.trace("trace message. ", t);
-        System.err.println("\\** trace.\\");
-        System.err.print("/warn  **/");
-        bl.warn("warn  message. ", t);
-        System.err.println("\\** warn .\\");
-        System.err.println();
+        try {
+            // ((org.apache.commons.logging.Log) oac_logger).trace(msg, t);
+            meths[trace2].invoke(oac_logger, new Object[] { msg, t });
+        } catch (final Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-        System.out.println("\tisDebugEnabled: " + bl.isDebugEnabled());
-        System.out.println("\tisErrorEnabled: " + bl.isErrorEnabled());
-        System.out.println("\tisFatalEnabled: " + bl.isFatalEnabled());
-        System.out.println("\tisInfo Enabled: " + bl.isInfoEnabled());
-        System.out.println("\tisTraceEnabled: " + bl.isTraceEnabled());
-        System.out.println("\tisWarn Enabled: " + bl.isWarnEnabled());
+    public void warn(final Object msg) {
+        if (oac_logger == null) {
+            return; // no org.apache.commons.logging.Log object ?
+        }
 
-        System.out.println("\tbl=[" + bl + "] <<<---   <<<---   <<<---");
-        System.out.println("--------------------------------------------------------");
+        try {
+            // ((org.apache.commons.logging.Log) oac_logger).warn(msg);
+            meths[warn1].invoke(oac_logger, new Object[] { msg });
+        } catch (final Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void warn(final Object msg, final Throwable t) {
+        if (oac_logger == null) {
+            return; // no org.apache.commons.logging.Log object ?
+        }
+
+        try {
+            // ((org.apache.commons.logging.Log) oac_logger).warn(msg, t);
+            meths[warn2].invoke(oac_logger, new Object[] { msg, t });
+        } catch (final Exception e) {
+            e.printStackTrace();
+        }
     }
 }

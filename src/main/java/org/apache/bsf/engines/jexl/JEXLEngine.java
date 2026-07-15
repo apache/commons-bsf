@@ -51,16 +51,24 @@ import org.apache.commons.jexl3.introspection.JexlPermissions;
  * @see <a href="https://commons.apache.org/jexl/">Commons JEXL</a>
  */
 public class JEXLEngine extends BSFEngineImpl {
+    /**
+     * A context sharing the variables.
+     */
+    private static class BSFContext extends MapContext {
+        BSFContext(Map<String, Object> vars) {
+            super(vars);
+        }
+    }
     private static JexlPermissions BSF_PERMISSIONS = JexlPermissions.RESTRICTED;
     private static JexlFeatures BSF_FEATURES = JexlFeatures.createDefault();
-    /** The engine. */
-    private JexlEngine engine;
 
-    /** The declared bean */
-    private Map<String, Object> vars;
-
-    /** The backing JexlContext for this engine. */
-    private JexlContext jc;
+    /**
+     * Sets the JEXL engine features.
+     * @param features The features
+     */
+    public static void setFeatures(JexlFeatures features) {
+        BSF_FEATURES = features;
+    }
 
     /**
      * Sets the JEXL engine permissions.
@@ -72,53 +80,50 @@ public class JEXLEngine extends BSFEngineImpl {
     }
 
     /**
-     * Sets the JEXL engine features.
-     * @param features The features
-     */
-    public static void setFeatures(JexlFeatures features) {
-        BSF_FEATURES = features;
-    }
-
-    /**
-     * A context sharing the variables.
-     */
-    private static class BSFContext extends MapContext {
-        BSFContext(Map<String, Object> vars) {
-            super(vars);
-        }
-    }
-
-    /**
-     * Initialize the JEXL engine by creating a JexlContext and populating it with the declared beans.
+     * Creates a string from a reader.
      *
-     * @param mgr           The {@link BSFManager}.
-     * @param lang          The language.
-     * @param declaredBeans The vector of the initially declared beans.
-     * @throws BSFException For any exception that occurs while trying to initialize the engine.
+     * @param reader to be read.
+     * @return The contents of the reader as a String.
+     * @throws IOException on any error reading the reader.
      */
-    public void initialize(final BSFManager mgr, final String lang, final Vector declaredBeans) throws BSFException {
-        super.initialize(mgr, lang, declaredBeans);
-        vars = new ConcurrentHashMap<>();
-        jc = new BSFContext(vars);
-        for (int i = 0; i < declaredBeans.size(); i++) {
-            final BSFDeclaredBean bean = (BSFDeclaredBean) declaredBeans.elementAt(i);
-            vars.put(bean.name, bean.bean);
+    protected static String toString(final BufferedReader reader) throws IOException {
+        final StringBuilder buffer = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            buffer.append(line).append('\n');
         }
-        vars.put("java.lang.System.out", System.out);
-        vars.put("java.lang.System.in", System.in);
-        vars.put("java.lang.System.err", System.err);
-        vars.put("bsf", new BSFFunctions(mgr, this));
-        engine = new JexlBuilder().cache(32).permissions(BSF_PERMISSIONS).features(BSF_FEATURES).create();
+        return buffer.toString();
     }
 
+    /** The engine. */
+    private JexlEngine engine;
+
+    /** The declared bean */
+    private Map<String, Object> vars;
+
+    /** The backing JexlContext for this engine. */
+    private JexlContext jc;
+
     /**
-     * Terminate the JEXL engine by clearing and destroying the backing JEXLContext.
+     * Uses reflection to make the call.
+     *
+     * @param object The object to make the call on.
+     * @param name   The call to make.
+     * @param args   The arguments to pass.
+     * @return The result of the call.
+     * @throws BSFException For any exception that occurs while making the call.
      */
-    public void terminate() {
-        if (jc != null) {
-            vars.clear();
-            jc = null;
-            engine = null;
+    public Object call(Object object, final String name, final Object[] args) throws BSFException {
+        try {
+            if (object == null) {
+                object = vars.get(name);
+            }
+            if (object instanceof JexlScript) {
+               return ((JexlScript) object).execute(jc, args);
+            }
+            return engine.invokeMethod(object, name, args);
+        } catch (final Exception e) {
+            throw new BSFException(BSFException.REASON_EXECUTION_ERROR, "Exception from JEXLEngine:\n" + e.getMessage(), e);
         }
     }
 
@@ -130,16 +135,6 @@ public class JEXLEngine extends BSFEngineImpl {
      */
     public void declareBean(final BSFDeclaredBean bean) throws BSFException {
         vars.put(bean.name, bean.bean);
-    }
-
-    /**
-     * Removes this bean from the backing JexlContext.
-     *
-     * @param bean The {@link BSFDeclaredBean} to be removed from the backing context.
-     * @throws BSFException For any exception that occurs while trying to undeclare the bean.
-     */
-    public void undeclareBean(final BSFDeclaredBean bean) throws BSFException {
-        vars.remove(bean.name);
     }
 
     /**
@@ -220,26 +215,26 @@ public class JEXLEngine extends BSFEngineImpl {
     }
 
     /**
-     * Uses reflection to make the call.
+     * Initialize the JEXL engine by creating a JexlContext and populating it with the declared beans.
      *
-     * @param object The object to make the call on.
-     * @param name   The call to make.
-     * @param args   The arguments to pass.
-     * @return The result of the call.
-     * @throws BSFException For any exception that occurs while making the call.
+     * @param mgr           The {@link BSFManager}.
+     * @param lang          The language.
+     * @param declaredBeans The vector of the initially declared beans.
+     * @throws BSFException For any exception that occurs while trying to initialize the engine.
      */
-    public Object call(Object object, final String name, final Object[] args) throws BSFException {
-        try {
-            if (object == null) {
-                object = vars.get(name);
-            }
-            if (object instanceof JexlScript) {
-               return ((JexlScript) object).execute(jc, args);
-            }
-            return engine.invokeMethod(object, name, args);
-        } catch (final Exception e) {
-            throw new BSFException(BSFException.REASON_EXECUTION_ERROR, "Exception from JEXLEngine:\n" + e.getMessage(), e);
+    public void initialize(final BSFManager mgr, final String lang, final Vector declaredBeans) throws BSFException {
+        super.initialize(mgr, lang, declaredBeans);
+        vars = new ConcurrentHashMap<>();
+        jc = new BSFContext(vars);
+        for (int i = 0; i < declaredBeans.size(); i++) {
+            final BSFDeclaredBean bean = (BSFDeclaredBean) declaredBeans.elementAt(i);
+            vars.put(bean.name, bean.bean);
         }
+        vars.put("java.lang.System.out", System.out);
+        vars.put("java.lang.System.in", System.in);
+        vars.put("java.lang.System.err", System.err);
+        vars.put("bsf", new BSFFunctions(mgr, this));
+        engine = new JexlBuilder().cache(32).permissions(BSF_PERMISSIONS).features(BSF_FEATURES).create();
     }
 
     /**
@@ -275,18 +270,23 @@ public class JEXLEngine extends BSFEngineImpl {
     }
 
     /**
-     * Creates a string from a reader.
-     *
-     * @param reader to be read.
-     * @return The contents of the reader as a String.
-     * @throws IOException on any error reading the reader.
+     * Terminate the JEXL engine by clearing and destroying the backing JEXLContext.
      */
-    protected static String toString(final BufferedReader reader) throws IOException {
-        final StringBuilder buffer = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            buffer.append(line).append('\n');
+    public void terminate() {
+        if (jc != null) {
+            vars.clear();
+            jc = null;
+            engine = null;
         }
-        return buffer.toString();
+    }
+
+    /**
+     * Removes this bean from the backing JexlContext.
+     *
+     * @param bean The {@link BSFDeclaredBean} to be removed from the backing context.
+     * @throws BSFException For any exception that occurs while trying to undeclare the bean.
+     */
+    public void undeclareBean(final BSFDeclaredBean bean) throws BSFException {
+        vars.remove(bean.name);
     }
 }

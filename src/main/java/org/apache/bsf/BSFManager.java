@@ -79,60 +79,6 @@ public class BSFManager {
      * loader
      */
 
-    /**
-     * Returns the defined ClassLoader (the ClassLoader that got used to define the org.apache.bsf.BSFManager class object).
-     * 
-     * @return The defined ClassLoader instance
-     */
-    public static ClassLoader getDefinedClassLoader() // rgf, 20070917
-    {
-        return definedClassLoader;
-    }
-
-    // table of scripting engine instances created by this manager.
-    // only one instance of a given language engine is created by a single
-    // manager instance.
-    protected Hashtable loadedEngines = new Hashtable();
-
-    // table of registered beans for use by scripting engines.
-    protected ObjectRegistry objectRegistry = new ObjectRegistry();
-
-    // prop change support containing loaded engines to inform when any
-    // of my interesting properties change
-    protected PropertyChangeSupport pcs;
-
-    /*
-     * rgf (20070917): wrong assumption; context ClassLoader needs to be explicitly requested before usage as BSF could be deployed with different context
-     * ClassLoaders on different threads!
-     */
-
-    // the class loader to use if a class loader is needed. Default is
-    // he who loaded me (which may be null in which case its Class.forName).
-    protected ClassLoader classLoader = getClass().getClassLoader();
-    // rgf, 20070917, reset to original// protected ClassLoader classLoader = Thread.currentThread().getContextClassLoader(); // rgf, 2006-01-05
-
-    // temporary directory to use to dump temporary files into. Note that
-    // if class files are dropped here then unless this dir is in the
-    // classpath or unless the classloader knows to look here, the classes
-    // will not be found.
-    protected String tempDir = ".";
-
-    // classpath used by those that need a classpath
-    protected String classPath;
-
-    // stores BSFDeclaredBeans representing objects
-    // introduced by a client of BSFManager
-    protected Vector declaredBeans = new Vector();
-
-    // private Log logger = LogFactory.getLog(this.getClass().getName());
-    private BSF_Log logger;
-
-    //////////////////////////////////////////////////////////////////////
-    //
-    // pre-register engines that BSF supports off the shelf
-    //
-    //////////////////////////////////////////////////////////////////////
-
     static {
         final String strInfo = "org.apache.bsf.BSFManager.dumpEnvironment() [from static{}]";
         try {
@@ -204,10 +150,82 @@ public class BSFManager {
         }
     }
 
-    public BSFManager() {
-        pcs = new PropertyChangeSupport(this);
-        // handle logger
-        logger = BSF_LogFactory.getLog(this.getClass().getName());
+    /**
+     * Returns the defined ClassLoader (the ClassLoader that got used to define the org.apache.bsf.BSFManager class object).
+     * 
+     * @return The defined ClassLoader instance
+     */
+    public static ClassLoader getDefinedClassLoader() // rgf, 20070917
+    {
+        return definedClassLoader;
+    }
+
+    /**
+     * Determine the language of a script file by looking at the file extension.
+     *
+     * @param fileName The name of the file
+     * @return The scripting language the file is in if the file extension is known to me (must have been registered via registerScriptingEngine).
+     * @exception BSFException if file's extension is unknown.
+     */
+    public static String getLangFromFilename(final String fileName) throws BSFException {
+        final int dotIndex = fileName.lastIndexOf(".");
+
+        if (dotIndex != -1) {
+            final String extn = fileName.substring(dotIndex + 1);
+            String langval = (String) extn2Lang.get(extn);
+            String lang = null;
+            int index, loops = 0;
+
+            if (langval != null) {
+                final ClassLoader tccl = Thread.currentThread().getContextClassLoader(); // rgf, 2009-09-10
+
+                while ((index = langval.indexOf(":", 0)) != -1) {
+                    // Great. Multiple language engines registered
+                    // for this extension.
+                    // Try to find first one that is in our classpath.
+                    lang = langval.substring(0, index);
+                    langval = langval.substring(index + 1);
+                    loops++;
+
+                    // Test to see if in classpath
+                    String engineName = null;
+                    try {
+                        engineName = (String) registeredEngines.get(lang);
+
+                        boolean bTryDefinedClassLoader = false;
+                        if (tccl != null) // context CL available, try it first
+                        {
+                            try {
+                                tccl.loadClass(engineName);
+                            } catch (final ClassNotFoundException cnfe) {
+                                bTryDefinedClassLoader = true;
+                            }
+                        }
+
+                        if (bTryDefinedClassLoader || tccl == null) // not found, try defined CL next
+                        {
+                            definedClassLoader.loadClass(engineName);
+                        }
+                    } catch (final ClassNotFoundException cnfe2) {
+                        // Bummer.
+                        lang = langval;
+                        continue;
+                    }
+
+                    // Got past that? Good.
+                    break;
+                }
+                if (loops == 0) {
+                    lang = langval;
+                }
+            }
+
+            if (lang != null && lang != "") {
+                return lang;
+            }
+        }
+        throw new BSFException(BSFException.REASON_OTHER_ERROR,
+                "[BSFManager.getLangFromFilename] file extension missing or unknown: unable to determine language for '" + fileName + "'");
     }
 
     /**
@@ -225,6 +243,84 @@ public class BSFManager {
     public static String getVersion() {
 
         return version;
+    }
+
+    /*
+     * rgf (20070917): wrong assumption; context ClassLoader needs to be explicitly requested before usage as BSF could be deployed with different context
+     * ClassLoaders on different threads!
+     */
+
+    /**
+     * Determine whether a language is registered.
+     *
+     * @param lang string identifying a language
+     * @return true iff it is
+     */
+    public static boolean isLanguageRegistered(final String lang) {
+        return (registeredEngines.get(lang) != null);
+    }
+
+    /**
+     * Register a scripting engine in the static registry of the BSFManager.
+     *
+     * @param lang            string identifying language
+     * @param engineClassName fully qualified name of the class interfacing the language to BSF.
+     * @param extensions      array of file extensions that should be mapped to this language type. may be null.
+     */
+    public static void registerScriptingEngine(final String lang, final String engineClassName, final String[] extensions) {
+        registeredEngines.put(lang, engineClassName);
+        if (extensions != null) {
+            for (int i = 0; i < extensions.length; i++) {
+                String langstr = (String) extn2Lang.get(extensions[i]);
+                langstr = (langstr == null) ? lang : lang + ":" + langstr;
+                extn2Lang.put(extensions[i], langstr);
+            }
+        }
+    }
+
+    // table of scripting engine instances created by this manager.
+    // only one instance of a given language engine is created by a single
+    // manager instance.
+    protected Hashtable loadedEngines = new Hashtable();
+
+    // table of registered beans for use by scripting engines.
+    protected ObjectRegistry objectRegistry = new ObjectRegistry();
+
+    // prop change support containing loaded engines to inform when any
+    // of my interesting properties change
+    protected PropertyChangeSupport pcs;
+
+    //////////////////////////////////////////////////////////////////////
+    //
+    // pre-register engines that BSF supports off the shelf
+    //
+    //////////////////////////////////////////////////////////////////////
+
+    // the class loader to use if a class loader is needed. Default is
+    // he who loaded me (which may be null in which case its Class.forName).
+    protected ClassLoader classLoader = getClass().getClassLoader();
+    // rgf, 20070917, reset to original// protected ClassLoader classLoader = Thread.currentThread().getContextClassLoader(); // rgf, 2006-01-05
+
+    // temporary directory to use to dump temporary files into. Note that
+    // if class files are dropped here then unless this dir is in the
+    // classpath or unless the classloader knows to look here, the classes
+    // will not be found.
+    protected String tempDir = ".";
+
+    // classpath used by those that need a classpath
+    protected String classPath;
+
+    // stores BSFDeclaredBeans representing objects
+    // introduced by a client of BSFManager
+    protected Vector declaredBeans = new Vector();
+
+    // private Log logger = LogFactory.getLog(this.getClass().getName());
+    private BSF_Log logger;
+
+    public BSFManager() {
+        pcs = new PropertyChangeSupport(this);
+        // handle logger
+        logger = BSF_LogFactory.getLog(this.getClass().getName());
     }
 
     /**
@@ -341,6 +437,13 @@ public class BSFManager {
         }
     }
 
+    //////////////////////////////////////////////////////////////////////
+    //
+    // Convenience functions for exec'ing and eval'ing scripts directly
+    // without loading and dealing with engines etc..
+    //
+    //////////////////////////////////////////////////////////////////////
+
     /**
      * Compile the given script of the given language into the given {@code CodeBuffer}.
      *
@@ -445,13 +548,6 @@ public class BSFManager {
         return result;
     }
 
-    //////////////////////////////////////////////////////////////////////
-    //
-    // Convenience functions for exec'ing and eval'ing scripts directly
-    // without loading and dealing with engines etc..
-    //
-    //////////////////////////////////////////////////////////////////////
-
     /**
      * Execute the given script of the given language.
      *
@@ -474,38 +570,6 @@ public class BSFManager {
             AccessController.doPrivileged(new PrivilegedExceptionAction() {
                 public Object run() throws Exception {
                     e.exec(sourcef, lineNof, columnNof, scriptf);
-                    return null;
-                }
-            });
-        } catch (final PrivilegedActionException prive) {
-
-            logger.error("[BSFManager] Exception :", prive);
-            throw (BSFException) prive.getException();
-        }
-    }
-
-    /**
-     * Execute the given script of the given language, attempting to emulate an interactive session w/ the language.
-     *
-     * @param lang     language identifier
-     * @param source   (context info) the source of this expression (for example, filename)
-     * @param lineNo   (context info) the line number in source for expr
-     * @param columnNo (context info) the column number in source for expr
-     * @param script   The script to execute
-     * @exception BSFException if anything goes wrong while running the script
-     */
-    public void iexec(final String lang, final String source, final int lineNo, final int columnNo, final Object script) throws BSFException {
-        logger.debug("BSFManager:iexec");
-
-        final BSFEngine e = loadScriptingEngine(lang);
-        final String sourcef = source;
-        final int lineNof = lineNo, columnNof = columnNo;
-        final Object scriptf = script;
-
-        try {
-            AccessController.doPrivileged(new PrivilegedExceptionAction() {
-                public Object run() throws Exception {
-                    e.iexec(sourcef, lineNof, columnNof, scriptf);
                     return null;
                 }
             });
@@ -542,74 +606,6 @@ public class BSFManager {
     }
 
     /**
-     * Determine the language of a script file by looking at the file extension.
-     *
-     * @param fileName The name of the file
-     * @return The scripting language the file is in if the file extension is known to me (must have been registered via registerScriptingEngine).
-     * @exception BSFException if file's extension is unknown.
-     */
-    public static String getLangFromFilename(final String fileName) throws BSFException {
-        final int dotIndex = fileName.lastIndexOf(".");
-
-        if (dotIndex != -1) {
-            final String extn = fileName.substring(dotIndex + 1);
-            String langval = (String) extn2Lang.get(extn);
-            String lang = null;
-            int index, loops = 0;
-
-            if (langval != null) {
-                final ClassLoader tccl = Thread.currentThread().getContextClassLoader(); // rgf, 2009-09-10
-
-                while ((index = langval.indexOf(":", 0)) != -1) {
-                    // Great. Multiple language engines registered
-                    // for this extension.
-                    // Try to find first one that is in our classpath.
-                    lang = langval.substring(0, index);
-                    langval = langval.substring(index + 1);
-                    loops++;
-
-                    // Test to see if in classpath
-                    String engineName = null;
-                    try {
-                        engineName = (String) registeredEngines.get(lang);
-
-                        boolean bTryDefinedClassLoader = false;
-                        if (tccl != null) // context CL available, try it first
-                        {
-                            try {
-                                tccl.loadClass(engineName);
-                            } catch (final ClassNotFoundException cnfe) {
-                                bTryDefinedClassLoader = true;
-                            }
-                        }
-
-                        if (bTryDefinedClassLoader || tccl == null) // not found, try defined CL next
-                        {
-                            definedClassLoader.loadClass(engineName);
-                        }
-                    } catch (final ClassNotFoundException cnfe2) {
-                        // Bummer.
-                        lang = langval;
-                        continue;
-                    }
-
-                    // Got past that? Good.
-                    break;
-                }
-                if (loops == 0) {
-                    lang = langval;
-                }
-            }
-
-            if (lang != null && lang != "") {
-                return lang;
-            }
-        }
-        throw new BSFException(BSFException.REASON_OTHER_ERROR,
-                "[BSFManager.getLangFromFilename] file extension missing or unknown: unable to determine language for '" + fileName + "'");
-    }
-
-    /**
      * Return the current object registry of the manager.
      *
      * @return The current registry.
@@ -625,21 +621,43 @@ public class BSFManager {
         return tempDir;
     }
 
-    /**
-     * Determine whether a language is registered.
-     *
-     * @param lang string identifying a language
-     * @return true iff it is
-     */
-    public static boolean isLanguageRegistered(final String lang) {
-        return (registeredEngines.get(lang) != null);
-    }
-
     //////////////////////////////////////////////////////////////////////
     //
     // Bean scripting framework services
     //
     //////////////////////////////////////////////////////////////////////
+
+    /**
+     * Execute the given script of the given language, attempting to emulate an interactive session w/ the language.
+     *
+     * @param lang     language identifier
+     * @param source   (context info) the source of this expression (for example, filename)
+     * @param lineNo   (context info) the line number in source for expr
+     * @param columnNo (context info) the column number in source for expr
+     * @param script   The script to execute
+     * @exception BSFException if anything goes wrong while running the script
+     */
+    public void iexec(final String lang, final String source, final int lineNo, final int columnNo, final Object script) throws BSFException {
+        logger.debug("BSFManager:iexec");
+
+        final BSFEngine e = loadScriptingEngine(lang);
+        final String sourcef = source;
+        final int lineNof = lineNo, columnNof = columnNo;
+        final Object scriptf = script;
+
+        try {
+            AccessController.doPrivileged(new PrivilegedExceptionAction() {
+                public Object run() throws Exception {
+                    e.iexec(sourcef, lineNof, columnNof, scriptf);
+                    return null;
+                }
+            });
+        } catch (final PrivilegedActionException prive) {
+
+            logger.error("[BSFManager] Exception :", prive);
+            throw (BSFException) prive.getException();
+        }
+    }
 
     /**
      * Load a scripting engine based on the lang string identifying it.
@@ -745,24 +763,6 @@ public class BSFManager {
             tempBean = new BSFDeclaredBean(beanName, bean, bean.getClass());
         }
         objectRegistry.register(beanName, tempBean);
-    }
-
-    /**
-     * Register a scripting engine in the static registry of the BSFManager.
-     *
-     * @param lang            string identifying language
-     * @param engineClassName fully qualified name of the class interfacing the language to BSF.
-     * @param extensions      array of file extensions that should be mapped to this language type. may be null.
-     */
-    public static void registerScriptingEngine(final String lang, final String engineClassName, final String[] extensions) {
-        registeredEngines.put(lang, engineClassName);
-        if (extensions != null) {
-            for (int i = 0; i < extensions.length; i++) {
-                String langstr = (String) extn2Lang.get(extensions[i]);
-                langstr = (langstr == null) ? lang : lang + ":" + langstr;
-                extn2Lang.put(extensions[i], langstr);
-            }
-        }
     }
 
     /**

@@ -35,10 +35,6 @@ import junit.textui.TestRunner;
 public class BSFTest extends BSFEngineTestCase {
     public static String[] testNames;
 
-    public BSFTest(final String name) {
-        super(name);
-    }
-
     public static void main(final String args[]) {
         final TestRunner runner = new TestRunner();
         final TestSuite suite = (TestSuite) suite();
@@ -77,31 +73,23 @@ public class BSFTest extends BSFEngineTestCase {
         return suite;
     }
 
+    public BSFTest(final String name) {
+        super(name);
+    }
+
     public void setUp() {
         super.setUp();
         BSFManager.registerScriptingEngine("fakeEngine", FakeEngine.class.getName(), new String[] { "fakeEng", "fE" });
     }
 
-    public void testRegisterEngine() {
-        assertTrue(bsfManager.isLanguageRegistered("fakeEngine"));
-    }
-
-    public void testGetLangFromFileName() {
+    public void testDeclareBean() {
         try {
-            assertEquals("fakeEngine", BSFManager.getLangFromFilename("Test.fE"));
+            bsfManager.declareBean("foo", Integer.valueOf(1), Integer.class);
         } catch (final Exception e) {
-            fail(failMessage("getLangFromFilename() test failed", e));
-        }
-    }
-
-    public void testExec() {
-        try {
-            bsfManager.exec("fakeEngine", "Test.fE", 0, 0, "Fake syntax");
-        } catch (final Exception e) {
-            fail(failMessage("exec() test failed", e));
+            fail(failMessage("declareBean() test failed", e));
         }
 
-        assertEquals("PASSED", getTmpOutStr());
+        assertEquals(Integer.valueOf(1), (Integer) bsfManager.lookupBean("foo"));
     }
 
     public void testEval() {
@@ -116,6 +104,24 @@ public class BSFTest extends BSFEngineTestCase {
         assertTrue(retval.booleanValue());
     }
 
+    public void testExec() {
+        try {
+            bsfManager.exec("fakeEngine", "Test.fE", 0, 0, "Fake syntax");
+        } catch (final Exception e) {
+            fail(failMessage("exec() test failed", e));
+        }
+
+        assertEquals("PASSED", getTmpOutStr());
+    }
+
+    public void testGetLangFromFileName() {
+        try {
+            assertEquals("fakeEngine", BSFManager.getLangFromFilename("Test.fE"));
+        } catch (final Exception e) {
+            fail(failMessage("getLangFromFilename() test failed", e));
+        }
+    }
+
     public void testIexec() {
         try {
             bsfManager.iexec("fakeEngine", "Test.fE", 0, 0, "Fake syntax");
@@ -126,25 +132,8 @@ public class BSFTest extends BSFEngineTestCase {
         assertEquals("PASSED", getTmpOutStr());
     }
 
-    public void testDeclareBean() {
-        try {
-            bsfManager.declareBean("foo", Integer.valueOf(1), Integer.class);
-        } catch (final Exception e) {
-            fail(failMessage("declareBean() test failed", e));
-        }
-
-        assertEquals(Integer.valueOf(1), (Integer) bsfManager.lookupBean("foo"));
-    }
-
-    public void testUndeclareBean() {
-        try {
-            bsfManager.declareBean("foo", Integer.valueOf(1), Integer.class);
-            bsfManager.undeclareBean("foo");
-        } catch (final Exception e) {
-            fail(failMessage("undeclareBean() test failed", e));
-        }
-
-        assertNull(bsfManager.lookupBean("foo"));
+    public void testRegisterEngine() {
+        assertTrue(bsfManager.isLanguageRegistered("fakeEngine"));
     }
 
     public void testTerminate() throws Exception {
@@ -156,5 +145,16 @@ public class BSFTest extends BSFEngineTestCase {
         }
 
         assertEquals("PASSED", getTmpOutStr());
+    }
+
+    public void testUndeclareBean() {
+        try {
+            bsfManager.declareBean("foo", Integer.valueOf(1), Integer.class);
+            bsfManager.undeclareBean("foo");
+        } catch (final Exception e) {
+            fail(failMessage("undeclareBean() test failed", e));
+        }
+
+        assertNull(bsfManager.lookupBean("foo"));
     }
 }

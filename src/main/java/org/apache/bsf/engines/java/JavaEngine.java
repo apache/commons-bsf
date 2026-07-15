@@ -74,21 +74,6 @@ import org.apache.bsf.util.ObjInfo;
  * <p>
  */
 public class JavaEngine extends BSFEngineImpl {
-    Class javaclass = null;
-    static Hashtable codeToClass = new Hashtable();
-    static String serializeCompilation = "";
-    static String placeholder = "$$CLASSNAME$$";
-    String minorPrefix;
-
-    // private Log logger = LogFactory.getLog(this.getClass().getName());
-    private BSF_Log logger;
-
-    /**
-     * Create a scratchfile, open it for writing, return its name. Relies on the filesystem to provide us with uniqueness testing. NOTE THAT uniqueFileOffset
-     * continues to count; we don't want to risk reusing a classname we have previously loaded in this session even if the classfile has been deleted.
-     */
-    private int uniqueFileOffset = -1;
-
     private class GeneratedFile {
         File file = null;
         FileOutputStream fos = null;
@@ -100,6 +85,21 @@ public class JavaEngine extends BSFEngineImpl {
             this.className = className;
         }
     }
+    static Hashtable codeToClass = new Hashtable();
+    static String serializeCompilation = "";
+    static String placeholder = "$$CLASSNAME$$";
+    Class javaclass = null;
+
+    String minorPrefix;
+
+    // private Log logger = LogFactory.getLog(this.getClass().getName());
+    private BSF_Log logger;
+
+    /**
+     * Create a scratchfile, open it for writing, return its name. Relies on the filesystem to provide us with uniqueness testing. NOTE THAT uniqueFileOffset
+     * continues to count; we don't want to risk reusing a classname we have previously loaded in this session even if the classfile has been deleted.
+     */
+    private int uniqueFileOffset = -1;
 
     /**
      * Constructs a new instance.

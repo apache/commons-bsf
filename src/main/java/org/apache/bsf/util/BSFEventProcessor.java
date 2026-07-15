@@ -29,12 +29,28 @@ import org.apache.bsf.util.event.EventProcessor;
  * This is used to support binding scripts to be run when an event occurs.
  */
 public class BSFEventProcessor implements EventProcessor {
+    private static boolean isFilteredEvent(final String filter, final String inFilter) {
+        boolean bRes = filter.equalsIgnoreCase(inFilter);
+        if (bRes) {
+            return bRes;
+        }
+
+        final String[] chunks = filter.replace('+', ' ').split(" ");
+        for (int i = 0; i < chunks.length; i++) {
+            bRes = chunks[i].equalsIgnoreCase(inFilter);
+            if (bRes) {
+                return bRes;
+            }
+        }
+        return bRes;
+    }
     BSFEngine engine;
     BSFManager manager;
     String filter;
     String source;
     int lineNo;
     int columnNo;
+
     Object script;
 
     /**
@@ -86,21 +102,5 @@ public class BSFEventProcessor implements EventProcessor {
         // run the script
         engine.exec(source, lineNo, columnNo, script);
 // System.err.println("returned from engine.exec.");
-    }
-
-    private static boolean isFilteredEvent(final String filter, final String inFilter) {
-        boolean bRes = filter.equalsIgnoreCase(inFilter);
-        if (bRes) {
-            return bRes;
-        }
-
-        final String[] chunks = filter.replace('+', ' ').split(" ");
-        for (int i = 0; i < chunks.length; i++) {
-            bRes = chunks[i].equalsIgnoreCase(inFilter);
-            if (bRes) {
-                return bRes;
-            }
-        }
-        return bRes;
     }
 }

@@ -29,11 +29,11 @@ public class FakeEngine extends BSFEngineImpl {
         return Boolean.TRUE;
     }
 
-    public void iexec(final String source, final int lineNo, final int columnNo, final Object script) throws BSFException {
+    public void exec(final String source, final int lineNo, final int columnNo, final Object script) throws BSFException {
         System.out.print("PASSED");
     }
 
-    public void exec(final String source, final int lineNo, final int columnNo, final Object script) throws BSFException {
+    public void iexec(final String source, final int lineNo, final int columnNo, final Object script) throws BSFException {
         System.out.print("PASSED");
     }
 

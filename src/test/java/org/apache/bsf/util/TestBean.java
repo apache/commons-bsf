@@ -34,6 +34,14 @@ public class TestBean implements Serializable {
         this.strValue = value;
     }
 
+    public Number getNumericValue() {
+        return numValue;
+    }
+
+    public String getStringValue() {
+        return strValue;
+    }
+
     public void setValue(final String value) {
         this.strValue = value;
     }
@@ -41,13 +49,5 @@ public class TestBean implements Serializable {
     public void setValue(final String sValue, final Number nValue) {
         this.strValue = sValue;
         this.numValue = nValue;
-    }
-
-    public String getStringValue() {
-        return strValue;
-    }
-
-    public Number getNumericValue() {
-        return numValue;
     }
 }

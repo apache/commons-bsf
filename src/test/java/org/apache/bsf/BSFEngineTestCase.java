@@ -40,14 +40,12 @@ public abstract class BSFEngineTestCase extends TestCase {
         tmpOut = new PrintStream(tmpBaos);
     }
 
-    public void setUp() {
-        bsfManager = new BSFManager();
-        System.setOut(tmpOut);
-    }
-
-    public void tearDown() {
-        System.setOut(sysOut);
-        resetTmpOut();
+    protected String failMessage(final String failure, final Exception e) {
+        String message = failure;
+        message += "\nReason:\n";
+        message += e.getMessage();
+        message += "\n";
+        return message;
     }
 
     protected String getTmpOutStr() {
@@ -58,11 +56,13 @@ public abstract class BSFEngineTestCase extends TestCase {
         tmpBaos.reset();
     }
 
-    protected String failMessage(final String failure, final Exception e) {
-        String message = failure;
-        message += "\nReason:\n";
-        message += e.getMessage();
-        message += "\n";
-        return message;
+    public void setUp() {
+        bsfManager = new BSFManager();
+        System.setOut(tmpOut);
+    }
+
+    public void tearDown() {
+        System.setOut(sysOut);
+        resetTmpOut();
     }
 }

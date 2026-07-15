@@ -39,12 +39,6 @@ import java.io.Writer;
 public class CFDriver {
 
     /**
-     * Not used.
-     */
-    public CFDriver() {
-    }
-
-    /**
      * A driver for {@code CodeFormatter}.
      * <p>
      * Usage:
@@ -162,5 +156,11 @@ public class CFDriver {
         System.out.println("      [-step        size]   default: " + CodeFormatter.DEFAULT_STEP);
         System.out.println("      [-delim      group]   default: " + CodeFormatter.DEFAULT_DELIM);
         System.out.println("      [-sdelim     group]   default: " + CodeFormatter.DEFAULT_S_DELIM);
+    }
+
+    /**
+     * Not used.
+     */
+    public CFDriver() {
     }
 }
