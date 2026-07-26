@@ -237,7 +237,7 @@ public class StringUtils {
     }
 
     public static String getValidIdentifierName(final String identifierName) {
-        if (identifierName == null || identifierName.length() == 0) {
+        if (identifierName == null || identifierName.isEmpty()) {
             return null;
         }
 
@@ -255,7 +255,7 @@ public class StringUtils {
     }
 
     public static boolean isValidIdentifierName(final String identifierName) {
-        if (identifierName == null || identifierName.length() == 0) {
+        if (identifierName == null || identifierName.isEmpty()) {
             return false;
         }
 
@@ -277,7 +277,7 @@ public class StringUtils {
     public static boolean isValidPackageName(final String packageName) {
         if (packageName == null) {
             return false;
-        } else if (packageName.length() == 0) {
+        } else if (packageName.isEmpty()) {
             // Empty is ok.
             return true;
         }
