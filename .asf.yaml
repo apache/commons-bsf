@@ -16,6 +16,8 @@
 github:
   description: "Apache Commons BSF"
   homepage: https://commons.apache.org/bsf/
+  autolink_jira:
+    - BSF
   
   pull_requests:
     # allow auto-merge
