@@ -25,7 +25,7 @@
     <author email="dev@commons.apache.org">Apache Commons developers</author>
   </properties>
   <body>
-    <release version="2.5.0" date="YYY-MM-DD" description="TBD.">
+    <release version="2.5.0" date="YYYY-MM-DD" description="TBD.">
       <!-- FIX -->
       <action type="fix" dev="pkarwasz" due-to="Piotr P. Karwasz, Gary Gregory">Create XSLT transformer factories through org.apache.commons:commons-secure-xml, so transformations run with XML secure processing enabled.</action>
       <action type="fix" dev="ggregory" due-to="Gary Gregory">Replace internal StringBuffer with StringBuilder.</action>
