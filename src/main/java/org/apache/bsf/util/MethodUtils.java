@@ -181,7 +181,7 @@ public class MethodUtils {
     //////////////////////////////////////////////////////////////////////////
 
     /**
-     * Class.getConstructor() finds only the entry point (if any) _exactly_ matching the specified argument types. Our implmentation can decide between several
+     * Class.getConstructor() finds only the entry point (if any) _exactly_ matching the specified argument types. Our implementation can decide between several
      * imperfect matches, using the same search algorithm as the Java compiler.
      * 
      * Note that all constructors are static by definition, so isStaticReference is true.
